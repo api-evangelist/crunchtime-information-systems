@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.crunchtime.com/docs/getting-started-with-apis
+docs: https://developer.crunchtime.com/docs/getting-started-with-apis
+description: >-
+  Crunchtime Inventory & Labor / Cruise APIs use custom header-based token
+  authentication. Every request carries four headers: an access token plus the
+  site name and an Application User's id and password. Tokens are minted per
+  Application User in Enterprise Manager (Security > Application Users > API
+  Tokens) and separate test and production tokens are issued. There is no OAuth2
+  or OpenID Connect surface, so this repo has no scopes/ artifact.
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+schemes:
+- name: authenticationtoken
+  type: apiKey
+  in: header
+  parameter_name: authenticationtoken
+  description: >-
+    Secure access token for API authentication. Issued per Application User in
+    Enterprise Manager; distinct test and production tokens exist.
+  sources: [https://developer.crunchtime.com/reference/getalllocationsv1usingget]
+- name: sitename
+  type: apiKey
+  in: header
+  parameter_name: sitename
+  description: >-
+    Crunchtime site identifier (the portion of the customer URL before
+    .net-chef.com), designating the test or production environment.
+  sources: [https://developer.crunchtime.com/reference/getalllocationsv1usingget]
+- name: userid
+  type: apiKey
+  in: header
+  parameter_name: userid
+  description: Application User ID used for the request.
+  sources: [https://developer.crunchtime.com/reference/getalllocationsv1usingget]
+- name: password
+  type: apiKey
+  in: header
+  parameter_name: password
+  description: Application User password paired with the userid header.
+  sources: [https://developer.crunchtime.com/reference/getalllocationsv1usingget]
+credential_management:
+  console: Enterprise Manager > Security > Application Users > API Tokens
+  self_service: >-
+    A self-service API token management process (added 2026-04-28) lets users
+    create and manage tokens directly in Enterprise Manager without Support tickets.
+  guidance: >-
+    Crunchtime recommends creating a dedicated Application User (e.g. "API User")
+    rather than authenticating as a named human user.
+  contact: apiquestions@crunchtime.com
