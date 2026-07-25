@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: generated
+source: >-
+  Grounded in real operationIds from https://developer.crunchtime.com/reference
+  and the developer-hub recipes (Create an Employee, Terminate an Employee,
+  minutesSinceUpdate incremental sync). No provider-published Agent Skills /
+  AGENTS.md were found.
+api: https://developer.crunchtime.com/
+skills:
+- file: crunchtime-information-systems-onboard-employee.md
+  name: Onboard a new employee
+  operations: [getAllLocationsV1, saveEmployeeV1, getEmployeeV1]
+- file: crunchtime-information-systems-terminate-employee.md
+  name: Terminate an employee
+  operations: [getEmployeeV1, saveEmployeeV1]
+- file: crunchtime-information-systems-sync-inventory.md
+  name: Sync physical inventory counts
+  operations: [getAllLocationsV1, savePhysicalInventoryStandards, getCurrentInventoryByPage]
+- file: crunchtime-information-systems-incremental-pull.md
+  name: Incrementally pull changed records
+  operations: [getCompanyProductsEnhancedByPage, getRecipesEnhancedByPageV2]

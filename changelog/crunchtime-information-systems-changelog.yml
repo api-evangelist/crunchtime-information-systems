@@ -1,0 +1,64 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.crunchtime.com/docs/whats-new-on-the-developer-hub
+docs: https://developer.crunchtime.com/docs/whats-new-on-the-developer-hub
+description: >-
+  Recent dated entries from the Crunchtime developer hub "What's New" changelog.
+  Versions use a YY.MM-derived release scheme (e.g. 20.26.07.02). Captured
+  window only; the live page is the source of truth.
+scheme: dated release (e.g. 20.26.07.02)
+current_version: 20.26.07.02
+entries:
+- date: '2026-07-14'
+  version: 20.26.07.02
+  service: Company Product Enhanced Service
+  breaking: false
+  highlights: >-
+    Limited the minutesSinceUpdate param to a maximum of 1 month; added a system
+    setting to cap the maximum number of items returned at 50,000.
+- date: '2026-07-10'
+  version: 20.26.07.01 (Cruise Patch)
+  service: Vendor Location Service
+  breaking: false
+  highlights: Made this API available for Cruise Lines.
+- date: '2026-07-07'
+  version: 20.26.06.25
+  service: Supplemental Wage Service
+  breaking: false
+  highlights: Modified validation rules for Daily Lump Sum Value (range and decimal constraints).
+- date: '2026-06-30'
+  version: 20.26.07.01 (Cruise Patch)
+  service: Cruise Platform
+  breaking: false
+  highlights: >-
+    Made available for Cruise Lines: Application User, General Ledger, Hierarchy,
+    Inventory, Location Product Pricing, Projected Consumption, and Vendor services.
+- date: '2026-06-30'
+  version: 20.26.06.18
+  service: Location Service
+  breaking: false
+  highlights: Added FranchiseName and Sitename as query params to both GET endpoints.
+- date: '2026-05-05'
+  version: 20.26.04.23
+  service: Inventory Service
+  breaking: false
+  highlights: >-
+    Added response fields value, unitCost, recipeValue, inventoryUnit,
+    totalQuantity, unitPrice, physicalValue, and byExceptionFlag to GET endpoints.
+- date: '2026-04-28'
+  version: 20.26.04.16
+  service: API Token Management
+  breaking: false
+  highlights: >-
+    Added self-service API token management letting users create and manage
+    tokens directly in Enterprise Manager (no Support tickets needed).
+- date: '2026-04-21'
+  version: 20.26.04.09
+  service: PBI Service
+  breaking: false
+  highlights: Added response fields transactionStatus, postInventoryScheduledDate, reconcileDate.
+- date: '2026-04-07'
+  version: 20.26.03.05
+  service: Inventory Service
+  breaking: false
+  highlights: Added a new getCurrentInventoryByPage endpoint.

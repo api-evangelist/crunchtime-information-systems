@@ -1,23 +1,132 @@
 aid: crunchtime-information-systems
 name: Crunchtime Information Systems
-description: Crunchtime Information Systems is a company surfaced as a portfolio company of battery-ventures
-  and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the
-  enrichment pipeline.
+description: >-
+  Crunchtime (Crunchtime Information Systems) is a Boston-based provider of AI-powered
+  operations-management software for multi-unit restaurants, founded in 1995 and serving
+  850+ restaurant brands across 150,000+ locations. Its platform unifies inventory
+  management, labor scheduling, kitchen/operations execution, and analytics. Crunchtime
+  publishes a public developer hub for its Inventory & Labor and Cruise data-integration
+  REST APIs, letting partners and customers push and pull employees, locations, budgets,
+  products, recipes, sales/menu mix, purchase orders, inventory counts, time clock, and
+  forecasting data. Backed by Battery Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://logo.clearbit.com/crunchtime.com
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - battery-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- Restaurant
+- Food Service
+- Hospitality
+- Inventory Management
+- Labor Scheduling
+- Operations Management
+- Back Office
+- Supply Chain
+- API
+apis:
+- name: Crunchtime Inventory & Labor APIs
+  description: >-
+    REST data-integration API for Crunchtime's Inventory Management, Labor & Scheduling,
+    and Cruise products. GET and POST operations move employees, locations, budgets,
+    categories, products, recipes, sales/menu mix, purchase orders, inventory counts,
+    time clock, forecasting, and vendor data in and out of Crunchtime. Custom
+    header-based token authentication; page-based pagination; documented rate limits.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Inventory Management
+  - Labor Scheduling
+  - Restaurant Operations
+  - Data Integration
+  properties:
+  - type: DeveloperPortal
+    url: https://developer.crunchtime.com/
+  - type: Documentation
+    url: https://developer.crunchtime.com/docs/introduction
+  - type: APIReference
+    url: https://developer.crunchtime.com/reference
+  - type: GettingStarted
+    url: https://developer.crunchtime.com/docs/getting-started-with-apis
+  - type: Authentication
+    url: authentication/crunchtime-information-systems-authentication.yml
+  - type: Conventions
+    url: conventions/crunchtime-information-systems-conventions.yml
+  - type: RateLimits
+    url: rate-limits/crunchtime-information-systems-rate-limits.yml
+  - type: ChangeLog
+    url: changelog/crunchtime-information-systems-changelog.yml
+  - type: Sandbox
+    url: sandbox/crunchtime-information-systems-sandbox.yml
+  - type: MCPServer
+    url: mcp/crunchtime-information-systems-mcp.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+common:
+- type: DeveloperPortal
+  url: https://developer.crunchtime.com/
+- type: Documentation
+  url: https://developer.crunchtime.com/docs/introduction
+- type: APIReference
+  url: https://developer.crunchtime.com/reference
+- type: GettingStarted
+  url: https://developer.crunchtime.com/docs/getting-started-with-apis
+- type: Support
+  url: https://crunchtime.zendesk.com/hc/en-us
+- type: Blog
+  url: https://www.crunchtime.com/blog
+- type: SignUp
+  url: https://www.crunchtime.com/request-demo
+- type: Integrations
+  url: https://www.crunchtime.com/integrations
+- type: TrustCenter
+  url: https://trust.crunchtime.com/
+- type: Compliance
+  url: https://trust.crunchtime.com/
+- type: LLMsTxt
+  url: llms/crunchtime-information-systems-llms.txt
+- type: Authentication
+  url: authentication/crunchtime-information-systems-authentication.yml
+- type: Conventions
+  url: conventions/crunchtime-information-systems-conventions.yml
+- type: RateLimits
+  url: rate-limits/crunchtime-information-systems-rate-limits.yml
+- type: ChangeLog
+  url: changelog/crunchtime-information-systems-changelog.yml
+- type: Sandbox
+  url: sandbox/crunchtime-information-systems-sandbox.yml
+- type: MCPServer
+  url: mcp/crunchtime-information-systems-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: TrustCenter
+  url: security/crunchtime-information-systems-trust-center.yml
+- type: DomainSecurity
+  url: security/crunchtime-information-systems-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

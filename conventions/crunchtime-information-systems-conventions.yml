@@ -1,0 +1,82 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  https://developer.crunchtime.com/docs/using-apis,
+  https://developer.crunchtime.com/docs/usage-guidelines,
+  https://developer.crunchtime.com/docs/getting-started-with-apis
+description: >-
+  Cross-cutting request/response conventions for the Crunchtime Inventory &
+  Labor / Cruise REST APIs — authentication style, the List/Page/Save access
+  patterns, page-based pagination, incremental sync via minutesSinceUpdate,
+  versioning, rate-limit signaling, and timeouts. Captured from the public
+  developer hub.
+
+base_url: https://webservices.net-chef.com
+test_base_url: https://webservices-test.net-chef.com
+api_style: REST over HTTPS, JSON request/response
+
+authentication:
+  scheme: Custom header token (authenticationtoken + sitename + userid + password)
+  detail: authentication/crunchtime-information-systems-authentication.yml
+  docs: https://developer.crunchtime.com/docs/getting-started-with-apis
+
+access_patterns:
+  description: >-
+    Each resource typically exposes three access shapes rather than a single
+    collection endpoint.
+  list: >-
+    "getAll..." — returns the full result set; hard limit of 500,000 records
+    (some services, e.g. Recipes, apply a lower default such as 50,000).
+  page: >-
+    "...ByPage" — paginated retrieval; the Page feature default limit is 10
+    items per page.
+  save: >-
+    "save..." — create/update via POST; up to 50 records may be submitted in a
+    single Save call.
+
+pagination:
+  style: page-based
+  page_default_size: 10
+  list_hard_limit: 500000
+  notes: >-
+    Use the ...ByPage operations for large data sets; the getAll... operations
+    return the full set up to the hard limit.
+
+incremental_sync:
+  supported: true
+  mechanism: minutesSinceUpdate query parameter
+  detail: >-
+    GET operations accept minutesSinceUpdate to return only records changed
+    within a rolling window. As of 2026-07-14 the Company Product Enhanced
+    service caps minutesSinceUpdate at a maximum of 1 month.
+  docs: https://developer.crunchtime.com/recipes/how-to-retrieve-recently-updated-records-using-minutessinceupdate
+
+idempotency:
+  supported: false
+  notes: >-
+    Crunchtime does not document an idempotency-key header or replay contract.
+    Writes are performed with POST save... operations; no Idempotency pointer is
+    emitted for this provider.
+
+versioning:
+  scheme: per-operation suffix (V1 / V2) in operationId; release versions like 20.26.07.02
+  notes: >-
+    Individual services are versioned (e.g. getHierarchiesV2, savePbiV2). Dated
+    platform releases are published on the developer hub changelog.
+  changelog: changelog/crunchtime-information-systems-changelog.yml
+
+rate_limiting:
+  limit: 500 requests per 5-second window
+  over_limit_status: 429
+  detail: rate-limits/crunchtime-information-systems-rate-limits.yml
+  docs: https://developer.crunchtime.com/docs/usage-guidelines
+
+timeouts:
+  processing_limit_seconds: 10
+  connect_timeout_seconds: 4
+
+error_envelope:
+  format: JSON; standard HTTP status codes (400 validation, 401/403 auth, 429 rate limit)
+  detail: >-
+    Crunchtime does not publish an RFC 9457 problem+json catalog; errors surface
+    via HTTP status codes and service-specific validation messages.

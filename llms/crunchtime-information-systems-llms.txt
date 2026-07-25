@@ -1,0 +1,124 @@
+# Crunchtime Inventory & Labor APIs
+
+> Saved verbatim from https://developer.crunchtime.com/llms.txt on 2026-07-18 by the API Evangelist enrichment pipeline. Crunchtime's public developer hub for the Inventory Management, Labor & Scheduling, and Cruise data-integration REST APIs.
+
+## Guides
+- [Crunchtime Data Integration](https://developer.crunchtime.com/docs/introduction.md): Inventory Management  |  Labor & Scheduling  |  Cruise
+- [What's New on the Developer Hub](https://developer.crunchtime.com/docs/whats-new-on-the-developer-hub.md): This page lists recent enhancements made to the available APIs.
+- [Getting Started with APIs](https://developer.crunchtime.com/docs/getting-started-with-apis.md): Inventory Management  |  Labor & Scheduling  |  Cruise
+- [API FAQs](https://developer.crunchtime.com/docs/api-faqs.md): Frequently Asked Quetions about our API services.
+- [Using Our APIs](https://developer.crunchtime.com/docs/using-apis.md): Inventory Management  |  Labor & Scheduling  |  Cruise
+- [Usage Guidelines](https://developer.crunchtime.com/docs/usage-guidelines.md): Inventory Management  |  Labor & Scheduling  |  Cruise
+- [API vs. Flat File](https://developer.crunchtime.com/docs/api-flatfiles.md): Inventory Management  |  Labor & Scheduling  |  Cruise
+- [Inventory & Labor](https://developer.crunchtime.com/docs/operations-management-resources.md): Crunchtime API Resources for Operations Management
+- [Employees, Locations, & Users](https://developer.crunchtime.com/docs/employee-location.md)
+- [Financial Operations](https://developer.crunchtime.com/docs/setup.md)
+- [Inventory](https://developer.crunchtime.com/docs/inventory-recipe.md)
+- [Labor](https://developer.crunchtime.com/docs/labor.md)
+- [Point-of-Sale / Sales](https://developer.crunchtime.com/docs/point-of-sale.md)
+- [Vendors (Purchasing)](https://developer.crunchtime.com/docs/vendors.md)
+- [Other Services](https://developer.crunchtime.com/docs/other-services.md)
+- [Cruise](https://developer.crunchtime.com/docs/cruise.md)
+- [About Us](https://developer.crunchtime.com/docs/about-us.md)
+
+## API Reference
+
+User Management:
+- getAllApplicationUsers — Retrieve Application Users with limited or detailed data via userIdForDetails
+- getApplicationUsersByPage — Paginated retrieval with optional details
+- saveApplicationUser — Create or update application users
+- validate-user — Validate site access credentials
+
+Budget & Financial:
+- getAllBudget / getBudgetByPage / saveBudget — Budget records by location and post date
+- getAllGeneralLedgersV1 / saveGeneralLedgerV1 — General ledger entries
+
+Categories & Products:
+- getAllCategories / getCategoriesByPage / saveCategory
+- getAllCompanyProductsEnhancedV1 / getCompanyProductsEnhancedByPage / saveCompanyProductEnhancedV1
+
+Menu Mix & Sales:
+- GetAllCheckMenuMixRecordsV1 / getCheckMenuMixRecordsByPage / saveCheckMenuMixRecordsV1
+- getAllSalesMix / getSalesMixByPage / saveSalesMix
+
+Commissary & Orders:
+- getAllCommissaryOrders / getCommissaryOrdersByPage
+- getAllCustomerOrderEnhanced / getCustomerOrderEnhancedByPage / saveCustomerOrderEnhanced
+
+Inventory Management:
+- getAllInventoryAdjustments / getInventoryAdjustmentsByPage / saveInventoryAdjustments
+- getAllInventoryValueAdjustments / getInventoryValueAdjustmentsByPage / saveInventoryValueAdjustments
+- getAllPhysicalInventoryStandards / getPhysicalInventoryStandardsByPage / savePhysicalInventoryStandards
+- getCurrentInventoryByPage
+- getAllProjectedConsumption / getProjectedConsumptionByPage / saveProjectedConsumption
+
+Daily Prep Management:
+- getAllDailyPreps / getDailyPrepsByPage / saveDailyPreps (beta)
+
+Receipts & Confirmations:
+- getAllConfirmReceiptsStandard / getConfirmReceiptsStandardByPage / saveConfirmReceiptStandard
+
+Currency & Pricing:
+- getAllCurrencyRatio / getCurrencyRatioByPage / saveCurrencyRatio
+- getAllLocationProductPricing / getLocationProductPricingByPage / saveLocationProductPricing
+
+Customers:
+- getAllCustomers / getCustomersByPage / saveCustomers
+
+Employees & Labor:
+- getEmployeeV1 / getEmployeeNumbersV1 / getEmployeesByPageV1 / saveEmployeeV1
+- getSchedulesV1
+- getAllTimeClockEnhanced / getTimeClockEnhancedByPage / saveTimeClockEnhanced
+- getAllSupplementalWagesV1 / getSupplementalWagesByPage / saveSupplementalWages
+
+Locations:
+- getAllLocationsV1 / getLocationsByPageV1 / saveLocationV1
+
+Hierarchies:
+- getHierarchiesV2 / getHierarchyDetailsV2 / saveHierarchyV2
+
+Nutrition:
+- getAllNutritions / getNutritionsByPage / saveNutritions
+
+Package Types:
+- getAllPackageTypesV2 / getPackageTypesByPageV2 / savePackageTypesV2
+
+PBI (Performance Based Incentives):
+- getAllPbisV2 / getAllPbisByPageV2 / savePbiV2
+
+Recipes:
+- getAllRecipesEnhancedV2 / getRecipesEnhancedByPageV2 / saveRecipesV2
+- getAllRecipeLocations / getRecipeLocationsByPage / saveRecipeLocation
+
+Sales Forecasting:
+- get15MinutesSalesForecast / get15MinutesSalesForecastByPage / save15MinutesSalesForecast
+- getDailySalesForecast / getDailySalesForecastByPage / saveDailySalesForecast
+- getHourlySalesForecast / getHourlySalesForecastByPage / saveHourlySalesForecast
+
+Purchase Orders:
+- getAllPurchaseOrders / getPurchaseOrdersByPage / savePurchaseOrders
+- saveElectronicInvoice (beta, Customer Restricted Access)
+
+Scheduled Exports:
+- downloadScheduledExport / getAllScheduledExportsV1 / markScheduledExportV1
+
+Storage Locations:
+- getAllStorageLocations / getStorageLocationsByPage / saveStorageLocations
+
+Vendors:
+- getAllVendorsV1 / saveVendor
+- getAllVendorLocation / getVendorLocationByPage / saveVendorLocation
+- getAllVendorPayment / getVendorPaymentByPage / saveVendorPayment
+- getAllVendorProductPricing / getVendorProductPricingByPage
+
+UDA (User Defined Attributes):
+- getUdaLocations / getUdaVendors
+
+## Recipes
+- [Create an Employee](https://developer.crunchtime.com/recipes/create-an-employee.md)
+- [How to Retrieve Recently Updated Records using "minutesSinceUpdate"](https://developer.crunchtime.com/recipes/how-to-retrieve-recently-updated-records-using-minutessinceupdate.md)
+- [Scheduled Exports](https://developer.crunchtime.com/recipes/scheduled-exports.md)
+- [Terminate an Employee](https://developer.crunchtime.com/recipes/terminate-an-employee.md)
+
+## Pages
+- [Solutions](https://developer.crunchtime.com/solutions.md)

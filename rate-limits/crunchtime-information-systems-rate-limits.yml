@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.crunchtime.com/docs/usage-guidelines
+docs: https://developer.crunchtime.com/docs/usage-guidelines
+description: >-
+  Published rate limits, batch limits, pagination limits, and timeouts for the
+  Crunchtime Inventory & Labor / Cruise REST APIs, captured verbatim from the
+  developer hub Usage Guidelines page.
+rate_limits:
+- name: requests
+  limit_count: 500
+  window_seconds: 5
+  over_limit_status: 429
+  scope: per API customer
+  description: Up to 500 API calls in a rolling 5-second period; exceeding it returns HTTP 429.
+batch_limits:
+- name: save
+  max_records: 50
+  description: The Save feature accepts up to 50 records in a single call.
+- name: list
+  max_records: 500000
+  description: The List (getAll...) feature has a hard limit of 500,000 records.
+- name: page
+  default_page_size: 10
+  description: The Page (...ByPage) feature defaults to 10 records per page.
+timeouts:
+  processing_limit_seconds: 10
+  connect_timeout_seconds: 4
+  description: >-
+    A 10-second limit for the HTTP communication to complete API processing plus
+    a 4-second connect timeout.

@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for the Crunchtime base
+  hosts (marketing site, developer hub, and the production web-services host).
+  No standardized discovery documents were published — every probed path
+  returned 404. Recorded for auditability; no WellKnown scoring pointer is
+  emitted because nothing was found.
+hosts:
+- host: https://www.crunchtime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://developer.crunchtime.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /llms.txt, status: 200, note: developer-hub llms.txt saved to llms/crunchtime-information-systems-llms.txt}
+- host: https://webservices.net-chef.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}

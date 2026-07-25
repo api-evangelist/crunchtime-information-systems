@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  https://developer.crunchtime.com/docs/getting-started-with-apis,
+  https://developer.crunchtime.com/reference/getalllocationsv1usingget
+description: >-
+  Crunchtime separates test and production access at the token + sitename level
+  rather than via magic card/identifier values. A dedicated test authentication
+  token and a test sitename target the test web-services host; production tokens
+  target the production host. Captured verbatim from the developer hub.
+docs:
+  - https://developer.crunchtime.com/docs/getting-started-with-apis
+modes:
+- name: test
+  base_url: https://webservices-test.net-chef.com
+  selector: authenticationtoken issued as a Test token; sitename set to the test site
+  notes: Test/Production is chosen by which token + sitename you send in the request headers.
+- name: production
+  base_url: https://webservices.net-chef.com
+  selector: authenticationtoken issued as a Production token; sitename set to the production site
+credentials:
+  how_to_obtain: >-
+    Application User tokens are generated in Enterprise Manager
+    (Security > Application Users > API Tokens); separate Test and Production
+    tokens are available. Self-service token management is supported.
+  recommendation: Use a dedicated Application User (e.g. "API User") for API access.
+notes: >-
+  No published magic test values (no test card numbers, IBANs, or fixed test
+  identifiers) — the Crunchtime API is an operations/data-integration surface,
+  not a payments API, so the sandbox is environment-scoped by token and sitename.

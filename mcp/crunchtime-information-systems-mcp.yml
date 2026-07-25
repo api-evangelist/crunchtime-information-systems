@@ -1,0 +1,59 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: >-
+  Derived from the public operation surface documented at
+  https://developer.crunchtime.com/reference (no first-party hosted MCP server
+  was found on the developer hub, npm @modelcontextprotocol, or MCP registries).
+description: >-
+  Candidate MCP server mapping representative Crunchtime Inventory & Labor API
+  operations to tools. Not published by Crunchtime; a proposed surface an
+  integrator could stand up over the documented REST operations. Tool names map
+  1:1 to real operationIds verified against the developer hub reference.
+server:
+  name: crunchtime
+  transport: http
+  auth: Custom headers (authenticationtoken, sitename, userid, password)
+tools:
+- name: list_locations
+  description: Retrieve all locations.
+  source_operation: reference/getalllocationsv1usingget#getAllLocationsV1
+- name: save_location
+  description: Create or update a location.
+  source_operation: reference/savelocationv1usingpost#saveLocationV1
+- name: get_employee
+  description: Retrieve a single employee by number and site.
+  source_operation: reference/getemployeev1usingget#getEmployeeV1
+- name: save_employee
+  description: Create or update an employee record.
+  source_operation: reference/saveemployeev1usingpost#saveEmployeeV1
+- name: list_schedules
+  description: List employee schedules.
+  source_operation: reference/getschedulesv1usingget#getSchedulesV1
+- name: list_current_inventory
+  description: Access current inventory levels for products (paginated).
+  source_operation: reference/getcurrentinventorybypagev1usingget#getCurrentInventoryByPage
+- name: save_physical_inventory
+  description: Create or update physical inventory count entries.
+  source_operation: reference/savephysicalinventorystandardusingpost#savePhysicalInventoryStandards
+- name: save_sales_mix
+  description: Create or update summarized sales mix entries.
+  source_operation: reference/savesalesmixrecordusingpost#saveSalesMix
+- name: save_check_menu_mix
+  description: Create or update check-level menu mix (sales) records.
+  source_operation: reference/savecheckmenumixrecordsv1usingpost#saveCheckMenuMixRecordsV1
+- name: list_purchase_orders
+  description: Retrieve all vendor purchase orders.
+  source_operation: reference/getallpurchaseordersv1usingget#getAllPurchaseOrders
+- name: save_purchase_order
+  description: Create or update purchase orders.
+  source_operation: reference/savepurchaseordersusingpost#savePurchaseOrders
+- name: list_vendors
+  description: Retrieve all vendors.
+  source_operation: reference/getallvendorsv1usingget#getAllVendorsV1
+- name: list_recipes
+  description: Retrieve all recipes (default List limit 50k).
+  source_operation: reference/getallrecipesenhancedv2usingget#getAllRecipesEnhancedV2
+- name: get_daily_sales_forecast
+  description: Retrieve daily sales forecasts.
+  source_operation: reference/getdailysalesforecastv1usingget#getDailySalesForecast
