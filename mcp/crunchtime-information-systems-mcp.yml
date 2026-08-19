@@ -1,15 +1,12 @@
 generated: '2026-07-18'
 method: derived
 status: candidate
-source: >-
-  Derived from the public operation surface documented at
-  https://developer.crunchtime.com/reference (no first-party hosted MCP server
-  was found on the developer hub, npm @modelcontextprotocol, or MCP registries).
-description: >-
-  Candidate MCP server mapping representative Crunchtime Inventory & Labor API
-  operations to tools. Not published by Crunchtime; a proposed surface an
-  integrator could stand up over the documented REST operations. Tool names map
-  1:1 to real operationIds verified against the developer hub reference.
+source: Derived from the public operation surface documented at https://developer.crunchtime.com/reference
+  (no first-party hosted MCP server was found on the developer hub, npm @modelcontextprotocol, or MCP
+  registries).
+description: Candidate MCP server mapping representative Crunchtime Inventory & Labor API operations to
+  tools. Not published by Crunchtime; a proposed surface an integrator could stand up over the documented
+  REST operations. Tool names map 1:1 to real operationIds verified against the developer hub reference.
 server:
   name: crunchtime
   transport: http
@@ -57,3 +54,9 @@ tools:
 - name: get_daily_sales_forecast
   description: Retrieve daily sales forecasts.
   source_operation: reference/getdailysalesforecastv1usingget#getDailySalesForecast
+deployment:
+  mode: none
+  verified: derived
+  tools: 14
+  checked: '2026-08-12'
+  source: catalog MCP census
