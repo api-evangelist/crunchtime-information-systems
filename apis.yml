@@ -42,6 +42,16 @@ tags:
 - Operations Management
 - Back Office
 - Supply Chain
+tags_raw:
+- Company
+- Restaurant
+- Food Service
+- Hospitality
+- Inventory Management
+- Labor Scheduling
+- Operations Management
+- Back Office
+- Supply Chain
 - API
 apis:
 - name: Crunchtime Inventory & Labor APIs
