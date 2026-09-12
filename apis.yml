@@ -110,6 +110,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Website
+  url: https://www.crunchtime.com/
 - type: DeveloperPortal
   url: https://developer.crunchtime.com/
 - type: Documentation
