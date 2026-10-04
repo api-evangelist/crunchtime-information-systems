@@ -46,12 +46,15 @@ x-tier-reason: enrichment-pipeline
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-18'
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-24
 tags:
 - Company
 - Restaurant
 - Food Service
 - Hospitality
-- Inventory Management
+- Inventory
 - Labor Scheduling
 - Operations Management
 - Back Office
@@ -78,6 +81,11 @@ apis:
   humanURL: https://developer.crunchtime.com/
   baseURL: https://webservices.net-chef.com
   tags:
+  - Inventory
+  - Labor Scheduling
+  - Restaurant Operations
+  - Data Integration
+  tags_raw:
   - Inventory Management
   - Labor Scheduling
   - Restaurant Operations
