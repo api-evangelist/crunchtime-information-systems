@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-daily-prep-dto-schema.json",
+  "title": "DailyPrepDto",
+  "description": "Daily Prep transaction details",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-inventory-labor-openapi.yml#/components/schemas/DailyPrepDto",
+  "type": "object",
+  "properties": {
+    "locationCode": {
+      "type": "string",
+      "description": "\"Location Code\" where the Daily Prep transaction is created"
+    },
+    "description": {
+      "type": "string",
+      "description": "\"Description\" is entered by the user when the transaction was created. If none was entered, this will be the Daily Prep Date."
+    },
+    "status": {
+      "type": "string",
+      "description": "\"Status\" of the Daily Prep transaction. Possible values: Completed, Incomplete, or Canceled"
+    },
+    "createDate": {
+      "type": "string",
+      "format": "date",
+      "description": "\"Create Date\" is a date the transaction was created"
+    },
+    "createUser": {
+      "type": "string",
+      "description": "\"Create User\" is the user ID of the user who created the transaction"
+    },
+    "completeDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\"Complete Date\" is a date with time the transaction was finalized"
+    },
+    "completeUser": {
+      "type": "string",
+      "description": "\"Complete User\" is the user ID of the user who finalized the transaction"
+    },
+    "cancelDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\"Cancel Date\" is a date with time the transaction was canceled"
+    },
+    "cancelUser": {
+      "type": "string",
+      "description": "\"Cancel User\" is the user ID of the user who canceled the transaction"
+    },
+    "dailyPrepDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\"Daily Prep Date\" is the date and time when the Daily Prep was performed, as selected by the user during creation"
+    },
+    "templateName": {
+      "type": "string",
+      "description": "\"Template Name\" is the name of the Daily Prep template used for the transaction"
+    },
+    "templateLocationCode": {
+      "type": "string",
+      "description": "\"Template Location Code\" is the location code associated with the Daily Prep template"
+    },
+    "cateringOrder": {
+      "type": "string",
+      "description": "\"Catering Order\" indicates whether the prep transaction included Catering customer orders"
+    },
+    "dailyPrepApp": {
+      "type": "string",
+      "description": "\"Daily Prep App\" is the application or process that created the Daily Prep transaction"
+    },
+    "prepLocation": {
+      "type": "string",
+      "description": "\"Prep Location\" is the name of the Prep Customer selected for the Daily Prep transaction"
+    },
+    "recipes": {
+      "$ref": "#/$defs/DailyPrepRecipeDto"
+    }
+  },
+  "$defs": {
+    "DailyPrepComponentDto": {
+      "type": "object",
+      "properties": {
+        "productNumber": {
+          "type": "string",
+          "description": "\"Product Number\" from Daily Prep Screen's Components Tab"
+        },
+        "name": {
+          "type": "string",
+          "description": "\"Product Name\" from Daily Prep Screen's Components Tab"
+        },
+        "majorIngredient": {
+          "type": "string",
+          "description": "\"Major Ingredient\" indicates whether the product is marked as a major ingredient in the recipe"
+        },
+        "quantity": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Quantity\" is the amount of the product required for the recipe"
+        },
+        "invUnit": {
+          "type": "string",
+          "description": "\"Inv. Unit\" is the inventory unit of measure used for the product"
+        },
+        "storageLocation": {
+          "type": "string",
+          "description": "\"Storage Location\" is the location where the product is stored"
+        },
+        "unitPrice": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Unit Price\" is the cost per inventory unit of the product"
+        },
+        "extendedValue": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Extended Value\" is the total cost calculated as quantity multiplied by unit price"
+        }
+      },
+      "title": "DailyPrepComponentDto",
+      "description": "Component details for a Daily Prep recipe"
+    },
+    "DailyPrepRecipeDto": {
+      "type": "object",
+      "properties": {
+        "productNumber": {
+          "type": "string",
+          "description": "\"Product Number\" from Daily Prep Screen's Recipes Tab"
+        },
+        "name": {
+          "type": "string",
+          "description": "\"Recipe Name\" from the Daily Prep screen's Recipes tab"
+        },
+        "batchQty": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Batch Qty\" is the quantity produced in a single batch"
+        },
+        "batchUnit": {
+          "type": "string",
+          "description": "\"Batch Unit\" is the unit of measure for the batch quantity"
+        },
+        "projectedConsumption": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Projected Consumption\" is the amount expected to be used during the day"
+        },
+        "suggestedProduction": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Suggested Production\" is the system-recommended quantity"
+        },
+        "actualProd": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Actual Prod\" is the actual quantity prepared"
+        },
+        "actualBatchCost": {
+          "type": "number",
+          "format": "double",
+          "description": "\"Actual Batch Cost\" is the calculated cost of producing one batch"
+        },
+        "storageLocation": {
+          "type": "string",
+          "description": "\"Storage Location\" is the location where the prepared item is stored"
+        },
+        "prepStation": {
+          "type": "string",
+          "description": "\"Prep Station\" is the kitchen station where the recipe is prepared"
+        },
+        "components": {
+          "$ref": "#/$defs/DailyPrepComponentDto"
+        }
+      },
+      "title": "DailyPrepRecipeDto",
+      "description": "Recipe details for a Daily Prep transaction"
+    }
+  }
+}

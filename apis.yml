@@ -1,15 +1,15 @@
 aid: crunchtime-information-systems
+
 name: Crunchtime Information Systems
-description: >-
-  Crunchtime (Crunchtime Information Systems) is a Boston-based provider of AI-powered
-  operations-management software for multi-unit restaurants, founded in 1995 and serving
-  850+ restaurant brands across 150,000+ locations. Its platform unifies inventory
-  management, labor scheduling, kitchen/operations execution, and analytics. Crunchtime
-  publishes a public developer hub for its Inventory & Labor and Cruise data-integration
-  REST APIs, letting partners and customers push and pull employees, locations, budgets,
-  products, recipes, sales/menu mix, purchase orders, inventory counts, time clock, and
-  forecasting data. Backed by Battery Ventures.
+
+description: Crunchtime (Crunchtime Information Systems) is a Boston-based provider of AI-powered operations-management software for multi-unit
+  restaurants, founded in 1995 and serving 850+ restaurant brands across 150,000+ locations. Its platform unifies inventory management, labor
+  scheduling, kitchen/operations execution, and analytics. Crunchtime publishes a public developer hub for its Inventory & Labor and Cruise data-integration
+  REST APIs, letting partners and customers push and pull employees, locations, budgets, products, recipes, sales/menu mix, purchase orders, inventory
+  counts, time clock, and forecasting data. Backed by Battery Ventures.
+
 url: https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/refs/heads/main/apis.yml
+
 deliveryModel:
   model: saas
   open_source: false
@@ -21,6 +21,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -36,19 +37,32 @@ accessModel:
   - sandbox
   generated: '2026-09-03'
   method: derived
+
 image: https://logo.clearbit.com/crunchtime.com
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - battery-ventures
+
 x-tier: profiled
+
 x-tier-reason: enrichment-pipeline
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-07-18'
+
 x-docs-platform: readme
+
 x-docs-platform-confidence: high
+
 x-docs-platform-checked: 2026-09-24
+
 tags:
 - Company
 - Restaurant
@@ -59,6 +73,7 @@ tags:
 - Operations Management
 - Back Office
 - Supply Chain
+
 tags_raw:
 - Company
 - Restaurant
@@ -70,54 +85,42 @@ tags_raw:
 - Back Office
 - Supply Chain
 - API
-apis:
-- name: Crunchtime Inventory & Labor APIs
-  description: >-
-    REST data-integration API for Crunchtime's Inventory Management, Labor & Scheduling,
-    and Cruise products. GET and POST operations move employees, locations, budgets,
-    categories, products, recipes, sales/menu mix, purchase orders, inventory counts,
-    time clock, forecasting, and vendor data in and out of Crunchtime. Custom
-    header-based token authentication; page-based pagination; documented rate limits.
-  humanURL: https://developer.crunchtime.com/
-  baseURL: https://webservices.net-chef.com
-  tags:
-  - Inventory
-  - Labor Scheduling
-  - Restaurant Operations
-  - Data Integration
-  tags_raw:
-  - Inventory Management
-  - Labor Scheduling
-  - Restaurant Operations
-  - Data Integration
-  properties:
-  - type: DeveloperPortal
-    url: https://developer.crunchtime.com/
-  - type: Documentation
-    url: https://developer.crunchtime.com/docs/introduction
-  - type: APIReference
-    url: https://developer.crunchtime.com/reference
-  - type: GettingStarted
-    url: https://developer.crunchtime.com/docs/getting-started-with-apis
-  - type: Authentication
-    url: authentication/crunchtime-information-systems-authentication.yml
-  - type: Conventions
-    url: conventions/crunchtime-information-systems-conventions.yml
-  - type: RateLimits
-    url: rate-limits/crunchtime-information-systems-rate-limits.yml
-  - type: ChangeLog
-    url: changelog/crunchtime-information-systems-changelog.yml
-  - type: Sandbox
-    url: sandbox/crunchtime-information-systems-sandbox.yml
-  - type: X-MCPServerCandidate
-    url: mcp/crunchtime-information-systems-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: AgenticAccess
+  url: agentic-access/crunchtime-information-systems-agentic-access.yml
+- type: Spectral
+  url: rules/crunchtime-information-systems-rules.yml
+- type: JSONLD
+  url: json-ld/crunchtime-information-systems-context.jsonld
+- type: Vocabulary
+  url: vocabulary/crunchtime-information-systems-vocabulary.yml
+- type: DataModel
+  url: data-model/crunchtime-information-systems-data-model.yml
+- type: ErrorCatalog
+  url: errors/crunchtime-information-systems-problem-types.yml
+- type: Conformance
+  url: conformance/crunchtime-information-systems-conformance.yml
+- type: Hosts
+  url: hosts/crunchtime-information-systems-hosts.yml
+- type: Vendors
+  url: vendors/crunchtime-information-systems-vendors.yml
+- type: TermsOfService
+  url: https://www.crunchtime.com/terms
+- type: StatusPage
+  url: https://status.crunchtime.com/
+- type: Security
+  url: https://www.crunchtime.com/security
+- type: PrivacyPolicy
+  url: https://www.crunchtime.com/privacy-policy
+- type: Newsroom
+  url: https://www.crunchtime.com/press
 - type: Website
   url: https://www.crunchtime.com/
 - type: DeveloperPortal
@@ -154,15 +157,115 @@ common:
   url: sandbox/crunchtime-information-systems-sandbox.yml
 - type: X-MCPServerCandidate
   url: mcp/crunchtime-information-systems-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: TrustCenter
   url: security/crunchtime-information-systems-trust-center.yml
 - type: DomainSecurity
   url: security/crunchtime-information-systems-domain-security.yml
+
+apis:
+- name: Crunchtime Inventory & Labor APIs
+  description: REST data-integration API for Crunchtime's Inventory Management, Labor & Scheduling, and Cruise products. GET and POST operations
+    move employees, locations, budgets, categories, products, recipes, sales/menu mix, purchase orders, inventory counts, time clock, forecasting,
+    and vendor data in and out of Crunchtime. Custom header-based token authentication; page-based pagination; documented rate limits.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Inventory
+  - Labor Scheduling
+  - Restaurant Operations
+  - Data Integration
+  tags_raw:
+  - Inventory Management
+  - Labor Scheduling
+  - Restaurant Operations
+  - Data Integration
+  properties:
+  - type: DeveloperPortal
+    url: https://developer.crunchtime.com/
+  - type: Documentation
+    url: https://developer.crunchtime.com/docs/introduction
+  - type: APIReference
+    url: https://developer.crunchtime.com/reference
+  - type: GettingStarted
+    url: https://developer.crunchtime.com/docs/getting-started-with-apis
+  - type: Authentication
+    url: authentication/crunchtime-information-systems-authentication.yml
+  - type: Conventions
+    url: conventions/crunchtime-information-systems-conventions.yml
+  - type: RateLimits
+    url: rate-limits/crunchtime-information-systems-rate-limits.yml
+  - type: ChangeLog
+    url: changelog/crunchtime-information-systems-changelog.yml
+  - type: Sandbox
+    url: sandbox/crunchtime-information-systems-sandbox.yml
+  - type: X-MCPServerCandidate
+    url: mcp/crunchtime-information-systems-mcp.yml
+    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+      API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+      the artifact-type surfaces with a server that does not exist.'
+  aid: crunchtime-information-systems:crunchtime-inventory-labor-apis
+- aid: crunchtime-information-systems:crunchtime-information-systems-cruise-platform
+  name: Crunchtime Information Systems Application User Service API
+  description: The Application User service is used to create and retrieve user profiles where each user is assigned a unique User ID and password
+    for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager Console.   It links users to specific locations, hierarchies, customers
+    and markets, and assigns each user to a user group, which determines which screens and tasks the user will be able to access in the applications.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Application User Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-inventory-labor
+  name: Crunchtime Information Systems Application User Service API
+  description: The Application User service is used to create and retrieve user profiles where each user is assigned a unique User ID and password
+    for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager Console.   It links users to specific locations, hierarchies, customers
+    and markets, and assigns each user to a user group, which determines which screens and tasks the user will be able to access in the applications.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Application User Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+
 x-enrichment:
   date: '2026-07-19'
   status: backfilled
   pass: local-v1
   note: backfilled from .gitignore signal + verified work evidence
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 168
+  tool: harvest-readme-openapi.py
+  portal: https://developer.crunchtime.com

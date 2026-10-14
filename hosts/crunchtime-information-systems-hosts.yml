@@ -1,0 +1,69 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 5
+  own: 3
+  other_domain: 2
+  platform: 0
+  roles:
+  - other
+  - portal
+  - support
+  - website
+hosts:
+- host: crunchtime.zendesk.com
+  found_by:
+  - pointer
+  types:
+  - Support
+  serves: []
+  registrable_domain: zendesk.com
+  role: support
+  relation: other-domain
+- host: developer.crunchtime.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  serves:
+  - docs
+  registrable_domain: crunchtime.com
+  role: portal
+  relation: own
+- host: trust.crunchtime.com
+  found_by:
+  - pointer
+  types:
+  - TrustCenter
+  - Compliance
+  serves: []
+  registrable_domain: crunchtime.com
+  role: other
+  relation: own
+- host: webservices.net-chef.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: net-chef.com
+  role: other
+  relation: other-domain
+- host: www.crunchtime.com
+  found_by:
+  - pointer
+  types:
+  - Website
+  - Blog
+  - SignUp
+  - Integrations
+  serves: []
+  registrable_domain: crunchtime.com
+  role: website
+  relation: own

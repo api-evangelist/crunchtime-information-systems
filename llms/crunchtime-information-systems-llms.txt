@@ -1,118 +1,248 @@
-# Crunchtime Inventory & Labor APIs
+# Crunchtime Inventory & Labor APIs Documentation
 
-> Saved verbatim from https://developer.crunchtime.com/llms.txt on 2026-07-18 by the API Evangelist enrichment pipeline. Crunchtime's public developer hub for the Inventory Management, Labor & Scheduling, and Cruise data-integration REST APIs.
+> Documentation for Crunchtime Inventory & Labor APIs
 
-## Guides
+## Documentation: Documentation
 - [Crunchtime Data Integration](https://developer.crunchtime.com/docs/introduction.md): Inventory Management  |  Labor & Scheduling  |  Cruise
-- [What's New on the Developer Hub](https://developer.crunchtime.com/docs/whats-new-on-the-developer-hub.md): This page lists recent enhancements made to the available APIs.
+  - [What's New on the Developer Hub](https://developer.crunchtime.com/docs/whats-new-on-the-developer-hub.md): This page lists recent enhancements made to the available APIs.
 - [Getting Started with APIs](https://developer.crunchtime.com/docs/getting-started-with-apis.md): Inventory Management  |  Labor & Scheduling  |  Cruise
-- [API FAQs](https://developer.crunchtime.com/docs/api-faqs.md): Frequently Asked Quetions about our API services.
+  - [API FAQs](https://developer.crunchtime.com/docs/api-faqs.md): Frequently Asked Quetions about our API services.
 - [Using Our APIs](https://developer.crunchtime.com/docs/using-apis.md): Inventory Management  |  Labor & Scheduling  |  Cruise
 - [Usage Guidelines](https://developer.crunchtime.com/docs/usage-guidelines.md): Inventory Management  |  Labor & Scheduling  |  Cruise
 - [API vs. Flat File](https://developer.crunchtime.com/docs/api-flatfiles.md): Inventory Management  |  Labor & Scheduling  |  Cruise
 - [Inventory & Labor](https://developer.crunchtime.com/docs/operations-management-resources.md): Crunchtime API Resources for Operations Management
-- [Employees, Locations, & Users](https://developer.crunchtime.com/docs/employee-location.md)
-- [Financial Operations](https://developer.crunchtime.com/docs/setup.md)
-- [Inventory](https://developer.crunchtime.com/docs/inventory-recipe.md)
-- [Labor](https://developer.crunchtime.com/docs/labor.md)
-- [Point-of-Sale / Sales](https://developer.crunchtime.com/docs/point-of-sale.md)
-- [Vendors (Purchasing)](https://developer.crunchtime.com/docs/vendors.md)
-- [Other Services](https://developer.crunchtime.com/docs/other-services.md)
+  - [Employees, Locations, & Users](https://developer.crunchtime.com/docs/employee-location.md)
+  - [Financial Operations](https://developer.crunchtime.com/docs/setup.md)
+  - [Inventory](https://developer.crunchtime.com/docs/inventory-recipe.md)
+  - [Labor](https://developer.crunchtime.com/docs/labor.md)
+  - [Point-of-Sale / Sales](https://developer.crunchtime.com/docs/point-of-sale.md)
+  - [Vendors (Purchasing)](https://developer.crunchtime.com/docs/vendors.md)
+  - [Other Services](https://developer.crunchtime.com/docs/other-services.md)
 - [Cruise](https://developer.crunchtime.com/docs/cruise.md)
 - [About Us](https://developer.crunchtime.com/docs/about-us.md)
 
-## API Reference
+## API Reference: Inventory & Labor
+- Application User Service
+  - [getAllApplicationUsers](https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md): Retrieve a list of Application Users, with limited information (e.g. Active status and User Group assignment). Retrieve this information about a single Application User, with additional details (e.g.…
+  - [getApplicationUsersByPage](https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md): Retrieve a list of Application Users across multiple pages. Include additional details (e.g. User/Locations(s), User/Market(s), etc.) for a single Application User or all Application Users by using…
+  - [saveApplicationUser](https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md): Create a new application user.   Update an application user's details.
+- Authentication Service
+  - [validate-user](https://developer.crunchtime.com/reference/validateuserusingpost.md): Validate user access to a franchisee site using a username and password.
+- Budget Service
+  - [getAllBudget](https://developer.crunchtime.com/reference/getallbudgetv1usingget.md): Retrieves all Budget records for the Location and Post Date.
+  - [getBudgetByPage](https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md): Retrieves Budget records for the Location, and Post Date, by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveBudget](https://developer.crunchtime.com/reference/savebudgetusingpost.md): Create one or more budget records.   Update one or more budget records.   Update a budget item.
+- Category Service
+  - [getAllCategories](https://developer.crunchtime.com/reference/getallcategoryv1usingget.md): Retrieve a list of Categories
+  - [getCategoriesByPage](https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md): Retrieve a list of Categories by page number
+  - [saveCategory](https://developer.crunchtime.com/reference/savecategoryusingpost.md): Save Category details
+- Check Menu Mix Service
+  - [GetAllCheckMenuMixRecordsV1](https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md): Retrieve Menu Mix sales data stored at the Check/Recipe Item level of granularity.   Retrieve a single Menu Mix sales data record with details using `checkNumber` and `includeDetails`.
+  - [getCheckMenuMixRecordsByPage](https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md): Retrieve Menu Mix sales data stored at the Check/Recipe Item level of granularity, split across 1-to-many pages using `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveCheckMenuMixRecordsV1](https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md): Create a new Menu Mix item.   Update a Menu Mix item.
+- Commissary Order Service
+  - [getAllCommissaryOrders](https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md): Retrieves all commissary orders with the accompanying information.
+  - [getCommissaryOrdersByPage](https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md): Retrieves all commissary orders with the accompanying information by page number.
+- Company Product Enhanced Service
+  - [getAllCompanyProductsEnhancedV1](https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md): Retrieve all company products' details.   Retrieve one company product's details using `productNumber` and `inculdeDetails`.
+  - [getCompanyProductsEnhancedByPage](https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md): Retrieve one or more company products by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveCompanyProductEnhancedV1](https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md): Create a new product.  Update an existing product's details.
+- Confirm Receipt Standard Service
+  - [getAllConfirmReceiptsStandard](https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md): Retrieve a list of Confirm Receipt details
+  - [getConfirmReceiptsStandardByPage](https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md): Retrieve a list of Confirm Receipt details by page number.
+  - [saveConfirmReceiptStandard](https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md): Save confirm receipt details
+- Currency Ratio Service
+  - [getAllCurrencyRatio](https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md): Retrieve a single currency exchange rate.
+  - [getCurrencyRatioByPage](https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md): Retrieve a single currency exchange rate by `pageNumber`.
+  - [saveCurrencyRatio](https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md): Create a new currency exchange rate.   Update a currency exchange rate details.
+- Customer Service
+  - [getAllCustomers](https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md): Retrieve a list of customer account details.   Retrieve one customer's account details using `customerAccountNumber` and `customerCode`.
+  - [getCustomersByPage](https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md): Retrieve customer account details by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveCustomers](https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md): Create a new customer account.   Update a customer's account details.
+- Customer Order Enhanced Service
+  - [getAllCustomerOrderEnhanced](https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md): Retrieves all customer orders with the accompanying information.
+  - [getCustomerOrderEnhancedByPage](https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md): Retrieves all customer orders with the accompanying information by page number.
+  - [saveCustomerOrderEnhanced](https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md): Create a new customer order entry.   Update a customer order entry.
+- Daily Prep Service
+  - [getAllDailyPreps](https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md): Retrieves all Daily Prep transactions with the accompanying information.
+  - [getDailyPrepsByPage](https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md): Retrieves all Daily Prep transactions with the accompanying information by page number.
+  - [saveDailyPreps (beta)](https://developer.crunchtime.com/reference/savedailyprepsusingpost.md): Saves Daily Prep transactions for a location. Supports creating, updating, finalizing, or canceling a Daily Prep based on the `action` field.
+- Electronic Invoice Service
+  - [saveElectronicInvoice](https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md): Uploads e-invoice data for vendor orders.
+- Employee Service
+  - [getEmployeeV1](https://developer.crunchtime.com/reference/getemployeev1usingget.md): Retrieve one employee's details using `employeeNumber` and `siteName`.
+  - [getEmployeeNumbersV1](https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md): Retrieves a list of employee numbers from a specified location.
+  - [getEmployeesByPageV1](https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md): Get Employees By Page
+  - [getSchedulesV1](https://developer.crunchtime.com/reference/getschedulesv1usingget.md): List schedules of employees.
+  - [saveEmployeeV1](https://developer.crunchtime.com/reference/saveemployeev1usingpost.md): Create a new employee.   Update an employee's details.
+- General Ledger Service
+  - [getAllGeneralLedgersV1](https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md): Retrieve all general ledger entry details.
+  - [saveGeneralLedgerV1](https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md): Create a new general ledger entry.   Update a general ledger entry.
+- Hierarchy Service
+  - [getHierarchiesV2](https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md): Retrieve a list of hierarchies.
+  - [getHierarchyDetailsV2](https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md): Retrieve the details of a specific hierarchy.
+  - [saveHierarchyV2](https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md): Create a new hierarchy.   Update a hierarchy's details.   Delete a hierarchy.
+- Inventory Service
+  - [getAllInventoryAdjustments](https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md): Retrieve inventory adjustments (waste transactions) by date and location.
+  - [getInventoryAdjustmentsByPage](https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md): Retrieve a page of inventory adjustments (waste transactions) by date and location.
+  - [saveInventoryAdjustments](https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md): Create a new inventory adjustment entry.   Update an inventory adjustment entry.
+  - [getAllInventoryValueAdjustments](https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md): Retrieve all inventory value adjustments by date and location.
+  - [getInventoryValueAdjustmentsByPage](https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md): Retrieve a page of inventory adjustments (waste transactions) by date and location.
+  - [saveInventoryValueAdjustments](https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md): Create a new inventory value adjustment entry.   Update an inventory value adjustment entry.
+  - [getAllPhysicalInventoryStandards](https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md): Retrieve a list of all physical inventory counts (quantity only) by date and location.
+  - [getPhysicalInventoryStandardsByPage](https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md): Retrieve by page, all physical inventory counts (quantity only) by date and location.
+  - [savePhysicalInventoryStandards](https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md): Create a new physical inventory entry.   Update a physical inventory entry.
+  - [getCurrentInventoryByPage](https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md): Retrieve the current inventory for a product or subset of products.
+  - [getAllInventoryLocationTransfers](https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md): Retrieve inventory location and storage transfers for a location.
+  - [getInventoryLocationTransfersByPage](https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md): Retrieve a page of inventory location and storage transfers for a location.
+- Location Product Pricing Service
+  - [getAllLocationProductPricing](https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md): Retrieve all product pricing by location.
+  - [getLocationProductPricingByPage](https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md): Retrieve product pricing for a specific location.
+  - [saveLocationProductPricing](https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md): Create a new product's price in a specific location.   Update a product's price in a specific location.
+- Location Service
+  - [getAllLocationsV1](https://developer.crunchtime.com/reference/getalllocationsv1usingget.md): Retrieve a list of all Locations.
+  - [getLocationsByPageV1](https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md): Retrieve a list of Locations by page number.
+  - [saveLocationV1](https://developer.crunchtime.com/reference/savelocationv1usingpost.md): Create a new location.   Update a location's details.
+- Nutrition Service
+  - [getAllNutritions](https://developer.crunchtime.com/reference/getallnutritionv1usingget.md): Retrieve a list of all Nutrition Details.
+  - [getNutritionsByPage](https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md): Retrieve a list of Nutrition Details across multiple pages.
+  - [saveNutritions](https://developer.crunchtime.com/reference/savenutritionusingpost.md): Create or Update Nutrition records
+- Package Type Service
+  - [getAllPackageTypesV2](https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md): Retrieve a list of Package Types
+  - [getPackageTypesByPageV2](https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md): Retrieve a list of Package Types by `pageNumber`
+  - [savePackageTypesV2](https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md): Create or Update Package Type records
+- Pbi Service
+  - [getAllPbisV2](https://developer.crunchtime.com/reference/getallpbisv2usingget.md): Retrieve a list of all <<glossary:PBI>>s.
+  - [getAllPbisByPageV2](https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md): Retrieve a list of all <<glossary:PBI>>s from a specific page.
+  - [savePbiV2](https://developer.crunchtime.com/reference/savepbiv2usingpost.md): Create a new <<glossary:Pbi>>.   Update one or more <<glossary:Pbi>>s.
+  - [getAttachmentsByPageV2](https://developer.crunchtime.com/reference/getattachmentsbypagev2.md): Retrieves purchase by invoice records with the accompanying information (by page).
+- Projected Consumption Service
+  - [getAllProjectedConsumption](https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md): Retrieve the details of all projected consumption entries.
+  - [getProjectedConsumptionByPage](https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md): Retrieve a projected consumption entry's details by page number.
+  - [saveProjectedConsumption](https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md): Create a new projected consumption entry.   Update a projected consumption entry's details.
+- Purchase Order Service
+  - [getAllPurchaseOrders](https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md): Retrieves all vendor orders with the accompanying information.
+  - [getPurchaseOrdersByPage](https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md): Retrieves all vendor orders with the accompanying information by page number.
+  - [savePurchaseOrders](https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md): Save purchase orders.
+  - [getAttachmentsByPage](https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md): Retrieves purchase order attachment records with the accompanying information (by page).
+- Recipe Enhanced Service
+  - [getAllRecipesEnhancedV2](https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md): Retrieve details of all recipes.   Our “List” feature has a default limit of 50k records.
+  - [getRecipesEnhancedByPageV2](https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md): Retrieve details of a recipe by page number.
+  - [saveRecipesV2](https://developer.crunchtime.com/reference/saverecipesv2usingpost.md): Create a new recipe.   Update a recipe.
+- Recipe Location Service
+  - [getAllRecipeLocations](https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md): Get All Recipe Locations
+  - [getRecipeLocationsByPage](https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md): getRecipeLocationsByPage Implementation Notes
+  - [saveRecipeLocation](https://developer.crunchtime.com/reference/saverecipelocationusingpost.md): saveRecipeLocation Implementation Notes
+- Sales Forecast Service
+  - [get15MinutesSalesForecast](https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md): Retrieves a 15 minute sales forecast.
+  - [get15MinutesSalesForecastByPage](https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md): Retrieves a 15 minute sales forecast by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [save15MinutesSalesForecast](https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md): Saves a 15 minute sales forecast.
+  - [getDailySalesForecast](https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md): Retrieves a daily sales forecast.
+  - [getDailySalesForecastByPage](https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md): Retrieves a daily sales forecast by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveDailySalesForecast](https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md): Saves a daily sales forecast
+  - [getHourlySalesForecast](https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md): Retrieves an hourly sales forecast.
+  - [getHourlySalesForecastByPage](https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md): Retrieves an hourly sales forecast by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveHourlySalesForecast](https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md): Saves an hourly sales forecast.
+- Sales Mix Service
+  - [getAllSalesMix](https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md): Retrieve summarized sales mix data by GL by location.
+  - [getSalesMixByPage](https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md): Retrieve summarized sales mix data by GL by location by page number.
+  - [saveSalesMix](https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md): Create a new sales mix entry.   Update a sales mix entry.
+- Scheduled Export Service
+  - [downloadScheduledExport](https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md): Download Scheduled Exports. To ensure the highest stability and data integrity for your API integration, we strongly recommend using a sequential or "low-parallelism" pattern when downloading…
+  - [getAllScheduledExportsV1](https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md): Retrieve a list of individual export files generated through Event Scheduling (Scheduled Exports) or manually in Outbound Integrations. Does not include files associated with managed partner…
+  - [markScheduledExportV1](https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md): Mark Scheduled Exports.
+  - [downloadScheduledExportV2](https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md): Download Scheduled Exports.
+- Storage Location Service
+  - [getAllStorageLocations](https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md): getAllStorageLocationsV1 Implementation Notes
+  - [getStorageLocationsByPage](https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md): getStorageLocationsByPage Implementation Notes
+  - [saveStorageLocations](https://developer.crunchtime.com/reference/savestoragelocationusingpost.md): saveStorageLocations Implementation Notes
+- Supplemental Wage Service
+  - [getAllSupplementalWagesV1](https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md): Retrieve details of supplemental wages by location.
+  - [getSupplementalWagesByPage](https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md): Retrieve details of supplemental wages by page number.
+  - [saveSupplementalWages](https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md): Create a new supplemental wage entry for a specific location.
+- Time Clock Enhanced Service
+  - [getAllTimeClockEnhanced](https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md): Retrieve employee time clock details.
+  - [getTimeClockEnhancedByPage](https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md): Retrieve employee time clock details by page number.
+  - [saveTimeClockEnhanced](https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md): Create a new employee time clock entry.   Update an employee time clock entry.
+- Uda Service
+  - [Get getUdaLocations](https://developer.crunchtime.com/reference/getudalocationsusingget.md): Retrieve a list of Uda locations.
+  - [Get getUdaVendors](https://developer.crunchtime.com/reference/getudavendorsusingget.md): Retrieve a list of UDA vendors.
+- Vendor Service
+  - [getAllVendorsV1](https://developer.crunchtime.com/reference/getallvendorsv1usingget.md): Retrieves a list of all vendors.
+  - [saveVendor](https://developer.crunchtime.com/reference/savevendorv1usingpost.md): Create a new vendor entry.   Update vendor details.
+- Vendor Location Service
+  - [getAllVendorLocation](https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md): Retrieve vendor location details.
+  - [getVendorLocationByPage](https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md): Retrieve vendor location details by page number.
+  - [saveVendorLocation](https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md): Create a new vendor location entry.   Update a vendor's location details.
+- Vendor Payment Service
+  - [getAllVendorPayment](https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md): Retrieve a list of Vendor Payment Details
+  - [getVendorPaymentByPage](https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md): Retrieve vendor payment details by page number.
+  - [saveVendorPayment](https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md): Save vendor payment details.
+- Vendor Product Pricing Service
+  - [getAllVendorProductPricing](https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md): Retrieve all vendor products pricing.
+  - [getVendorProductPricingByPage](https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md): Retrieve a page of vendor product pricing.
 
-User Management:
-- getAllApplicationUsers — Retrieve Application Users with limited or detailed data via userIdForDetails
-- getApplicationUsersByPage — Paginated retrieval with optional details
-- saveApplicationUser — Create or update application users
-- validate-user — Validate site access credentials
-
-Budget & Financial:
-- getAllBudget / getBudgetByPage / saveBudget — Budget records by location and post date
-- getAllGeneralLedgersV1 / saveGeneralLedgerV1 — General ledger entries
-
-Categories & Products:
-- getAllCategories / getCategoriesByPage / saveCategory
-- getAllCompanyProductsEnhancedV1 / getCompanyProductsEnhancedByPage / saveCompanyProductEnhancedV1
-
-Menu Mix & Sales:
-- GetAllCheckMenuMixRecordsV1 / getCheckMenuMixRecordsByPage / saveCheckMenuMixRecordsV1
-- getAllSalesMix / getSalesMixByPage / saveSalesMix
-
-Commissary & Orders:
-- getAllCommissaryOrders / getCommissaryOrdersByPage
-- getAllCustomerOrderEnhanced / getCustomerOrderEnhancedByPage / saveCustomerOrderEnhanced
-
-Inventory Management:
-- getAllInventoryAdjustments / getInventoryAdjustmentsByPage / saveInventoryAdjustments
-- getAllInventoryValueAdjustments / getInventoryValueAdjustmentsByPage / saveInventoryValueAdjustments
-- getAllPhysicalInventoryStandards / getPhysicalInventoryStandardsByPage / savePhysicalInventoryStandards
-- getCurrentInventoryByPage
-- getAllProjectedConsumption / getProjectedConsumptionByPage / saveProjectedConsumption
-
-Daily Prep Management:
-- getAllDailyPreps / getDailyPrepsByPage / saveDailyPreps (beta)
-
-Receipts & Confirmations:
-- getAllConfirmReceiptsStandard / getConfirmReceiptsStandardByPage / saveConfirmReceiptStandard
-
-Currency & Pricing:
-- getAllCurrencyRatio / getCurrencyRatioByPage / saveCurrencyRatio
-- getAllLocationProductPricing / getLocationProductPricingByPage / saveLocationProductPricing
-
-Customers:
-- getAllCustomers / getCustomersByPage / saveCustomers
-
-Employees & Labor:
-- getEmployeeV1 / getEmployeeNumbersV1 / getEmployeesByPageV1 / saveEmployeeV1
-- getSchedulesV1
-- getAllTimeClockEnhanced / getTimeClockEnhancedByPage / saveTimeClockEnhanced
-- getAllSupplementalWagesV1 / getSupplementalWagesByPage / saveSupplementalWages
-
-Locations:
-- getAllLocationsV1 / getLocationsByPageV1 / saveLocationV1
-
-Hierarchies:
-- getHierarchiesV2 / getHierarchyDetailsV2 / saveHierarchyV2
-
-Nutrition:
-- getAllNutritions / getNutritionsByPage / saveNutritions
-
-Package Types:
-- getAllPackageTypesV2 / getPackageTypesByPageV2 / savePackageTypesV2
-
-PBI (Performance Based Incentives):
-- getAllPbisV2 / getAllPbisByPageV2 / savePbiV2
-
-Recipes:
-- getAllRecipesEnhancedV2 / getRecipesEnhancedByPageV2 / saveRecipesV2
-- getAllRecipeLocations / getRecipeLocationsByPage / saveRecipeLocation
-
-Sales Forecasting:
-- get15MinutesSalesForecast / get15MinutesSalesForecastByPage / save15MinutesSalesForecast
-- getDailySalesForecast / getDailySalesForecastByPage / saveDailySalesForecast
-- getHourlySalesForecast / getHourlySalesForecastByPage / saveHourlySalesForecast
-
-Purchase Orders:
-- getAllPurchaseOrders / getPurchaseOrdersByPage / savePurchaseOrders
-- saveElectronicInvoice (beta, Customer Restricted Access)
-
-Scheduled Exports:
-- downloadScheduledExport / getAllScheduledExportsV1 / markScheduledExportV1
-
-Storage Locations:
-- getAllStorageLocations / getStorageLocationsByPage / saveStorageLocations
-
-Vendors:
-- getAllVendorsV1 / saveVendor
-- getAllVendorLocation / getVendorLocationByPage / saveVendorLocation
-- getAllVendorPayment / getVendorPaymentByPage / saveVendorPayment
-- getAllVendorProductPricing / getVendorProductPricingByPage
-
-UDA (User Defined Attributes):
-- getUdaLocations / getUdaVendors
+## API Reference: Cruise Platform
+- Application User Service
+  - [getAllApplicationUsers](https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md): Retrieve a list of Application Users, with limited information (e.g. Active status and User Group assignment). Retrieve this information about a single Application User, with additional details (e.g.…
+  - [getApplicationUsersByPage](https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md): Retrieve a list of Application Users across multiple pages. Include additional details (e.g. User/Locations(s), User/Market(s), etc.) for a single Application User or all Application Users by using…
+  - [saveApplicationUser](https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md): Create a new application user.   Update an application user's details.
+- Company Product Enhanced Service
+  - [getAllCompanyProductsEnhancedV1](https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md): Retrieve all company products' details.   Retrieve one company product's details using `productNumber` and `inculdeDetails`.
+  - [getCompanyProductsEnhancedByPage](https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md): Retrieve one or more company products by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveCompanyProductEnhancedV1](https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md): Create a new product.  Update an existing product's details.
+- Currency Ratio Service
+  - [getAllCurrencyRatio](https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md): getAllCurrencyRatio
+  - [getCurrencyRatioByPage](https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md): getCurrencyRatioByPage
+  - [saveCurrencyRatio](https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md): Create a new currency exchange rate.   Update a currency exchange rate details.
+- Customer Service
+  - [getAllCustomers](https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md): Retrieve a list of customer account details.   Retrieve one customer's account details using `customerAccountNumber` and `customerCode`.
+  - [getCustomersByPage](https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md): Retrieve customer account details by `pageNumber`.   Use to retrieve data in smaller chunks.
+  - [saveCustomers](https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md): Create a new customer account.   Update a customer's account details.
+- General Ledger Service
+  - [getAllGeneralLedgersV1](https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md): Retrieve all general ledger entry details.
+  - [saveGeneralLedgerV1](https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md): Create a new general ledger entry.   Update a general ledger entry.
+- Hierarchy Service
+  - [getHierarchiesV1](https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md): Retrieve a list of hierarchies.
+  - [getHierarchyDetailsV1](https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md): Retrieve the details of a specific hierarchy.
+  - [saveHierarchyV1](https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md): Create a new hierarchy.   Update a hierarchy's details.   Delete a hierarchy.
+- Inventory Service
+  - [getAllInventoryAdjustments](https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md): Retrieve inventory adjustments (waste transactions) by date and location.
+  - [getInventoryAdjustmentsByPage](https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md): Retrieve a page of inventory adjustments (waste transactions) by date and location.
+  - [saveInventoryAdjustments](https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md): Create a new inventory adjustment entry.   Update an inventory adjustment entry.
+  - [getAllInventoryValueAdjustments](https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md): Retrieve all inventory value adjustments by date and location.
+  - [getInventoryValueAdjustmentsByPage](https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md): Retrieve a page of inventory adjustments (waste transactions) by date and location.
+  - [saveInventoryValueAdjustments](https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md): Create a new inventory value adjustment entry.   Update an inventory value adjustment entry.
+  - [getAllPhysicalInventoryStandards](https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md): Retrieve a list of all physical inventory counts (quantity only) by date and location.
+  - [getPhysicalInventoryStandardsByPage](https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md): Retrieve by page, all physical inventory counts (quantity only) by date and location.
+  - [savePhysicalInventoryStandards](https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md): Create a new physical inventory entry.   Update a physical inventory entry.
+- Location Product Pricing Service
+  - [getAllLocationProductPricing](https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md): Retrieve all product pricing by location.
+  - [getLocationProductPricingByPage](https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md): Retrieve product pricing for a specific location.
+  - [saveLocationProductPricing](https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md): Create a new product's price in a specific location.   Update a product's price in a specific location.
+- Location Service
+  - [getAllLocationsV1](https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md): Retrieve a list of all Locations.
+  - [getLocationsByPageV1](https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md): Retrieve a list of Locations by page number.
+  - [saveLocationV1](https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md): Create a new location.   Update a location's details.
+- Projected Consumption Service
+  - [getAllProjectedConsumption](https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md): Retrieve the details of all projected consumption entries.
+  - [getProjectedConsumptionByPage](https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md): Retrieve a projected consumption entry's details by page number.
+  - [saveProjectedConsumption](https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md): Create a new projected consumption entry.   Update a projected consumption entry's details.
+- Recipe Enhanced Service
+  - [getAllRecipesEnhancedV1](https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md): Retrieve details of all recipes.     *Supported from v11.02 and above*.
+  - [getRecipesEnhancedByPageV1](https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md): Retrieve details of a recipe by page number.     *Supported from v11.02 and above*.
+  - [saveRecipesV1](https://developer.crunchtime.com/reference/saverecipesusingpost_1.md): Create a new recipe.   Update a recipe.     *Supported from v11.02 and above*.
+- Scheduled Export Service
+  - [downloadScheduledExport](https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md): Download Scheduled Exports. To ensure the highest stability and data integrity for your API integration, we strongly recommend using a sequential or "low-parallelism" pattern when downloading…
+  - [getAllScheduledExportsV1](https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md): Retrieve a list of individual export files generated through Event Scheduling (Scheduled Exports) or manually in Outbound Integrations. Does not include files associated with managed partner…
+  - [markScheduledExportV1](https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md): Mark Scheduled Exports.
+- Vendor Location Service
+  - [getAllVendorLocation](https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md): Retrieve vendor location details.
+  - [getVendorLocationByPage](https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md): Retrieve vendor location details by page number.
+  - [saveVendorLocation](https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md): Create a new vendor location entry.   Update a vendor's location details.
+- Vendor Service
+  - [getAllVendorsV1](https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md): Retrieves a list of all vendors.
+  - [saveVendor](https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md): Create a new vendor entry.   Update vendor details.
 
 ## Recipes
 - [Create an Employee](https://developer.crunchtime.com/recipes/create-an-employee.md)
@@ -121,4 +251,4 @@ UDA (User Defined Attributes):
 - [Terminate an Employee](https://developer.crunchtime.com/recipes/terminate-an-employee.md)
 
 ## Pages
-- [Solutions](https://developer.crunchtime.com/solutions.md)
+- [Solutions](https://developer.crunchtime.com/page/solutions.md)

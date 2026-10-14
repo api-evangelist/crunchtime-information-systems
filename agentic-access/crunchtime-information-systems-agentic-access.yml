@@ -1,0 +1,2027 @@
+generated: '2026-10-14'
+method: generated
+source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml, openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 168
+  by_action_class:
+    connected: 114
+    acting: 54
+  by_consequence:
+    read: 114
+    write: 50
+    physical: 4
+  human_in_the_loop_required: 0
+operations:
+- path: /cruise/applicationuser/v1/getAllApplicationUsers
+  method: get
+  operationId: getAllApplicationUsersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/applicationuser/v1/getApplicationUsersByPage
+  method: get
+  operationId: getApplicationUsersByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/applicationuser/v1/saveApplicationUser
+  method: post
+  operationId: saveApplicationUsersV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/companyproduct/v1/getAllCompanyProductsEnhanced
+  method: get
+  operationId: getAllCompanyProductsEnhancedV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/companyproduct/v1/getCompanyProductsEnhancedByPage
+  method: get
+  operationId: getCompanyProductsEnhancedByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/companyproduct/v1/saveCompanyProductsEnhanced
+  method: post
+  operationId: saveCompanyProductEnhancedV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/currencyratio/v1/getAllCurrencyRatio
+  method: get
+  operationId: getAllCurrencyRatioV1UsingGET_1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/currencyratio/v1/getCurrencyRatioByPage
+  method: get
+  operationId: getCurrencyRatioByPageV1UsingGET_1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/currencyratio/v1/saveCurrencyRatio
+  method: post
+  operationId: saveCurrencyRatioUsingPOST_1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/customer/v1/getAllCustomers
+  method: get
+  operationId: getAllCustomerRecordsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/customer/v1/getCustomersByPage
+  method: get
+  operationId: getCustomerRecordsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/customer/v1/saveCustomers
+  method: post
+  operationId: saveCustomerRecordsUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/generalledger/v1/getAllGeneralLedgers
+  method: get
+  operationId: getAllGeneralLedgersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/generalledger/v1/saveGeneralLedger
+  method: post
+  operationId: saveGeneralLedgerV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/hierarchy/v1/getHierarchies
+  method: get
+  operationId: getHierarchiesV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/hierarchy/v1/getHierarchyDetails/{hierarchyType}
+  method: get
+  operationId: getHierarchyDetailsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/hierarchy/v1/saveHierarchy
+  method: post
+  operationId: saveHierarchyV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/inventory/inventoryadjustment/v1/getAllInventoryAdjustments
+  method: get
+  operationId: getAllInventoryAdjustmentV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/inventory/inventoryadjustment/v1/getInventoryAdjustmentsByPage
+  method: get
+  operationId: getInventoryAdjustmentByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/inventory/inventoryadjustment/v1/saveInventoryAdjustments
+  method: post
+  operationId: saveInventoryAdjustmentUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/inventory/inventoryvalueadjustment/v1/getAllInventoryValueAdjustments
+  method: get
+  operationId: getAllInventoryValueAdjustmentV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/inventory/inventoryvalueadjustment/v1/getInventoryValueAdjustmentsByPage
+  method: get
+  operationId: getInventoryValueAdjustmentByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/inventory/inventoryvalueadjustment/v1/saveInventoryValueAdjustments
+  method: post
+  operationId: saveInventoryValueAdjustmentUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/inventory/physicalinventorystandard/v1/getAllPhysicalInventoryStandards
+  method: get
+  operationId: getAllPhysicalInventoryStandardUsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/inventory/physicalinventorystandard/v1/getPhysicalInventoryStandardsByPage
+  method: get
+  operationId: getPhysicalInventoryStandardByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/inventory/physicalinventorystandard/v1/savePhysicalInventoryStandards
+  method: post
+  operationId: savePhysicalInventoryStandardUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/location/v1/getAllLocations
+  method: get
+  operationId: getAllLocationsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/location/v1/getLocationsByPage
+  method: get
+  operationId: getLocationsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/location/v1/saveLocation
+  method: post
+  operationId: saveLocationV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/locationproductpricing/v1/getAllLocationProductPricing
+  method: get
+  operationId: getAllLocationProductPricingV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/locationproductpricing/v1/getLocationProductPricingByPage
+  method: get
+  operationId: getLocationProductPricingByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/locationproductpricing/v1/saveLocationProductPricing
+  method: post
+  operationId: saveLocationProductPricingUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/projectedconsumption/v1/getAllProjectedConsumption
+  method: get
+  operationId: getAllProjectedConsumptionV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/projectedconsumption/v1/getProjectedConsumptionByPage
+  method: get
+  operationId: getProjectedConsumptionByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/projectedconsumption/v1/saveProjectedConsumption
+  method: post
+  operationId: saveProjectedConsumptionUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/recipe/v1/getAllRecipesEnhanced
+  method: get
+  operationId: getAllRecipesEnhancedV1UsingGET_1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/recipe/v1/getRecipesEnhancedByPage
+  method: get
+  operationId: getRecipesEnhancedByPageV1UsingGET_1
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/recipe/v1/saveRecipesEnhanced
+  method: post
+  operationId: saveRecipesUsingPOST_1
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/scheduledexport/v1/downloadScheduledExport
+  method: get
+  operationId: downloadScheduledExportsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/scheduledexport/v1/getAllScheduledExports
+  method: get
+  operationId: getAllScheduledExportsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/scheduledexport/v1/markScheduledExport
+  method: put
+  operationId: markScheduledExportsV1UsingPUT
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/vendor/v1/getAllVendors
+  method: get
+  operationId: getAllVendorsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/vendor/v1/saveVendor
+  method: post
+  operationId: saveVendorV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /cruise/vendorlocation/v1/getAllVendorLocation
+  method: get
+  operationId: getAllVendorLocationV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/vendorlocation/v1/getVendorLocationByPage
+  method: get
+  operationId: getVendorLocationByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /cruise/vendorlocation/v1/saveVendorLocation
+  method: post
+  operationId: saveVendorLocationV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /applicationuser/v1/getAllApplicationUsers
+  method: get
+  operationId: getAllApplicationUsersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /applicationuser/v1/getApplicationUsersByPage
+  method: get
+  operationId: getApplicationUsersByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /applicationuser/v1/saveApplicationUser
+  method: post
+  operationId: saveApplicationUsersV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /budget/v1/getAllBudget
+  method: get
+  operationId: getAllBudgetV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /budget/v1/getBudgetByPage
+  method: get
+  operationId: getBudgetByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /budget/v1/saveBudget
+  method: post
+  operationId: saveBudgetUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /category/v1/getAllCategories
+  method: get
+  operationId: getAllCategoryV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /category/v1/getCategoriesByPage
+  method: get
+  operationId: getCategoryByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /category/v1/saveCategories
+  method: post
+  operationId: saveCategoryUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ces-auth/validate-user
+  method: post
+  operationId: validateUserUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /checkmenumix/v1/getAllCheckMenuMix
+  method: get
+  operationId: getAllCheckMenuMixRecordsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /checkmenumix/v1/getCheckMenuMixByPage
+  method: get
+  operationId: getCheckMenuMixRecordsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /checkmenumix/v1/saveCheckMenuMix
+  method: post
+  operationId: saveCheckMenuMixRecordsV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /commissaryorder/v1/getAllCommissaryOrders
+  method: get
+  operationId: getAllCommissaryOrdersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /commissaryorder/v1/getCommissaryOrdersByPage
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /companyproduct/v1/getAllCompanyProductsEnhanced
+  method: get
+  operationId: getAllCompanyProductsEnhancedV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /companyproduct/v1/getCompanyProductsEnhancedByPage
+  method: get
+  operationId: getCompanyProductsEnhancedByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /companyproduct/v1/saveCompanyProductsEnhanced
+  method: post
+  operationId: saveCompanyProductEnhancedV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /confirmreceiptstandard/v1/getAllConfirmReceiptsStandard
+  method: get
+  operationId: getAllConfirmReceiptStandardV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /confirmreceiptstandard/v1/getConfirmReceiptsStandardByPage
+  method: get
+  operationId: getConfirmReceiptStandardByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /confirmreceiptstandard/v1/saveConfirmReceiptStandard
+  method: post
+  operationId: saveConfirmReceiptStandardUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /currencyratio/v1/getAllCurrencyRatio
+  method: get
+  operationId: getAllCurrencyRatioV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /currencyratio/v1/getCurrencyRatioByPage
+  method: get
+  operationId: getCurrencyRatioByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /currencyratio/v1/saveCurrencyRatio
+  method: post
+  operationId: saveCurrencyRatioUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customer/v1/getAllCustomers
+  method: get
+  operationId: getAllCustomerRecordsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customer/v1/getCustomersByPage
+  method: get
+  operationId: getCustomerRecordsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customer/v1/saveCustomers
+  method: post
+  operationId: saveCustomerRecordsUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /customerorderenhanced/v1/getAllCustomerOrderEnhanced
+  method: get
+  operationId: getAllCustomerOrderEnhancedV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customerorderenhanced/v1/getCustomerOrderEnhancedByPage
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /customerorderenhanced/v1/saveCustomerOrderEnhanced
+  method: post
+  operationId: saveCustomerOrderEnhancedUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /dailyprep/v1/getAllDailyPreps
+  method: get
+  operationId: getAllDailyPrepsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /dailyprep/v1/getDailyPrepsByPage
+  method: get
+  operationId: getDailyPrepsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /dailyprep/v1/saveDailyPreps
+  method: post
+  operationId: saveDailyPrepsUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /electronicinvoice/v1/saveElectronicInvoice
+  method: post
+  operationId: saveElectronicInvoiceUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /employee/v1/detail
+  method: get
+  operationId: getEmployeeV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /employee/v1/getEmployeeNumbers
+  method: get
+  operationId: getEmployeeNumbersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /employee/v1/getEmployeesByPage
+  method: get
+  operationId: getEmployeesByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /employee/v1/getSchedules
+  method: get
+  operationId: getSchedulesV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /employee/v1/saveEmployee
+  method: post
+  operationId: saveEmployeeV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /generalledger/v1/getAllGeneralLedgers
+  method: get
+  operationId: getAllGeneralLedgersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /generalledger/v1/saveGeneralLedger
+  method: post
+  operationId: saveGeneralLedgerV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /hierarchy/v2/getHierarchies
+  method: get
+  operationId: getHierarchiesV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /hierarchy/v2/getHierarchyDetails
+  method: get
+  operationId: getHierarchyDetailsV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /hierarchy/v2/saveHierarchy
+  method: post
+  operationId: saveHierarchyV2UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /inventory/currentinventory/v1/getCurrentInventoryByPage
+  method: get
+  operationId: getCurrentInventoryByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventoryadjustment/v1/getAllInventoryAdjustments
+  method: get
+  operationId: getAllInventoryAdjustmentV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventoryadjustment/v1/getInventoryAdjustmentsByPage
+  method: get
+  operationId: getInventoryAdjustmentByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventoryadjustment/v1/saveInventoryAdjustments
+  method: post
+  operationId: saveInventoryAdjustmentUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /inventory/inventorylocationtransfers/v1/getAllInventoryLocationTransfers
+  method: get
+  operationId: getAllInventoryLocationTransfersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventorylocationtransfers/v1/getInventoryLocationTransfersByPage
+  method: get
+  operationId: getInventoryLocationTransfersByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventoryvalueadjustment/v1/getAllInventoryValueAdjustments
+  method: get
+  operationId: getAllInventoryValueAdjustmentV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventoryvalueadjustment/v1/getInventoryValueAdjustmentsByPage
+  method: get
+  operationId: getInventoryValueAdjustmentByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/inventoryvalueadjustment/v1/saveInventoryValueAdjustments
+  method: post
+  operationId: saveInventoryValueAdjustmentUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /inventory/physicalinventorystandard/v1/getAllPhysicalInventoryStandards
+  method: get
+  operationId: getAllPhysicalInventoryStandardUsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/physicalinventorystandard/v1/getPhysicalInventoryStandardsByPage
+  method: get
+  operationId: getPhysicalInventoryStandardByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /inventory/physicalinventorystandard/v1/savePhysicalInventoryStandards
+  method: post
+  operationId: savePhysicalInventoryStandardUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /location/v1/getAllLocations
+  method: get
+  operationId: getAllLocationsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /location/v1/getLocationsByPage
+  method: get
+  operationId: getLocationsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /location/v1/saveLocation
+  method: post
+  operationId: saveLocationV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /locationproductpricing/v1/getAllLocationProductPricing
+  method: get
+  operationId: getAllLocationProductPricingV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /locationproductpricing/v1/getLocationProductPricingByPage
+  method: get
+  operationId: getLocationProductPricingByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /locationproductpricing/v1/saveLocationProductPricing
+  method: post
+  operationId: saveLocationProductPricingUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /nutrition/v1/getAllNutritions
+  method: get
+  operationId: getAllNutritionV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /nutrition/v1/getNutritionsByPage
+  method: get
+  operationId: getNutritionByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /nutrition/v1/saveNutritions
+  method: post
+  operationId: saveNutritionUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /packagetype/v2/getAllPackageTypes
+  method: get
+  operationId: getAllPackageTypesV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /packagetype/v2/getPackageTypesByPage
+  method: get
+  operationId: getPackageTypesByPageV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /packagetype/v2/savePackageTypes
+  method: post
+  operationId: savePackageTypesV2UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /pbi/v2/getAllPbis
+  method: get
+  operationId: getAllPbisV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pbi/v2/getAttachmentsByPage
+  method: get
+  operationId: getAttachmentsByPageV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pbi/v2/getPbisByPage
+  method: get
+  operationId: getAllPbisByPageV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /pbi/v2/savePbi
+  method: post
+  operationId: savePbiV2UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /projectedconsumption/v1/getAllProjectedConsumption
+  method: get
+  operationId: getAllProjectedConsumptionV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /projectedconsumption/v1/getProjectedConsumptionByPage
+  method: get
+  operationId: getProjectedConsumptionByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /projectedconsumption/v1/saveProjectedConsumption
+  method: post
+  operationId: saveProjectedConsumptionUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /purchaseorder/v1/getAllPurchaseOrders
+  method: get
+  operationId: getAllPurchaseOrdersV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /purchaseorder/v1/getAttachmentsByPage
+  method: get
+  operationId: getAttachmentsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /purchaseorder/v1/getPurchaseOrdersByPage
+  method: get
+  operationId: getPurchaseOrdersByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /purchaseorder/v1/savePurchaseOrders
+  method: post
+  operationId: savePurchaseOrdersUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /recipe/v2/getAllRecipesEnhanced
+  method: get
+  operationId: getAllRecipesEnhancedV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /recipe/v2/getRecipesEnhancedByPage
+  method: get
+  operationId: getRecipesEnhancedByPageV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /recipe/v2/saveRecipesEnhanced
+  method: post
+  operationId: saveRecipesV2UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /recipelocation/v1/getAllRecipeLocations
+  method: get
+  operationId: getAllRecipeLocationV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /recipelocation/v1/getRecipeLocationsByPage
+  method: get
+  operationId: getRecipeLocationByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /recipelocation/v1/saveRecipeLocations
+  method: post
+  operationId: saveRecipeLocationUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /salesforecast/v1/15-minutes/getSalesForecast
+  method: get
+  operationId: get15MinutesSalesForecastV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesforecast/v1/15-minutes/getSalesForecastByPage
+  method: get
+  operationId: get15MinutesSalesForecastByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesforecast/v1/15-minutes/saveSalesForecast
+  method: post
+  operationId: save15MinutesSalesForecastUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /salesforecast/v1/daily/getSalesForecast
+  method: get
+  operationId: getDailySalesForecastV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesforecast/v1/daily/getSalesForecastByPage
+  method: get
+  operationId: getDailySalesForecastByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesforecast/v1/daily/saveSalesForecast
+  method: post
+  operationId: saveDailySalesForecastUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /salesforecast/v1/hourly/getSalesForecast
+  method: get
+  operationId: getHourlySalesForecastV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesforecast/v1/hourly/getSalesForecastByPage
+  method: get
+  operationId: getHourlySalesForecastByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesforecast/v1/hourly/saveSalesForecast
+  method: post
+  operationId: saveHourlySalesForecastUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /salesmix/v1/getAllSalesMix
+  method: get
+  operationId: getAllSalesMixRecordsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesmix/v1/getSalesMixByPage
+  method: get
+  operationId: getSalesMixRecordsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /salesmix/v1/saveSalesMix
+  method: post
+  operationId: saveSalesMixRecordUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /scheduledexport/v1/downloadScheduledExport
+  method: get
+  operationId: downloadScheduledExportsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /scheduledexport/v1/getAllScheduledExports
+  method: get
+  operationId: getAllScheduledExportsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /scheduledexport/v1/markScheduledExport
+  method: put
+  operationId: markScheduledExportsV1UsingPUT
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /scheduledexport/v2/downloadScheduledExport
+  method: get
+  operationId: downloadScheduledExportsV2UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /storagelocation/v1/getAllStorageLocations
+  method: get
+  operationId: getAllStorageLocationV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /storagelocation/v1/getStorageLocationsByPage
+  method: get
+  operationId: getStorageLocationByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /storagelocation/v1/saveStorageLocations
+  method: post
+  operationId: saveStorageLocationUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /supplementalwage/v1/getAllSupplementalWages
+  method: get
+  operationId: getAllSupplementalWageRecordsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /supplementalwage/v1/getSupplementalWagesByPage
+  method: get
+  operationId: getSupplementalWageRecordsByPageUsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /supplementalwage/v1/saveSupplementalWages
+  method: post
+  operationId: saveSupplementalWageRecordsUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /timeclock/v1/getAllTimeClockEnhanced
+  method: get
+  operationId: getAllTimeClockEnhancedRecordsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /timeclock/v1/getTimeClockEnhancedByPage
+  method: get
+  operationId: getTimeClockEnhancedRecordsByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /timeclock/v1/saveTimeClockEnhanced
+  method: post
+  operationId: saveTimeClockEnhancedRecordsUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /uda/v1/locations/list
+  method: get
+  operationId: getUdaLocationsUsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /uda/v1/vendors/list
+  method: get
+  operationId: getUdaVendorsUsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendor/v1/getAllVendors
+  method: get
+  operationId: getAllVendorsV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendor/v1/saveVendor
+  method: post
+  operationId: saveVendorV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /vendorlocation/v1/getAllVendorLocation
+  method: get
+  operationId: getAllVendorLocationV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendorlocation/v1/getVendorLocationByPage
+  method: get
+  operationId: getVendorLocationByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendorlocation/v1/saveVendorLocation
+  method: post
+  operationId: saveVendorLocationV1UsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /vendorpayment/v1/getAllVendorPayment
+  method: get
+  operationId: getAllVendorPaymentV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendorpayment/v1/getVendorPaymentByPage
+  method: get
+  operationId: getVendorPaymentByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendorpayment/v1/saveVendorPayment
+  method: post
+  operationId: saveVendorPaymentUsingPOST
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /vendorproductpricing/v1/getAllVendorProductPricing
+  method: get
+  operationId: getAllVendorProductPricingV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /vendorproductpricing/v1/getVendorProductPricingByPage
+  method: get
+  operationId: getVendorProductPricingByPageV1UsingGET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

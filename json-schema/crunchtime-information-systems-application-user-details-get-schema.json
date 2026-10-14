@@ -1,0 +1,558 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-application-user-details-get-schema.json",
+  "title": "ApplicationUserDetailsGet",
+  "description": "ApplicationUserDetailsGet description",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/ApplicationUserDetailsGet",
+  "type": "object",
+  "properties": {
+    "appUserBizIQDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserBizIQDetailDto"
+      }
+    },
+    "appUserConceptDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserConceptDetailDto"
+      }
+    },
+    "appUserConsolidationVendorDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserConsolidationVendorDetailDto"
+      }
+    },
+    "appUserCustomerDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserCustomerDetailDto"
+      }
+    },
+    "appUserDailyAlertDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserDailyAlertDetailDto"
+      }
+    },
+    "appUserDepartmentDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserDepartmentDetailDto"
+      }
+    },
+    "appUserDetails": {
+      "$ref": "#/$defs/AppUserDetailDto"
+    },
+    "appUserFranchiseDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserFranchiseDetailDto"
+      }
+    },
+    "appUserHierarchyDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserHierarchyDetailDto"
+      }
+    },
+    "appUserLocationDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserLocationDetailDto"
+      }
+    },
+    "appUserMarketDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserMarketDetailDto"
+      }
+    },
+    "appUserPasswordDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AppUserPasswordDetailDto"
+      }
+    },
+    "userId": {
+      "type": "string",
+      "description": "\"User Id\" from applicationUsers"
+    }
+  },
+  "$defs": {
+    "AppUserBizIQDetailDto": {
+      "type": "object",
+      "required": [
+        "bizIqAccessLevel",
+        "userId"
+      ],
+      "properties": {
+        "bizIqAccessLevel": {
+          "type": "string",
+          "description": "\"BizIQ User Access\" level from the application user details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserBizIQDetailDto",
+      "description": "AppUserBizIQDetailDto description"
+    },
+    "AppUserConceptDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "conceptCode",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Concept record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "conceptCode": {
+          "type": "string",
+          "description": "\"Concept Code\" from the application user Concept details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserConceptDetailDto",
+      "description": "AppUserConceptDetailDto description"
+    },
+    "AppUserConsolidationVendorDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "userId",
+        "vendorCode"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Consolidation Vendor record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        },
+        "vendorCode": {
+          "type": "string",
+          "description": "\"Vendor Code\" from the application user Consolidation Vendor details."
+        }
+      },
+      "title": "AppUserConsolidationVendorDetailDto",
+      "description": "AppUserConsolidationVendorDetailDto description"
+    },
+    "AppUserCustomerDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "customer",
+        "locationCode",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Customer record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "customer": {
+          "type": "string",
+          "description": "\"Customer Code\" from the application user Customer details."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" for the Location associated with the Customer, from the application user Customer details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserCustomerDetailDto",
+      "description": "AppUserCustomerDetailDto description"
+    },
+    "AppUserDailyAlertDetailDto": {
+      "type": "object",
+      "required": [
+        "emailFormat",
+        "hierarchyType",
+        "locationCode",
+        "logicalName",
+        "reportName",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Daily Alert record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "emailFormat": {
+          "type": "string",
+          "description": "\"E-mail Format\" setting from the application user Daily Alert details. Must be ‘T’ (Text) or ‘I’ (Image)."
+        },
+        "hierarchyType": {
+          "type": "string",
+          "description": "\"Hierarchy\" Type from the application user Daily Alert details."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location\" Code for the Hierarchy from the application user Daily Alert details."
+        },
+        "logicalName": {
+          "type": "string",
+          "description": "Location \"Logical Name\" for the Hierarchy from the application user Daily Alert details."
+        },
+        "reportName": {
+          "type": "string",
+          "description": "\"Report\" name from the application user Daily Alert details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserDailyAlertDetailDto",
+      "description": "AppUserDailyAlertDetailDto description"
+    },
+    "AppUserDepartmentDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "locationCode",
+        "locationDepartment",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Department record."
+        },
+        "approvalAuthority": {
+          "type": "string",
+          "description": "\"Approval Authority\" flag from the application user Department details."
+        },
+        "approvalLimit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "\"Approval Limit\" from the application user Department details."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" for the Location associated with the Department, from the application user Department details."
+        },
+        "locationDepartment": {
+          "type": "string",
+          "description": "\"location Department\" name from the application user Department details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserDepartmentDetailDto",
+      "description": "AppUserDepartmentDetailDto description"
+    },
+    "AppUserDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "email",
+        "firstName",
+        "lastName",
+        "newHireFlag",
+        "userGroup",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag from the application user 'User' tab.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "email": {
+          "type": "string",
+          "description": "\"E-mail\" address from the application user 'User' tab."
+        },
+        "employeeNumber": {
+          "type": "string",
+          "description": "\"Employee Record\" number from the application user 'User' tab."
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CdpError"
+          }
+        },
+        "ext": {
+          "type": "string",
+          "description": "Telephone \"Ext\" from the application user 'User' tab."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "\"First Name\" from the application user 'User' tab."
+        },
+        "hhUserFlag": {
+          "type": "string",
+          "description": "\"Hand-held User Flag\" from the application user 'User' tab.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "hhUserId": {
+          "type": "string",
+          "description": "\"Hand-held User ID\" from the application user 'User' tab."
+        },
+        "hhUserPassword": {
+          "type": "string",
+          "description": "\"Hand-held User Password\" from the application user 'User' tab."
+        },
+        "language": {
+          "type": "string",
+          "description": "\"Language\" from the application user 'User' tab."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "\"Last Name\" from the application user 'User' tab."
+        },
+        "newHireFlag": {
+          "type": "string",
+          "description": "\"New Hire\" flag from the application user 'User' tab.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "teamworxFlag": {
+          "type": "string",
+          "description": "\"Access Teamworx Mgr. Console\" flag from the application user 'User' tab.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "telephone": {
+          "type": "string",
+          "description": "\"Telephone\" from the application user 'User' tab."
+        },
+        "userGroup": {
+          "type": "string",
+          "description": "\"User Group\" from the application user 'User' tab."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user 'User' tab."
+        }
+      },
+      "title": "AppUserDetailDto",
+      "description": "AppUserDetailDto description"
+    },
+    "AppUserFranchiseDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "franchiseCode",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Franchise record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "franchiseCode": {
+          "type": "string",
+          "description": "\"Franchise Code\" from the application user Franchise details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserFranchiseDetailDto",
+      "description": "AppUserFranchiseDetailDto description"
+    },
+    "AppUserHierarchyDetailDto": {
+      "type": "object",
+      "required": [
+        "consolidatedDashboardFlag",
+        "hierarchyType",
+        "limitExportLocationsFlag",
+        "locationCode",
+        "logicalName",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Hierarchy record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "consolidatedDashboardFlag": {
+          "type": "string",
+          "description": "\"Consolidated Dashboard\" flag from the application user Hierarchy details.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "hierarchyType": {
+          "type": "string",
+          "description": "\"hierarchy Type\" from the application user Hierarchy details."
+        },
+        "limitExportLocationsFlag": {
+          "type": "string",
+          "description": "\"Limit Export Locations\" flag from the application user Hierarchy details.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location\" Code for the Hierarchy from the application user Hierarchy details."
+        },
+        "logicalName": {
+          "type": "string",
+          "description": "Parent \"Logical Name\" for the Hierarchy from the application user Hierarchy details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserHierarchyDetailDto",
+      "description": "AppUserHierarchyDetailDto description"
+    },
+    "AppUserLocationDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "locationCode",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Location record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location\" Code from the application user Location details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserLocationDetailDto",
+      "description": "AppUserLocationDetailDto description"
+    },
+    "AppUserMarketDetailDto": {
+      "type": "object",
+      "required": [
+        "activeFlag",
+        "market",
+        "userId"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag for the User/Market record.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "market": {
+          "type": "string",
+          "description": "\"Market\" name from the application user Market details."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserMarketDetailDto",
+      "description": "AppUserMarketDetailDto description"
+    },
+    "AppUserPasswordDetailDto": {
+      "type": "object",
+      "required": [
+        "password",
+        "userId"
+      ],
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "Password for the Crunchtime Application User."
+        },
+        "userId": {
+          "type": "string",
+          "description": "\"User ID\" from the application user details."
+        }
+      },
+      "title": "AppUserPasswordDetailDto",
+      "description": "AppUserPasswordDetailDto description"
+    },
+    "CdpError": {
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        },
+        "fieldNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lineNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "parentFileLineNumber": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "CdpError"
+    }
+  }
+}

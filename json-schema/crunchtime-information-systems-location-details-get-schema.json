@@ -1,0 +1,799 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-location-details-get-schema.json",
+  "title": "LocationDetailsGet",
+  "description": "LocationDetailsGet description",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/LocationDetailsGet",
+  "type": "object",
+  "required": [
+    "locationCode"
+  ],
+  "properties": {
+    "locationAltAddressDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationAltAddrDetailDto"
+      }
+    },
+    "locationCode": {
+      "type": "string",
+      "description": "Company \"Code\" from Company setup screen."
+    },
+    "locationConceptInfoDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationConceptInfoDetailDto"
+      }
+    },
+    "locationDeliverInfoDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationDeliverInfoDetailDto"
+      }
+    },
+    "locationDetailDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationDetailDetailDtoGet"
+      }
+    },
+    "locationHoursOfOperationDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationHoursOfOperationDetailDto"
+      }
+    },
+    "locationLaborDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationLaborDetailDto"
+      }
+    },
+    "locationNameAddressDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationNameAddrDetailDto"
+      }
+    },
+    "locationPostDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationPostDetailDto"
+      }
+    },
+    "locationSafeLogDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationSafeLogDetailDto"
+      }
+    },
+    "locationTimeClockInTwxDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationTimeClockInTwxDetailDto"
+      }
+    },
+    "locationUdaDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LocationUdaDetailDto"
+      }
+    }
+  },
+  "$defs": {
+    "LocationAltAddrDetailDto": {
+      "type": "object",
+      "required": [
+        "locationCode",
+        "stateProvince",
+        "zip"
+      ],
+      "properties": {
+        "acapCode": {
+          "type": "string",
+          "description": "\"ACAP Code\" from Location setup screen."
+        },
+        "accoCode": {
+          "type": "string",
+          "description": "\"ACCO Code\" from Location setup screen."
+        },
+        "altAddressOne": {
+          "type": "string",
+          "description": "\"Alt. Address 1\" from Location setup screen."
+        },
+        "altAddressTwo": {
+          "type": "string",
+          "description": "\"Alt. Address 2\" from Location setup screen."
+        },
+        "altPhone": {
+          "type": "string",
+          "description": "\"Alt. Phone\" from Location setup screen."
+        },
+        "cdpEMail": {
+          "type": "string",
+          "description": "\"CDP E-Mail\" from Location setup screen."
+        },
+        "city": {
+          "type": "string",
+          "description": "\"City\" from Location setup screen."
+        },
+        "companyNameForPO": {
+          "type": "string",
+          "description": "\"Company Name for PO\" from Location setup screen."
+        },
+        "exportCode": {
+          "type": "string",
+          "description": "\"Export Code\" from Location setup screen."
+        },
+        "importCode": {
+          "type": "string",
+          "description": "\"Import Code\" from Location setup screen."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" from Location setup screen."
+        },
+        "payrollExportCode": {
+          "type": "string",
+          "description": "\"Payroll Export Code\" from Location setup screen."
+        },
+        "stateProvince": {
+          "type": "string",
+          "description": "\"State/Province\" from Location setup screen."
+        },
+        "zip": {
+          "type": "string",
+          "description": "\"Zip Code\" from Location setup screen."
+        }
+      },
+      "title": "LocationAltAddrDetailDto",
+      "description": "LocationAltAddrDetailDto description"
+    },
+    "LocationConceptInfoDetailDto": {
+      "type": "object",
+      "required": [
+        "conceptCode",
+        "conceptName",
+        "locationCode"
+      ],
+      "properties": {
+        "conceptCode": {
+          "type": "string",
+          "description": "\"Concept Code\" from Location setup screen."
+        },
+        "conceptName": {
+          "type": "string",
+          "description": "\"Concept Name\" from Location setup screen."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" from Location setup screen."
+        },
+        "remove": {
+          "type": "string",
+          "description": "\"Delete\" flag (Y/N). \nIf set to ‘Y’, it will delete this Concept from the Location record",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        }
+      },
+      "title": "LocationConceptInfoDetailDto",
+      "description": "LocationConceptInfoDetailDto description"
+    },
+    "LocationDeliverInfoDetailDto": {
+      "type": "object",
+      "required": [
+        "deliverToCode",
+        "deliverToName",
+        "locationCode"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active Flag\" from Location setup screen",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "delete": {
+          "type": "string",
+          "description": "\"Delete Flag\" from Location setup screen",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "deliverToCode": {
+          "type": "string",
+          "description": "\"Deliver To Code\" from Location setup screen"
+        },
+        "deliverToName": {
+          "type": "string",
+          "description": "\"Deliver To Name\" from Location setup screen"
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" from Location setup screen"
+        }
+      },
+      "title": "LocationDeliverInfoDetailDto",
+      "description": "LocationDeliverInfoDetailDto description"
+    },
+    "LocationDetailDetailDtoGet": {
+      "type": "object",
+      "required": [
+        "allowAutoPost",
+        "locationCode"
+      ],
+      "properties": {
+        "allowAutoPost": {
+          "type": "string",
+          "description": "'Auto-Post' flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "allowAutoTransfer": {
+          "type": "string",
+          "description": "'Allow Auto-Transfer' flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "autoCreatePOSRecipe": {
+          "type": "string",
+          "description": "'Allow Menu Mix File to Create Recipes for Unknown POS Recipes' from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "autoPostDaysOffset": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Offset from Post Date ___ Days from Location setup screen.",
+          "enum": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "autoPostMethod": {
+          "type": "string",
+          "description": "Auto-Post Method from Location setup screen \n‘A’ for Auto-Post Inventory or ‘X’ for Auto-Post Inventory By Exception.",
+          "enum": [
+            "A",
+            "X"
+          ]
+        },
+        "autoPostTime": {
+          "type": "object",
+          "description": "Auto-Post Time from Location setup screen."
+        },
+        "autoPrepForDepletion": {
+          "type": "string",
+          "description": "'Auto-Daily Prep for sales depletion flag' from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "baseCurrency": {
+          "type": "string",
+          "description": "'Base Currency' Code from Location setup screen."
+        },
+        "biziqCompDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date on which BizIQ year over year comparisons start for the location, in 'YYYYMMDD' format."
+        },
+        "borrowCnsEndDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "'Use Historical Consumption from' Date from Location setup screen."
+        },
+        "borrowCnsLocationCode": {
+          "type": "string",
+          "description": "'Use Historical Consumption from' Location Code from Location setup screen."
+        },
+        "buffetQuantityAlertPercent": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Buffet Quantity Alert (%) from Location setup screen."
+        },
+        "dailyPrepReview": {
+          "type": "string",
+          "description": "'Daily Prep Review' flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "earliestPostDateTimeBasedOn": {
+          "type": "string",
+          "description": "'Earliest Post Date/Time based on' setting from Location setup screen. \n‘C’ for Closing Time or ‘E’ for End of Business Day.",
+          "enum": [
+            "C",
+            "E"
+          ]
+        },
+        "gmtOffset": {
+          "type": "integer",
+          "format": "int64",
+          "description": "GMT Offset from Location setup screen."
+        },
+        "grandOpeningDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Opening Date from Location setup screen."
+        },
+        "inventoryAutoFlag": {
+          "type": "string",
+          "description": "Indicates whether the last inventory post was completed via Auto-Post (Y/N)."
+        },
+        "inventoryDataEntryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Displays the date of the last inventory data entry, in UTC format."
+        },
+        "inventoryPostUpFlag": {
+          "type": "string",
+          "description": "Indicates whether the last inventory post was completed via Post Up (Y/N)."
+        },
+        "inventoryUserId": {
+          "type": "string",
+          "description": "Displays the User ID of the user that completed the last inventory."
+        },
+        "laborAutoFlag": {
+          "type": "string",
+          "description": "Indicates whether the last labor post was completed via Auto-Post (Y/N)."
+        },
+        "laborDataEntryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Displays the date of the last labor review, in UTC format."
+        },
+        "laborPostUpFlag": {
+          "type": "string",
+          "description": "Indicates whether the last labor post was completed via Post Up (Y/N)."
+        },
+        "laborUserId": {
+          "type": "string",
+          "description": "Displays the User ID of the user that completed the last labor review."
+        },
+        "lastInventoryPost": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Displays the date of the last inventory post."
+        },
+        "lastLaborPost": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Displays the date of the last labor post."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "Location Code from Location setup screen."
+        },
+        "lotTracking": {
+          "type": "string",
+          "description": "Lot Tracking Flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "market": {
+          "type": "string",
+          "description": "Market Name from Location setup screen."
+        },
+        "missingPrepCheck": {
+          "type": "string",
+          "description": "'Check for Missing Prep in Final for Post' flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "optimalDaysOnHand": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Optimal Days On Hand from Location setup screen."
+        },
+        "ownershipEntity": {
+          "type": "string",
+          "description": "Ownership Entity from Location setup screen."
+        },
+        "posFilePath": {
+          "type": "string",
+          "description": "POS File Path from Location setup screen."
+        },
+        "posType": {
+          "type": "string",
+          "description": "POS Type from Location setup screen."
+        },
+        "productionQuantityAlertPercent": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Production Quantity Alert (%) from Location setup screen."
+        },
+        "purchaseType": {
+          "type": "string",
+          "description": "Purchase Type from Location setup screen. \n‘M’ for Master Order, ‘D’ for Direct (Vendor) Order, or 'C' for Combination.",
+          "enum": [
+            "C",
+            "D",
+            "M"
+          ]
+        },
+        "secMrktPurchase": {
+          "type": "string",
+          "description": "'Allow purchase from secondary Market Vendors' flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "smartPicklist": {
+          "type": "string",
+          "description": "'Smart Picklist' flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "software": {
+          "type": "string",
+          "description": "Accounting Software from Location setup screen."
+        },
+        "timezone": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Time Zone setting from Location setup screen."
+        }
+      },
+      "title": "LocationDetailDetailDtoGet",
+      "description": "LocationDetailDetailDtoGet description"
+    },
+    "LocationHoursOfOperationDetailDto": {
+      "type": "object",
+      "required": [
+        "corporateFlag",
+        "dayOfWeek",
+        "locationCode"
+      ],
+      "properties": {
+        "closingTime": {
+          "type": "string",
+          "description": "\"Closing Time \" from Location setup screen."
+        },
+        "closingTimeCleanup": {
+          "type": "string",
+          "description": "\"Closing Time (Cleanup)\" from Location setup screen."
+        },
+        "corporateFlag": {
+          "type": "string",
+          "description": "\"Corporate\" flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "dayOfWeek": {
+          "type": "integer",
+          "format": "int64",
+          "description": "\"Day Of Week\" from Location setup screen. \n '1'– Sun, '2'– Mon, '3'– Tue, '4'- Wed, '5'– Thur, '6'– Fri, '7'– Sat."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "Location \" Code\" from Location setup screen."
+        },
+        "openingTime": {
+          "type": "string",
+          "description": "\"Opening Time \" from Location setup screen."
+        },
+        "openingTimeSetup": {
+          "type": "string",
+          "description": "\"Opening Time (Setup)\" from Location setup screen."
+        }
+      },
+      "title": "LocationHoursOfOperationDetailDto",
+      "description": "LocationHoursOfOperationDetailDto description"
+    },
+    "LocationLaborDetailDto": {
+      "type": "object",
+      "required": [
+        "corporateFlag",
+        "locationCode"
+      ],
+      "properties": {
+        "businessDayBegins": {
+          "type": "string",
+          "description": "\"Business Day Begin Time\" from Location setup screen."
+        },
+        "corporateFlag": {
+          "type": "string",
+          "description": "\"Corporate\" flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "Location \"Code\" from Location setup screen."
+        }
+      },
+      "title": "LocationLaborDetailDto",
+      "description": "LocationLaborDetailDto description"
+    },
+    "LocationNameAddrDetailDto": {
+      "type": "object",
+      "required": [
+        "addressOne",
+        "city",
+        "locationCode",
+        "locationName"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active\" flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "addressOne": {
+          "type": "string",
+          "description": "\"Address 1\" from Location setup screen."
+        },
+        "addressTwo": {
+          "type": "string",
+          "description": "\"Address 2\" from Location setup screen."
+        },
+        "city": {
+          "type": "string",
+          "description": "\"City\" from Location setup screen."
+        },
+        "country": {
+          "type": "string",
+          "description": "\"Country\" from Location setup screen."
+        },
+        "eMail": {
+          "type": "string",
+          "description": "\"E-Mail\" from Location setup screen."
+        },
+        "fax": {
+          "type": "string",
+          "description": "\"Fax\" from Location setup screen."
+        },
+        "franchiseCode": {
+          "type": "string",
+          "description": "\"Franchise Code\" from Location setup screen."
+        },
+        "locationADRemoteName": {
+          "type": "string",
+          "description": "\"AD Location Name\" from Location setup screen."
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" from Location setup screen."
+        },
+        "locationName": {
+          "type": "string",
+          "description": "\"Location Name\" from Location setup screen."
+        },
+        "phone": {
+          "type": "string",
+          "description": "\"Phone\" from Location setup screen."
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "stateProvince": {
+          "type": "string",
+          "description": "\"State/Province\" from Location setup screen."
+        },
+        "zip": {
+          "type": "string",
+          "description": "\"Zip Code\" from Location setup screen."
+        }
+      },
+      "title": "LocationNameAddrDetailDto",
+      "description": "LocationNameAddrDetailDto description"
+    },
+    "LocationPostDetailDto": {
+      "type": "object",
+      "required": [
+        "enabledFlag",
+        "locationCode",
+        "postingGrp"
+      ],
+      "properties": {
+        "enabledFlag": {
+          "type": "string",
+          "description": "\"Enabled\" flag from Location setup screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "Location \"Code\" from Location setup screen."
+        },
+        "postingGrp": {
+          "type": "string",
+          "description": "\"Posting Group ID\" from Location setup screen."
+        }
+      },
+      "title": "LocationPostDetailDto",
+      "description": "LocationPostDetailDto description"
+    },
+    "LocationSafeLogDetailDto": {
+      "type": "object",
+      "required": [
+        "locationCode",
+        "safeLogName",
+        "expectedValue",
+        "currencyCode"
+      ],
+      "properties": {
+        "locationCode": {
+          "type": "string",
+          "description": "Location \"Code\" from Location setup screen."
+        },
+        "safeLogName": {
+          "type": "string",
+          "description": "\"Safe Log Name\" from Location Safe Log screen."
+        },
+        "expectedValue": {
+          "type": "number",
+          "description": "\"Expected Value\" from Location Safe Log screen."
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "\"Currency Code\" from Location Safe Log screen. Supported values include USD, CAD, GBP, EUR, AUD, AED, and SAR."
+        },
+        "activeFlag": {
+          "type": "string",
+          "description": "\"Active Flag\" from Location Safe Log screen.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "noteRequiredForVarianceFlag": {
+          "type": "string",
+          "description": "\"Note Required\" flag from Location Safe Log screen. If 'Y', user must include a note with each Safe Log entry.",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "varianceThreshold": {
+          "type": "integer",
+          "format": "int64",
+          "description": "\"Note Variance\" from Location Safe Log screen; indicates the acceptable threshold for a discrepancy between the Expected and Actual values."
+        }
+      },
+      "title": "LocationSafeLogDetailDto",
+      "description": "LocationSafeLogDetailDto description"
+    },
+    "LocationTimeClockInTwxDetailDto": {
+      "type": "object",
+      "required": [
+        "locationCode"
+      ],
+      "properties": {
+        "allowTimeClockInMTX": {
+          "type": "boolean",
+          "description": "\"allowTimeClockInMTX\" from Location Labor setup screen"
+        },
+        "allowTimeClockInTWX": {
+          "type": "boolean",
+          "description": "\"allowTimeClockInTWX\" from Location Labor setup screen"
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"Location Code\" from Location setup screen"
+        },
+        "minutesEarly": {
+          "type": "integer",
+          "format": "int32",
+          "description": "\"minutesEarly\" from Location Labor setup screen"
+        },
+        "minutesLate": {
+          "type": "integer",
+          "format": "int32",
+          "description": "\"minutesLate\" from Location Labor setup screen"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "contentReportingEmail": {
+          "type": "string",
+          "description": "\"Inappropriate Content Reporting Emails\" from Location -> Labor setup screen"
+        }
+      },
+      "title": "LocationTimeClockInTwxDetailDto",
+      "description": "The Labor Setup tab on the Enterprise Manager Location screen contains information about the Time Clock in Teamworx section. This section provides details about the time clock setup in Teamworx."
+    },
+    "LocationUdaDetailDto": {
+      "type": "object",
+      "required": [
+        "dataType",
+        "lastTouchDate",
+        "locationCode",
+        "replicatedFlag",
+        "requiredFlag",
+        "udaCode",
+        "udaDescription",
+        "udaGroup",
+        "udaType",
+        "udaValue"
+      ],
+      "properties": {
+        "dataType": {
+          "type": "string",
+          "description": "\"dataType\" from Location setup screen"
+        },
+        "lastTouchDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "\"lastTouchDate\" from Location setup screen"
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "\"locationCode\" from Location setup screen"
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "replicatedFlag": {
+          "type": "boolean",
+          "description": "\"replicatedFlag\" from Location setup screen"
+        },
+        "requiredFlag": {
+          "type": "string",
+          "description": "\"requiredFlag\" from Location setup screen",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "udaCode": {
+          "type": "string",
+          "description": "\"udaCode\" from Location setup screen"
+        },
+        "udaDescription": {
+          "type": "string",
+          "description": "\"udaDescription\" from Location setup screen"
+        },
+        "udaGroup": {
+          "type": "string",
+          "description": "\"udaGroup\" from Location setup screen"
+        },
+        "udaType": {
+          "type": "string",
+          "description": "\"udaType\" from Location setup screen"
+        },
+        "udaValue": {
+          "type": "string",
+          "description": "\"udaValue\" from Location setup screen"
+        }
+      },
+      "title": "LocationUdaDetailDto",
+      "description": "LocationUdaDetailDto description"
+    }
+  }
+}

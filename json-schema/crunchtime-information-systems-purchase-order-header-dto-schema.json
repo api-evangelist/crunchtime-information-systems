@@ -1,0 +1,692 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json",
+  "title": "PurchaseOrderHeaderDto",
+  "description": "PurchaseOrderHeaderDto description",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-inventory-labor-openapi.yml#/components/schemas/PurchaseOrderHeaderDto",
+  "type": "object",
+  "properties": {
+    "accountNumber": {
+      "type": "string",
+      "description": "Receiving location's specific account number with the vendor"
+    },
+    "actualDeliveryDate": {
+      "type": "string",
+      "description": "Actual Delivery Date"
+    },
+    "adjustInvoicePrices": {
+      "type": "boolean",
+      "description": "Indicates if invoice prices will be adjusted based on vendor setting at the time of invoice"
+    },
+    "apBatchNumber": {
+      "type": "string",
+      "description": "AP Batch Number"
+    },
+    "approvalDate": {
+      "type": "string",
+      "description": "Date an order was approved"
+    },
+    "approvalDateUTC": {
+      "type": "string",
+      "description": "Date an order was approved UTC"
+    },
+    "approvalRequiredFlag": {
+      "type": "boolean",
+      "description": "Indicates whether the vendor order requires approval because of a price/quantity discrepancy"
+    },
+    "approvalUser": {
+      "type": "string",
+      "description": "User that approved an order"
+    },
+    "autoOrderFlag": {
+      "type": "boolean",
+      "description": "Indicates whether the order was created by Auto-Order"
+    },
+    "autoOrderTransmitFlag": {
+      "type": "boolean",
+      "description": "Indicates whether the autoorder has been successfully transmitted"
+    },
+    "checkNumber": {
+      "type": "string",
+      "description": "Check Number (COD)"
+    },
+    "confirmAnticipatedShipDate": {
+      "type": "string",
+      "description": "Confirm Anticipated Ship Date"
+    },
+    "confirmAnticipatedShipDateUTC": {
+      "type": "string",
+      "description": "Confirm Anticipated Ship Date UTC"
+    },
+    "confirmDate": {
+      "type": "string",
+      "description": "Date Confirmed Terms for order"
+    },
+    "confirmReceiptDate": {
+      "type": "string",
+      "description": "Date Confirmed Receipt for order"
+    },
+    "confirmReceiptFlag": {
+      "type": "boolean",
+      "description": "Indicates that a Vendor Order Confirm Receipt has been received for the Vendor Order"
+    },
+    "confirmReceiptTrackingNum": {
+      "type": "string",
+      "description": "Vendor’s tracking number for the Vendor Order"
+    },
+    "confirmReceiptUser": {
+      "type": "string",
+      "description": "User who confirmed receipt"
+    },
+    "confirmTermsAlert": {
+      "type": "boolean",
+      "description": "Indicates whether an alert (price or quantity) was identified during the confirm terms process"
+    },
+    "confirmTermsFlag": {
+      "type": "boolean",
+      "description": "Indicates when a confirm terms file is successfully processed"
+    },
+    "confirmUser": {
+      "type": "string",
+      "description": "User who confirmed Terms for order"
+    },
+    "consumptionDays": {
+      "type": "number",
+      "format": "double",
+      "description": "Number of days of consumption"
+    },
+    "corporateCurrency": {
+      "type": "string",
+      "description": "Corporate Currency"
+    },
+    "createDate": {
+      "type": "string",
+      "description": "Create Date"
+    },
+    "createDateUTC": {
+      "type": "string",
+      "description": "Create Date UTC"
+    },
+    "createdByOcr": {
+      "type": "boolean",
+      "description": "Indicates whether the order was created by OCR"
+    },
+    "createdByReconciler": {
+      "type": "boolean",
+      "description": "Indicates whether the order was created by Reconciler Mobile application"
+    },
+    "ctxConfirmReceiptUser": {
+      "type": "string",
+      "description": "CTX user email that acknowledged the order"
+    },
+    "ctxConfirmUser": {
+      "type": "string",
+      "description": "CTX user email that confirmed the order"
+    },
+    "ctxInvoiceUser": {
+      "type": "string",
+      "description": "CTX user email that invoiced the order"
+    },
+    "deliverToLocationCode": {
+      "type": "string",
+      "description": "Deliver to Location Code"
+    },
+    "details": {
+      "type": "array",
+      "description": "Product Details for the order",
+      "items": {
+        "$ref": "#/$defs/PurchaseOrderDetailsDto"
+      }
+    },
+    "disputeDate": {
+      "type": "string",
+      "description": "The date that the Vendor Order is rejected by the vendor"
+    },
+    "disputeDateTime": {
+      "type": "string",
+      "description": "Dispute DateTime"
+    },
+    "disputeDateTimeUTC": {
+      "type": "string",
+      "description": "Dispute DateTime UTC"
+    },
+    "disputeDateUTC": {
+      "type": "string",
+      "description": "The date that the Vendor Order is rejected by the vendor UTC"
+    },
+    "doNotTransmitFlag": {
+      "type": "boolean",
+      "description": "The user submitted the order without transmitting it"
+    },
+    "electronicInvoiceDate": {
+      "type": "string",
+      "description": "Electronic Invoice Date"
+    },
+    "electronicInvoiceDateUTC": {
+      "type": "string",
+      "description": "Electronic Invoice Date UTC"
+    },
+    "electronicInvoiceFlag": {
+      "type": "boolean",
+      "description": "Was Electronic Invoice received"
+    },
+    "entryDate": {
+      "type": "string",
+      "description": "Date order originally created"
+    },
+    "entryDateUTC": {
+      "type": "string",
+      "description": "Date order originally created UTC"
+    },
+    "entryUser": {
+      "type": "string",
+      "description": "User who originally created order"
+    },
+    "expectedDeliveryDate": {
+      "type": "string",
+      "description": "Expected Delivery Date"
+    },
+    "finalReconcileDate": {
+      "type": "string",
+      "description": "Date/time of final reconciliation of warehoused order"
+    },
+    "finalReconcileDateUTC": {
+      "type": "string",
+      "description": "Date/time of final reconciliation of warehoused order UTC"
+    },
+    "finalReconcileUser": {
+      "type": "string",
+      "description": "User performing final reconciliation of warehoused order"
+    },
+    "invoiceDate": {
+      "type": "string",
+      "description": "Invoice Date"
+    },
+    "invoiceNumber": {
+      "type": "string",
+      "description": "Invoice Number"
+    },
+    "invoiceTotal": {
+      "type": "number",
+      "format": "double",
+      "description": "Invoice Total"
+    },
+    "locCorpCurrencyRatio": {
+      "type": "number",
+      "format": "double",
+      "description": "Conversion from Vendor Base Currency to Location Base Currency"
+    },
+    "locationCode": {
+      "type": "string",
+      "description": "Location Code"
+    },
+    "locationCurrency": {
+      "type": "string",
+      "description": "Location Currency"
+    },
+    "marketName": {
+      "type": "string",
+      "description": "Market Name"
+    },
+    "message": {
+      "type": "string",
+      "description": "Vendor Order Message"
+    },
+    "misc1Amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Amount entered for \"Misc. 1\" at Vendor Order Reconcile"
+    },
+    "misc1GlNumber": {
+      "type": "string",
+      "description": "General Ledger number selected for \"Misc. 1\" at Vendor Order Reconcile"
+    },
+    "misc2Amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Amount entered for \"Misc. 2\" at Vendor Order Reconcile"
+    },
+    "misc2GlNumber": {
+      "type": "string",
+      "description": "General Ledger number selected for \"Misc. 2\" at Vendor Order Reconcile"
+    },
+    "orderType": {
+      "type": "string",
+      "description": "Vendor Order Type"
+    },
+    "orderUnitSelected": {
+      "type": "string",
+      "description": "I/V.  'I' = Order in Inventory Units, 'V' = Order in Vendor Units"
+    },
+    "postDate": {
+      "type": "string",
+      "description": "Post Date"
+    },
+    "receivedWithoutInvoiceFlag": {
+      "type": "boolean",
+      "description": "Indicate whether the vendor order has been Physically Received"
+    },
+    "reconcileDate": {
+      "type": "string",
+      "description": "Date order Reconciled"
+    },
+    "reconcileDateUTC": {
+      "type": "string",
+      "description": "Date order Reconciled UTC"
+    },
+    "reconcileUser": {
+      "type": "string",
+      "description": "User who reconciled order"
+    },
+    "referenceNumber": {
+      "type": "string",
+      "description": "Reference Number"
+    },
+    "remediateDate": {
+      "type": "string",
+      "description": "Remediate Date"
+    },
+    "remediateDateUTC": {
+      "type": "string",
+      "description": "Remediate Date UTC"
+    },
+    "remediateUser": {
+      "type": "string",
+      "description": "Remediate User"
+    },
+    "remediationDate": {
+      "type": "string",
+      "description": "The date the corporate user changes the vendor order"
+    },
+    "remediationDateUTC": {
+      "type": "string",
+      "description": "The date the corporate user changes the vendor order UTC"
+    },
+    "remediationFlag": {
+      "type": "boolean",
+      "description": "Indicates when the Vendor Order requires remediation from the corporate office"
+    },
+    "remediationUser": {
+      "type": "string",
+      "description": "User that updated vendor order."
+    },
+    "shippingAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Amount entered for \"Freight/Shipping\" at Vendor Order Reconcile"
+    },
+    "shippingGlNumber": {
+      "type": "string",
+      "description": "Tax General Ledger Number selected for \"Freight/Shipping\""
+    },
+    "status": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Inventory Type Status"
+    },
+    "submitDate": {
+      "type": "string",
+      "description": "Date order submitted"
+    },
+    "submitDateUTC": {
+      "type": "string",
+      "description": "Date order submitted UTC"
+    },
+    "submitUser": {
+      "type": "string",
+      "description": "User who submitted order"
+    },
+    "taxAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "Amount entered for \"Tax\" at Vendor Order Reconcile"
+    },
+    "taxGlNumber": {
+      "type": "string",
+      "description": "Tax General Ledger Number"
+    },
+    "transactionNumber": {
+      "type": "string",
+      "description": "Transaction Number"
+    },
+    "userMatchAlertFlag": {
+      "type": "boolean",
+      "description": "Indicates whether the same user submitted and reconciled a non e-invoice order"
+    },
+    "venLocCurrencyRatio": {
+      "type": "number",
+      "format": "double",
+      "description": "Vendor to Location Currency Ratio"
+    },
+    "vendorCode": {
+      "type": "string",
+      "description": "Vendor Code"
+    },
+    "vendorCurrency": {
+      "type": "string",
+      "description": "Vendor Currency"
+    },
+    "vendorPortalOrderExists": {
+      "type": "boolean",
+      "description": "Vendor Portal Order Exists"
+    },
+    "vpInvoiceFlag": {
+      "type": "boolean",
+      "description": "Indicates that the vendor order was invoiced via the vendor portal"
+    }
+  },
+  "$defs": {
+    "PurchaseOrderDetailsDto": {
+      "type": "object",
+      "properties": {
+        "actualBidContractConv": {
+          "type": "number",
+          "format": "double",
+          "description": "Actual Conversion from Bid or Contract Price from Vendor Bid"
+        },
+        "actualBidContractPrice": {
+          "type": "number",
+          "format": "double",
+          "description": "Actual Bid or Contract Price from Vendor Bid"
+        },
+        "addVendorCode": {
+          "type": "string",
+          "description": "Vendor for which the vendor product was received from. Only populated if the vendor product was received from a different vendor than the order was with"
+        },
+        "altVpFlag": {
+          "type": "boolean",
+          "description": "Indicates the vendor product line item of a vendor order in which is considered the primary vendor product on order and was not split into secondary vendor products"
+        },
+        "approvePriceAlertFlag": {
+          "type": "boolean",
+          "description": "Flags whether the line item had a Price Alert which requires approval"
+        },
+        "approveQuantityAlertFlag": {
+          "type": "boolean",
+          "description": "Flags whether the line item had a Quantity Alert which requires approval"
+        },
+        "catchWeighted": {
+          "type": "boolean",
+          "description": "Catch Weighted"
+        },
+        "cnvConfirmToInventory": {
+          "type": "number",
+          "format": "double",
+          "description": "Conversion from Vendor Unit to Inventory Unit at Confirm Terms"
+        },
+        "cnvEntryToInventory": {
+          "type": "number",
+          "format": "double",
+          "description": "Conversion from Vendor Unit to Inventory Unit from create"
+        },
+        "cnvReconcileToInventory": {
+          "type": "number",
+          "format": "double",
+          "description": "Conversion from Vendor Unit to Inventory Unit at Reconcile"
+        },
+        "completeTaxRate": {
+          "type": "number",
+          "format": "double",
+          "description": "Complete Tax Rate"
+        },
+        "confirmTermsPriceAlert": {
+          "type": "boolean",
+          "description": "Whether a price alert was identified during the confirm terms"
+        },
+        "confirmTermsQuantityAlert": {
+          "type": "boolean",
+          "description": "Whether a quantity alert was identified during the confirm terms"
+        },
+        "creditValue": {
+          "type": "number",
+          "format": "double",
+          "description": "Credit used to adjust the receiving Invoice value of the transaction by adjusting the Invoice Price"
+        },
+        "expirationDate": {
+          "type": "string",
+          "description": "Expiration Date"
+        },
+        "expirationDateUTC": {
+          "type": "string",
+          "description": "Expiration Date UTC"
+        },
+        "lotNumber": {
+          "type": "string",
+          "description": "Lot Number"
+        },
+        "manufacturerNumber": {
+          "type": "string",
+          "description": "Manufacturer Number"
+        },
+        "marketName": {
+          "type": "string",
+          "description": "Market Name"
+        },
+        "minDaysOnHand": {
+          "type": "number",
+          "format": "double",
+          "description": "Min Days On Hand"
+        },
+        "notApproved": {
+          "type": "boolean",
+          "description": "Not Approved"
+        },
+        "poLineNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "PO Line Number"
+        },
+        "priceCaptureDate": {
+          "type": "string",
+          "description": "Price Capture Date"
+        },
+        "priceCaptureDateUTC": {
+          "type": "string",
+          "description": "Price Capture Date UTC"
+        },
+        "priceConfirmation": {
+          "type": "number",
+          "format": "double",
+          "description": "Confirm Terms Item price per Vendor Unit"
+        },
+        "priceEntry": {
+          "type": "number",
+          "format": "double",
+          "description": "Item price per Vendor Unit"
+        },
+        "priceInvoice": {
+          "type": "number",
+          "format": "double",
+          "description": "Invoice Price per Vendor Unit"
+        },
+        "priceInvoiceOriginal": {
+          "type": "number",
+          "format": "double",
+          "description": "Original Invoice Price of line item, prior to credit adjustment"
+        },
+        "priceReconcile": {
+          "type": "number",
+          "format": "double",
+          "description": "Vendor Product Price"
+        },
+        "priceRemediationFlag": {
+          "type": "boolean",
+          "description": "Price discrepancies between invoice and reconcile"
+        },
+        "priceUsed": {
+          "type": "number",
+          "format": "double",
+          "description": "Inventory Price"
+        },
+        "productBrand": {
+          "type": "string",
+          "description": "Product Brand from Vendor Bid/Contract"
+        },
+        "productNumber": {
+          "type": "string",
+          "description": "Product Number"
+        },
+        "projectedConsumption": {
+          "type": "number",
+          "description": "Projected Consumption calculated for this product"
+        },
+        "qualitativeJudgement": {
+          "type": "string",
+          "description": "Qualitative Judgement"
+        },
+        "quantityConfirm": {
+          "type": "number",
+          "format": "double",
+          "description": "Confirm Terms Quantity, in Vendor Units"
+        },
+        "quantityConfirmForInv": {
+          "type": "number",
+          "format": "double",
+          "description": "Confirm Terms Quantity, in Inventory Units"
+        },
+        "quantityEntry": {
+          "type": "number",
+          "format": "double",
+          "description": "Quantity ordered, in Vendor units"
+        },
+        "quantityEntryForInv": {
+          "type": "number",
+          "format": "double",
+          "description": "Quantity ordered, in Inventory units"
+        },
+        "quantityInvoice": {
+          "type": "number",
+          "format": "double",
+          "description": "Invoice Quantity, in Vendor Units"
+        },
+        "quantityInvoiceForInv": {
+          "type": "number",
+          "format": "double",
+          "description": "Invoice Quantity, in Inventory Units"
+        },
+        "quantityMoForInv": {
+          "type": "number",
+          "format": "double",
+          "description": "Order Quantity originally requested in Master Order"
+        },
+        "quantityReconcile": {
+          "type": "number",
+          "format": "double",
+          "description": "Physical Quantity received, in Vendor Units"
+        },
+        "quantityReconcileForInv": {
+          "type": "number",
+          "format": "double",
+          "description": "Physical Quantity received, in Inventory Units"
+        },
+        "quantityRemediationFlag": {
+          "type": "boolean",
+          "description": "Quantity discrepancies between invoice and reconcile"
+        },
+        "quantitySuggestedForInv": {
+          "type": "number",
+          "format": "double",
+          "description": "Quantity for the line item as suggested to the user"
+        },
+        "referenceLineNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Reference Line Number"
+        },
+        "referenceNumber": {
+          "type": "string",
+          "description": "Reference Number"
+        },
+        "restricted": {
+          "type": "boolean",
+          "description": "Restricted"
+        },
+        "splitFlag": {
+          "type": "boolean",
+          "description": "Status of Vendor Bid \"Split\" flag at create of order based on bid/contract"
+        },
+        "storageCode": {
+          "type": "string",
+          "description": "Storage Code"
+        },
+        "subConversionFactor": {
+          "type": "number",
+          "format": "double",
+          "description": "Sub Conversion Factor"
+        },
+        "subPackage": {
+          "type": "string",
+          "description": "Sub Package Type"
+        },
+        "subProductFlag": {
+          "type": "boolean",
+          "description": "Indicates if the vendor product was substituted when received on an electronic invoice"
+        },
+        "subProductName": {
+          "type": "string",
+          "description": "Sub Product Name"
+        },
+        "subProductNumber": {
+          "type": "string",
+          "description": "Sub Product Number"
+        },
+        "taxCode": {
+          "type": "string",
+          "description": "Tax Code"
+        },
+        "temperature": {
+          "type": "number",
+          "format": "double",
+          "description": "Temperature entered during NC Reconcile"
+        },
+        "traceabilityCode": {
+          "type": "string",
+          "description": "Traceability Lot Code"
+        },
+        "traceabilityCodeSource": {
+          "type": "string",
+          "description": "Traceability Lot Code Source"
+        },
+        "vendorPackage": {
+          "type": "string",
+          "description": "Vendor Package Type"
+        },
+        "vendorPackageOrder": {
+          "type": "string",
+          "description": "Vendor Package Order Type"
+        },
+        "vendorPortalDetailExists": {
+          "type": "boolean",
+          "description": "Vendor Portal Detail Exists"
+        },
+        "vendorPortalSubExists": {
+          "type": "boolean",
+          "description": "Vendor Portal Sub Exists"
+        },
+        "vendorProductName": {
+          "type": "string",
+          "description": "Vendor Product Name"
+        },
+        "vendorProductNumber": {
+          "type": "string",
+          "description": "Vendor Product Number"
+        },
+        "vpOriginalReconcilePrice": {
+          "type": "number",
+          "format": "double",
+          "description": "The Original Reconcile Price"
+        },
+        "vpOriginalReconcileQuantity": {
+          "type": "number",
+          "format": "double",
+          "description": "The Original Reconcile Quantity"
+        }
+      },
+      "title": "PurchaseOrderDetailsDto",
+      "description": "PurchaseOrderDetailsDto description"
+    }
+  }
+}

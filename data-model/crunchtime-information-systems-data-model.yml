@@ -1,0 +1,1970 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-data-model.py
+source:
+- openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+- openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+notation: has_one = property $ref; has_many = array of $ref; belongs_to = <entity>_id field
+summary:
+  entities: 284
+  entities_in_spec: 284
+  relationships: 279
+entities:
+- name: AppUserBizIQDetailDto
+  fields: 2
+  description: AppUserBizIQDetailDto description
+- name: AppUserConceptDetailDto
+  fields: 3
+  description: AppUserConceptDetailDto description
+- name: AppUserConsolidationVendorDetailDto
+  fields: 3
+  description: AppUserConsolidationVendorDetailDto description
+- name: AppUserCustomerDetailDto
+  fields: 4
+  description: AppUserCustomerDetailDto description
+- name: AppUserDailyAlertDetailDto
+  fields: 7
+  description: AppUserDailyAlertDetailDto description
+- name: AppUserDepartmentDetailDto
+  fields: 6
+  description: AppUserDepartmentDetailDto description
+- name: AppUserDetailDto
+  fields: 16
+  description: AppUserDetailDto description
+- name: AppUserFranchiseDetailDto
+  fields: 3
+  description: AppUserFranchiseDetailDto description
+- name: AppUserHierarchyDetailDto
+  fields: 7
+  description: AppUserHierarchyDetailDto description
+- name: AppUserLocationDetailDto
+  fields: 3
+  description: AppUserLocationDetailDto description
+- name: AppUserMarketDetailDto
+  fields: 3
+  description: AppUserMarketDetailDto description
+- name: AppUserPasswordDetailDto
+  fields: 2
+  description: AppUserPasswordDetailDto description
+- name: ApplicationUserBatchResponseDto
+  fields: 3
+- name: ApplicationUserDetails
+  fields: 13
+  description: ApplicationUserDetails description
+- name: ApplicationUserDetailsGet
+  fields: 13
+  description: ApplicationUserDetailsGet description
+- name: AttachmentDto
+  fields: 12
+  description: AttachmentDto description
+- name: BaseLocationDto
+  fields: 4
+- name: BaseLocationUdaDetailDto
+  fields: 12
+- name: BaseVendorDto
+  fields: 4
+- name: BaseVendorUdaDetailDto
+  fields: 11
+- name: BudgetBatchResponseDto
+  fields: 3
+  description: BudgetBatchResponseDto description
+- name: BudgetDetails
+  fields: 2
+  description: BudgetDetails description
+- name: BudgetDetailsDto
+  fields: 6
+  description: BudgetDetailsDto description
+- name: BudgetDetailsList
+  fields: 2
+  description: BudgetDetailsList description
+- name: BudgetHeaderDto
+  fields: 1
+  description: Budget header item.
+- name: CategoryBatchResponseDto
+  fields: 3
+  description: CategoryBatchResponseDto description
+- name: CategoryDetailGet
+  fields: 5
+  description: CategoryDetailGet description
+- name: CategoryDetails
+  fields: 1
+  description: CategoryDetails description
+- name: CategoryDetailsDto
+  fields: 4
+  description: CategoryDetailsDto description
+- name: CategoryDetailsGet
+  fields: 1
+  description: CategoryDetailsGet description
+- name: CategoryDetailsList
+  fields: 2
+  description: CategoryDetailsList description
+- name: CdpError
+  fields: 4
+- name: CesAuthenticationResult
+  fields: 1
+  description: Authentication Result from CES
+- name: CesAuthenticationResult-400
+  fields: 2
+  description: Authentication Result with Http Status Code 400
+- name: CesAuthenticationResult-401
+  fields: 2
+  description: Authentication Result with Http Status Code 401
+- name: CesAuthenticationResult-500
+  fields: 2
+  description: Authentication Result with Http Status Code 500
+- name: CheckMenuMixBatchResponseDto
+  fields: 3
+  description: CheckMenuMixBatchResponseDto description
+- name: CheckMenuMixCheckDetailDto
+  fields: 7
+  description: Check Menu Mix check item details.
+- name: CheckMenuMixDetails
+  fields: 2
+- name: CheckMenuMixDetailsGet
+  fields: 3
+  description: CheckMenuMixDetailsGet description
+- name: CheckMenuMixDetailsList
+  fields: 2
+  description: CheckMenuMixDetailsList description
+- name: CheckMenuMixGroupDetails
+  fields: 5
+  description: CheckMenuMixGroupDetails description
+- name: CheckMenuMixHeaderDto
+  fields: 3
+  description: Check Menu Mix Header items.
+- name: CheckMenuMixItemDetailDto
+  fields: 14
+  description: CheckMenuMixItemDetailDto description
+- name: CheckMenuMixMiscCheckDetailDto
+  fields: 3
+  description: CheckMenuMixMiscCheckDetailDto description
+- name: CheckMenuMixMiscItemDetailDto
+  fields: 5
+  description: CheckMenuMixMiscItemDetailDto description
+- name: CheckMenuMixTimeDetailDto
+  fields: 3
+  description: CheckMenuMixTimeDetailDto description
+- name: CommissaryOrderBatchResponseDto
+  fields: 3
+  description: CommissaryOrderBatchResponseDto description
+- name: CommissaryOrderDetails
+  fields: 2
+  description: CommissaryOrderDetails description
+- name: CommissaryOrderDetailsDto
+  fields: 44
+  description: CommissaryOrderDetailsDto description
+- name: CommissaryOrderHeaderDto
+  fields: 29
+  description: CommissaryOrderHeaderDto description
+- name: CompanyProductEnhancedAllergenAttributeDetailDto
+  fields: 3
+  description: Company Product Enhanced Allergen Attributes.
+- name: CompanyProductEnhancedAutoGenerateDetails
+  fields: 2
+  description: CompanyProductEnhancedAutoGenerateDetails description
+- name: CompanyProductEnhancedBatchResponseDto
+  fields: 3
+  description: Company Product Enhanced Batch Response.
+- name: CompanyProductEnhancedConceptDetailDto
+  fields: 2
+  description: Company Product Enhanced Concept Details.
+- name: CompanyProductEnhancedDepartmentDetailDto
+  fields: 2
+  description: Company Product Enhanced Department Details.
+- name: CompanyProductEnhancedDetails
+  fields: 7
+  description: Product details.
+- name: CompanyProductEnhancedDetailsGet
+  fields: 7
+  description: CompanyProductEnhancedDetailsGet description
+- name: CompanyProductEnhancedHeaderDto
+  fields: 86
+  description: CompanyProductEnhancedHeaderDto description
+- name: CompanyProductEnhancedShipLocationDetailDto
+  fields: 2
+  description: CompanyProductEnhancedShipLocationDetailDto description
+- name: CompanyProductEnhancedUpcDetailDto
+  fields: 2
+  description: CompanyProductEnhancedUpcDetailDto description
+- name: CompanyProductEnhancedUserDefinedCategoryDetailDto
+  fields: 2
+  description: CompanyProductEnhancedUserDefinedCategoryDetailDto description
+- name: ConfirmReceiptStandardBatchResponseDto
+  fields: 3
+  description: ConfirmReceiptStandardBatchResponseDto description
+- name: ConfirmReceiptStandardDetailsList
+  fields: 1
+  description: ConfirmReceiptStandardDetailsList description
+- name: ConfirmReceiptStandardDetailsReq
+  fields: 1
+  description: ConfirmReceiptStandardDetails description
+- name: ConfirmReceiptStandardDetailsRes
+  fields: 1
+  description: ConfirmReceiptStandardDetails description
+- name: ConfirmReceiptStandardHeaderDtoReq
+  fields: 5
+  description: ConfirmReceiptStandardHeaderDto description
+- name: ConfirmReceiptStandardHeaderDtoRes
+  fields: 7
+  description: ConfirmReceiptStandardHeaderDto description
+- name: ContractInfoDto
+  fields: 3
+  description: ContractInfoDto description
+- name: CurrencyRatioBatchResponseDto
+  fields: 3
+  description: CurrencyRatioBatchResponseDto description
+- name: CurrencyRatioDetails
+  fields: 1
+  description: CurrencyRatioDetails description
+- name: CurrencyRatioDetailsDto
+  fields: 5
+  description: CurrencyRatioDetailsDto description
+- name: CurrencyRatioDetailsList
+  fields: 2
+  description: CurrencyRatioDetailsList description
+- name: CurrentInventoryBatchResponseDto
+  fields: 3
+  description: CurrentInventoryBatchResponseDto description
+- name: CurrentInventoryDetails
+  fields: 1
+  description: CurrentInventoryDetails description
+- name: CurrentInventoryDetailsDto
+  fields: 22
+  description: CurrentInventoryDetailsDto description
+- name: CustomerBatchResponseDto
+  fields: 3
+  description: CustomerBatchResponseDto description
+- name: CustomerDetailsDtoReq
+  fields: 16
+  description: CustomerDetailsDto description
+- name: CustomerDetailsDtoRes
+  fields: 15
+  description: CustomerDetailsDto description
+- name: CustomerDetailsList
+  fields: 2
+  description: CustomerDetailsList description
+- name: CustomerDetailsReq
+  fields: 1
+  description: CustomerDetails description
+- name: CustomerDetailsRes
+  fields: 1
+  description: CustomerDetails description
+- name: CustomerOrderAutoGenerateDetails
+  fields: 1
+  description: CustomerOrderAutoGenerateDetails description
+- name: CustomerOrderEnhancedBatchResponseDto
+  fields: 3
+  description: CustomerOrderEnhancedBatchResponseDto description
+- name: CustomerOrderEnhancedDetailGet
+  fields: 18
+  description: CustomerOrderEnhancedDetailGet description
+- name: CustomerOrderEnhancedDetails
+  fields: 2
+  description: CustomerOrderEnhancedDetails description
+- name: CustomerOrderEnhancedDetailsDto
+  fields: 2
+  description: CustomerOrderEnhancedDetailsDto description
+- name: CustomerOrderEnhancedDetailsGet
+  fields: 2
+  description: CustomerOrderEnhancedDetailsGet description
+- name: CustomerOrderEnhancedDetailsList
+  fields: 2
+  description: CustomerOrderEnhancedDetailsList description
+- name: CustomerOrderEnhancedHeaderDto
+  fields: 7
+  description: CustomerOrderEnhancedHeaderDto description
+- name: CustomerOrderEnhancedHeaderDtoGet
+  fields: 26
+  description: CustomerOrderEnhancedHeaderDtoGet description
+- name: DailyPrepApiError
+  fields: 4
+  description: Daily Prep errors and warnings
+- name: DailyPrepBatchResponseDto
+  fields: 3
+  description: Response containing Daily Prep transactions with pagination details
+- name: DailyPrepComponentDto
+  fields: 8
+  description: Component details for a Daily Prep recipe
+- name: DailyPrepDetailsList
+  fields: 2
+  description: Daily prep records to save
+- name: DailyPrepDto
+  fields: 16
+  description: Daily Prep transaction details
+- name: DailyPrepRecipeDto
+  fields: 11
+  description: Recipe details for a Daily Prep transaction
+- name: DailyPrepSaveDto
+  fields: 7
+  description: 'Daily prep record to save. Three flows are supported: '
+- name: ElectronicInvoiceDetails
+  fields: 2
+  description: ElectronicInvoiceDetails description
+- name: ElectronicInvoiceDetailsDto
+  fields: 19
+  description: ElectronicInvoiceDetailsDto description
+- name: ElectronicInvoiceDetailsList
+  fields: 2
+  description: ElectronicInvoiceDetailsList description
+- name: ElectronicInvoiceHeaderDto
+  fields: 15
+  description: ElectronicInvoiceHeaderDto description
+- name: Employee
+  fields: 126
+  description: Employee description
+- name: EmployeeAudit
+  fields: 12
+  description: EmployeeAudit description
+- name: EmployeeBatchResponseDto
+  fields: 3
+  description: EmployeeBatchResponseDto description
+- name: EmployeeGet
+  fields: 129
+  description: EmployeeGet description
+- name: EmployeeLocation
+  fields: 13
+  description: EmployeeLocation description
+- name: EmployeePosition
+  fields: 20
+  description: EmployeePosition description
+- name: EmployeeSave
+  fields: 2
+  description: EmployeeSave description
+- name: ExportFile
+  fields: 6
+  description: ExportFile description
+- name: GeneralLedgerDetails
+  fields: 1
+- name: GeneralLedgerDto
+  fields: 13
+- name: GetHierarchyV1DetailsResponse
+  fields: 4
+  description: GetHierarchyV1DetailsResponse description
+- name: GetHierarchyV2DetailsResponse
+  fields: 4
+  description: GetHierarchyV2DetailsResponse description
+- name: HierarchyDetailDto
+  fields: 8
+  description: Hierarchy Detail description
+- name: HierarchyHeaderDto
+  fields: 3
+  description: Creates a new Hierarchy or updates the Physical Locations of an existing Hierarchy.
+- name: HierarchyV1Details
+  fields: 2
+  description: HierarchyV1Details description
+- name: HierarchyV1DetailsList
+  fields: 1
+  description: HierarchyV1DetailsList
+- name: HierarchyV1LevelDto
+  fields: 3
+  description: Hierarchy V1 Level Dto description
+- name: HierarchyV1Type
+  fields: 1
+  description: HierarchyV1 Type description
+- name: HierarchyV2Details
+  fields: 2
+  description: HierarchyV2Details description
+- name: HierarchyV2DetailsList
+  fields: 1
+  description: HierarchyV2DetailsList description
+- name: HierarchyV2LevelDto
+  fields: 3
+  description: Hierarchy V2 Level Dto description
+- name: HierarchyV2Type
+  fields: 1
+  description: HierarchyV2 Type description
+- name: InventoryAdjustmentBatchResponseDto
+  fields: 3
+  description: Inventory Adjustment Response
+- name: InventoryAdjustmentDetails
+  fields: 2
+  description: Inventory Adjustment Details
+- name: InventoryAdjustmentDetailsDto
+  fields: 7
+  description: Inventory Adjustment Detail Fields
+- name: InventoryAdjustmentDetailsDtoGet
+  fields: 13
+  description: Inventory Adjustment Detail Fields
+- name: InventoryAdjustmentDetailsGet
+  fields: 2
+  description: InventoryAdjustmentDetailsGet description
+- name: InventoryAdjustmentDetailsList
+  fields: 2
+  description: Inventory Adjustment Header Fields
+- name: InventoryAdjustmentHeaderDto
+  fields: 7
+  description: Inventory Adjustment Header Fields
+- name: InventoryAdjustmentHeaderGetDto
+  fields: 8
+  description: Inventory Adjustment Header Fields
+- name: InventoryLocationTransfersBatchResponseDto
+  fields: 3
+  description: Inventory Location Transfers Response
+- name: InventoryLocationTransfersDetailDto
+  fields: 17
+  description: Inventory Location Transfers Detail Fields. Fields without a value are omitted from the response.
+- name: InventoryLocationTransfersDetails
+  fields: 2
+  description: InventoryLocationTransfersDetails description
+- name: InventoryLocationTransfersHeaderDto
+  fields: 25
+  description: Inventory Location Transfers Header Fields. Fields without a value are omitted from the response.
+- name: InventoryValueAdjustmentBatchResponseDto
+  fields: 3
+  description: Inventory Value Adjustment Response
+- name: InventoryValueAdjustmentDetails
+  fields: 2
+  description: InventoryValueAdjustmentDetails description
+- name: InventoryValueAdjustmentDetailsDto
+  fields: 6
+  description: InventoryValueAdjustmentDetailsDto description
+- name: InventoryValueAdjustmentDetailsGet
+  fields: 2
+  description: InventoryValueAdjustmentDetailsGet description
+- name: InventoryValueAdjustmentDetailsList
+  fields: 2
+  description: InventoryValueAdjustmentDetailsList description
+- name: InventoryValueAdjustmentHeaderDto
+  fields: 3
+  description: InventoryValueAdjustmentHeaderDto description
+- name: InventoryValueAdjustmentHeaderDtoGet
+  fields: 6
+  description: InventoryValueAdjustmentHeaderDtoGet description
+- name: LocationAltAddrDetailDto
+  fields: 14
+  description: LocationAltAddrDetailDto description
+- name: LocationBatchResponseDto
+  fields: 3
+  description: LocationBatchResponseDto description
+- name: LocationConceptInfoDetailDto
+  fields: 4
+  description: LocationConceptInfoDetailDto description
+- name: LocationDeliverInfoDetailDto
+  fields: 5
+  description: LocationDeliverInfoDetailDto description
+- name: LocationDetailDetailDtoGet
+  fields: 40
+  description: LocationDetailDetailDtoGet description
+- name: LocationDetails
+  fields: 11
+  description: LocationDetails description
+- name: LocationDetailsDetailDto
+  fields: 30
+  description: LocationDetailsDetailDto description
+- name: LocationDetailsGet
+  fields: 12
+  description: LocationDetailsGet description
+- name: LocationHoursOfOperationDetailDto
+  fields: 7
+  description: LocationHoursOfOperationDetailDto description
+- name: LocationLaborDetailDto
+  fields: 3
+  description: LocationLaborDetailDto description
+- name: LocationNameAddrDetailDto
+  fields: 15
+  description: LocationNameAddrDetailDto description
+- name: LocationNameAddrDetailGetDto
+  fields: 17
+  description: LocationNameAddrDetailGetDto description
+- name: LocationPostDetailDto
+  fields: 3
+  description: LocationPostDetailDto description
+- name: LocationProductPricingAutoTransferDetailRow
+  fields: 5
+  description: LocationProductPricingAutoTransferDetailRow description
+- name: LocationProductPricingBatchResponseDto
+  fields: 3
+  description: LocationProductPricingBatchResponseDto description
+- name: LocationProductPricingDetails
+  fields: 3
+  description: LocationProductPricingDetails description
+- name: LocationProductPricingDetailsDto
+  fields: 8
+  description: LocationProductPricingDetailsDto description
+- name: LocationProductPricingDetailsList
+  fields: 2
+  description: LocationProductPricingDetailsList description
+- name: LocationProductPricingUnitsDetailDto
+  fields: 26
+  description: LocationProductPricingUnitsDetailDto description
+- name: LocationSafeLogDetailDto
+  fields: 7
+  description: LocationSafeLogDetailDto description
+- name: LocationTimeClockInTwxDetailDto
+  fields: 7
+  description: The Labor Setup tab on the Enterprise Manager Location screen contains information about the Time
+    Clock in Teamworx section. This section provides details about the time clock setup in Teamworx.
+- name: LocationUdaDetailDto
+  fields: 11
+  description: LocationUdaDetailDto description
+- name: NutritionBatchResponseDto
+  fields: 3
+  description: NutritionBatchResponseDto description
+- name: NutritionDetails
+  fields: 1
+  description: NutritionDetails description
+- name: NutritionDetailsDto
+  fields: 21
+  description: NutritionDetailsDto description
+- name: NutritionDetailsList
+  fields: 2
+  description: NutritionDetailsList description
+- name: ObjectError
+  fields: 5
+- name: PackageTypeDetailDto
+  fields: 7
+  description: PackageTypeDetailDto description
+- name: PackageTypeDetailGet
+  fields: 8
+  description: PackageTypeDetailGet description
+- name: PackageTypeDetailsGet
+  fields: 1
+  description: PackageTypeDetailsGet description
+- name: PackageTypeV2BatchResponseDto
+  fields: 3
+  description: PackageTypeV2BatchResponseDto description
+- name: PackageTypeV2Details
+  fields: 1
+  description: PackageTypeV2Details description
+- name: PackageTypeV2DetailsList
+  fields: 2
+  description: PackageTypeV2DetailsList description
+- name: PbiAttachmentBatchResponseDto
+  fields: 3
+  description: PbiAttachmentBatchResponseDto description
+- name: PbiAttachmentDto
+  fields: 11
+  description: PbiAttachmentDto description
+- name: PbiBatchResponseDto
+  fields: 3
+  description: PbiBatchResponseDto description
+- name: PbiDetailDto
+  fields: 6
+  description: PbiDetailDto description
+- name: PbiDetails
+  fields: 2
+  description: PbiDetails description
+- name: PbiDetailsGet
+  fields: 2
+  description: PbiDetailsGet description
+- name: PbiDetailsList
+  fields: 2
+  description: PbiDetailsList description
+- name: PbiHeaderDto
+  fields: 7
+  description: PbiHeaderDto description
+- name: PbiHeaderDtoGet
+  fields: 10
+  description: PbiHeaderDtoGet description
+- name: PhysicalInventoryStandardBatchResponseDto
+  fields: 3
+  description: PhysicalInventoryStandardBatchResponseDto description
+- name: PhysicalInventoryStandardDetails
+  fields: 1
+  description: PhysicalInventoryStandardDetails description
+- name: PhysicalInventoryStandardDetails00
+  fields: 15
+  description: PhysicalInventoryStandardDetails description
+- name: PhysicalInventoryStandardDetails1
+  fields: 8
+  description: PhysicalInventoryStandardDetails description
+- name: PhysicalInventoryStandardDetailsGet
+  fields: 1
+  description: PhysicalInventoryStandardDetails description
+- name: PhysicalInventoryStandardDetailsList
+  fields: 2
+  description: PhysicalInventoryStandardDetailsList description
+- name: ProjectedConsumptionBatchResponseDto
+  fields: 3
+  description: ProjectedConsumptionBatchResponseDto description
+- name: ProjectedConsumptionDetails
+  fields: 2
+  description: ProjectedConsumptionDetails description
+- name: ProjectedConsumptionDetailsDto
+  fields: 2
+  description: ProjectedConsumptionDetailsDto description
+- name: ProjectedConsumptionDetailsList
+  fields: 2
+  description: ProjectedConsumptionDetailsList description
+- name: ProjectedConsumptionHeaderDto
+  fields: 2
+  description: ProjectedConsumptionHeaderDto description
+- name: PurchaseOrderAttachmentBatchResponseDto
+  fields: 3
+  description: PurchaseOrderAttachmentBatchResponseDto description
+- name: PurchaseOrderAutoGeneratePONumbers
+  fields: 1
+  description: PurchaseOrderAutoGeneratePONumbers description
+- name: PurchaseOrderBatchResponseDto
+  fields: 3
+  description: PurchaseOrderBatchResponseDto description
+- name: PurchaseOrderDetailRow
+  fields: 3
+  description: PurchaseOrderDetailRow description
+- name: PurchaseOrderDetailsDto
+  fields: 68
+  description: PurchaseOrderDetailsDto description
+- name: PurchaseOrderHeaderDto
+  fields: 89
+  description: PurchaseOrderHeaderDto description
+- name: PurchaseOrderHeaderRow
+  fields: 16
+  description: PurchaseOrderHeaderRow description
+- name: PurchaseOrderRowsList
+  fields: 2
+  description: PurchaseOrderRowsList description
+- name: PurchaseOrderSaveRows
+  fields: 2
+  description: PurchaseOrderSaveRows description
+- name: RecipeEnhancedAllergenAttributeDetailDto
+  fields: 3
+  description: Product allergen active status.
+- name: RecipeEnhancedBatchResponseDto
+  fields: 3
+  description: RecipeEnhancedBatchResponseDto description
+- name: RecipeEnhancedComponentDetailDto
+  fields: 10
+  description: RecipeEnhancedComponentDetailDto description
+- name: RecipeEnhancedComponentSubstituteDetailDto
+  fields: 8
+  description: RecipeEnhancedComponentSubstituteDetailDto description
+- name: RecipeEnhancedConceptDetailDto
+  fields: 2
+  description: RecipeEnhancedHeaderDto description
+- name: RecipeEnhancedDetailsList
+  fields: 10
+  description: RecipeEnhancedDetailsList description
+- name: RecipeEnhancedDetailsv2
+  fields: 7
+  description: RecipeEnhancedV2Details description
+- name: RecipeEnhancedHeaderDto
+  fields: 70
+  description: RecipeEnhancedHeaderDto description
+- name: RecipeEnhancedShipLocationDetailDto
+  fields: 2
+  description: RecipeEnhancedShipLocationDetailDto description
+- name: RecipeEnhancedUpcDetailDto
+  fields: 2
+  description: RecipeEnhancedUpcDetailDto description
+- name: RecipeEnhancedV2BatchResponseDto
+  fields: 3
+  description: RecipeEnhancedBatchResponseDto description
+- name: RecipeEnhancedV2DetailsGet
+  fields: 7
+  description: RecipeEnhancedV2Details description
+- name: RecipeEnhancedV2DetailsList
+  fields: 2
+  description: RecipeEnhancedV2DetailsList description
+- name: RecipeEnhancedV2HeaderDto
+  fields: 64
+  description: RecipeEnhancedV2HeaderDto description
+- name: RecipeEnhancedV2HeaderDtoGet
+  fields: 65
+  description: RecipeEnhancedV2HeaderDtoGet description
+- name: RecipeLocationBatchResponseDto
+  fields: 3
+  description: RecipeLocationBatchResponseDto description
+- name: RecipeLocationDetailGet
+  fields: 11
+  description: RecipeLocationDetailGet description
+- name: RecipeLocationDetails
+  fields: 2
+  description: RecipeLocationDetails description
+- name: RecipeLocationDetailsDto
+  fields: 10
+  description: RecipeLocationDetailsDto description
+- name: RecipeLocationDetailsGet
+  fields: 2
+  description: RecipeLocationDetailsGet description
+- name: RecipeLocationDetailsList
+  fields: 2
+  description: RecipeLocationDetailsList description
+- name: RecipeLocationHeaderDto
+  fields: 3
+  description: RecipeLocationHeaderDto description
+- name: SalesForecastBatchResponseDto
+  fields: 3
+  description: List of forecasts grouped by locations divided into pages
+- name: SalesForecastDayDetails
+  fields: 2
+  description: Contains forecasts for multiple periods for a single location
+- name: SalesForecastDayDetailsList
+  fields: 1
+  description: List of forecasts grouped by locations
+- name: SalesForecastDayDto
+  fields: 4
+  description: Representation of single day forecast for sales, guests and checks
+- name: SalesForecastDetails
+  fields: 2
+  description: Contains forecasts for multiple periods for a single location
+- name: SalesForecastDetailsList
+  fields: 1
+  description: List of forecasts grouped by locations
+- name: SalesForecastDto
+  fields: 5
+  description: Representation of single period sales, guests and checks forecast in a revenue center
+- name: SalesForecastError
+  fields: 2
+  description: Sales Forecast errors
+- name: SalesMixBatchResponseDto
+  fields: 3
+  description: SalesMixBatchResponseDto description
+- name: SalesMixDetails
+  fields: 2
+  description: SalesMixDetails description
+- name: SalesMixDetailsDto
+  fields: 5
+  description: SalesMixDetailsDto description
+- name: SalesMixDetailsGet
+  fields: 2
+  description: SalesMixDetailsGet description
+- name: SalesMixDetailsList
+  fields: 2
+  description: SalesMixDetailsList description
+- name: SalesMixHeaderDto
+  fields: 11
+  description: SalesMixHeaderDto description
+- name: SalesMixHeaderDtoGet
+  fields: 25
+  description: SalesMixHeaderDtoGet description
+- name: ScheduleDto
+  fields: 8
+  description: ScheduleDto description
+- name: ScheduledBatchExportFiles
+  fields: 9
+  description: ScheduledBatchExportFiles description
+- name: ScheduledExportFileV2
+  fields: 6
+  description: ExportFile description
+- name: SecVendorProductPricingDto
+  fields: 15
+  description: SecVendorProductPricingDto description
+- name: StorageLocationBatchResponseDto
+  fields: 3
+  description: StorageLocationBatchResponseDto description
+- name: StorageLocationDetails
+  fields: 1
+  description: StorageLocationDetails description
+- name: StorageLocationDetailsDto
+  fields: 13
+  description: StorageLocationDetailsDto description
+- name: StorageLocationDetailsList
+  fields: 2
+  description: StorageLocationDetailsList description
+- name: SupplementalWageBatchResponseDto
+  fields: 3
+  description: SupplementalWageBatchResponseDto description
+- name: SupplementalWageDetailDto
+  fields: 11
+  description: SupplementalWageDetailDto description
+- name: SupplementalWageDetails
+  fields: 2
+  description: SupplementalWageDetails description
+- name: SupplementalWageDetailsList
+  fields: 2
+  description: SupplementalWageDetailsList description
+- name: SupplementalWageHeaderDto
+  fields: 2
+  description: SupplementalWageHeaderDto description
+- name: TimeClockEnhancedBatchResponseDto
+  fields: 3
+  description: TimeClockEnhancedBatchResponseDto description
+- name: TimeClockEnhancedDetailDto
+  fields: 10
+  description: TimeClockEnhancedDetailDto description
+- name: TimeClockEnhancedDetailGet
+  fields: 50
+  description: TimeClockEnhancedDetailGet description
+- name: TimeClockEnhancedDetailsGet
+  fields: 2
+  description: TimeClockEnhancedDetailsGet description
+- name: TimeClockEnhancedDetailsList
+  fields: 1
+  description: TimeClockEnhancedDetailsList description
+- name: TimeClockEnhancedHeaderDto
+  fields: 3
+  description: TimeClockEnhancedHeaderDto description
+- name: VendorDetails
+  fields: 1
+  description: VendorDetails description
+- name: VendorDto
+  fields: 56
+- name: VendorGetDto
+  fields: 58
+- name: VendorLocationBatchResponseDto
+  fields: 3
+  description: VendorLocationBatchResponseDto description
+- name: VendorLocationDetails
+  fields: 5
+  description: VendorLocationDetails description
+- name: VendorLocationDetailsList
+  fields: 2
+  description: VendorLocationDetailsList description
+- name: VendorLocationHeaderDto
+  fields: 8
+  description: VendorLocationHeaderDto description
+- name: VendorLocationOtherDetailsDto
+  fields: 7
+  description: VendorLocationOtherDetailsDto description
+- name: VendorLocationScheduleDetailDto
+  fields: 23
+  description: VendorLocationScheduleDetailDto description
+- name: VendorLocationScheduleOverrideDetails
+  fields: 29
+  description: VendorLocationScheduleOverrideDetails description
+- name: VendorLocationTransmissionDetailDto
+  fields: 20
+  description: VendorLocationTransmissionDetailDto description
+- name: VendorOrderAttachment
+  fields: 6
+  description: Vendor order files/attachments applicable to export.
+- name: VendorOrderAttachmentV2
+  fields: 8
+  description: Attachments applicable to export.
+- name: VendorOrderAttachmentsDto
+  fields: 2
+  description: Vendor order attachments related to the extract being downloaded.  Subject to includeVendorOrderAttachments
+    set to true.
+- name: VendorPaymentBatchResponseDto
+  fields: 3
+  description: VendorPaymentBatchResponseDto description
+- name: VendorPaymentDetails
+  fields: 1
+  description: VendorPaymentDetails description
+- name: VendorPaymentDetailsDto
+  fields: 10
+  description: VendorPaymentDetailsDto description
+- name: VendorProductPricingBatchResponseDto
+  fields: 3
+  description: VendorProductPricingBatchResponseDto description
+- name: VendorProductPricingDto
+  fields: 24
+  description: VendorProductPricingDto description
+- name: recipeEnhancedDetails
+  fields: 7
+  description: recipeEnhancedDetails description
+- name: recipeEnhancedDetailsGet
+  fields: 8
+  description: recipeEnhancedDetailsGet description
+- name: timeClockEnhancedDetails
+  fields: 2
+  description: timeClockEnhancedDetails description
+- name: vendorUdaDetail
+  fields: 10
+relationships:
+- from: AppUserDetailDto
+  to: CdpError
+  type: has_many
+  via: errors
+- from: ApplicationUserDetailsGet
+  to: AppUserBizIQDetailDto
+  type: has_many
+  via: appUserBizIQDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserConceptDetailDto
+  type: has_many
+  via: appUserConceptDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserConsolidationVendorDetailDto
+  type: has_many
+  via: appUserConsolidationVendorDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserCustomerDetailDto
+  type: has_many
+  via: appUserCustomerDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserDailyAlertDetailDto
+  type: has_many
+  via: appUserDailyAlertDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserDepartmentDetailDto
+  type: has_many
+  via: appUserDepartmentDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserDetailDto
+  type: has_one
+  via: appUserDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserFranchiseDetailDto
+  type: has_many
+  via: appUserFranchiseDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserHierarchyDetailDto
+  type: has_many
+  via: appUserHierarchyDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserLocationDetailDto
+  type: has_many
+  via: appUserLocationDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserMarketDetailDto
+  type: has_many
+  via: appUserMarketDetails
+- from: ApplicationUserDetailsGet
+  to: AppUserPasswordDetailDto
+  type: has_many
+  via: appUserPasswordDetails
+- from: ApplicationUserBatchResponseDto
+  to: ApplicationUserDetailsGet
+  type: has_many
+  via: applicationUserDetails
+- from: ApplicationUserDetails
+  to: AppUserBizIQDetailDto
+  type: has_many
+  via: appUserBizIQDetails
+- from: ApplicationUserDetails
+  to: AppUserConceptDetailDto
+  type: has_many
+  via: appUserConceptDetails
+- from: ApplicationUserDetails
+  to: AppUserConsolidationVendorDetailDto
+  type: has_many
+  via: appUserConsolidationVendorDetails
+- from: ApplicationUserDetails
+  to: AppUserCustomerDetailDto
+  type: has_many
+  via: appUserCustomerDetails
+- from: ApplicationUserDetails
+  to: AppUserDailyAlertDetailDto
+  type: has_many
+  via: appUserDailyAlertDetails
+- from: ApplicationUserDetails
+  to: AppUserDepartmentDetailDto
+  type: has_many
+  via: appUserDepartmentDetails
+- from: ApplicationUserDetails
+  to: AppUserDetailDto
+  type: has_one
+  via: appUserDetails
+- from: ApplicationUserDetails
+  to: AppUserFranchiseDetailDto
+  type: has_many
+  via: appUserFranchiseDetails
+- from: ApplicationUserDetails
+  to: AppUserHierarchyDetailDto
+  type: has_many
+  via: appUserHierarchyDetails
+- from: ApplicationUserDetails
+  to: AppUserLocationDetailDto
+  type: has_many
+  via: appUserLocationDetails
+- from: ApplicationUserDetails
+  to: AppUserMarketDetailDto
+  type: has_many
+  via: appUserMarketDetails
+- from: ApplicationUserDetails
+  to: AppUserPasswordDetailDto
+  type: has_many
+  via: appUserPasswordDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: companyProductEnhancedAllergenAttributeDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedConceptDetailDto
+  type: has_many
+  via: companyProductEnhancedConceptDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedDepartmentDetailDto
+  type: has_many
+  via: companyProductEnhancedDepartmentDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedHeaderDto
+  type: has_one
+  via: companyProductEnhancedHeaderDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedShipLocationDetailDto
+  type: has_many
+  via: companyProductEnhancedShipLocationDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedUpcDetailDto
+  type: has_many
+  via: companyProductEnhancedUpcDetails
+- from: CompanyProductEnhancedDetailsGet
+  to: CompanyProductEnhancedUserDefinedCategoryDetailDto
+  type: has_many
+  via: companyProductEnhancedUserDefinedCategoryDetails
+- from: CompanyProductEnhancedHeaderDto
+  to: CompanyProductEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: allergenAttributes
+- from: CompanyProductEnhancedHeaderDto
+  to: CompanyProductEnhancedUpcDetailDto
+  type: has_many
+  via: alternateUpcs
+- from: CompanyProductEnhancedHeaderDto
+  to: CompanyProductEnhancedConceptDetailDto
+  type: has_many
+  via: concepts
+- from: CompanyProductEnhancedHeaderDto
+  to: CompanyProductEnhancedDepartmentDetailDto
+  type: has_many
+  via: departments
+- from: CompanyProductEnhancedHeaderDto
+  to: CompanyProductEnhancedShipLocationDetailDto
+  type: has_many
+  via: shipLocations
+- from: CompanyProductEnhancedHeaderDto
+  to: CompanyProductEnhancedUserDefinedCategoryDetailDto
+  type: has_many
+  via: userDefinedCategories
+- from: CompanyProductEnhancedBatchResponseDto
+  to: CompanyProductEnhancedDetailsGet
+  type: has_many
+  via: companyProductEnhancedDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: companyProductEnhancedAllergenAttributeDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedConceptDetailDto
+  type: has_many
+  via: companyProductEnhancedConceptDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedDepartmentDetailDto
+  type: has_many
+  via: companyProductEnhancedDepartmentDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedHeaderDto
+  type: has_one
+  via: companyProductEnhancedHeaderDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedShipLocationDetailDto
+  type: has_many
+  via: companyProductEnhancedShipLocationDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedUpcDetailDto
+  type: has_many
+  via: companyProductEnhancedUpcDetails
+- from: CompanyProductEnhancedDetails
+  to: CompanyProductEnhancedUserDefinedCategoryDetailDto
+  type: has_many
+  via: companyProductEnhancedUserDefinedCategoryDetails
+- from: CurrencyRatioDetails
+  to: CurrencyRatioDetailsDto
+  type: has_many
+  via: currencyRatioDetailDetails
+- from: CurrencyRatioDetailsList
+  to: CurrencyRatioDetails
+  type: has_many
+  via: currencyRatioDetails
+- from: CurrencyRatioBatchResponseDto
+  to: CurrencyRatioDetails
+  type: has_many
+  via: currencyRatioDetails
+- from: CustomerDetailsRes
+  to: CustomerDetailsDtoRes
+  type: has_many
+  via: customerDetailDetails
+- from: CustomerBatchResponseDto
+  to: CustomerDetailsRes
+  type: has_many
+  via: customerDetails
+- from: CustomerDetailsList
+  to: CustomerDetailsReq
+  type: has_many
+  via: customerDetails
+- from: CustomerDetailsReq
+  to: CustomerDetailsDtoReq
+  type: has_many
+  via: customerDetailDetails
+- from: GeneralLedgerDetails
+  to: GeneralLedgerDto
+  type: has_many
+  via: generalLedgers
+- from: GetHierarchyV1DetailsResponse
+  to: HierarchyV1LevelDto
+  type: has_many
+  via: levels
+- from: GetHierarchyV1DetailsResponse
+  to: HierarchyDetailDto
+  type: has_many
+  via: locations
+- from: HierarchyV1Details
+  to: HierarchyDetailDto
+  type: has_many
+  via: hierarchyDetailDetails
+- from: HierarchyV1Details
+  to: HierarchyHeaderDto
+  type: has_one
+  via: hierarchyHeaderDetails
+- from: HierarchyV1DetailsList
+  to: HierarchyV1Details
+  type: has_one
+  via: hierarchyDetails
+- from: InventoryAdjustmentDetailsGet
+  to: InventoryAdjustmentDetailsDtoGet
+  type: has_many
+  via: inventoryAdjustmentDetailDetails
+- from: InventoryAdjustmentDetailsGet
+  to: InventoryAdjustmentHeaderGetDto
+  type: has_one
+  via: inventoryAdjustmentHeaderDetails
+- from: InventoryAdjustmentBatchResponseDto
+  to: InventoryAdjustmentDetailsGet
+  type: has_many
+  via: inventoryAdjustmentDetails
+- from: InventoryAdjustmentDetails
+  to: InventoryAdjustmentDetailsDto
+  type: has_many
+  via: inventoryAdjustmentDetailDetails
+- from: InventoryAdjustmentDetails
+  to: InventoryAdjustmentHeaderDto
+  type: has_one
+  via: inventoryAdjustmentHeaderDetails
+- from: InventoryAdjustmentDetailsList
+  to: InventoryAdjustmentDetails
+  type: has_many
+  via: inventoryAdjustmentDetails
+- from: InventoryValueAdjustmentDetailsGet
+  to: InventoryValueAdjustmentDetailsDto
+  type: has_many
+  via: inventoryValueAdjustmentDetailDetails
+- from: InventoryValueAdjustmentDetailsGet
+  to: InventoryValueAdjustmentHeaderDtoGet
+  type: has_one
+  via: inventoryValueAdjustmentHeaderDetails
+- from: InventoryValueAdjustmentBatchResponseDto
+  to: InventoryValueAdjustmentDetailsGet
+  type: has_many
+  via: inventoryValueAdjustmentDetails
+- from: InventoryValueAdjustmentDetails
+  to: InventoryValueAdjustmentDetailsDto
+  type: has_many
+  via: inventoryValueAdjustmentDetailDetails
+- from: InventoryValueAdjustmentDetails
+  to: InventoryValueAdjustmentHeaderDto
+  type: has_one
+  via: inventoryValueAdjustmentHeaderDetails
+- from: InventoryValueAdjustmentDetailsList
+  to: InventoryValueAdjustmentDetails
+  type: has_many
+  via: inventoryValueAdjustmentDetails
+- from: PhysicalInventoryStandardDetailsGet
+  to: PhysicalInventoryStandardDetails00
+  type: has_many
+  via: physicalInventoryStandardDetailDetails
+- from: PhysicalInventoryStandardBatchResponseDto
+  to: PhysicalInventoryStandardDetailsGet
+  type: has_many
+  via: physicalInventoryStandardDetails
+- from: PhysicalInventoryStandardDetails
+  to: PhysicalInventoryStandardDetails1
+  type: has_many
+  via: physicalInventoryStandardDetailDetails
+- from: PhysicalInventoryStandardDetailsList
+  to: PhysicalInventoryStandardDetails
+  type: has_many
+  via: physicalInventoryStandardDetails
+- from: LocationProductPricingDetails
+  to: LocationProductPricingAutoTransferDetailRow
+  type: has_many
+  via: locationProductPricingAutoTransferDetails
+- from: LocationProductPricingDetails
+  to: LocationProductPricingDetailsDto
+  type: has_many
+  via: locationProductPricingSeqStorDetails
+- from: LocationProductPricingDetails
+  to: LocationProductPricingUnitsDetailDto
+  type: has_many
+  via: locationProductPricingUnitsDetails
+- from: LocationProductPricingBatchResponseDto
+  to: LocationProductPricingDetails
+  type: has_many
+  via: locationProductPricingDetails
+- from: LocationProductPricingDetailsList
+  to: LocationProductPricingDetails
+  type: has_many
+  via: locationProductPricingDetails
+- from: LocationDetailsGet
+  to: LocationAltAddrDetailDto
+  type: has_many
+  via: locationAltAddressDetails
+- from: LocationDetailsGet
+  to: LocationConceptInfoDetailDto
+  type: has_many
+  via: locationConceptInfoDetails
+- from: LocationDetailsGet
+  to: LocationDeliverInfoDetailDto
+  type: has_many
+  via: locationDeliverInfoDetails
+- from: LocationDetailsGet
+  to: LocationDetailDetailDtoGet
+  type: has_many
+  via: locationDetailDetails
+- from: LocationDetailsGet
+  to: LocationHoursOfOperationDetailDto
+  type: has_many
+  via: locationHoursOfOperationDetails
+- from: LocationDetailsGet
+  to: LocationLaborDetailDto
+  type: has_many
+  via: locationLaborDetails
+- from: LocationDetailsGet
+  to: LocationNameAddrDetailDto
+  type: has_many
+  via: locationNameAddressDetails
+- from: LocationDetailsGet
+  to: LocationPostDetailDto
+  type: has_many
+  via: locationPostDetails
+- from: LocationDetailsGet
+  to: LocationSafeLogDetailDto
+  type: has_many
+  via: locationSafeLogDetails
+- from: LocationDetailsGet
+  to: LocationTimeClockInTwxDetailDto
+  type: has_many
+  via: locationTimeClockInTwxDetails
+- from: LocationDetailsGet
+  to: LocationUdaDetailDto
+  type: has_many
+  via: locationUdaDetails
+- from: LocationBatchResponseDto
+  to: LocationDetailsGet
+  type: has_many
+  via: locationDetails
+- from: LocationDetails
+  to: LocationAltAddrDetailDto
+  type: has_many
+  via: locationAltAddressDetails
+- from: LocationDetails
+  to: LocationConceptInfoDetailDto
+  type: has_many
+  via: locationConceptInfoDetails
+- from: LocationDetails
+  to: LocationDeliverInfoDetailDto
+  type: has_many
+  via: locationDeliverInfoDetails
+- from: LocationDetails
+  to: LocationDetailsDetailDto
+  type: has_many
+  via: locationDetailDetails
+- from: LocationDetails
+  to: LocationHoursOfOperationDetailDto
+  type: has_many
+  via: locationHoursOfOperationDetails
+- from: LocationDetails
+  to: LocationLaborDetailDto
+  type: has_many
+  via: locationLaborDetails
+- from: LocationDetails
+  to: LocationNameAddrDetailDto
+  type: has_many
+  via: locationNameAddressDetails
+- from: LocationDetails
+  to: LocationPostDetailDto
+  type: has_many
+  via: locationPostDetails
+- from: LocationDetails
+  to: LocationSafeLogDetailDto
+  type: has_many
+  via: locationSafeLogDetails
+- from: LocationDetails
+  to: LocationTimeClockInTwxDetailDto
+  type: has_many
+  via: locationTimeClockInTwxDetails
+- from: ProjectedConsumptionDetails
+  to: ProjectedConsumptionDetailsDto
+  type: has_many
+  via: projectedConsumptionDetailDetails
+- from: ProjectedConsumptionDetails
+  to: ProjectedConsumptionHeaderDto
+  type: has_one
+  via: projectedConsumptionHeaderDetails
+- from: ProjectedConsumptionBatchResponseDto
+  to: ProjectedConsumptionDetails
+  type: has_many
+  via: projectedConsumptionDetails
+- from: ProjectedConsumptionDetailsList
+  to: ProjectedConsumptionDetails
+  type: has_many
+  via: projectedConsumptionDetails
+- from: RecipeEnhancedHeaderDto
+  to: RecipeEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: allergenAttributes
+- from: RecipeEnhancedHeaderDto
+  to: RecipeEnhancedUpcDetailDto
+  type: has_many
+  via: alternateUpcs
+- from: RecipeEnhancedHeaderDto
+  to: RecipeEnhancedComponentSubstituteDetailDto
+  type: has_many
+  via: componentSubstitutes
+- from: RecipeEnhancedHeaderDto
+  to: RecipeEnhancedComponentDetailDto
+  type: has_many
+  via: components
+- from: RecipeEnhancedHeaderDto
+  to: RecipeEnhancedConceptDetailDto
+  type: has_many
+  via: concepts
+- from: RecipeEnhancedHeaderDto
+  to: RecipeEnhancedShipLocationDetailDto
+  type: has_many
+  via: shipLocations
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: recipeEnhancedAllergenAttributeDetails
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedComponentDetailDto
+  type: has_many
+  via: recipeEnhancedComponentDetails
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedComponentSubstituteDetailDto
+  type: has_many
+  via: recipeEnhancedComponentSubstituteDetails
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedConceptDetailDto
+  type: has_many
+  via: recipeEnhancedConceptDetails
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedHeaderDto
+  type: has_one
+  via: recipeEnhancedHeaderDetails
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedHeaderDto
+  type: has_one
+  via: recipeEnhancedHeaderDto
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedShipLocationDetailDto
+  type: has_many
+  via: recipeEnhancedShipLocationDetails
+- from: recipeEnhancedDetailsGet
+  to: RecipeEnhancedUpcDetailDto
+  type: has_many
+  via: recipeEnhancedUpcDetails
+- from: RecipeEnhancedBatchResponseDto
+  to: recipeEnhancedDetails
+  type: has_many
+  via: recipeEnhancedDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: recipeEnhancedAllergenAttributeDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedComponentDetailDto
+  type: has_many
+  via: recipeEnhancedComponentDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedComponentSubstituteDetailDto
+  type: has_many
+  via: recipeEnhancedComponentSubstituteDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedConceptDetailDto
+  type: has_many
+  via: recipeEnhancedConceptDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedHeaderDto
+  type: has_one
+  via: recipeEnhancedHeaderDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedShipLocationDetailDto
+  type: has_many
+  via: recipeEnhancedShipLocationDetails
+- from: recipeEnhancedDetails
+  to: RecipeEnhancedUpcDetailDto
+  type: has_many
+  via: recipeEnhancedUpcDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: recipeEnhancedAllergenAttributeDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedComponentDetailDto
+  type: has_many
+  via: recipeEnhancedComponentDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedComponentSubstituteDetailDto
+  type: has_many
+  via: recipeEnhancedComponentSubstituteDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedConceptDetailDto
+  type: has_many
+  via: recipeEnhancedConceptDetails
+- from: RecipeEnhancedDetailsList
+  to: recipeEnhancedDetails
+  type: has_many
+  via: recipeEnhancedDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedHeaderDto
+  type: has_one
+  via: recipeEnhancedHeaderDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedShipLocationDetailDto
+  type: has_many
+  via: recipeEnhancedShipLocationDetails
+- from: RecipeEnhancedDetailsList
+  to: RecipeEnhancedUpcDetailDto
+  type: has_many
+  via: recipeEnhancedUpcDetails
+- from: ExportFile
+  to: VendorOrderAttachmentsDto
+  type: has_one
+  via: vendorOrderAttachments
+- from: VendorOrderAttachmentsDto
+  to: VendorOrderAttachment
+  type: has_many
+  via: vendorOrderAttachmentList
+- from: VendorLocationDetails
+  to: VendorLocationScheduleOverrideDetails
+  type: has_many
+  via: scheduleOverrideRowList
+- from: VendorLocationDetails
+  to: VendorLocationHeaderDto
+  type: has_one
+  via: vendorLocationHeaderDetails
+- from: VendorLocationDetails
+  to: VendorLocationOtherDetailsDto
+  type: has_one
+  via: vendorLocationOtherDetail
+- from: VendorLocationDetails
+  to: VendorLocationScheduleDetailDto
+  type: has_one
+  via: vendorLocationScheduleDetail
+- from: VendorLocationDetails
+  to: VendorLocationTransmissionDetailDto
+  type: has_one
+  via: vendorLocationTransmissionDetail
+- from: VendorLocationBatchResponseDto
+  to: VendorLocationDetails
+  type: has_many
+  via: vendorLocationDetails
+- from: VendorLocationDetailsList
+  to: VendorLocationDetails
+  type: has_many
+  via: vendorLocationDetails
+- from: VendorGetDto
+  to: vendorUdaDetail
+  type: has_many
+  via: vendorUdaDetails
+- from: VendorDetails
+  to: VendorDto
+  type: has_many
+  via: vendors
+- from: BudgetDetails
+  to: BudgetDetailsDto
+  type: has_many
+  via: budgetDetailDetails
+- from: BudgetDetails
+  to: BudgetHeaderDto
+  type: has_one
+  via: budgetHeaderDetails
+- from: BudgetBatchResponseDto
+  to: BudgetDetails
+  type: has_many
+  via: budgetDetails
+- from: BudgetDetailsList
+  to: BudgetDetails
+  type: has_many
+  via: budgetDetails
+- from: CategoryDetailsGet
+  to: CategoryDetailGet
+  type: has_many
+  via: categoryDetailDetails
+- from: CategoryBatchResponseDto
+  to: CategoryDetailsGet
+  type: has_many
+  via: categoryDetails
+- from: CategoryDetails
+  to: CategoryDetailsDto
+  type: has_many
+  via: categoryDetailDetails
+- from: CategoryDetailsList
+  to: CategoryDetails
+  type: has_many
+  via: categoryDetails
+- from: CheckMenuMixDetailsGet
+  to: CheckMenuMixHeaderDto
+  type: has_one
+  via: checkMenuMixDetails
+- from: CheckMenuMixDetailsGet
+  to: CheckMenuMixGroupDetails
+  type: has_many
+  via: checkMenuMixGroupDetails
+- from: CheckMenuMixDetailsGet
+  to: CheckMenuMixHeaderDto
+  type: has_one
+  via: checkMenuMixHeaderDetails
+- from: CheckMenuMixGroupDetails
+  to: CheckMenuMixCheckDetailDto
+  type: has_many
+  via: checkMenuMixCheckDetails
+- from: CheckMenuMixGroupDetails
+  to: CheckMenuMixItemDetailDto
+  type: has_many
+  via: checkMenuMixItemDetails
+- from: CheckMenuMixGroupDetails
+  to: CheckMenuMixMiscCheckDetailDto
+  type: has_many
+  via: checkMenuMixMiscCheckDetails
+- from: CheckMenuMixGroupDetails
+  to: CheckMenuMixMiscItemDetailDto
+  type: has_many
+  via: checkMenuMixMiscItemDetails
+- from: CheckMenuMixGroupDetails
+  to: CheckMenuMixTimeDetailDto
+  type: has_many
+  via: checkMenuMixTimeDetails
+- from: CheckMenuMixBatchResponseDto
+  to: CheckMenuMixDetails
+  type: has_many
+  via: checkMenuMixDetails
+- from: CheckMenuMixDetails
+  to: CheckMenuMixGroupDetails
+  type: has_many
+  via: checkMenuMixGroupDetails
+- from: CheckMenuMixDetails
+  to: CheckMenuMixHeaderDto
+  type: has_one
+  via: checkMenuMixHeaderDetails
+- from: CheckMenuMixDetailsList
+  to: CheckMenuMixDetails
+  type: has_many
+  via: checkMenuMixDetails
+- from: CommissaryOrderDetails
+  to: CommissaryOrderDetailsDto
+  type: has_many
+  via: commissaryOrderDetailDetails
+- from: CommissaryOrderDetails
+  to: CommissaryOrderHeaderDto
+  type: has_one
+  via: commissaryOrderHeaderDetails
+- from: CommissaryOrderBatchResponseDto
+  to: CommissaryOrderDetails
+  type: has_many
+  via: commissaryOrderDetails
+- from: ConfirmReceiptStandardDetailsRes
+  to: ConfirmReceiptStandardHeaderDtoRes
+  type: has_one
+  via: confirmReceiptStandardHeaderDetails
+- from: ConfirmReceiptStandardBatchResponseDto
+  to: ConfirmReceiptStandardDetailsRes
+  type: has_many
+  via: confirmReceiptStandardDetails
+- from: ConfirmReceiptStandardDetailsList
+  to: ConfirmReceiptStandardDetailsReq
+  type: has_many
+  via: confirmReceiptStandardDetails
+- from: ConfirmReceiptStandardDetailsReq
+  to: ConfirmReceiptStandardHeaderDtoReq
+  type: has_one
+  via: confirmReceiptStandardHeaderDetails
+- from: CustomerOrderEnhancedDetailsGet
+  to: CustomerOrderEnhancedDetailGet
+  type: has_many
+  via: customerOrderEnhancedDetailDetails
+- from: CustomerOrderEnhancedDetailsGet
+  to: CustomerOrderEnhancedHeaderDtoGet
+  type: has_one
+  via: customerOrderEnhancedHeaderDetails
+- from: CustomerOrderEnhancedBatchResponseDto
+  to: CustomerOrderEnhancedDetailsGet
+  type: has_many
+  via: customerOrderEnhancedDetails
+- from: CustomerOrderEnhancedDetails
+  to: CustomerOrderEnhancedDetailsDto
+  type: has_many
+  via: customerOrderEnhancedDetailDetails
+- from: CustomerOrderEnhancedDetails
+  to: CustomerOrderEnhancedHeaderDto
+  type: has_one
+  via: customerOrderEnhancedHeaderDetails
+- from: CustomerOrderEnhancedDetailsList
+  to: CustomerOrderEnhancedDetails
+  type: has_many
+  via: customerOrderEnhancedDetails
+- from: DailyPrepDto
+  to: DailyPrepRecipeDto
+  type: has_one
+  via: recipes
+- from: DailyPrepRecipeDto
+  to: DailyPrepComponentDto
+  type: has_one
+  via: components
+- from: DailyPrepBatchResponseDto
+  to: DailyPrepDto
+  type: has_many
+  via: dailyPreps
+- from: DailyPrepDetailsList
+  to: DailyPrepSaveDto
+  type: has_many
+  via: dailyPreps
+- from: ElectronicInvoiceDetails
+  to: ElectronicInvoiceDetailsDto
+  type: has_many
+  via: electronicInvoiceDetailRowList
+- from: ElectronicInvoiceDetails
+  to: ElectronicInvoiceHeaderDto
+  type: has_one
+  via: electronicInvoiceHeaderDetails
+- from: ElectronicInvoiceDetailsList
+  to: ElectronicInvoiceDetails
+  type: has_many
+  via: electronicInvoiceDetails
+- from: EmployeeGet
+  to: EmployeeAudit
+  type: has_many
+  via: employeeAudits
+- from: EmployeeGet
+  to: EmployeeLocation
+  type: has_many
+  via: employeeLocations
+- from: EmployeeGet
+  to: EmployeePosition
+  type: has_many
+  via: employeePositions
+- from: EmployeeBatchResponseDto
+  to: EmployeeGet
+  type: has_many
+  via: employeeDetails
+- from: Employee
+  to: EmployeeLocation
+  type: has_many
+  via: employeeLocations
+- from: Employee
+  to: EmployeePosition
+  type: has_many
+  via: employeePositions
+- from: EmployeeSave
+  to: Employee
+  type: has_many
+  via: employee
+- from: GetHierarchyV2DetailsResponse
+  to: HierarchyV2LevelDto
+  type: has_many
+  via: levels
+- from: GetHierarchyV2DetailsResponse
+  to: HierarchyDetailDto
+  type: has_many
+  via: locations
+- from: HierarchyV2Details
+  to: HierarchyDetailDto
+  type: has_many
+  via: hierarchyDetailDetails
+- from: HierarchyV2Details
+  to: HierarchyHeaderDto
+  type: has_one
+  via: hierarchyHeaderDetails
+- from: HierarchyV2DetailsList
+  to: HierarchyV2Details
+  type: has_one
+  via: hierarchyDetails
+- from: CurrentInventoryBatchResponseDto
+  to: CurrentInventoryDetails
+  type: has_many
+  via: currentInventoryDetails
+- from: CurrentInventoryDetails
+  to: CurrentInventoryDetailsDto
+  type: has_many
+  via: currentInventoryDetailDetails
+- from: InventoryLocationTransfersDetails
+  to: InventoryLocationTransfersDetailDto
+  type: has_many
+  via: inventoryLocationTransfersDetailDetails
+- from: InventoryLocationTransfersDetails
+  to: InventoryLocationTransfersHeaderDto
+  type: has_one
+  via: inventoryLocationTransfersHeaderDetails
+- from: InventoryLocationTransfersBatchResponseDto
+  to: InventoryLocationTransfersDetails
+  type: has_many
+  via: inventoryLocationTransfersDetails
+- from: NutritionDetails
+  to: NutritionDetailsDto
+  type: has_many
+  via: nutritionDetailDetails
+- from: NutritionDetailsList
+  to: NutritionDetails
+  type: has_many
+  via: nutritionDetails
+- from: NutritionBatchResponseDto
+  to: NutritionDetails
+  type: has_many
+  via: nutritionDetails
+- from: PackageTypeDetailsGet
+  to: PackageTypeDetailGet
+  type: has_many
+  via: packageTypeDetailDetails
+- from: PackageTypeV2BatchResponseDto
+  to: PackageTypeDetailsGet
+  type: has_many
+  via: packageTypeDetails
+- from: PackageTypeV2Details
+  to: PackageTypeDetailDto
+  type: has_many
+  via: packageTypeDetailDetails
+- from: PackageTypeV2DetailsList
+  to: PackageTypeV2Details
+  type: has_many
+  via: packageTypeDetails
+- from: PbiDetailsGet
+  to: PbiDetailDto
+  type: has_many
+  via: pbiDetailDetails
+- from: PbiDetailsGet
+  to: PbiHeaderDtoGet
+  type: has_one
+  via: pbiHeaderDetails
+- from: PbiBatchResponseDto
+  to: PbiDetailsGet
+  type: has_many
+  via: pbiDetails
+- from: PbiDetails
+  to: PbiDetailDto
+  type: has_many
+  via: pbiDetailDetails
+- from: PbiDetails
+  to: PbiHeaderDto
+  type: has_one
+  via: pbiHeaderDetails
+- from: PbiDetailsList
+  to: PbiDetails
+  type: has_many
+  via: pbiDetails
+- from: PbiAttachmentBatchResponseDto
+  to: PbiAttachmentDto
+  type: has_many
+  via: attachments
+- from: PurchaseOrderHeaderDto
+  to: PurchaseOrderDetailsDto
+  type: has_many
+  via: details
+- from: PurchaseOrderBatchResponseDto
+  to: PurchaseOrderHeaderDto
+  type: has_many
+  via: purchaseOrderDetails
+- from: PurchaseOrderRowsList
+  to: PurchaseOrderSaveRows
+  type: has_many
+  via: purchaseOrderSaveRows
+- from: PurchaseOrderSaveRows
+  to: PurchaseOrderDetailRow
+  type: has_many
+  via: purchaseOrderDetailRows
+- from: PurchaseOrderSaveRows
+  to: PurchaseOrderHeaderRow
+  type: has_one
+  via: purchaseOrderHeaderRow
+- from: PurchaseOrderAttachmentBatchResponseDto
+  to: AttachmentDto
+  type: has_many
+  via: attachments
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: recipeEnhancedAllergenAttributeDetails
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedComponentDetailDto
+  type: has_many
+  via: recipeEnhancedComponentDetails
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedComponentSubstituteDetailDto
+  type: has_many
+  via: recipeEnhancedComponentSubstituteDetails
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedConceptDetailDto
+  type: has_many
+  via: recipeEnhancedConceptDetails
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedV2HeaderDtoGet
+  type: has_one
+  via: recipeEnhancedHeaderDetails
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedShipLocationDetailDto
+  type: has_many
+  via: recipeEnhancedShipLocationDetails
+- from: RecipeEnhancedV2DetailsGet
+  to: RecipeEnhancedUpcDetailDto
+  type: has_many
+  via: recipeEnhancedUpcDetails
+- from: RecipeEnhancedV2BatchResponseDto
+  to: RecipeEnhancedV2DetailsGet
+  type: has_many
+  via: recipeEnhancedDetails
+- from: RecipeEnhancedV2DetailsList
+  to: RecipeEnhancedDetailsv2
+  type: has_many
+  via: recipeEnhancedDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedAllergenAttributeDetailDto
+  type: has_many
+  via: recipeEnhancedAllergenAttributeDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedComponentDetailDto
+  type: has_many
+  via: recipeEnhancedComponentDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedComponentSubstituteDetailDto
+  type: has_many
+  via: recipeEnhancedComponentSubstituteDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedConceptDetailDto
+  type: has_many
+  via: recipeEnhancedConceptDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedV2HeaderDto
+  type: has_one
+  via: recipeEnhancedHeaderDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedShipLocationDetailDto
+  type: has_many
+  via: recipeEnhancedShipLocationDetails
+- from: RecipeEnhancedDetailsv2
+  to: RecipeEnhancedUpcDetailDto
+  type: has_many
+  via: recipeEnhancedUpcDetails
+- from: RecipeLocationDetailsGet
+  to: RecipeLocationDetailGet
+  type: has_many
+  via: recipeLocationDetailDetails
+- from: RecipeLocationDetailsGet
+  to: RecipeLocationHeaderDto
+  type: has_one
+  via: recipeLocationHeaderDetails
+- from: RecipeLocationBatchResponseDto
+  to: RecipeLocationDetailsGet
+  type: has_many
+  via: recipeLocationDetails
+- from: RecipeLocationDetails
+  to: RecipeLocationDetailsDto
+  type: has_many
+  via: recipeLocationDetailDetails
+- from: RecipeLocationDetails
+  to: RecipeLocationHeaderDto
+  type: has_one
+  via: recipeLocationHeaderDetails
+- from: RecipeLocationDetailsList
+  to: RecipeLocationDetails
+  type: has_many
+  via: recipeLocationDetails
+- from: SalesForecastBatchResponseDto
+  to: SalesForecastDetails
+  type: has_many
+  via: locationsForecast
+- from: SalesForecastDetails
+  to: SalesForecastDto
+  type: has_many
+  via: forecasts
+- from: SalesForecastDetailsList
+  to: SalesForecastDetails
+  type: has_many
+  via: locationsForecast
+- from: SalesForecastDayDetails
+  to: SalesForecastDayDto
+  type: has_many
+  via: forecasts
+- from: SalesForecastDayDetailsList
+  to: SalesForecastDayDetails
+  type: has_many
+  via: locationsForecast
+- from: SalesMixDetailsGet
+  to: SalesMixDetailsDto
+  type: has_many
+  via: salesMixDetailDetails
+- from: SalesMixDetailsGet
+  to: SalesMixHeaderDtoGet
+  type: has_one
+  via: salesMixHeaderDetails
+- from: SalesMixBatchResponseDto
+  to: SalesMixDetailsGet
+  type: has_many
+  via: salesMixDetails
+- from: SalesMixDetails
+  to: SalesMixDetailsDto
+  type: has_many
+  via: salesMixDetailDetails
+- from: SalesMixDetails
+  to: SalesMixHeaderDto
+  type: has_one
+  via: salesMixHeaderDetails
+- from: SalesMixDetailsList
+  to: SalesMixDetails
+  type: has_many
+  via: salesMixDetails
+- from: ScheduledExportFileV2
+  to: VendorOrderAttachmentV2
+  type: has_many
+  via: attachments
+- from: StorageLocationDetails
+  to: StorageLocationDetailsDto
+  type: has_many
+  via: storageLocationDetailDetails
+- from: StorageLocationBatchResponseDto
+  to: StorageLocationDetails
+  type: has_many
+  via: storageLocationDetails
+- from: StorageLocationDetailsList
+  to: StorageLocationDetails
+  type: has_many
+  via: storageLocationDetails
+- from: SupplementalWageDetails
+  to: SupplementalWageDetailDto
+  type: has_many
+  via: supplementalWageDetailDetails
+- from: SupplementalWageDetails
+  to: SupplementalWageHeaderDto
+  type: has_one
+  via: supplementalWageHeaderDetails
+- from: SupplementalWageBatchResponseDto
+  to: SupplementalWageDetails
+  type: has_many
+  via: supplementalWageDetails
+- from: SupplementalWageDetailsList
+  to: SupplementalWageDetails
+  type: has_many
+  via: supplementalWageDetails
+- from: TimeClockEnhancedDetailsGet
+  to: TimeClockEnhancedDetailGet
+  type: has_many
+  via: timeClockEnhancedDetailDetails
+- from: TimeClockEnhancedDetailsGet
+  to: TimeClockEnhancedHeaderDto
+  type: has_one
+  via: timeClockEnhancedHeaderDetails
+- from: TimeClockEnhancedBatchResponseDto
+  to: timeClockEnhancedDetails
+  type: has_many
+  via: timeClockEnhancedDetails
+- from: timeClockEnhancedDetails
+  to: TimeClockEnhancedDetailDto
+  type: has_many
+  via: timeClockEnhancedDetailDetails
+- from: timeClockEnhancedDetails
+  to: TimeClockEnhancedHeaderDto
+  type: has_one
+  via: timeClockEnhancedHeaderDetails
+- from: TimeClockEnhancedDetailsList
+  to: timeClockEnhancedDetails
+  type: has_many
+  via: timeClockEnhancedDetails
+- from: BaseLocationDto
+  to: BaseLocationUdaDetailDto
+  type: has_many
+  via: locationUdaDetails
+- from: BaseVendorDto
+  to: BaseVendorUdaDetailDto
+  type: has_many
+  via: vendorUdaDetails
+- from: VendorPaymentDetails
+  to: VendorPaymentDetailsDto
+  type: has_many
+  via: vendorPaymentDetailDetails
+- from: VendorPaymentBatchResponseDto
+  to: VendorPaymentDetails
+  type: has_many
+  via: vendorPaymentDetails
+- from: VendorProductPricingBatchResponseDto
+  to: VendorProductPricingDto
+  type: has_many
+  via: vendorProductPricingRows
+- from: VendorProductPricingDto
+  to: SecVendorProductPricingDto
+  type: has_many
+  via: secondaryVendorProducts
+- from: VendorProductPricingDto
+  to: ContractInfoDto
+  type: has_one
+  via: contractInfo

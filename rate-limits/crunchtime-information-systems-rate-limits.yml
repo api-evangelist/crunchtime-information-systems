@@ -1,6 +1,7 @@
 generated: '2026-07-18'
 method: searched
 source: https://developer.crunchtime.com/docs/usage-guidelines
+name: Crunchtime Information Systems API Rate Limits
 docs: https://developer.crunchtime.com/docs/usage-guidelines
 description: >-
   Published rate limits, batch limits, pagination limits, and timeouts for the

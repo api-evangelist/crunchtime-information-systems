@@ -1,0 +1,2434 @@
+{
+  "@context": {
+    "@vocab": "https://crunchtime.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "crunchtime": "https://crunchtime.com/schema#",
+    "AppUserBizIQDetailDto": "crunchtime:AppUserBizIQDetailDto",
+    "bizIqAccessLevel": {
+      "@id": "crunchtime:bizIqAccessLevel",
+      "@type": "xsd:string"
+    },
+    "userId": {
+      "@id": "crunchtime:userId",
+      "@type": "xsd:string"
+    },
+    "AppUserConceptDetailDto": "crunchtime:AppUserConceptDetailDto",
+    "activeFlag": {
+      "@id": "crunchtime:activeFlag",
+      "@type": "xsd:string"
+    },
+    "conceptCode": {
+      "@id": "crunchtime:conceptCode",
+      "@type": "xsd:string"
+    },
+    "AppUserConsolidationVendorDetailDto": "crunchtime:AppUserConsolidationVendorDetailDto",
+    "vendorCode": {
+      "@id": "crunchtime:vendorCode",
+      "@type": "xsd:string"
+    },
+    "AppUserCustomerDetailDto": "crunchtime:AppUserCustomerDetailDto",
+    "customer": {
+      "@id": "crunchtime:customer",
+      "@type": "xsd:string"
+    },
+    "locationCode": {
+      "@id": "crunchtime:locationCode",
+      "@type": "xsd:string"
+    },
+    "AppUserDailyAlertDetailDto": "crunchtime:AppUserDailyAlertDetailDto",
+    "emailFormat": {
+      "@id": "crunchtime:emailFormat",
+      "@type": "xsd:string"
+    },
+    "hierarchyType": {
+      "@id": "crunchtime:hierarchyType",
+      "@type": "xsd:string"
+    },
+    "logicalName": {
+      "@id": "crunchtime:logicalName",
+      "@type": "xsd:string"
+    },
+    "reportName": {
+      "@id": "crunchtime:reportName",
+      "@type": "xsd:string"
+    },
+    "AppUserDepartmentDetailDto": "crunchtime:AppUserDepartmentDetailDto",
+    "approvalAuthority": {
+      "@id": "crunchtime:approvalAuthority",
+      "@type": "xsd:string"
+    },
+    "approvalLimit": {
+      "@id": "crunchtime:approvalLimit",
+      "@type": "xsd:integer"
+    },
+    "locationDepartment": {
+      "@id": "crunchtime:locationDepartment",
+      "@type": "xsd:string"
+    },
+    "AppUserDetailDto": "crunchtime:AppUserDetailDto",
+    "email": {
+      "@id": "crunchtime:email",
+      "@type": "xsd:string"
+    },
+    "employeeNumber": {
+      "@id": "crunchtime:employeeNumber",
+      "@type": "xsd:string"
+    },
+    "errors": {
+      "@id": "crunchtime:errors",
+      "@container": "@list"
+    },
+    "ext": {
+      "@id": "crunchtime:ext",
+      "@type": "xsd:string"
+    },
+    "firstName": {
+      "@id": "crunchtime:firstName",
+      "@type": "xsd:string"
+    },
+    "hhUserFlag": {
+      "@id": "crunchtime:hhUserFlag",
+      "@type": "xsd:string"
+    },
+    "hhUserId": {
+      "@id": "crunchtime:hhUserId",
+      "@type": "xsd:string"
+    },
+    "hhUserPassword": {
+      "@id": "crunchtime:hhUserPassword",
+      "@type": "xsd:string"
+    },
+    "language": {
+      "@id": "crunchtime:language",
+      "@type": "xsd:string"
+    },
+    "lastName": {
+      "@id": "crunchtime:lastName",
+      "@type": "xsd:string"
+    },
+    "newHireFlag": {
+      "@id": "crunchtime:newHireFlag",
+      "@type": "xsd:string"
+    },
+    "teamworxFlag": {
+      "@id": "crunchtime:teamworxFlag",
+      "@type": "xsd:string"
+    },
+    "telephone": {
+      "@id": "crunchtime:telephone",
+      "@type": "xsd:string"
+    },
+    "userGroup": {
+      "@id": "crunchtime:userGroup",
+      "@type": "xsd:string"
+    },
+    "AppUserFranchiseDetailDto": "crunchtime:AppUserFranchiseDetailDto",
+    "franchiseCode": {
+      "@id": "crunchtime:franchiseCode",
+      "@type": "xsd:string"
+    },
+    "AppUserHierarchyDetailDto": "crunchtime:AppUserHierarchyDetailDto",
+    "consolidatedDashboardFlag": {
+      "@id": "crunchtime:consolidatedDashboardFlag",
+      "@type": "xsd:string"
+    },
+    "limitExportLocationsFlag": {
+      "@id": "crunchtime:limitExportLocationsFlag",
+      "@type": "xsd:string"
+    },
+    "AppUserLocationDetailDto": "crunchtime:AppUserLocationDetailDto",
+    "AppUserMarketDetailDto": "crunchtime:AppUserMarketDetailDto",
+    "market": {
+      "@id": "crunchtime:market",
+      "@type": "xsd:string"
+    },
+    "AppUserPasswordDetailDto": "crunchtime:AppUserPasswordDetailDto",
+    "password": {
+      "@id": "crunchtime:password",
+      "@type": "xsd:string"
+    },
+    "ApplicationUserDetailsGet": "crunchtime:ApplicationUserDetailsGet",
+    "appUserBizIQDetails": {
+      "@id": "crunchtime:appUserBizIQDetails",
+      "@container": "@list"
+    },
+    "appUserConceptDetails": {
+      "@id": "crunchtime:appUserConceptDetails",
+      "@container": "@list"
+    },
+    "appUserConsolidationVendorDetails": {
+      "@id": "crunchtime:appUserConsolidationVendorDetails",
+      "@container": "@list"
+    },
+    "appUserCustomerDetails": {
+      "@id": "crunchtime:appUserCustomerDetails",
+      "@container": "@list"
+    },
+    "appUserDailyAlertDetails": {
+      "@id": "crunchtime:appUserDailyAlertDetails",
+      "@container": "@list"
+    },
+    "appUserDepartmentDetails": {
+      "@id": "crunchtime:appUserDepartmentDetails",
+      "@container": "@list"
+    },
+    "appUserDetails": {
+      "@id": "crunchtime:appUserDetails",
+      "@type": "@id"
+    },
+    "appUserFranchiseDetails": {
+      "@id": "crunchtime:appUserFranchiseDetails",
+      "@container": "@list"
+    },
+    "appUserHierarchyDetails": {
+      "@id": "crunchtime:appUserHierarchyDetails",
+      "@container": "@list"
+    },
+    "appUserLocationDetails": {
+      "@id": "crunchtime:appUserLocationDetails",
+      "@container": "@list"
+    },
+    "appUserMarketDetails": {
+      "@id": "crunchtime:appUserMarketDetails",
+      "@container": "@list"
+    },
+    "appUserPasswordDetails": {
+      "@id": "crunchtime:appUserPasswordDetails",
+      "@container": "@list"
+    },
+    "CdpError": "crunchtime:CdpError",
+    "errorMessage": {
+      "@id": "crunchtime:errorMessage",
+      "@type": "xsd:string"
+    },
+    "fieldNumber": {
+      "@id": "crunchtime:fieldNumber",
+      "@type": "xsd:integer"
+    },
+    "lineNumber": {
+      "@id": "crunchtime:lineNumber",
+      "@type": "xsd:integer"
+    },
+    "parentFileLineNumber": {
+      "@id": "crunchtime:parentFileLineNumber",
+      "@type": "xsd:integer"
+    },
+    "ObjectError": "crunchtime:ObjectError",
+    "arguments": {
+      "@id": "crunchtime:arguments",
+      "@container": "@list"
+    },
+    "code": {
+      "@id": "crunchtime:code",
+      "@type": "xsd:string"
+    },
+    "codes": {
+      "@id": "crunchtime:codes",
+      "@container": "@list"
+    },
+    "defaultMessage": {
+      "@id": "crunchtime:defaultMessage",
+      "@type": "xsd:string"
+    },
+    "objectName": {
+      "@id": "crunchtime:objectName",
+      "@type": "xsd:string"
+    },
+    "ApplicationUserBatchResponseDto": "crunchtime:ApplicationUserBatchResponseDto",
+    "applicationUserDetails": {
+      "@id": "crunchtime:applicationUserDetails",
+      "@container": "@list"
+    },
+    "hasNext": {
+      "@id": "crunchtime:hasNext",
+      "@type": "xsd:boolean"
+    },
+    "totalPages": {
+      "@id": "crunchtime:totalPages",
+      "@type": "xsd:integer"
+    },
+    "ApplicationUserDetails": "crunchtime:ApplicationUserDetails",
+    "CompanyProductEnhancedAllergenAttributeDetailDto": "crunchtime:CompanyProductEnhancedAllergenAttributeDetailDto",
+    "nutritionClass": {
+      "@id": "crunchtime:nutritionClass",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "crunchtime:value",
+      "@type": "xsd:string"
+    },
+    "CompanyProductEnhancedConceptDetailDto": "crunchtime:CompanyProductEnhancedConceptDetailDto",
+    "CompanyProductEnhancedDepartmentDetailDto": "crunchtime:CompanyProductEnhancedDepartmentDetailDto",
+    "CompanyProductEnhancedDetailsGet": "crunchtime:CompanyProductEnhancedDetailsGet",
+    "companyProductEnhancedAllergenAttributeDetails": {
+      "@id": "crunchtime:companyProductEnhancedAllergenAttributeDetails",
+      "@container": "@list"
+    },
+    "companyProductEnhancedConceptDetails": {
+      "@id": "crunchtime:companyProductEnhancedConceptDetails",
+      "@container": "@list"
+    },
+    "companyProductEnhancedDepartmentDetails": {
+      "@id": "crunchtime:companyProductEnhancedDepartmentDetails",
+      "@container": "@list"
+    },
+    "companyProductEnhancedHeaderDetails": {
+      "@id": "crunchtime:companyProductEnhancedHeaderDetails",
+      "@type": "@id"
+    },
+    "companyProductEnhancedShipLocationDetails": {
+      "@id": "crunchtime:companyProductEnhancedShipLocationDetails",
+      "@container": "@list"
+    },
+    "companyProductEnhancedUpcDetails": {
+      "@id": "crunchtime:companyProductEnhancedUpcDetails",
+      "@container": "@list"
+    },
+    "companyProductEnhancedUserDefinedCategoryDetails": {
+      "@id": "crunchtime:companyProductEnhancedUserDefinedCategoryDetails",
+      "@container": "@list"
+    },
+    "CompanyProductEnhancedHeaderDto": "crunchtime:CompanyProductEnhancedHeaderDto",
+    "allergenAttributes": {
+      "@id": "crunchtime:allergenAttributes",
+      "@container": "@list"
+    },
+    "alternateNameFive": {
+      "@id": "crunchtime:alternateNameFive",
+      "@type": "xsd:string"
+    },
+    "alternateNameFour": {
+      "@id": "crunchtime:alternateNameFour",
+      "@type": "xsd:string"
+    },
+    "alternateNameOne": {
+      "@id": "crunchtime:alternateNameOne",
+      "@type": "xsd:string"
+    },
+    "alternateNameThree": {
+      "@id": "crunchtime:alternateNameThree",
+      "@type": "xsd:string"
+    },
+    "alternateNameTwo": {
+      "@id": "crunchtime:alternateNameTwo",
+      "@type": "xsd:string"
+    },
+    "alternateUnitOneConversion": {
+      "@id": "crunchtime:alternateUnitOneConversion",
+      "@type": "xsd:decimal"
+    },
+    "alternateUnitOnePackageType": {
+      "@id": "crunchtime:alternateUnitOnePackageType",
+      "@type": "xsd:string"
+    },
+    "alternateUnitThreeConversion": {
+      "@id": "crunchtime:alternateUnitThreeConversion",
+      "@type": "xsd:decimal"
+    },
+    "alternateUnitThreePackageType": {
+      "@id": "crunchtime:alternateUnitThreePackageType",
+      "@type": "xsd:string"
+    },
+    "alternateUnitTwoConversion": {
+      "@id": "crunchtime:alternateUnitTwoConversion",
+      "@type": "xsd:decimal"
+    },
+    "alternateUnitTwoPackageType": {
+      "@id": "crunchtime:alternateUnitTwoPackageType",
+      "@type": "xsd:string"
+    },
+    "alternateUpcs": {
+      "@id": "crunchtime:alternateUpcs",
+      "@container": "@list"
+    },
+    "bidSheet": {
+      "@id": "crunchtime:bidSheet",
+      "@type": "xsd:string"
+    },
+    "bonded": {
+      "@id": "crunchtime:bonded",
+      "@type": "xsd:string"
+    },
+    "categoryName": {
+      "@id": "crunchtime:categoryName",
+      "@type": "xsd:string"
+    },
+    "comment": {
+      "@id": "crunchtime:comment",
+      "@type": "xsd:string"
+    },
+    "concepts": {
+      "@id": "crunchtime:concepts",
+      "@container": "@list"
+    },
+    "containerVolumeUnitPackageType": {
+      "@id": "crunchtime:containerVolumeUnitPackageType",
+      "@type": "xsd:string"
+    },
+    "containerVolumeUnitQuantity": {
+      "@id": "crunchtime:containerVolumeUnitQuantity",
+      "@type": "xsd:decimal"
+    },
+    "containerWeightUnitPackageType": {
+      "@id": "crunchtime:containerWeightUnitPackageType",
+      "@type": "xsd:string"
+    },
+    "containerWeightUnitQuantity": {
+      "@id": "crunchtime:containerWeightUnitQuantity",
+      "@type": "xsd:decimal"
+    },
+    "countryOfOrigin": {
+      "@id": "crunchtime:countryOfOrigin",
+      "@type": "xsd:string"
+    },
+    "customsStatus": {
+      "@id": "crunchtime:customsStatus",
+      "@type": "xsd:string"
+    },
+    "departments": {
+      "@id": "crunchtime:departments",
+      "@container": "@list"
+    },
+    "governmentMinimumStock": {
+      "@id": "crunchtime:governmentMinimumStock",
+      "@type": "xsd:string"
+    },
+    "gradPlato": {
+      "@id": "crunchtime:gradPlato",
+      "@type": "xsd:decimal"
+    },
+    "haccpCompliance": {
+      "@id": "crunchtime:haccpCompliance",
+      "@type": "xsd:string"
+    },
+    "inventoryUnitPackageType": {
+      "@id": "crunchtime:inventoryUnitPackageType",
+      "@type": "xsd:string"
+    },
+    "issueUnitOneConversion": {
+      "@id": "crunchtime:issueUnitOneConversion",
+      "@type": "xsd:decimal"
+    },
+    "issueUnitOnePackageType": {
+      "@id": "crunchtime:issueUnitOnePackageType",
+      "@type": "xsd:string"
+    },
+    "issueUnitTwoConversion": {
+      "@id": "crunchtime:issueUnitTwoConversion",
+      "@type": "xsd:decimal"
+    },
+    "issueUnitTwoInverted": {
+      "@id": "crunchtime:issueUnitTwoInverted",
+      "@type": "xsd:string"
+    },
+    "issueUnitTwoPackageType": {
+      "@id": "crunchtime:issueUnitTwoPackageType",
+      "@type": "xsd:string"
+    },
+    "labelType": {
+      "@id": "crunchtime:labelType",
+      "@type": "xsd:string"
+    },
+    "lotTracking": {
+      "@id": "crunchtime:lotTracking",
+      "@type": "xsd:string"
+    },
+    "masterOrderType": {
+      "@id": "crunchtime:masterOrderType",
+      "@type": "xsd:string"
+    },
+    "microcategoryName": {
+      "@id": "crunchtime:microcategoryName",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "crunchtime:name",
+      "@type": "xsd:string"
+    },
+    "netWeightUnitPackageType": {
+      "@id": "crunchtime:netWeightUnitPackageType",
+      "@type": "xsd:string"
+    },
+    "netWeightUnitQuantity": {
+      "@id": "crunchtime:netWeightUnitQuantity",
+      "@type": "xsd:decimal"
+    },
+    "number": {
+      "@id": "crunchtime:number",
+      "@type": "xsd:string"
+    },
+    "nutritionConversion": {
+      "@id": "crunchtime:nutritionConversion",
+      "@type": "xsd:decimal"
+    },
+    "nutritionId": {
+      "@id": "crunchtime:nutritionId",
+      "@type": "xsd:string"
+    },
+    "nutritionPackage": {
+      "@id": "crunchtime:nutritionPackage",
+      "@type": "xsd:string"
+    },
+    "percentageAlcohol": {
+      "@id": "crunchtime:percentageAlcohol",
+      "@type": "xsd:decimal"
+    },
+    "pharmaceuticalDosage": {
+      "@id": "crunchtime:pharmaceuticalDosage",
+      "@type": "xsd:string"
+    },
+    "preferredBrands": {
+      "@id": "crunchtime:preferredBrands",
+      "@type": "xsd:string"
+    },
+    "preferredVendorUnitConversion": {
+      "@id": "crunchtime:preferredVendorUnitConversion",
+      "@type": "xsd:decimal"
+    },
+    "preferredVendorUnitPackageType": {
+      "@id": "crunchtime:preferredVendorUnitPackageType",
+      "@type": "xsd:string"
+    },
+    "prescriptionFlag": {
+      "@id": "crunchtime:prescriptionFlag",
+      "@type": "xsd:string"
+    },
+    "primaryShippingType": {
+      "@id": "crunchtime:primaryShippingType",
+      "@type": "xsd:string"
+    },
+    "productType": {
+      "@id": "crunchtime:productType",
+      "@type": "xsd:string"
+    },
+    "recipeUnitFiveConversion": {
+      "@id": "crunchtime:recipeUnitFiveConversion",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitFivePackageType": {
+      "@id": "crunchtime:recipeUnitFivePackageType",
+      "@type": "xsd:string"
+    },
+    "recipeUnitFourConversion": {
+      "@id": "crunchtime:recipeUnitFourConversion",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitFourPackageType": {
+      "@id": "crunchtime:recipeUnitFourPackageType",
+      "@type": "xsd:string"
+    },
+    "recipeUnitOneConversion": {
+      "@id": "crunchtime:recipeUnitOneConversion",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitOnePackageType": {
+      "@id": "crunchtime:recipeUnitOnePackageType",
+      "@type": "xsd:string"
+    },
+    "recipeUnitThreeConversion": {
+      "@id": "crunchtime:recipeUnitThreeConversion",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitThreePackageType": {
+      "@id": "crunchtime:recipeUnitThreePackageType",
+      "@type": "xsd:string"
+    },
+    "recipeUnitTwoConversion": {
+      "@id": "crunchtime:recipeUnitTwoConversion",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitTwoPackageType": {
+      "@id": "crunchtime:recipeUnitTwoPackageType",
+      "@type": "xsd:string"
+    },
+    "secondaryShippingType": {
+      "@id": "crunchtime:secondaryShippingType",
+      "@type": "xsd:string"
+    },
+    "shelfLifeIssue": {
+      "@id": "crunchtime:shelfLifeIssue",
+      "@type": "xsd:integer"
+    },
+    "shelfLifeReceive": {
+      "@id": "crunchtime:shelfLifeReceive",
+      "@type": "xsd:integer"
+    },
+    "shipLocations": {
+      "@id": "crunchtime:shipLocations",
+      "@container": "@list"
+    },
+    "specialSizeUnit": {
+      "@id": "crunchtime:specialSizeUnit",
+      "@type": "xsd:decimal"
+    },
+    "stateOfOrigin": {
+      "@id": "crunchtime:stateOfOrigin",
+      "@type": "xsd:string"
+    },
+    "statisticItemNumber": {
+      "@id": "crunchtime:statisticItemNumber",
+      "@type": "xsd:string"
+    },
+    "subcategoryName": {
+      "@id": "crunchtime:subcategoryName",
+      "@type": "xsd:string"
+    },
+    "substituteProductOne": {
+      "@id": "crunchtime:substituteProductOne",
+      "@type": "xsd:string"
+    },
+    "substituteProductTwo": {
+      "@id": "crunchtime:substituteProductTwo",
+      "@type": "xsd:string"
+    },
+    "taxCode": {
+      "@id": "crunchtime:taxCode",
+      "@type": "xsd:string"
+    },
+    "temperature": {
+      "@id": "crunchtime:temperature",
+      "@type": "xsd:decimal"
+    },
+    "temperatureOperation": {
+      "@id": "crunchtime:temperatureOperation",
+      "@type": "xsd:string"
+    },
+    "temperatureRequired": {
+      "@id": "crunchtime:temperatureRequired",
+      "@type": "xsd:string"
+    },
+    "theoreticalEqualsActual": {
+      "@id": "crunchtime:theoreticalEqualsActual",
+      "@type": "xsd:string"
+    },
+    "therapeuticCode": {
+      "@id": "crunchtime:therapeuticCode",
+      "@type": "xsd:string"
+    },
+    "universalProductCode": {
+      "@id": "crunchtime:universalProductCode",
+      "@type": "xsd:string"
+    },
+    "universalProductNumber": {
+      "@id": "crunchtime:universalProductNumber",
+      "@type": "xsd:string"
+    },
+    "universalProductUnitConversion": {
+      "@id": "crunchtime:universalProductUnitConversion",
+      "@type": "xsd:decimal"
+    },
+    "universalProductUnitInverted": {
+      "@id": "crunchtime:universalProductUnitInverted",
+      "@type": "xsd:string"
+    },
+    "universalProductUnitPackageType": {
+      "@id": "crunchtime:universalProductUnitPackageType",
+      "@type": "xsd:string"
+    },
+    "userDefinedCategories": {
+      "@id": "crunchtime:userDefinedCategories",
+      "@container": "@list"
+    },
+    "CompanyProductEnhancedShipLocationDetailDto": "crunchtime:CompanyProductEnhancedShipLocationDetailDto",
+    "locationName": {
+      "@id": "crunchtime:locationName",
+      "@type": "xsd:string"
+    },
+    "CompanyProductEnhancedUpcDetailDto": "crunchtime:CompanyProductEnhancedUpcDetailDto",
+    "CompanyProductEnhancedUserDefinedCategoryDetailDto": "crunchtime:CompanyProductEnhancedUserDefinedCategoryDetailDto",
+    "CompanyProductEnhancedBatchResponseDto": "crunchtime:CompanyProductEnhancedBatchResponseDto",
+    "companyProductEnhancedDetails": {
+      "@id": "crunchtime:companyProductEnhancedDetails",
+      "@container": "@list"
+    },
+    "CompanyProductEnhancedDetails": "crunchtime:CompanyProductEnhancedDetails",
+    "CompanyProductEnhancedAutoGenerateDetails": "crunchtime:CompanyProductEnhancedAutoGenerateDetails",
+    "CurrencyRatioDetails": "crunchtime:CurrencyRatioDetails",
+    "currencyRatioDetailDetails": {
+      "@id": "crunchtime:currencyRatioDetailDetails",
+      "@container": "@list"
+    },
+    "CurrencyRatioDetailsDto": "crunchtime:CurrencyRatioDetailsDto",
+    "exchangeRate": {
+      "@id": "crunchtime:exchangeRate",
+      "@type": "xsd:decimal"
+    },
+    "fromCurrencyCode": {
+      "@id": "crunchtime:fromCurrencyCode",
+      "@type": "xsd:string"
+    },
+    "fromFactor": {
+      "@id": "crunchtime:fromFactor",
+      "@type": "xsd:integer"
+    },
+    "toCurrencyCode": {
+      "@id": "crunchtime:toCurrencyCode",
+      "@type": "xsd:string"
+    },
+    "toFactor": {
+      "@id": "crunchtime:toFactor",
+      "@type": "xsd:integer"
+    },
+    "CurrencyRatioDetailsList": "crunchtime:CurrencyRatioDetailsList",
+    "currencyRatioDetails": {
+      "@id": "crunchtime:currencyRatioDetails",
+      "@container": "@list"
+    },
+    "CurrencyRatioBatchResponseDto": "crunchtime:CurrencyRatioBatchResponseDto",
+    "CustomerDetailsDtoRes": "crunchtime:CustomerDetailsDtoRes",
+    "address1": {
+      "@id": "crunchtime:address1",
+      "@type": "xsd:string"
+    },
+    "address2": {
+      "@id": "crunchtime:address2",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "crunchtime:city",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "crunchtime:country",
+      "@type": "xsd:string"
+    },
+    "customerAccountNumber": {
+      "@id": "crunchtime:customerAccountNumber",
+      "@type": "xsd:string"
+    },
+    "customerCode": {
+      "@id": "crunchtime:customerCode",
+      "@type": "xsd:string"
+    },
+    "customerName": {
+      "@id": "crunchtime:customerName",
+      "@type": "xsd:string"
+    },
+    "exportCode": {
+      "@id": "crunchtime:exportCode",
+      "@type": "xsd:string"
+    },
+    "importCode": {
+      "@id": "crunchtime:importCode",
+      "@type": "xsd:string"
+    },
+    "retailPricing": {
+      "@id": "crunchtime:retailPricing",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "crunchtime:state",
+      "@type": "xsd:string"
+    },
+    "supplyPricing": {
+      "@id": "crunchtime:supplyPricing",
+      "@type": "xsd:string"
+    },
+    "zipcode": {
+      "@id": "crunchtime:zipcode",
+      "@type": "xsd:string"
+    },
+    "CustomerDetailsRes": "crunchtime:CustomerDetailsRes",
+    "customerDetailDetails": {
+      "@id": "crunchtime:customerDetailDetails",
+      "@container": "@list"
+    },
+    "CustomerBatchResponseDto": "crunchtime:CustomerBatchResponseDto",
+    "customerDetails": {
+      "@id": "crunchtime:customerDetails",
+      "@container": "@list"
+    },
+    "CustomerDetailsDtoReq": "crunchtime:CustomerDetailsDtoReq",
+    "deleteFlag": {
+      "@id": "crunchtime:deleteFlag",
+      "@type": "xsd:string"
+    },
+    "CustomerDetailsList": "crunchtime:CustomerDetailsList",
+    "CustomerDetailsReq": "crunchtime:CustomerDetailsReq",
+    "GeneralLedgerDto": "crunchtime:GeneralLedgerDto",
+    "active": {
+      "@id": "crunchtime:active",
+      "@type": "xsd:boolean"
+    },
+    "allocatedExpenses": {
+      "@id": "crunchtime:allocatedExpenses",
+      "@type": "xsd:boolean"
+    },
+    "batchId": {
+      "@id": "crunchtime:batchId",
+      "@type": "xsd:integer"
+    },
+    "glDescription": {
+      "@id": "crunchtime:glDescription",
+      "@type": "xsd:string"
+    },
+    "glForReport": {
+      "@id": "crunchtime:glForReport",
+      "@type": "xsd:boolean"
+    },
+    "glNumber": {
+      "@id": "crunchtime:glNumber",
+      "@type": "xsd:string"
+    },
+    "glNumberForCGS": {
+      "@id": "crunchtime:glNumberForCGS",
+      "@type": "xsd:string"
+    },
+    "glNumberForSales": {
+      "@id": "crunchtime:glNumberForSales",
+      "@type": "xsd:string"
+    },
+    "glSubstructure": {
+      "@id": "crunchtime:glSubstructure",
+      "@type": "xsd:string"
+    },
+    "pbiFlag": {
+      "@id": "crunchtime:pbiFlag",
+      "@type": "xsd:boolean"
+    },
+    "plGrouping": {
+      "@id": "crunchtime:plGrouping",
+      "@type": "xsd:string"
+    },
+    "replicated": {
+      "@id": "crunchtime:replicated",
+      "@type": "xsd:boolean"
+    },
+    "voFlag": {
+      "@id": "crunchtime:voFlag",
+      "@type": "xsd:boolean"
+    },
+    "GeneralLedgerDetails": "crunchtime:GeneralLedgerDetails",
+    "generalLedgers": {
+      "@id": "crunchtime:generalLedgers",
+      "@container": "@list"
+    },
+    "HierarchyV1Type": "crunchtime:HierarchyV1Type",
+    "HierarchyDetailDto": "crunchtime:HierarchyDetailDto",
+    "hasChildren": {
+      "@id": "crunchtime:hasChildren",
+      "@type": "xsd:boolean"
+    },
+    "levelDescription": {
+      "@id": "crunchtime:levelDescription",
+      "@type": "xsd:string"
+    },
+    "levelName": {
+      "@id": "crunchtime:levelName",
+      "@type": "xsd:string"
+    },
+    "levelNumber": {
+      "@id": "crunchtime:levelNumber",
+      "@type": "xsd:integer"
+    },
+    "parentLogicalName": {
+      "@id": "crunchtime:parentLogicalName",
+      "@type": "xsd:string"
+    },
+    "GetHierarchyV1DetailsResponse": "crunchtime:GetHierarchyV1DetailsResponse",
+    "levels": {
+      "@id": "crunchtime:levels",
+      "@container": "@list"
+    },
+    "locations": {
+      "@id": "crunchtime:locations",
+      "@container": "@list"
+    },
+    "HierarchyV1LevelDto": "crunchtime:HierarchyV1LevelDto",
+    "HierarchyHeaderDto": "crunchtime:HierarchyHeaderDto",
+    "HierarchyV1Details": "crunchtime:HierarchyV1Details",
+    "hierarchyDetailDetails": {
+      "@id": "crunchtime:hierarchyDetailDetails",
+      "@container": "@list"
+    },
+    "hierarchyHeaderDetails": {
+      "@id": "crunchtime:hierarchyHeaderDetails",
+      "@type": "@id"
+    },
+    "HierarchyV1DetailsList": "crunchtime:HierarchyV1DetailsList",
+    "hierarchyDetails": {
+      "@id": "crunchtime:hierarchyDetails",
+      "@type": "@id"
+    },
+    "InventoryAdjustmentDetailsDtoGet": "crunchtime:InventoryAdjustmentDetailsDtoGet",
+    "lotNumber": {
+      "@id": "crunchtime:lotNumber",
+      "@type": "xsd:string"
+    },
+    "packageType": {
+      "@id": "crunchtime:packageType",
+      "@type": "xsd:string"
+    },
+    "productName": {
+      "@id": "crunchtime:productName",
+      "@type": "xsd:string"
+    },
+    "productNumber": {
+      "@id": "crunchtime:productNumber",
+      "@type": "xsd:string"
+    },
+    "qualitativeJudgment": {
+      "@id": "crunchtime:qualitativeJudgment",
+      "@type": "xsd:string"
+    },
+    "quantity": {
+      "@id": "crunchtime:quantity",
+      "@type": "xsd:decimal"
+    },
+    "recipeName": {
+      "@id": "crunchtime:recipeName",
+      "@type": "xsd:string"
+    },
+    "recipeQuantity": {
+      "@id": "crunchtime:recipeQuantity",
+      "@type": "xsd:decimal"
+    },
+    "storageCode": {
+      "@id": "crunchtime:storageCode",
+      "@type": "xsd:string"
+    },
+    "transactionDate": {
+      "@id": "crunchtime:transactionDate",
+      "@type": "xsd:string"
+    },
+    "unitCost": {
+      "@id": "crunchtime:unitCost",
+      "@type": "xsd:decimal"
+    },
+    "recipeValue": {
+      "@id": "crunchtime:recipeValue",
+      "@type": "xsd:decimal"
+    },
+    "InventoryAdjustmentDetailsGet": "crunchtime:InventoryAdjustmentDetailsGet",
+    "inventoryAdjustmentDetailDetails": {
+      "@id": "crunchtime:inventoryAdjustmentDetailDetails",
+      "@container": "@list"
+    },
+    "inventoryAdjustmentHeaderDetails": {
+      "@id": "crunchtime:inventoryAdjustmentHeaderDetails",
+      "@type": "@id"
+    },
+    "InventoryAdjustmentHeaderGetDto": "crunchtime:InventoryAdjustmentHeaderGetDto",
+    "componentRecipeAdjustmentFlag": {
+      "@id": "crunchtime:componentRecipeAdjustmentFlag",
+      "@type": "xsd:string"
+    },
+    "daypartCode": {
+      "@id": "crunchtime:daypartCode",
+      "@type": "xsd:integer"
+    },
+    "entryUser": {
+      "@id": "crunchtime:entryUser",
+      "@type": "xsd:string"
+    },
+    "memo": {
+      "@id": "crunchtime:memo",
+      "@type": "xsd:string"
+    },
+    "transactionNumber": {
+      "@id": "crunchtime:transactionNumber",
+      "@type": "xsd:string"
+    },
+    "transactionValue": {
+      "@id": "crunchtime:transactionValue",
+      "@type": "xsd:decimal"
+    },
+    "InventoryAdjustmentBatchResponseDto": "crunchtime:InventoryAdjustmentBatchResponseDto",
+    "inventoryAdjustmentDetails": {
+      "@id": "crunchtime:inventoryAdjustmentDetails",
+      "@container": "@list"
+    },
+    "InventoryAdjustmentDetails": "crunchtime:InventoryAdjustmentDetails",
+    "InventoryAdjustmentDetailsDto": "crunchtime:InventoryAdjustmentDetailsDto",
+    "InventoryAdjustmentDetailsList": "crunchtime:InventoryAdjustmentDetailsList",
+    "InventoryAdjustmentHeaderDto": "crunchtime:InventoryAdjustmentHeaderDto",
+    "InventoryValueAdjustmentDetailsDto": "crunchtime:InventoryValueAdjustmentDetailsDto",
+    "adjustmentValue": {
+      "@id": "crunchtime:adjustmentValue",
+      "@type": "xsd:decimal"
+    },
+    "comments": {
+      "@id": "crunchtime:comments",
+      "@type": "xsd:string"
+    },
+    "conditionalGl": {
+      "@id": "crunchtime:conditionalGl",
+      "@type": "xsd:string"
+    },
+    "productCode": {
+      "@id": "crunchtime:productCode",
+      "@type": "xsd:string"
+    },
+    "receivingQuantity": {
+      "@id": "crunchtime:receivingQuantity",
+      "@type": "xsd:decimal"
+    },
+    "InventoryValueAdjustmentDetailsGet": "crunchtime:InventoryValueAdjustmentDetailsGet",
+    "inventoryValueAdjustmentDetailDetails": {
+      "@id": "crunchtime:inventoryValueAdjustmentDetailDetails",
+      "@container": "@list"
+    },
+    "inventoryValueAdjustmentHeaderDetails": {
+      "@id": "crunchtime:inventoryValueAdjustmentHeaderDetails",
+      "@type": "@id"
+    },
+    "InventoryValueAdjustmentHeaderDtoGet": "crunchtime:InventoryValueAdjustmentHeaderDtoGet",
+    "poNumber": {
+      "@id": "crunchtime:poNumber",
+      "@type": "xsd:string"
+    },
+    "shipCruiseCode": {
+      "@id": "crunchtime:shipCruiseCode",
+      "@type": "xsd:string"
+    },
+    "source": {
+      "@id": "crunchtime:source",
+      "@type": "xsd:string"
+    },
+    "vendorExportCode": {
+      "@id": "crunchtime:vendorExportCode",
+      "@type": "xsd:string"
+    },
+    "InventoryValueAdjustmentBatchResponseDto": "crunchtime:InventoryValueAdjustmentBatchResponseDto",
+    "inventoryValueAdjustmentDetails": {
+      "@id": "crunchtime:inventoryValueAdjustmentDetails",
+      "@container": "@list"
+    },
+    "InventoryValueAdjustmentDetails": "crunchtime:InventoryValueAdjustmentDetails",
+    "InventoryValueAdjustmentDetailsList": "crunchtime:InventoryValueAdjustmentDetailsList",
+    "InventoryValueAdjustmentHeaderDto": "crunchtime:InventoryValueAdjustmentHeaderDto",
+    "PhysicalInventoryStandardDetailsGet": "crunchtime:PhysicalInventoryStandardDetailsGet",
+    "physicalInventoryStandardDetailDetails": {
+      "@id": "crunchtime:physicalInventoryStandardDetailDetails",
+      "@container": "@list"
+    },
+    "PhysicalInventoryStandardDetails00": "crunchtime:PhysicalInventoryStandardDetails00",
+    "altQuantity1": {
+      "@id": "crunchtime:altQuantity1",
+      "@type": "xsd:decimal"
+    },
+    "altQuantity2": {
+      "@id": "crunchtime:altQuantity2",
+      "@type": "xsd:decimal"
+    },
+    "altQuantity3": {
+      "@id": "crunchtime:altQuantity3",
+      "@type": "xsd:decimal"
+    },
+    "inventoryDate": {
+      "@id": "crunchtime:inventoryDate",
+      "@type": "xsd:string"
+    },
+    "inventoryType": {
+      "@id": "crunchtime:inventoryType",
+      "@type": "xsd:string"
+    },
+    "detail": {
+      "@id": "crunchtime:detail",
+      "@type": "xsd:string"
+    },
+    "inventoryUnit": {
+      "@id": "crunchtime:inventoryUnit",
+      "@type": "xsd:string"
+    },
+    "totalQuantity": {
+      "@id": "crunchtime:totalQuantity",
+      "@type": "xsd:decimal"
+    },
+    "unitPrice": {
+      "@id": "crunchtime:unitPrice",
+      "@type": "xsd:decimal"
+    },
+    "physicalValue": {
+      "@id": "crunchtime:physicalValue",
+      "@type": "xsd:decimal"
+    },
+    "byExceptionFlag": {
+      "@id": "crunchtime:byExceptionFlag",
+      "@type": "xsd:string"
+    },
+    "PhysicalInventoryStandardBatchResponseDto": "crunchtime:PhysicalInventoryStandardBatchResponseDto",
+    "physicalInventoryStandardDetails": {
+      "@id": "crunchtime:physicalInventoryStandardDetails",
+      "@container": "@list"
+    },
+    "PhysicalInventoryStandardDetails": "crunchtime:PhysicalInventoryStandardDetails",
+    "PhysicalInventoryStandardDetails1": "crunchtime:PhysicalInventoryStandardDetails1",
+    "PhysicalInventoryStandardDetailsList": "crunchtime:PhysicalInventoryStandardDetailsList",
+    "LocationProductPricingAutoTransferDetailRow": "crunchtime:LocationProductPricingAutoTransferDetailRow",
+    "autoTransferFlag": {
+      "@id": "crunchtime:autoTransferFlag",
+      "@type": "xsd:string"
+    },
+    "sourceLocation": {
+      "@id": "crunchtime:sourceLocation",
+      "@type": "xsd:string"
+    },
+    "lastTouchDate": {
+      "@id": "crunchtime:lastTouchDate",
+      "@type": "xsd:string"
+    },
+    "LocationProductPricingDetails": "crunchtime:LocationProductPricingDetails",
+    "locationProductPricingAutoTransferDetails": {
+      "@id": "crunchtime:locationProductPricingAutoTransferDetails",
+      "@container": "@list"
+    },
+    "locationProductPricingSeqStorDetails": {
+      "@id": "crunchtime:locationProductPricingSeqStorDetails",
+      "@container": "@list"
+    },
+    "locationProductPricingUnitsDetails": {
+      "@id": "crunchtime:locationProductPricingUnitsDetails",
+      "@container": "@list"
+    },
+    "LocationProductPricingDetailsDto": "crunchtime:LocationProductPricingDetailsDto",
+    "primaryFlag": {
+      "@id": "crunchtime:primaryFlag",
+      "@type": "xsd:string"
+    },
+    "sequenceActiveFlag": {
+      "@id": "crunchtime:sequenceActiveFlag",
+      "@type": "xsd:string"
+    },
+    "sequenceNumber": {
+      "@id": "crunchtime:sequenceNumber",
+      "@type": "xsd:integer"
+    },
+    "storage": {
+      "@id": "crunchtime:storage",
+      "@type": "xsd:string"
+    },
+    "storageActiveFlag": {
+      "@id": "crunchtime:storageActiveFlag",
+      "@type": "xsd:string"
+    },
+    "LocationProductPricingUnitsDetailDto": "crunchtime:LocationProductPricingUnitsDetailDto",
+    "allowSplitFlag": {
+      "@id": "crunchtime:allowSplitFlag",
+      "@type": "xsd:string"
+    },
+    "altUnitOneAltUnit": {
+      "@id": "crunchtime:altUnitOneAltUnit",
+      "@type": "xsd:string"
+    },
+    "altUnitOneConversion": {
+      "@id": "crunchtime:altUnitOneConversion",
+      "@type": "xsd:decimal"
+    },
+    "altUnitThreeAltUnit": {
+      "@id": "crunchtime:altUnitThreeAltUnit",
+      "@type": "xsd:string"
+    },
+    "altUnitThreeConversion": {
+      "@id": "crunchtime:altUnitThreeConversion",
+      "@type": "xsd:decimal"
+    },
+    "altUnitTwoAltUnit": {
+      "@id": "crunchtime:altUnitTwoAltUnit",
+      "@type": "xsd:string"
+    },
+    "altUnitTwoConversion": {
+      "@id": "crunchtime:altUnitTwoConversion",
+      "@type": "xsd:decimal"
+    },
+    "alternatePrimaryFlag": {
+      "@id": "crunchtime:alternatePrimaryFlag",
+      "@type": "xsd:string"
+    },
+    "alternatePrimaryOnly": {
+      "@id": "crunchtime:alternatePrimaryOnly",
+      "@type": "xsd:string"
+    },
+    "custOrderPricPreferred": {
+      "@id": "crunchtime:custOrderPricPreferred",
+      "@type": "xsd:decimal"
+    },
+    "custOrderPricPremium": {
+      "@id": "crunchtime:custOrderPricPremium",
+      "@type": "xsd:decimal"
+    },
+    "custOrderPricStandard": {
+      "@id": "crunchtime:custOrderPricStandard",
+      "@type": "xsd:decimal"
+    },
+    "inventory": {
+      "@id": "crunchtime:inventory",
+      "@type": "xsd:decimal"
+    },
+    "issue": {
+      "@id": "crunchtime:issue",
+      "@type": "xsd:decimal"
+    },
+    "locTransferFlag": {
+      "@id": "crunchtime:locTransferFlag",
+      "@type": "xsd:string"
+    },
+    "markupMarket": {
+      "@id": "crunchtime:markupMarket",
+      "@type": "xsd:decimal"
+    },
+    "maxPar": {
+      "@id": "crunchtime:maxPar",
+      "@type": "xsd:decimal"
+    },
+    "minDaysOnHand": {
+      "@id": "crunchtime:minDaysOnHand",
+      "@type": "xsd:decimal"
+    },
+    "minPar": {
+      "@id": "crunchtime:minPar",
+      "@type": "xsd:decimal"
+    },
+    "reOrderCoFlag": {
+      "@id": "crunchtime:reOrderCoFlag",
+      "@type": "xsd:string"
+    },
+    "reOrderVoFlag": {
+      "@id": "crunchtime:reOrderVoFlag",
+      "@type": "xsd:string"
+    },
+    "splitOnlyFlag": {
+      "@id": "crunchtime:splitOnlyFlag",
+      "@type": "xsd:string"
+    },
+    "theoreticalEqualsActualFlag": {
+      "@id": "crunchtime:theoreticalEqualsActualFlag",
+      "@type": "xsd:string"
+    },
+    "LocationProductPricingBatchResponseDto": "crunchtime:LocationProductPricingBatchResponseDto",
+    "locationProductPricingDetails": {
+      "@id": "crunchtime:locationProductPricingDetails",
+      "@container": "@list"
+    },
+    "LocationProductPricingDetailsList": "crunchtime:LocationProductPricingDetailsList",
+    "LocationAltAddrDetailDto": "crunchtime:LocationAltAddrDetailDto",
+    "acapCode": {
+      "@id": "crunchtime:acapCode",
+      "@type": "xsd:string"
+    },
+    "accoCode": {
+      "@id": "crunchtime:accoCode",
+      "@type": "xsd:string"
+    },
+    "altAddressOne": {
+      "@id": "crunchtime:altAddressOne",
+      "@type": "xsd:string"
+    },
+    "altAddressTwo": {
+      "@id": "crunchtime:altAddressTwo",
+      "@type": "xsd:string"
+    },
+    "altPhone": {
+      "@id": "crunchtime:altPhone",
+      "@type": "xsd:string"
+    },
+    "cdpEMail": {
+      "@id": "crunchtime:cdpEMail",
+      "@type": "xsd:string"
+    },
+    "companyNameForPO": {
+      "@id": "crunchtime:companyNameForPO",
+      "@type": "xsd:string"
+    },
+    "payrollExportCode": {
+      "@id": "crunchtime:payrollExportCode",
+      "@type": "xsd:string"
+    },
+    "stateProvince": {
+      "@id": "crunchtime:stateProvince",
+      "@type": "xsd:string"
+    },
+    "zip": {
+      "@id": "crunchtime:zip",
+      "@type": "xsd:string"
+    },
+    "LocationConceptInfoDetailDto": "crunchtime:LocationConceptInfoDetailDto",
+    "conceptName": {
+      "@id": "crunchtime:conceptName",
+      "@type": "xsd:string"
+    },
+    "remove": {
+      "@id": "crunchtime:remove",
+      "@type": "xsd:string"
+    },
+    "LocationDeliverInfoDetailDto": "crunchtime:LocationDeliverInfoDetailDto",
+    "delete": {
+      "@id": "crunchtime:delete",
+      "@type": "xsd:string"
+    },
+    "deliverToCode": {
+      "@id": "crunchtime:deliverToCode",
+      "@type": "xsd:string"
+    },
+    "deliverToName": {
+      "@id": "crunchtime:deliverToName",
+      "@type": "xsd:string"
+    },
+    "LocationDetailsGet": "crunchtime:LocationDetailsGet",
+    "locationAltAddressDetails": {
+      "@id": "crunchtime:locationAltAddressDetails",
+      "@container": "@list"
+    },
+    "locationConceptInfoDetails": {
+      "@id": "crunchtime:locationConceptInfoDetails",
+      "@container": "@list"
+    },
+    "locationDeliverInfoDetails": {
+      "@id": "crunchtime:locationDeliverInfoDetails",
+      "@container": "@list"
+    },
+    "locationDetailDetails": {
+      "@id": "crunchtime:locationDetailDetails",
+      "@container": "@list"
+    },
+    "locationHoursOfOperationDetails": {
+      "@id": "crunchtime:locationHoursOfOperationDetails",
+      "@container": "@list"
+    },
+    "locationLaborDetails": {
+      "@id": "crunchtime:locationLaborDetails",
+      "@container": "@list"
+    },
+    "locationNameAddressDetails": {
+      "@id": "crunchtime:locationNameAddressDetails",
+      "@container": "@list"
+    },
+    "locationPostDetails": {
+      "@id": "crunchtime:locationPostDetails",
+      "@container": "@list"
+    },
+    "locationSafeLogDetails": {
+      "@id": "crunchtime:locationSafeLogDetails",
+      "@container": "@list"
+    },
+    "locationTimeClockInTwxDetails": {
+      "@id": "crunchtime:locationTimeClockInTwxDetails",
+      "@container": "@list"
+    },
+    "locationUdaDetails": {
+      "@id": "crunchtime:locationUdaDetails",
+      "@container": "@list"
+    },
+    "LocationHoursOfOperationDetailDto": "crunchtime:LocationHoursOfOperationDetailDto",
+    "closingTime": {
+      "@id": "crunchtime:closingTime",
+      "@type": "xsd:string"
+    },
+    "closingTimeCleanup": {
+      "@id": "crunchtime:closingTimeCleanup",
+      "@type": "xsd:string"
+    },
+    "corporateFlag": {
+      "@id": "crunchtime:corporateFlag",
+      "@type": "xsd:string"
+    },
+    "dayOfWeek": {
+      "@id": "crunchtime:dayOfWeek",
+      "@type": "xsd:integer"
+    },
+    "openingTime": {
+      "@id": "crunchtime:openingTime",
+      "@type": "xsd:string"
+    },
+    "openingTimeSetup": {
+      "@id": "crunchtime:openingTimeSetup",
+      "@type": "xsd:string"
+    },
+    "LocationLaborDetailDto": "crunchtime:LocationLaborDetailDto",
+    "businessDayBegins": {
+      "@id": "crunchtime:businessDayBegins",
+      "@type": "xsd:string"
+    },
+    "LocationNameAddrDetailDto": "crunchtime:LocationNameAddrDetailDto",
+    "addressOne": {
+      "@id": "crunchtime:addressOne",
+      "@type": "xsd:string"
+    },
+    "addressTwo": {
+      "@id": "crunchtime:addressTwo",
+      "@type": "xsd:string"
+    },
+    "eMail": {
+      "@id": "crunchtime:eMail",
+      "@type": "xsd:string"
+    },
+    "fax": {
+      "@id": "crunchtime:fax",
+      "@type": "xsd:string"
+    },
+    "locationADRemoteName": {
+      "@id": "crunchtime:locationADRemoteName",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "crunchtime:phone",
+      "@type": "xsd:string"
+    },
+    "prefix": {
+      "@id": "crunchtime:prefix",
+      "@type": "xsd:string"
+    },
+    "LocationPostDetailDto": "crunchtime:LocationPostDetailDto",
+    "enabledFlag": {
+      "@id": "crunchtime:enabledFlag",
+      "@type": "xsd:string"
+    },
+    "postingGrp": {
+      "@id": "crunchtime:postingGrp",
+      "@type": "xsd:string"
+    },
+    "LocationSafeLogDetailDto": "crunchtime:LocationSafeLogDetailDto",
+    "safeLogName": {
+      "@id": "crunchtime:safeLogName",
+      "@type": "xsd:string"
+    },
+    "expectedValue": {
+      "@id": "crunchtime:expectedValue",
+      "@type": "xsd:decimal"
+    },
+    "currencyCode": {
+      "@id": "crunchtime:currencyCode",
+      "@type": "xsd:string"
+    },
+    "noteRequiredForVarianceFlag": {
+      "@id": "crunchtime:noteRequiredForVarianceFlag",
+      "@type": "xsd:string"
+    },
+    "varianceThreshold": {
+      "@id": "crunchtime:varianceThreshold",
+      "@type": "xsd:integer"
+    },
+    "LocationTimeClockInTwxDetailDto": "crunchtime:LocationTimeClockInTwxDetailDto",
+    "allowTimeClockInMTX": {
+      "@id": "crunchtime:allowTimeClockInMTX",
+      "@type": "xsd:boolean"
+    },
+    "allowTimeClockInTWX": {
+      "@id": "crunchtime:allowTimeClockInTWX",
+      "@type": "xsd:boolean"
+    },
+    "minutesEarly": {
+      "@id": "crunchtime:minutesEarly",
+      "@type": "xsd:integer"
+    },
+    "minutesLate": {
+      "@id": "crunchtime:minutesLate",
+      "@type": "xsd:integer"
+    },
+    "contentReportingEmail": {
+      "@id": "crunchtime:contentReportingEmail",
+      "@type": "xsd:string"
+    },
+    "LocationUdaDetailDto": "crunchtime:LocationUdaDetailDto",
+    "dataType": {
+      "@id": "crunchtime:dataType",
+      "@type": "xsd:string"
+    },
+    "replicatedFlag": {
+      "@id": "crunchtime:replicatedFlag",
+      "@type": "xsd:boolean"
+    },
+    "requiredFlag": {
+      "@id": "crunchtime:requiredFlag",
+      "@type": "xsd:string"
+    },
+    "udaCode": {
+      "@id": "crunchtime:udaCode",
+      "@type": "xsd:string"
+    },
+    "udaDescription": {
+      "@id": "crunchtime:udaDescription",
+      "@type": "xsd:string"
+    },
+    "udaGroup": {
+      "@id": "crunchtime:udaGroup",
+      "@type": "xsd:string"
+    },
+    "udaType": {
+      "@id": "crunchtime:udaType",
+      "@type": "xsd:string"
+    },
+    "udaValue": {
+      "@id": "crunchtime:udaValue",
+      "@type": "xsd:string"
+    },
+    "LocationDetailDetailDtoGet": "crunchtime:LocationDetailDetailDtoGet",
+    "allowAutoPost": {
+      "@id": "crunchtime:allowAutoPost",
+      "@type": "xsd:string"
+    },
+    "allowAutoTransfer": {
+      "@id": "crunchtime:allowAutoTransfer",
+      "@type": "xsd:string"
+    },
+    "autoCreatePOSRecipe": {
+      "@id": "crunchtime:autoCreatePOSRecipe",
+      "@type": "xsd:string"
+    },
+    "autoPostDaysOffset": {
+      "@id": "crunchtime:autoPostDaysOffset",
+      "@type": "xsd:integer"
+    },
+    "autoPostMethod": {
+      "@id": "crunchtime:autoPostMethod",
+      "@type": "xsd:string"
+    },
+    "autoPostTime": {
+      "@id": "crunchtime:autoPostTime"
+    },
+    "autoPrepForDepletion": {
+      "@id": "crunchtime:autoPrepForDepletion",
+      "@type": "xsd:string"
+    },
+    "baseCurrency": {
+      "@id": "crunchtime:baseCurrency",
+      "@type": "xsd:string"
+    },
+    "biziqCompDate": {
+      "@id": "crunchtime:biziqCompDate",
+      "@type": "xsd:dateTime"
+    },
+    "borrowCnsEndDate": {
+      "@id": "crunchtime:borrowCnsEndDate",
+      "@type": "xsd:dateTime"
+    },
+    "borrowCnsLocationCode": {
+      "@id": "crunchtime:borrowCnsLocationCode",
+      "@type": "xsd:string"
+    },
+    "buffetQuantityAlertPercent": {
+      "@id": "crunchtime:buffetQuantityAlertPercent",
+      "@type": "xsd:integer"
+    },
+    "dailyPrepReview": {
+      "@id": "crunchtime:dailyPrepReview",
+      "@type": "xsd:string"
+    },
+    "earliestPostDateTimeBasedOn": {
+      "@id": "crunchtime:earliestPostDateTimeBasedOn",
+      "@type": "xsd:string"
+    },
+    "gmtOffset": {
+      "@id": "crunchtime:gmtOffset",
+      "@type": "xsd:integer"
+    },
+    "grandOpeningDate": {
+      "@id": "crunchtime:grandOpeningDate",
+      "@type": "xsd:dateTime"
+    },
+    "inventoryAutoFlag": {
+      "@id": "crunchtime:inventoryAutoFlag",
+      "@type": "xsd:string"
+    },
+    "inventoryDataEntryDate": {
+      "@id": "crunchtime:inventoryDataEntryDate",
+      "@type": "xsd:dateTime"
+    },
+    "inventoryPostUpFlag": {
+      "@id": "crunchtime:inventoryPostUpFlag",
+      "@type": "xsd:string"
+    },
+    "inventoryUserId": {
+      "@id": "crunchtime:inventoryUserId",
+      "@type": "xsd:string"
+    },
+    "laborAutoFlag": {
+      "@id": "crunchtime:laborAutoFlag",
+      "@type": "xsd:string"
+    },
+    "laborDataEntryDate": {
+      "@id": "crunchtime:laborDataEntryDate",
+      "@type": "xsd:dateTime"
+    },
+    "laborPostUpFlag": {
+      "@id": "crunchtime:laborPostUpFlag",
+      "@type": "xsd:string"
+    },
+    "laborUserId": {
+      "@id": "crunchtime:laborUserId",
+      "@type": "xsd:string"
+    },
+    "lastInventoryPost": {
+      "@id": "crunchtime:lastInventoryPost",
+      "@type": "xsd:dateTime"
+    },
+    "lastLaborPost": {
+      "@id": "crunchtime:lastLaborPost",
+      "@type": "xsd:dateTime"
+    },
+    "missingPrepCheck": {
+      "@id": "crunchtime:missingPrepCheck",
+      "@type": "xsd:string"
+    },
+    "optimalDaysOnHand": {
+      "@id": "crunchtime:optimalDaysOnHand",
+      "@type": "xsd:integer"
+    },
+    "ownershipEntity": {
+      "@id": "crunchtime:ownershipEntity",
+      "@type": "xsd:string"
+    },
+    "posFilePath": {
+      "@id": "crunchtime:posFilePath",
+      "@type": "xsd:string"
+    },
+    "posType": {
+      "@id": "crunchtime:posType",
+      "@type": "xsd:string"
+    },
+    "productionQuantityAlertPercent": {
+      "@id": "crunchtime:productionQuantityAlertPercent",
+      "@type": "xsd:integer"
+    },
+    "purchaseType": {
+      "@id": "crunchtime:purchaseType",
+      "@type": "xsd:string"
+    },
+    "secMrktPurchase": {
+      "@id": "crunchtime:secMrktPurchase",
+      "@type": "xsd:string"
+    },
+    "smartPicklist": {
+      "@id": "crunchtime:smartPicklist",
+      "@type": "xsd:string"
+    },
+    "software": {
+      "@id": "crunchtime:software",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "crunchtime:timezone",
+      "@type": "xsd:integer"
+    },
+    "LocationBatchResponseDto": "crunchtime:LocationBatchResponseDto",
+    "locationDetails": {
+      "@id": "crunchtime:locationDetails",
+      "@container": "@list"
+    },
+    "LocationDetails": "crunchtime:LocationDetails",
+    "LocationDetailsDetailDto": "crunchtime:LocationDetailsDetailDto",
+    "ProjectedConsumptionDetails": "crunchtime:ProjectedConsumptionDetails",
+    "projectedConsumptionDetailDetails": {
+      "@id": "crunchtime:projectedConsumptionDetailDetails",
+      "@container": "@list"
+    },
+    "projectedConsumptionHeaderDetails": {
+      "@id": "crunchtime:projectedConsumptionHeaderDetails",
+      "@type": "@id"
+    },
+    "ProjectedConsumptionDetailsDto": "crunchtime:ProjectedConsumptionDetailsDto",
+    "projCnsQty": {
+      "@id": "crunchtime:projCnsQty",
+      "@type": "xsd:decimal"
+    },
+    "ProjectedConsumptionHeaderDto": "crunchtime:ProjectedConsumptionHeaderDto",
+    "projCnsDate": {
+      "@id": "crunchtime:projCnsDate",
+      "@type": "xsd:string"
+    },
+    "ProjectedConsumptionBatchResponseDto": "crunchtime:ProjectedConsumptionBatchResponseDto",
+    "projectedConsumptionDetails": {
+      "@id": "crunchtime:projectedConsumptionDetails",
+      "@container": "@list"
+    },
+    "ProjectedConsumptionDetailsList": "crunchtime:ProjectedConsumptionDetailsList",
+    "RecipeEnhancedAllergenAttributeDetailDto": "crunchtime:RecipeEnhancedAllergenAttributeDetailDto",
+    "RecipeEnhancedComponentDetailDto": "crunchtime:RecipeEnhancedComponentDetailDto",
+    "majorIngredient": {
+      "@id": "crunchtime:majorIngredient",
+      "@type": "xsd:string"
+    },
+    "preProduction": {
+      "@id": "crunchtime:preProduction",
+      "@type": "xsd:string"
+    },
+    "recipePackage": {
+      "@id": "crunchtime:recipePackage",
+      "@type": "xsd:string"
+    },
+    "scalingFactor": {
+      "@id": "crunchtime:scalingFactor",
+      "@type": "xsd:decimal"
+    },
+    "sequence": {
+      "@id": "crunchtime:sequence",
+      "@type": "xsd:decimal"
+    },
+    "specialInstruction1": {
+      "@id": "crunchtime:specialInstruction1",
+      "@type": "xsd:string"
+    },
+    "specialInstruction2": {
+      "@id": "crunchtime:specialInstruction2",
+      "@type": "xsd:string"
+    },
+    "RecipeEnhancedComponentSubstituteDetailDto": "crunchtime:RecipeEnhancedComponentSubstituteDetailDto",
+    "componentPackageType": {
+      "@id": "crunchtime:componentPackageType",
+      "@type": "xsd:string"
+    },
+    "substituteName": {
+      "@id": "crunchtime:substituteName",
+      "@type": "xsd:string"
+    },
+    "substituteNumber": {
+      "@id": "crunchtime:substituteNumber",
+      "@type": "xsd:string"
+    },
+    "substitutePackageType": {
+      "@id": "crunchtime:substitutePackageType",
+      "@type": "xsd:string"
+    },
+    "substituteQuantity": {
+      "@id": "crunchtime:substituteQuantity",
+      "@type": "xsd:decimal"
+    },
+    "substituteScaleFactor": {
+      "@id": "crunchtime:substituteScaleFactor",
+      "@type": "xsd:decimal"
+    },
+    "RecipeEnhancedConceptDetailDto": "crunchtime:RecipeEnhancedConceptDetailDto",
+    "RecipeEnhancedHeaderDto": "crunchtime:RecipeEnhancedHeaderDto",
+    "batchPackagePackageType": {
+      "@id": "crunchtime:batchPackagePackageType",
+      "@type": "xsd:string"
+    },
+    "batchQuantity": {
+      "@id": "crunchtime:batchQuantity",
+      "@type": "xsd:decimal"
+    },
+    "batchRoundingBasedOn": {
+      "@id": "crunchtime:batchRoundingBasedOn",
+      "@type": "xsd:string"
+    },
+    "calcAtCost": {
+      "@id": "crunchtime:calcAtCost",
+      "@type": "xsd:string"
+    },
+    "componentSubstitutes": {
+      "@id": "crunchtime:componentSubstitutes",
+      "@container": "@list"
+    },
+    "components": {
+      "@id": "crunchtime:components",
+      "@container": "@list"
+    },
+    "effectiveDate": {
+      "@id": "crunchtime:effectiveDate",
+      "@type": "xsd:dateTime"
+    },
+    "expirationDate": {
+      "@id": "crunchtime:expirationDate",
+      "@type": "xsd:dateTime"
+    },
+    "haccpComplianceName": {
+      "@id": "crunchtime:haccpComplianceName",
+      "@type": "xsd:string"
+    },
+    "idealCostPercentage": {
+      "@id": "crunchtime:idealCostPercentage",
+      "@type": "xsd:decimal"
+    },
+    "issueUnitOneYield": {
+      "@id": "crunchtime:issueUnitOneYield",
+      "@type": "xsd:decimal"
+    },
+    "issueUnitTwoYield": {
+      "@id": "crunchtime:issueUnitTwoYield",
+      "@type": "xsd:decimal"
+    },
+    "maxBatchRounding": {
+      "@id": "crunchtime:maxBatchRounding",
+      "@type": "xsd:string"
+    },
+    "maximumBatch": {
+      "@id": "crunchtime:maximumBatch",
+      "@type": "xsd:decimal"
+    },
+    "minBatchRounding": {
+      "@id": "crunchtime:minBatchRounding",
+      "@type": "xsd:string"
+    },
+    "minMaxBatchRounding": {
+      "@id": "crunchtime:minMaxBatchRounding",
+      "@type": "xsd:string"
+    },
+    "minimumBatch": {
+      "@id": "crunchtime:minimumBatch",
+      "@type": "xsd:decimal"
+    },
+    "nutritionPackageType": {
+      "@id": "crunchtime:nutritionPackageType",
+      "@type": "xsd:string"
+    },
+    "platingInstructions": {
+      "@id": "crunchtime:platingInstructions",
+      "@type": "xsd:string"
+    },
+    "pluNumber": {
+      "@id": "crunchtime:pluNumber",
+      "@type": "xsd:integer"
+    },
+    "portionAmount": {
+      "@id": "crunchtime:portionAmount",
+      "@type": "xsd:decimal"
+    },
+    "portionYield": {
+      "@id": "crunchtime:portionYield",
+      "@type": "xsd:decimal"
+    },
+    "prepReportConsRounding": {
+      "@id": "crunchtime:prepReportConsRounding",
+      "@type": "xsd:string"
+    },
+    "prepReportFlag": {
+      "@id": "crunchtime:prepReportFlag",
+      "@type": "xsd:string"
+    },
+    "prepReportShelfMaxRounding": {
+      "@id": "crunchtime:prepReportShelfMaxRounding",
+      "@type": "xsd:string"
+    },
+    "prepStationName": {
+      "@id": "crunchtime:prepStationName",
+      "@type": "xsd:string"
+    },
+    "prepTimeDuration": {
+      "@id": "crunchtime:prepTimeDuration",
+      "@type": "xsd:decimal"
+    },
+    "prepTimeType": {
+      "@id": "crunchtime:prepTimeType",
+      "@type": "xsd:string"
+    },
+    "preparationNotes": {
+      "@id": "crunchtime:preparationNotes",
+      "@type": "xsd:string"
+    },
+    "price": {
+      "@id": "crunchtime:price",
+      "@type": "xsd:decimal"
+    },
+    "productionType": {
+      "@id": "crunchtime:productionType",
+      "@type": "xsd:string"
+    },
+    "recipeClass": {
+      "@id": "crunchtime:recipeClass",
+      "@type": "xsd:string"
+    },
+    "recipeComplexity": {
+      "@id": "crunchtime:recipeComplexity",
+      "@type": "xsd:string"
+    },
+    "recipeComplexityLong": {
+      "@id": "crunchtime:recipeComplexityLong",
+      "@type": "xsd:integer"
+    },
+    "recipePosDecrement": {
+      "@id": "crunchtime:recipePosDecrement",
+      "@type": "xsd:string"
+    },
+    "recipeProductGroupName": {
+      "@id": "crunchtime:recipeProductGroupName",
+      "@type": "xsd:string"
+    },
+    "recipeProductGroupSubname": {
+      "@id": "crunchtime:recipeProductGroupSubname",
+      "@type": "xsd:string"
+    },
+    "recipeRating": {
+      "@id": "crunchtime:recipeRating",
+      "@type": "xsd:string"
+    },
+    "recipeRatingLong": {
+      "@id": "crunchtime:recipeRatingLong",
+      "@type": "xsd:integer"
+    },
+    "recipeStatus": {
+      "@id": "crunchtime:recipeStatus",
+      "@type": "xsd:string"
+    },
+    "recipeUnitFiveYield": {
+      "@id": "crunchtime:recipeUnitFiveYield",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitFourYield": {
+      "@id": "crunchtime:recipeUnitFourYield",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitOneYield": {
+      "@id": "crunchtime:recipeUnitOneYield",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitThreeYield": {
+      "@id": "crunchtime:recipeUnitThreeYield",
+      "@type": "xsd:decimal"
+    },
+    "recipeUnitTwoYield": {
+      "@id": "crunchtime:recipeUnitTwoYield",
+      "@type": "xsd:decimal"
+    },
+    "shelfLifeDuration": {
+      "@id": "crunchtime:shelfLifeDuration",
+      "@type": "xsd:decimal"
+    },
+    "shelfLifeType": {
+      "@id": "crunchtime:shelfLifeType",
+      "@type": "xsd:string"
+    },
+    "storageContainerPackage": {
+      "@id": "crunchtime:storageContainerPackage",
+      "@type": "xsd:string"
+    },
+    "RecipeEnhancedShipLocationDetailDto": "crunchtime:RecipeEnhancedShipLocationDetailDto",
+    "RecipeEnhancedUpcDetailDto": "crunchtime:RecipeEnhancedUpcDetailDto",
+    "recipeEnhancedDetailsGet": "crunchtime:recipeEnhancedDetailsGet",
+    "recipeEnhancedAllergenAttributeDetails": {
+      "@id": "crunchtime:recipeEnhancedAllergenAttributeDetails",
+      "@container": "@list"
+    },
+    "recipeEnhancedComponentDetails": {
+      "@id": "crunchtime:recipeEnhancedComponentDetails",
+      "@container": "@list"
+    },
+    "recipeEnhancedComponentSubstituteDetails": {
+      "@id": "crunchtime:recipeEnhancedComponentSubstituteDetails",
+      "@container": "@list"
+    },
+    "recipeEnhancedConceptDetails": {
+      "@id": "crunchtime:recipeEnhancedConceptDetails",
+      "@container": "@list"
+    },
+    "recipeEnhancedHeaderDetails": {
+      "@id": "crunchtime:recipeEnhancedHeaderDetails",
+      "@type": "@id"
+    },
+    "recipeEnhancedHeaderDto": {
+      "@id": "crunchtime:recipeEnhancedHeaderDto",
+      "@type": "@id"
+    },
+    "recipeEnhancedShipLocationDetails": {
+      "@id": "crunchtime:recipeEnhancedShipLocationDetails",
+      "@container": "@list"
+    },
+    "recipeEnhancedUpcDetails": {
+      "@id": "crunchtime:recipeEnhancedUpcDetails",
+      "@container": "@list"
+    },
+    "RecipeEnhancedBatchResponseDto": "crunchtime:RecipeEnhancedBatchResponseDto",
+    "recipeEnhancedDetails": {
+      "@id": "crunchtime:recipeEnhancedDetails",
+      "@container": "@list"
+    },
+    "RecipeEnhancedDetailsList": "crunchtime:RecipeEnhancedDetailsList",
+    "ExportFile": "crunchtime:ExportFile",
+    "exportType": {
+      "@id": "crunchtime:exportType",
+      "@type": "xsd:string"
+    },
+    "extractHistoryId": {
+      "@id": "crunchtime:extractHistoryId",
+      "@type": "xsd:integer"
+    },
+    "fileContent": {
+      "@id": "crunchtime:fileContent",
+      "@type": "xsd:string"
+    },
+    "fileJson": {
+      "@id": "crunchtime:fileJson",
+      "@container": "@list"
+    },
+    "fileName": {
+      "@id": "crunchtime:fileName",
+      "@type": "xsd:string"
+    },
+    "vendorOrderAttachments": {
+      "@id": "crunchtime:vendorOrderAttachments",
+      "@type": "@id"
+    },
+    "VendorOrderAttachment": "crunchtime:VendorOrderAttachment",
+    "vendorInvoiceNumber": {
+      "@id": "crunchtime:vendorInvoiceNumber",
+      "@type": "xsd:string"
+    },
+    "locationExportCode": {
+      "@id": "crunchtime:locationExportCode",
+      "@type": "xsd:string"
+    },
+    "VendorOrderAttachmentsDto": "crunchtime:VendorOrderAttachmentsDto",
+    "vendorOrderAttachmentList": {
+      "@id": "crunchtime:vendorOrderAttachmentList",
+      "@container": "@list"
+    },
+    "ScheduledBatchExportFiles": "crunchtime:ScheduledBatchExportFiles",
+    "exportDate": {
+      "@id": "crunchtime:exportDate",
+      "@type": "xsd:string"
+    },
+    "exportStatus": {
+      "@id": "crunchtime:exportStatus",
+      "@type": "xsd:integer"
+    },
+    "extractName": {
+      "@id": "crunchtime:extractName",
+      "@type": "xsd:string"
+    },
+    "postDate": {
+      "@id": "crunchtime:postDate",
+      "@type": "xsd:string"
+    },
+    "user": {
+      "@id": "crunchtime:user",
+      "@type": "xsd:string"
+    },
+    "VendorLocationDetails": "crunchtime:VendorLocationDetails",
+    "scheduleOverrideRowList": {
+      "@id": "crunchtime:scheduleOverrideRowList",
+      "@container": "@list"
+    },
+    "vendorLocationHeaderDetails": {
+      "@id": "crunchtime:vendorLocationHeaderDetails",
+      "@type": "@id"
+    },
+    "vendorLocationOtherDetail": {
+      "@id": "crunchtime:vendorLocationOtherDetail",
+      "@type": "@id"
+    },
+    "vendorLocationScheduleDetail": {
+      "@id": "crunchtime:vendorLocationScheduleDetail",
+      "@type": "@id"
+    },
+    "vendorLocationTransmissionDetail": {
+      "@id": "crunchtime:vendorLocationTransmissionDetail",
+      "@type": "@id"
+    },
+    "VendorLocationHeaderDto": "crunchtime:VendorLocationHeaderDto",
+    "childID": {
+      "@id": "crunchtime:childID",
+      "@type": "xsd:string"
+    },
+    "tradingPartnerID": {
+      "@id": "crunchtime:tradingPartnerID",
+      "@type": "xsd:string"
+    },
+    "vendorDistrictID": {
+      "@id": "crunchtime:vendorDistrictID",
+      "@type": "xsd:string"
+    },
+    "VendorLocationOtherDetailsDto": "crunchtime:VendorLocationOtherDetailsDto",
+    "contactName": {
+      "@id": "crunchtime:contactName",
+      "@type": "xsd:string"
+    },
+    "contactPhone": {
+      "@id": "crunchtime:contactPhone",
+      "@type": "xsd:string"
+    },
+    "contactTitle": {
+      "@id": "crunchtime:contactTitle",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "crunchtime:message",
+      "@type": "xsd:string"
+    },
+    "notes": {
+      "@id": "crunchtime:notes",
+      "@type": "xsd:string"
+    },
+    "VendorLocationScheduleDetailDto": "crunchtime:VendorLocationScheduleDetailDto",
+    "deliverDayFriday": {
+      "@id": "crunchtime:deliverDayFriday",
+      "@type": "xsd:string"
+    },
+    "deliverDayMonday": {
+      "@id": "crunchtime:deliverDayMonday",
+      "@type": "xsd:string"
+    },
+    "deliverDaySaturday": {
+      "@id": "crunchtime:deliverDaySaturday",
+      "@type": "xsd:string"
+    },
+    "deliverDaySunday": {
+      "@id": "crunchtime:deliverDaySunday",
+      "@type": "xsd:string"
+    },
+    "deliverDayThursday": {
+      "@id": "crunchtime:deliverDayThursday",
+      "@type": "xsd:string"
+    },
+    "deliverDayTuesday": {
+      "@id": "crunchtime:deliverDayTuesday",
+      "@type": "xsd:string"
+    },
+    "deliverDayWednesday": {
+      "@id": "crunchtime:deliverDayWednesday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeFriday": {
+      "@id": "crunchtime:orderByTimeFriday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeMonday": {
+      "@id": "crunchtime:orderByTimeMonday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeSaturday": {
+      "@id": "crunchtime:orderByTimeSaturday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeSunday": {
+      "@id": "crunchtime:orderByTimeSunday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeThursday": {
+      "@id": "crunchtime:orderByTimeThursday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeTuesday": {
+      "@id": "crunchtime:orderByTimeTuesday",
+      "@type": "xsd:string"
+    },
+    "orderByTimeWednesday": {
+      "@id": "crunchtime:orderByTimeWednesday",
+      "@type": "xsd:string"
+    },
+    "orderDayFridayFlag": {
+      "@id": "crunchtime:orderDayFridayFlag",
+      "@type": "xsd:string"
+    },
+    "orderDayMondayFlag": {
+      "@id": "crunchtime:orderDayMondayFlag",
+      "@type": "xsd:string"
+    },
+    "orderDaySaturdayFlag": {
+      "@id": "crunchtime:orderDaySaturdayFlag",
+      "@type": "xsd:string"
+    },
+    "orderDaySundayFlag": {
+      "@id": "crunchtime:orderDaySundayFlag",
+      "@type": "xsd:string"
+    },
+    "orderDayThursdayFlag": {
+      "@id": "crunchtime:orderDayThursdayFlag",
+      "@type": "xsd:string"
+    },
+    "orderDayTuesdayFlag": {
+      "@id": "crunchtime:orderDayTuesdayFlag",
+      "@type": "xsd:string"
+    },
+    "orderDayWednesdayFlag": {
+      "@id": "crunchtime:orderDayWednesdayFlag",
+      "@type": "xsd:string"
+    },
+    "VendorLocationScheduleOverrideDetails": "crunchtime:VendorLocationScheduleOverrideDetails",
+    "endDate": {
+      "@id": "crunchtime:endDate",
+      "@type": "xsd:string"
+    },
+    "note": {
+      "@id": "crunchtime:note",
+      "@type": "xsd:string"
+    },
+    "oldStartDate": {
+      "@id": "crunchtime:oldStartDate",
+      "@type": "xsd:string"
+    },
+    "recordType": {
+      "@id": "crunchtime:recordType",
+      "@type": "xsd:string"
+    },
+    "startDate": {
+      "@id": "crunchtime:startDate",
+      "@type": "xsd:string"
+    },
+    "VendorLocationTransmissionDetailDto": "crunchtime:VendorLocationTransmissionDetailDto",
+    "accountNumber": {
+      "@id": "crunchtime:accountNumber",
+      "@type": "xsd:string"
+    },
+    "accrualFlag": {
+      "@id": "crunchtime:accrualFlag",
+      "@type": "xsd:string"
+    },
+    "allowSimpleReceiptFlag": {
+      "@id": "crunchtime:allowSimpleReceiptFlag",
+      "@type": "xsd:string"
+    },
+    "autoReconcileEinvoiceFlag": {
+      "@id": "crunchtime:autoReconcileEinvoiceFlag",
+      "@type": "xsd:string"
+    },
+    "allowVOFlag": {
+      "@id": "crunchtime:allowVOFlag",
+      "@type": "xsd:string"
+    },
+    "codFlag": {
+      "@id": "crunchtime:codFlag",
+      "@type": "xsd:string"
+    },
+    "electronicInvoiceFlag": {
+      "@id": "crunchtime:electronicInvoiceFlag",
+      "@type": "xsd:string"
+    },
+    "enforceMinimums": {
+      "@id": "crunchtime:enforceMinimums",
+      "@type": "xsd:string"
+    },
+    "minimumCases": {
+      "@id": "crunchtime:minimumCases",
+      "@type": "xsd:string"
+    },
+    "minimumValue": {
+      "@id": "crunchtime:minimumValue",
+      "@type": "xsd:string"
+    },
+    "orderAlert": {
+      "@id": "crunchtime:orderAlert",
+      "@type": "xsd:string"
+    },
+    "orderVendorUnitofMeasure": {
+      "@id": "crunchtime:orderVendorUnitofMeasure",
+      "@type": "xsd:string"
+    },
+    "referenceNumber": {
+      "@id": "crunchtime:referenceNumber",
+      "@type": "xsd:string"
+    },
+    "userName": {
+      "@id": "crunchtime:userName",
+      "@type": "xsd:string"
+    },
+    "userPassword": {
+      "@id": "crunchtime:userPassword",
+      "@type": "xsd:string"
+    },
+    "voEMail": {
+      "@id": "crunchtime:voEMail",
+      "@type": "xsd:string"
+    },
+    "voFax": {
+      "@id": "crunchtime:voFax",
+      "@type": "xsd:string"
+    },
+    "voMode": {
+      "@id": "crunchtime:voMode",
+      "@type": "xsd:string"
+    },
+    "VendorLocationBatchResponseDto": "crunchtime:VendorLocationBatchResponseDto",
+    "vendorLocationDetails": {
+      "@id": "crunchtime:vendorLocationDetails",
+      "@container": "@list"
+    },
+    "VendorLocationDetailsList": "crunchtime:VendorLocationDetailsList",
+    "VendorGetDto": "crunchtime:VendorGetDto",
+    "allowDuplicateInvoicesFlag": {
+      "@id": "crunchtime:allowDuplicateInvoicesFlag",
+      "@type": "xsd:string"
+    },
+    "allowDuplicatePoNumberFlag": {
+      "@id": "crunchtime:allowDuplicatePoNumberFlag",
+      "@type": "xsd:string"
+    },
+    "allowPbiFlag": {
+      "@id": "crunchtime:allowPbiFlag",
+      "@type": "xsd:string"
+    },
+    "altAddress1": {
+      "@id": "crunchtime:altAddress1",
+      "@type": "xsd:string"
+    },
+    "altAddress2": {
+      "@id": "crunchtime:altAddress2",
+      "@type": "xsd:string"
+    },
+    "altCityName": {
+      "@id": "crunchtime:altCityName",
+      "@type": "xsd:string"
+    },
+    "altFax": {
+      "@id": "crunchtime:altFax",
+      "@type": "xsd:string"
+    },
+    "altStateShortName": {
+      "@id": "crunchtime:altStateShortName",
+      "@type": "xsd:string"
+    },
+    "altZip": {
+      "@id": "crunchtime:altZip",
+      "@type": "xsd:string"
+    },
+    "autoProcessNewBidFileFlag": {
+      "@id": "crunchtime:autoProcessNewBidFileFlag",
+      "@type": "xsd:string"
+    },
+    "certificateExpireDate": {
+      "@id": "crunchtime:certificateExpireDate",
+      "@type": "xsd:dateTime"
+    },
+    "certificateNumber": {
+      "@id": "crunchtime:certificateNumber",
+      "@type": "xsd:string"
+    },
+    "countryCode": {
+      "@id": "crunchtime:countryCode",
+      "@type": "xsd:string"
+    },
+    "countryName": {
+      "@id": "crunchtime:countryName",
+      "@type": "xsd:string"
+    },
+    "createNewBidProductsFlag": {
+      "@id": "crunchtime:createNewBidProductsFlag",
+      "@type": "xsd:string"
+    },
+    "haccpCertifiedFlag": {
+      "@id": "crunchtime:haccpCertifiedFlag",
+      "@type": "xsd:string"
+    },
+    "internalFlag": {
+      "@id": "crunchtime:internalFlag",
+      "@type": "xsd:string"
+    },
+    "priceIncludesTax": {
+      "@id": "crunchtime:priceIncludesTax",
+      "@type": "xsd:string"
+    },
+    "supplyAccountNumber": {
+      "@id": "crunchtime:supplyAccountNumber",
+      "@type": "xsd:string"
+    },
+    "supplyActive": {
+      "@id": "crunchtime:supplyActive",
+      "@type": "xsd:string"
+    },
+    "supplyAddress1": {
+      "@id": "crunchtime:supplyAddress1",
+      "@type": "xsd:string"
+    },
+    "supplyAddress2": {
+      "@id": "crunchtime:supplyAddress2",
+      "@type": "xsd:string"
+    },
+    "supplyBidPath": {
+      "@id": "crunchtime:supplyBidPath",
+      "@type": "xsd:string"
+    },
+    "supplyCityName": {
+      "@id": "crunchtime:supplyCityName",
+      "@type": "xsd:string"
+    },
+    "supplyCode": {
+      "@id": "crunchtime:supplyCode",
+      "@type": "xsd:string"
+    },
+    "supplyEmail": {
+      "@id": "crunchtime:supplyEmail",
+      "@type": "xsd:string"
+    },
+    "supplyFax": {
+      "@id": "crunchtime:supplyFax",
+      "@type": "xsd:string"
+    },
+    "supplyIntranet": {
+      "@id": "crunchtime:supplyIntranet",
+      "@type": "xsd:string"
+    },
+    "supplyLeadPeriod": {
+      "@id": "crunchtime:supplyLeadPeriod"
+    },
+    "supplyName": {
+      "@id": "crunchtime:supplyName",
+      "@type": "xsd:string"
+    },
+    "supplyOrderPath": {
+      "@id": "crunchtime:supplyOrderPath",
+      "@type": "xsd:string"
+    },
+    "supplyPhone": {
+      "@id": "crunchtime:supplyPhone",
+      "@type": "xsd:string"
+    },
+    "supplySalesmanFax": {
+      "@id": "crunchtime:supplySalesmanFax",
+      "@type": "xsd:string"
+    },
+    "supplySalesmanFullName": {
+      "@id": "crunchtime:supplySalesmanFullName",
+      "@type": "xsd:string"
+    },
+    "supplySalesmanHomePhone": {
+      "@id": "crunchtime:supplySalesmanHomePhone",
+      "@type": "xsd:string"
+    },
+    "supplySalesmanPhone": {
+      "@id": "crunchtime:supplySalesmanPhone",
+      "@type": "xsd:string"
+    },
+    "supplySalesmanTitle": {
+      "@id": "crunchtime:supplySalesmanTitle",
+      "@type": "xsd:string"
+    },
+    "supplySatellite": {
+      "@id": "crunchtime:supplySatellite",
+      "@type": "xsd:string"
+    },
+    "supplyStateShortName": {
+      "@id": "crunchtime:supplyStateShortName",
+      "@type": "xsd:string"
+    },
+    "supplyStateFullName": {
+      "@id": "crunchtime:supplyStateFullName",
+      "@type": "xsd:string"
+    },
+    "supplyTerms": {
+      "@id": "crunchtime:supplyTerms",
+      "@type": "xsd:string"
+    },
+    "supplyTransmitMethod": {
+      "@id": "crunchtime:supplyTransmitMethod",
+      "@type": "xsd:string"
+    },
+    "supplyTransmitPath": {
+      "@id": "crunchtime:supplyTransmitPath",
+      "@type": "xsd:string"
+    },
+    "supplyWebAddress": {
+      "@id": "crunchtime:supplyWebAddress",
+      "@type": "xsd:string"
+    },
+    "supplyZip": {
+      "@id": "crunchtime:supplyZip",
+      "@type": "xsd:string"
+    },
+    "taxId": {
+      "@id": "crunchtime:taxId",
+      "@type": "xsd:string"
+    },
+    "updateBidsVarianceFromLast": {
+      "@id": "crunchtime:updateBidsVarianceFromLast"
+    },
+    "vendorUdaDetails": {
+      "@id": "crunchtime:vendorUdaDetails",
+      "@container": "@list"
+    },
+    "vendorUdaDetail": "crunchtime:vendorUdaDetail",
+    "VendorDetails": "crunchtime:VendorDetails",
+    "vendors": {
+      "@id": "crunchtime:vendors",
+      "@container": "@list"
+    },
+    "VendorDto": "crunchtime:VendorDto"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Crunchtime Information Systems API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Crunchtime Information Systems's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-14) from openapi/crunchtime-information-systems-cruise-platform-openapi.yml, openapi/crunchtime-information-systems-inventory-labor-openapi.yml.",
+  "dcterms:created": "2026-10-14",
+  "dcterms:source": [
+    "openapi/crunchtime-information-systems-cruise-platform-openapi.yml",
+    "openapi/crunchtime-information-systems-inventory-labor-openapi.yml"
+  ]
+}

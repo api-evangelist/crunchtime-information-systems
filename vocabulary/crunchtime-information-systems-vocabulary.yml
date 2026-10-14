@@ -1,0 +1,456 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+- openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+vocabulary:
+  name: Crunchtime Information Systems Domain Vocabulary
+  description: 'Terms declared by Crunchtime Information Systems''s own API contract: its resource groups, objects and enumerations, with the
+    contract''s definitions. Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: Application User Service
+    definition: The Application User service is used to create and retrieve user profiles where each user is assigned a unique User ID and password
+      for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager Console. It links users to specific locations, hierarchies, customers
+      and markets, and assigns each user to a user group, which determines which screens and tasks the user will be able to access i
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Company Product Enhanced Service
+    definition: The Company Product Service allows you to create and retrieve the global, above store list of products that can be used elsewhere
+      in the application, including recipe components (see the Recipe Enhanced Service) or as Location Products (see the Location Product Pricing
+      Service). Company Products can also be referred to as Items or Ingredients.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Currency Ratio Service
+    definition: 'The Currency Ratios Service is used to enter the exchange rates that will to convert monetary values from one currency to another.
+      The "toCurrencyCode" is equal to the base currency in Enterprise Manager, then enter the exchange rate to convert the "fromCurrencyCode"
+      to that base currency. **Note**: A Currency Ratio cannot be established until that Currency has been configured as the base currency'
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Customer Service
+    definition: The Customer Service can be used to create a “Customer” that is an establishment or outlet to which a Crunchtime Location sells
+      or distributes products and/or produced Recipe items. It may be an outlet within the Location or an entirely external entity, e.g. a “catering”
+      Customer. “Customer” records are required to “issue” items to these entities via “Customer Order” transactions.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: General Ledger Service
+    definition: The General Ledger services allows the Crunchtime applications to be aligned with the company’s accounting and bookkeeping systems.
+      General Ledger codes and descriptions are associated with P&L groupings and substructures.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Hierarchy Service
+    definition: The Hierarchy Service is used to group locations together for reporting purposes. For example, if the company is a national restaurant
+      chain divided into six regions, setting up the hierarchy configuration allows each regional manager to view revenue, cost and consumption
+      data (reports) only for the stores in his or her region. To associate a user, such as the regional manager, to a specific hiera
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Inventory Service
+    definition: 'The Inventory Service combines a series of get and post calls used to update and review the quantity and value of a location
+      stock on hand including: -Inventory Adjustments (Waste) -Value Adjustments -Physical Inventory Counts'
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Location Service
+    definition: The Locations Service allows you to review and configure general information about each location (restaurant, venue etc.) such
+      as the address and phone number, as well as detailed preference settings regarding the location’s post settings, associated concepts, codes
+      used to align Crunchtime with other systems, labor details and more.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Projected Consumption Service
+    definition: The Projected Consumption service is used to get Consumption data that has been systematically calculated based on a Location's
+      Suggested Order configuration, or post Projected Consumption, overriding the system calculated value. Projected Consumption data is used
+      to help a location choose how much to purchase from a vendor or how much to prep for the day.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Recipe Enhanced Service
+    definition: The Recipe Service is used to create or extract recipe data including the header and component details. Recipes are created in
+      Crunchtime for the purpose of inventory depletion. They are used to deplete Products through POS sales (See the Check Menu Mix Service for
+      addition details) and through the production of prep items.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Scheduled Export Service
+    definition: The Scheduled Export service is an API that Crunchtime customers can use to download export files that have been generated via
+      Scheduled Events in Enterprise Manager and convert the file content to JSON.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Vendor Location Service
+    definition: The Vendor Location Service enables for quick setup of vendor locations for companies with large amounts of locationspecific information
+      per vendor, such as payment terms, order minimums, email addresses, etc.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Vendor Service
+    definition: The Vendor Service is used to create/review records of all Vendors that can be used to record expenses in Crunchtime. Typically,
+      a third-party system is the system of record for Vendors and vendor data is posted to Crunchtime. Once created, additional configuration
+      is required within Enterprise Manager to ensure stores can place and receive Vendor Orders or record Simple Receipt and Purchase by In
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+  - term: Authentication Service
+    definition: The Authentication Service is allowing to validate user access to a franchisee site using a username and password.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Budget Service
+    definition: The Budgets Service allows you to create and retrieve budgets for each post period at each location. Budget figures for each General
+      Ledger can be entered either as currency values or as percentages. Budget values and calculations are used in the Profit and Loss reports,
+      which compare actual sales and costs to what was budgeted.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Category Service
+    definition: The Category Service allows you to create and retrieve product categories.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Check Menu Mix Service
+    definition: The Check Menu Mix Service allows for the import of Check and Item based data from the POS system in order to deplete inventory
+      according to the Recipe configuration in Enterprise Manager. The get call will also allow you to extract the check and item based data for
+      externally generated reports as well.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Commissary Order Service
+    definition: The Commissary Order Service allows you to retrieve commissary orders.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Confirm Receipt Standard Service
+    definition: The Confirm Receipt Standard Service allows you to create and retrieve confirmation receipts.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Customer Order Enhanced Service
+    definition: The Customer Order Enhanced service allows you to create and retrieve customer orders.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Daily Prep Service
+    definition: The Daily Prep Service allows you to create, update, finalize, cancel, or retrieve daily prep transactions.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Electronic Invoice Service
+    definition: The Electronic Invoice service enables you to upload e-invoice data into Crunchtime.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Employee Service
+    definition: The Employee Service combines what used to be three Crunchtime Data Pump (CDP) imports into one API call with multiple arrays.
+      The Employee Service is used to create or review an employee in Crunchtime. Employee records can be used when creating labor schedules,
+      exporting payroll data, and maintaining employee data in 3rd party systems.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Location Product Pricing Service
+    definition: The Location Product Pricing service adds company products to a location’s list of available products and assigns them to storage
+      locations so that they may be ordered and inventoried. Min Par and Max Par quantities can be assigned to each location product, and the
+      per-unit cost of each product (Issue & Inventory Cost) can be reviewed or updated as well. In the details array, multiple pricing, mar
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Nutrition Service
+    definition: The Nutrition Service is used to create and retrieve data for Nutrition Product records.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Package Type Service
+    definition: The Package Type Service offers a way to create, update, and retrieve package type entries.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Pbi Service
+    definition: The Purchase by Invoice Service is used to create and retrieve purchasing data that is not directly associated with products.
+      Typically this Service is used to record expenses for services, like monthly cleaning charges, or other fixed fees like utilities.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Purchase Order Service
+    definition: The Purchase Order Service allows you to create and retrieve vendor order records.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Recipe Location Service
+    definition: The Recipe Location Service allows you to create and retrieve location specific recipes.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Sales Forecast Service
+    definition: The Sales Forecasts Service can be used to ensure that Sales Forecasting data aligns between Crunchtime and other systems. You
+      can use the service to get Forecast data that has been systematically calculated based on a Location's Suggested Order configuration or
+      post a Sales Forecast, overriding the systemcalculated value.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Sales Mix Service
+    definition: 'The Sales Mix Service is used to align Crunchtime with Daily Sales Information generated in a PointofSale system. The data includes:
+      Sales, Sales Tax, Paid Outs, Non Cash Media, Comps and Discounts and Bank Deposits.'
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Storage Location Service
+    definition: The Storage Location service offers viewing and managing data associated with primary and secondary storage locations.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Supplemental Wage Service
+    definition: The Supplemental Wage Service allows you to get or post Lump Sum or Hourly values to individual employees/positions for various
+      supplemental earnings, such as tip sharing, vacation pay, sick pay, jury duty, etc. The Supplemental Wage Codes referenced in the API must
+      be preconfigured in Enterprise Manager. This service contains all of the data required to review and process these records in the Net
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Time Clock Enhanced Service
+    definition: The Time Clock Enhanced service allows you to get or post employee time clock records that typically come from an external payroll
+      or POS system. The post call will contain the original time punch data needed to process time clock records in the Net- Chef Labor Summary
+      screen, whereas the Get call will retrieve the adjusted time clock records from the Net-Chef Labor Summary screen.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Uda Service
+    definition: The User Defined Attributes (UDA) Service allows for the retrieval of the location and vendor User-Defined Attributes (UDAs).
+      Location UDAs can be configured at the corporate level or specific to a particular location.
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Vendor Payment Service
+    definition: The Vendor Payment service allows you to create and retrieve payment information that typically comes from an Accounts Payable
+      system. The Post call will update reconciled Vendor Orders and Purchase by Invoice transactions with Check Number, Check Amount, Check Date
+      and Check Amount Allocated to the Invoice (since the same check can be used for multiple invoices). When payment information has been
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: Vendor Product Pricing Service
+    definition: Project Read Me - API Descriptions (SOURCE OF TRUTH) Project Read Me - API Descriptions (SOURCE OF TRUTH) 100% 10 Vendor Product
+      Pricing Service 1 of 2 B22 Vendor Product Pricing Service [>] C22 The Vendor Product Pricing Service allows users to “GET”, or retrieve
+      extract product pricing data from Crunchtime. The Vendor Product Pricing does not support the “POST” action and therefore cannot be use
+    tags:
+    - Resource Group
+    source: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+  - term: AppUserBizIQDetailDto
+    definition: AppUserBizIQDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserBizIQDetailDto
+  - term: AppUserConceptDetailDto
+    definition: AppUserConceptDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserConceptDetailDto
+  - term: AppUserConsolidationVendorDetailDto
+    definition: AppUserConsolidationVendorDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserConsolidationVendorDetailDto
+  - term: AppUserCustomerDetailDto
+    definition: AppUserCustomerDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserCustomerDetailDto
+  - term: AppUserDailyAlertDetailDto
+    definition: AppUserDailyAlertDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserDailyAlertDetailDto
+  - term: AppUserDepartmentDetailDto
+    definition: AppUserDepartmentDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserDepartmentDetailDto
+  - term: AppUserDetailDto
+    definition: AppUserDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserDetailDto
+  - term: AppUserFranchiseDetailDto
+    definition: AppUserFranchiseDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserFranchiseDetailDto
+  - term: AppUserHierarchyDetailDto
+    definition: AppUserHierarchyDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserHierarchyDetailDto
+  - term: AppUserLocationDetailDto
+    definition: AppUserLocationDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserLocationDetailDto
+  - term: AppUserMarketDetailDto
+    definition: AppUserMarketDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserMarketDetailDto
+  - term: AppUserPasswordDetailDto
+    definition: AppUserPasswordDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/AppUserPasswordDetailDto
+  - term: ApplicationUserDetailsGet
+    definition: ApplicationUserDetailsGet description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/ApplicationUserDetailsGet
+  - term: CdpError
+    definition: 'Object declared by the contract with fields: errorMessage, fieldNumber, lineNumber, parentFileLineNumber.'
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CdpError
+  - term: ObjectError
+    definition: 'Object declared by the contract with fields: arguments, code, codes, defaultMessage, objectName.'
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/ObjectError
+  - term: ApplicationUserBatchResponseDto
+    definition: 'Object declared by the contract with fields: applicationUserDetails, hasNext, totalPages.'
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/ApplicationUserBatchResponseDto
+  - term: ApplicationUserDetails
+    definition: ApplicationUserDetails description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/ApplicationUserDetails
+  - term: CompanyProductEnhancedAllergenAttributeDetailDto
+    definition: Company Product Enhanced Allergen Attributes.
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedAllergenAttributeDetailDto
+  - term: CompanyProductEnhancedConceptDetailDto
+    definition: Company Product Enhanced Concept Details.
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedConceptDetailDto
+  - term: CompanyProductEnhancedDepartmentDetailDto
+    definition: Company Product Enhanced Department Details.
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedDepartmentDetailDto
+  - term: CompanyProductEnhancedDetailsGet
+    definition: CompanyProductEnhancedDetailsGet description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedDetailsGet
+  - term: CompanyProductEnhancedHeaderDto
+    definition: CompanyProductEnhancedHeaderDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedHeaderDto
+  - term: CompanyProductEnhancedShipLocationDetailDto
+    definition: CompanyProductEnhancedShipLocationDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedShipLocationDetailDto
+  - term: CompanyProductEnhancedUpcDetailDto
+    definition: CompanyProductEnhancedUpcDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedUpcDetailDto
+  - term: CompanyProductEnhancedUserDefinedCategoryDetailDto
+    definition: CompanyProductEnhancedUserDefinedCategoryDetailDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedUserDefinedCategoryDetailDto
+  - term: CompanyProductEnhancedBatchResponseDto
+    definition: Company Product Enhanced Batch Response.
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedBatchResponseDto
+  - term: Company Product Enhanced Details
+    definition: Product details.
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedDetails
+  - term: CompanyProductEnhancedAutoGenerateDetails
+    definition: CompanyProductEnhancedAutoGenerateDetails description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CompanyProductEnhancedAutoGenerateDetails
+  - term: CurrencyRatioDetails
+    definition: CurrencyRatioDetails description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CurrencyRatioDetails
+  - term: CurrencyRatioDetailsDto
+    definition: CurrencyRatioDetailsDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CurrencyRatioDetailsDto
+  - term: CurrencyRatioDetailsList
+    definition: CurrencyRatioDetailsList description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CurrencyRatioDetailsList
+  - term: CurrencyRatioBatchResponseDto
+    definition: CurrencyRatioBatchResponseDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CurrencyRatioBatchResponseDto
+  - term: CustomerDetailsDtoRes
+    definition: CustomerDetailsDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CustomerDetailsDtoRes
+  - term: CustomerDetailsRes
+    definition: CustomerDetails description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CustomerDetailsRes
+  - term: CustomerBatchResponseDto
+    definition: CustomerBatchResponseDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CustomerBatchResponseDto
+  - term: CustomerDetailsDtoReq
+    definition: CustomerDetailsDto description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CustomerDetailsDtoReq
+  - term: CustomerDetailsList
+    definition: CustomerDetailsList description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CustomerDetailsList
+  - term: CustomerDetailsReq
+    definition: CustomerDetails description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/CustomerDetailsReq
+  - term: GeneralLedgerDto
+    definition: 'Object declared by the contract with fields: active, allocatedExpenses, batchId, glDescription, glForReport, glNumber, glNumberForCGS,
+      glNumberForSales, glSubstructure, pbiFlag, plGrouping, replicated. (1 more)'
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/GeneralLedgerDto
+  - term: GeneralLedgerDetails
+    definition: 'Object declared by the contract with fields: generalLedgers.'
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/GeneralLedgerDetails
+  - term: HierarchyV1Type
+    definition: HierarchyV1 Type description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/HierarchyV1Type
+  - term: HierarchyDetailDto
+    definition: Hierarchy Detail description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/HierarchyDetailDto
+  - term: GetHierarchyV1DetailsResponse
+    definition: GetHierarchyV1DetailsResponse description
+    tags:
+    - Object
+    source: openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/GetHierarchyV1DetailsResponse

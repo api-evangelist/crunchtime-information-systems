@@ -1,0 +1,76 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+- openapi/crunchtime-information-systems-inventory-labor-openapi.yml
+format: custom
+envelope:
+  media_type: '*/*'
+  schema: ApplicationUserDetails
+coverage:
+  operations: 168
+  statuses_declared: 7
+problems:
+- status: 400
+  title: Bad Request
+  description: Validation Error
+  operations: 168
+  media_types:
+  - '*/*'
+  - application/json
+  - application/json;charset=UTF-8
+  schema: CesAuthenticationResult-400
+- status: 401
+  title: Unauthorized
+  description: Authorization
+  operations: 168
+  media_types:
+  - '*/*'
+  - application/json
+  - application/json;charset=UTF-8
+  schema: CesAuthenticationResult-401
+- status: 404
+  title: Not Found
+  description: sales forecast not found
+  operations: 105
+  media_types:
+  - '*/*'
+  - application/json
+  schema: null
+- status: 429
+  title: Too Many Requests
+  description: Too Many Requests
+  operations: 158
+  media_types:
+  - '*/*'
+  - application/json
+  - application/json;charset=UTF-8
+  schema: null
+- status: 500
+  title: Internal Server Error
+  description: Unexpected Error
+  operations: 168
+  media_types:
+  - '*/*'
+  - application/json
+  - application/json;charset=UTF-8
+  schema: ApplicationUserDetails
+- status: 503
+  title: Service Unavailable
+  description: System under maintenance
+  operations: 137
+  media_types:
+  - '*/*'
+  - application/json
+  - application/json;charset=UTF-8
+  schema: null
+- status: 504
+  title: Gateway Timeout
+  description: Timeout
+  operations: 168
+  media_types:
+  - '*/*'
+  - application/json
+  - application/json;charset=UTF-8
+  schema: null

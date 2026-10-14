@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json",
+  "title": "ScheduledBatchExportFiles",
+  "description": "ScheduledBatchExportFiles description",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/ScheduledBatchExportFiles",
+  "type": "object",
+  "properties": {
+    "batchId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Batch Number for export file. Required to retrieve file contents through downloadScheduledExport."
+    },
+    "exportDate": {
+      "type": "string",
+      "description": "Export Date of the export file."
+    },
+    "exportStatus": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Export Status of the export file: \n(1) Manually created exports (“N/A” in Outbound Integrations); \n(2) Scheduled Export file ready for download (“CDP No” in Outbound Integrations); \n(3) Scheduled Export file already downloaded by CDP or “marked” as downloaded (“CDP Yes” in Outbound Integrations); \n(5) Returns records Marked as not successfully downloaded (uncommon, but may happen with CDP download attempt)."
+    },
+    "exportType": {
+      "type": "string",
+      "description": "\"exportType\" from scheduled export",
+      "enum": [
+        "EMPLOYEE_MAINTENANCE",
+        "EPICOR_PLATINUM",
+        "INVENTORY_TOTALS",
+        "MAPPABLE_AP_TRANS_TYPE",
+        "MAPPABLE_AR_TRANS_TYPE",
+        "MAPPABLE_CUSTOM_TRANS_TYPE",
+        "MAPPABLE_EMPLOYEE_POS_TYPE",
+        "MAPPABLE_INVENTORY_DELTA_TYPE",
+        "MAPPABLE_INVENTORY_TOTALS_TYPE",
+        "MAPPABLE_LABOR_SCHEDULE_TYPE",
+        "MAPPABLE_LOC_TRANSFERS_TYPE",
+        "MAPPABLE_PAYROLL_TYPE",
+        "MAPPABLE_SALES_TYPE",
+        "MAPPABLE_STANDARD_AP_TYPE",
+        "PAYROLL",
+        "SALES",
+        "STANDARD_AP",
+        "STANDARD_INVENTORY_DELTA",
+        "STANDARD_LOCATION_TRANSFERS",
+        "USER_DEFINED"
+      ]
+    },
+    "extractHistoryId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Numeric identifier for the individual export file. Required to retrieve file contents through downloadScheduledExport."
+    },
+    "extractName": {
+      "type": "string",
+      "description": "Export file type (or mapping) name."
+    },
+    "fileName": {
+      "type": "string",
+      "description": "File name of the individual export file."
+    },
+    "postDate": {
+      "type": "string",
+      "description": "Post Date for file contents, if applicable. Note that some USER_DEFINED files are assigned a file-level Post Date of 12/31/1990 even if their contents are Post Date-specific."
+    },
+    "user": {
+      "type": "string",
+      "description": "User ID of the Application User associated with the individual export file. This is the value displayed in the “User” column in Outbound Integrations for the relevant file or file batch and correlates to the “userIdForDetails” query param."
+    }
+  }
+}

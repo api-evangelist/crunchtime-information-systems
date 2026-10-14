@@ -1,0 +1,339 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-vendor-get-dto-schema.json",
+  "title": "VendorGetDto",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/VendorGetDto",
+  "type": "object",
+  "required": [
+    "currencyCode",
+    "supplyAddress1",
+    "supplyCityName",
+    "supplyCode",
+    "supplyName"
+  ],
+  "properties": {
+    "accrualFlag": {
+      "type": "string",
+      "description": "\"Accrual\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "allowDuplicateInvoicesFlag": {
+      "type": "string",
+      "description": "\"Allow Duplicate Invoice Numbers\" flag from Vendor Pricing Rules. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "allowDuplicatePoNumberFlag": {
+      "type": "string",
+      "description": "\"Allow Duplicate Purchase Order Numbers\" flag from Vendor Pricing Rules. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "allowPbiFlag": {
+      "type": "string",
+      "description": "\"Allow PBI\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "allowSimpleReceiptFlag": {
+      "type": "string",
+      "description": "\"Allow Simple Receipt\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altAddress1": {
+      "type": "string",
+      "description": "\"Alt Address 1\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altAddress2": {
+      "type": "string",
+      "description": "\"Alt Address 2\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altCityName": {
+      "type": "string",
+      "description": "\"Alt City\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altFax": {
+      "type": "string",
+      "description": "\"Alt Fax\" from Vendor setup screen. Required if Bid Mode is 4 (Fax). (Not required if it is null or any other option). If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altPhone": {
+      "type": "string",
+      "description": "\"Alt Phone\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altStateShortName": {
+      "type": "string",
+      "description": "\"Alt State/Province\" (Abbreviation) from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "altZip": {
+      "type": "string",
+      "description": "\"Alt Zip\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "autoProcessNewBidFileFlag": {
+      "type": "string",
+      "description": "\"Automatically Process New Vendor Bid Files\" flag from Vendor Pricing Rules. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "autoReconcileEinvoiceFlag": {
+      "type": "string",
+      "description": "\"E-Invoices Will be Auto-Reconciled Upon Import\" flag from Vendor Pricing Rules. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "batchId": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "certificateExpireDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\"Certificate Expire Date\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "certificateNumber": {
+      "type": "string",
+      "description": "\"Certificate Number\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "codFlag": {
+      "type": "string",
+      "description": "\"COD\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "\"Country Code\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "countryName": {
+      "type": "string",
+      "description": "\"Country Name\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "createNewBidProductsFlag": {
+      "type": "string",
+      "description": "\"Allow Auto-Bid Processing to Create New Vendor Bid Products\" flag from Vendor Pricing Rules. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "currencyCode": {
+      "type": "string",
+      "description": "\"Base Currency\" Code from Vendor setup screen"
+    },
+    "electronicInvoiceFlag": {
+      "type": "string",
+      "description": "\"Electronic Invoice Required\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "exportCode": {
+      "type": "string",
+      "description": "\"Export Code\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "haccpCertifiedFlag": {
+      "type": "string",
+      "description": "\"HACCP\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "internalFlag": {
+      "type": "string",
+      "description": "\"Internal\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "priceIncludesTax": {
+      "type": "string",
+      "description": "\"Prices Include Tax\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyAccountNumber": {
+      "type": "string",
+      "description": "\"Account #\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyActive": {
+      "type": "string",
+      "description": "\"Active\" flag from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyAddress1": {
+      "type": "string",
+      "description": "\"Address 1\" from Vendor setup screen"
+    },
+    "supplyAddress2": {
+      "type": "string",
+      "description": "\"Address 2\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyBidPath": {
+      "type": "string",
+      "description": "\"Bid Mode\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.",
+      "enum": [
+        "CT Xchange",
+        "E-Mail Excel File",
+        "E-Mail PDF",
+        "E-Mail Text",
+        "Fax",
+        "Phone"
+      ]
+    },
+    "supplyCityName": {
+      "type": "string",
+      "description": "\"City\" from Vendor setup screen"
+    },
+    "supplyCode": {
+      "type": "string",
+      "description": "Vendor \"Code\" from Vendor setup screen"
+    },
+    "supplyEmail": {
+      "type": "string",
+      "description": "\"Vendor E-Mail\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyFax": {
+      "type": "string",
+      "description": "\"Fax\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyIntranet": {
+      "type": "string",
+      "description": "\"Intranet Number\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyLeadPeriod": {
+      "type": "object",
+      "description": "\"Lead Period\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyName": {
+      "type": "string",
+      "description": "Vendor \"Name\" from Vendor setup screen"
+    },
+    "supplyOrderPath": {
+      "type": "string",
+      "description": "\"Order Path\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyPhone": {
+      "type": "string",
+      "description": "\"Phone\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplySalesmanFax": {
+      "type": "string",
+      "description": "\"Fax\" from Vendor Contact Info. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplySalesmanFullName": {
+      "type": "string",
+      "description": "\"Name\" from Vendor Contact Info. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplySalesmanHomePhone": {
+      "type": "string",
+      "description": "\"Home Phone\" from Vendor Contact Info. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplySalesmanPhone": {
+      "type": "string",
+      "description": "\"Business Phone\" from Vendor Contact Info. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplySalesmanTitle": {
+      "type": "string",
+      "description": "\"Title\" from Vendor Contact Info. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplySatellite": {
+      "type": "string",
+      "description": "\"VO E-mail\" from Vendor setup screen. Required if Bid Mode is 1 (E-Mail PDF), 2 (E-Mail Text), 3 (E-Mail Excel) or 9 (E-Mail PDF - Custom) (any of the E-Mail options). (Not required if it is null or any other option). If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyStateShortName": {
+      "type": "string",
+      "description": "\"State/Province Abbreviation\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyStateFullName": {
+      "type": "string",
+      "description": "\"State/Province Name\" from Vendor setup screen."
+    },
+    "supplyTerms": {
+      "type": "string",
+      "description": "\"Terms\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyTransmitMethod": {
+      "type": "string",
+      "description": "\"Interface\" from Vendor setup screen. Required if VO Mode is FTP (5) or Web Services (8), but the system will use the default value of \"STANDARD\", if it is not provided or is not a valid value (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11). If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.",
+      "enum": [
+        "ALNT",
+        "AMPH",
+        "COI",
+        "CTVP",
+        "DCLO",
+        "DLA",
+        "DTLH",
+        "FPRO",
+        "MS90",
+        "N/A",
+        "PFG",
+        "PFGC",
+        "SAVL",
+        "STND",
+        "SYSC"
+      ]
+    },
+    "supplyTransmitPath": {
+      "type": "string",
+      "description": "\"VO Mode\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.",
+      "enum": [
+        "E-Mail Excel",
+        "E-Mail PDF",
+        "E-Mail PDF - Custom",
+        "E-Mail Text",
+        "FTP",
+        "Fax",
+        "Phone",
+        "Secure FTP",
+        "Web Services"
+      ]
+    },
+    "supplyWebAddress": {
+      "type": "string",
+      "description": "\"URL\" from Vendor setup screen. Required if VO Mode is 5 (FTP) or 6 (Secure FTP) or Interface is US Foods (1). (Not required if it is null or any other option). If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "supplyZip": {
+      "type": "string",
+      "description": "\"Zip\" Code from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "taxId": {
+      "type": "string",
+      "description": "\"Tax ID\" from Vendor setup screen. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "updateBidsVarianceFromLast": {
+      "type": "object",
+      "description": "\"Do Not Allow Auto-Bid Processing to Update Vendor Bids When Variance from Last Bid > x %\" from Vendor Pricing Rules. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "voFax": {
+      "type": "string",
+      "description": "\"VO Fax\" from Vendor setup screen. Required if VO Mode is 4 (Fax). (Not required if it is null or any other option). If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value."
+    },
+    "vendorUdaDetails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/vendorUdaDetail"
+      }
+    }
+  },
+  "$defs": {
+    "vendorUdaDetail": {
+      "type": "object",
+      "properties": {
+        "supplyCode": {
+          "type": "string",
+          "description": "Vendor \"Code\" from Vendor setup screen."
+        },
+        "udaCode": {
+          "type": "string",
+          "description": "\"Code\" from Vendor UDA tab."
+        },
+        "udaDescription": {
+          "type": "string",
+          "description": "\"Description\" from Vendor UDA tab."
+        },
+        "dataType": {
+          "type": "string",
+          "description": "UDA Data Type"
+        },
+        "udaType": {
+          "type": "string",
+          "description": "UDA Type"
+        },
+        "udaGroup": {
+          "type": "string",
+          "description": "\"Group\" from Vendor UDA tab."
+        },
+        "requiredFlag": {
+          "type": "string",
+          "description": "UDA Required flag"
+        },
+        "udaValue": {
+          "type": "string",
+          "description": "\"Value\" from Vendor UDA tab."
+        },
+        "replicatedFlag": {
+          "type": "string",
+          "description": "UDA Replicated flag, from Vendor setup screen."
+        },
+        "lastTouchDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last Touch Date from the vendor record."
+        }
+      },
+      "title": "vendorUdaDetail"
+    }
+  }
+}

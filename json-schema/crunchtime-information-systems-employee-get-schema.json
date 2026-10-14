@@ -1,0 +1,825 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-employee-get-schema.json",
+  "title": "EmployeeGet",
+  "description": "EmployeeGet description",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-inventory-labor-openapi.yml#/components/schemas/EmployeeGet",
+  "type": "object",
+  "required": [
+    "dateHired",
+    "dateOfBirth",
+    "employeeNumber",
+    "firstName",
+    "lastName",
+    "payType",
+    "status"
+  ],
+  "properties": {
+    "address1": {
+      "type": "string",
+      "description": "\"Address\" from Employee setup screen\nAlphanumeric (30) Reference Data for the employee's Net-Chef Profile"
+    },
+    "address2": {
+      "type": "string",
+      "description": "Not in use"
+    },
+    "age": {
+      "type": "integer",
+      "format": "int32",
+      "description": "Age"
+    },
+    "allergies": {
+      "type": "string",
+      "description": "Employee's allergies (free text field)\nAlphanumeric (25) Reference Data for the employee's Net-Chef Profile"
+    },
+    "breakWaiver": {
+      "type": "string",
+      "description": "Employee has signed a break waiver or not.  Impacts Employee Break reports and Labor Actuals.\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will set to ‘N’ for new records; will not update existing records",
+      "enum": [
+        "N",
+        "Y"
+      ]
+    },
+    "broadcastSchedule": {
+      "type": "string",
+      "description": "Should the weekly labor schedule be emailed to this employee (Y/N)",
+      "enum": [
+        "N",
+        "Y"
+      ]
+    },
+    "city": {
+      "type": "string",
+      "description": "Now storing city as character data\nAlphanumeric (40) Reference Data for the employee's Net-Chef Profile"
+    },
+    "country": {
+      "type": "string",
+      "description": "Country\nAlphanumeric (40) Reference Data for the employee's Net-Chef Profile"
+    },
+    "createUser": {
+      "type": "integer",
+      "format": "int64",
+      "description": "User that created the employee (FK to t_user)"
+    },
+    "dateCreate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the employee was created"
+    },
+    "dateEdit": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the employee was last edited"
+    },
+    "dateEditUtc": {
+      "type": "string",
+      "description": "Date the employee was last edited in UTC"
+    },
+    "dateHired": {
+      "type": "string",
+      "format": "date",
+      "description": "\"Date Hired\" from Employee setup screen\nDate (mm/dd/yyyy) Reference Data for the employee's Net-Chef Profile"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "description": "\"Date of Birth\" from Employee setup screen\nDate (mm/dd/yyyy) Used by the employee as part of Teamworx login authentication"
+    },
+    "dateTerminated": {
+      "type": "string",
+      "format": "date",
+      "description": "\"Date Terminated\" from Employee setup screen\nDate (mm/dd/yyyy) Reference Data for the employee's Net-Chef Profile"
+    },
+    "editUser": {
+      "type": "integer",
+      "format": "int64",
+      "description": "User that last edited the employee (FK to t_user)"
+    },
+    "eligibleForRehire": {
+      "type": "string",
+      "description": "Is this employee eligible for rehire (Y/N)\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’",
+      "enum": [
+        "false",
+        "true"
+      ]
+    },
+    "emailAddress": {
+      "type": "string",
+      "description": "Employee's email address\nAlphanumeric (75) Reference data - Employee's Email Address"
+    },
+    "emergencyContactName": {
+      "type": "string",
+      "description": "Name of person to contact in the event of an emergency regarding this employee\nAlphanumeric (40) Reference Data for the employee's Net-Chef Profile"
+    },
+    "emergencyContactPhone": {
+      "type": "string",
+      "description": "Phone number of person to contact in the event of an emergency regarding this employee\nAlphanumeric (30) Reference Data for the employee's Net-Chef Profile"
+    },
+    "employeeAudits": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EmployeeAudit"
+      }
+    },
+    "employeeChecklistItem01": {
+      "type": "string",
+      "description": "Check List Item 1\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem02": {
+      "type": "string",
+      "description": "Check List Item 2\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem03": {
+      "type": "string",
+      "description": "Check List Item 3\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem04": {
+      "type": "string",
+      "description": "Check List Item 4\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem05": {
+      "type": "string",
+      "description": "Check List Item 5\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem06": {
+      "type": "string",
+      "description": "Check List Item 6\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem07": {
+      "type": "string",
+      "description": "Check List Item 7\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem08": {
+      "type": "string",
+      "description": "Check List Item 8\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem09": {
+      "type": "string",
+      "description": "Check List Item 9\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeChecklistItem10": {
+      "type": "string",
+      "description": "Check List Item 10\nAlphanumeric (40) Reference Data associated to the \"New Hire Checklist\" configured in Enterprise Manager"
+    },
+    "employeeLocations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EmployeeLocation"
+      }
+    },
+    "employeeNickname": {
+      "type": "string",
+      "description": "Employee nickname\nAlphanumeric (20) Must not contain characters other than letters, numbers, spaces and the following special characters: single quote, hyphen or underline. Reference Data for the employee's Net-Chef Profile and visible on the schedule"
+    },
+    "employeeNumber": {
+      "type": "string",
+      "description": "\"Employee Number\" from Employee setup screen\nAlphanumeric (40) Must be unique globally. Primary key to make updates against an employees profile, meaning it cannot be updated /save calls"
+    },
+    "employeePositions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EmployeePosition"
+      }
+    },
+    "ethnicGroup": {
+      "type": "string",
+      "description": "Employee's ethnic group\nAlphanumeric (10) Code for the \"Ethnic Group\" from Enterprise Manager"
+    },
+    "federalAdditionalWithholding": {
+      "type": "number",
+      "description": "Employee's additional withholding (federal taxation purposes)\nNumber (8,2) Reference Data for the employee's Net-Chef Profile"
+    },
+    "federalExemptions": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Employee's additional withholding (federal taxation purposes)\nNumber (3,0) Reference Data for the employee's Net-Chef Profile"
+    },
+    "federalMaritalStatus": {
+      "type": "string",
+      "description": "Employee's federal marital status\nAlphanumeric (10) Code for the \"Marital Status\" from Enterprise Manager"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "\"First Name\" from Employee setup screen\nAlphanumeric (40) \"First Name\" for the Employee Profile"
+    },
+    "flexField01": {
+      "type": "string",
+      "description": "Flexible Field 1\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField02": {
+      "type": "string",
+      "description": "Flexible Field 2\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField03": {
+      "type": "string",
+      "description": "Flexible Field 3\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField04": {
+      "type": "string",
+      "description": "Flexible Field 4\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField05": {
+      "type": "string",
+      "description": "Flexible Field 5\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField06": {
+      "type": "string",
+      "description": "Flexible Field 6\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField07": {
+      "type": "string",
+      "description": "Flexible Field 7\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField08": {
+      "type": "string",
+      "description": "Flexible Field 8\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField09": {
+      "type": "string",
+      "description": "Flexible Field 9\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "flexField10": {
+      "type": "string",
+      "description": "Flexible Field 10\nAlphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which \"flexField\" #s"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "\"Last Name\" from Employee setup screen\nAlphanumeric (40) \"Last Name\" for the Employee Profile"
+    },
+    "locationId": {
+      "type": "integer",
+      "format": "int64",
+      "description": "\"location Id\" from Employee setup screen"
+    },
+    "locationName": {
+      "type": "string",
+      "description": "Unique identifier for Location at/for which Employee record was created from Employee setup screen"
+    },
+    "manager": {
+      "type": "string",
+      "description": "Is this employee a manager (Y/N)\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will set to ‘N’ for new records",
+      "enum": [
+        "N",
+        "Y"
+      ]
+    },
+    "mealProgramDeduction": {
+      "type": "number",
+      "description": "Employee's meal program deduction amount\nNumber (8,2) Meal Program Deduction from the Net-Chef Employee record"
+    },
+    "middleName": {
+      "type": "string",
+      "description": "\"Middle Name\" from Employee setup screen\nAlphanumeric (40) \"Middle Name\" for the Employee Profile"
+    },
+    "minorLaborProgramCode": {
+      "type": "string",
+      "description": "Minor program for employee\nAlphanumeric (10) Code for any Minor Labor Program configured in Enterprise Manager"
+    },
+    "partTime": {
+      "type": "string",
+      "description": "Marked Y/true when not full time\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’",
+      "enum": [
+        "N",
+        "Y"
+      ]
+    },
+    "payRate01": {
+      "type": "number",
+      "description": "Pay Rate 1\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate02": {
+      "type": "number",
+      "description": "Pay Rate 2\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate03": {
+      "type": "number",
+      "description": "Pay Rate 3\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate04": {
+      "type": "number",
+      "description": "Pay Rate 4\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate05": {
+      "type": "number",
+      "description": "Pay Rate 5\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate06": {
+      "type": "number",
+      "description": "Pay Rate 6\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate07": {
+      "type": "number",
+      "description": "Pay Rate 7\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate08": {
+      "type": "number",
+      "description": "Pay Rate 8\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate09": {
+      "type": "number",
+      "description": "Pay Rate 9\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payRate10": {
+      "type": "number",
+      "description": "Pay Rate 10\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "payType": {
+      "type": "string",
+      "description": "Employee pay type\nAlphanumeric (20) Must be ‘Salary’, ‘Hourly’ or ‘Salary Exempt’"
+    },
+    "payrollIdNumber": {
+      "type": "string",
+      "description": "Employee Payroll ID Number\nAlphanumeric (20) If the Labor Preference to “Allow Duplicate Payroll ID Number” is NOT enabled, must not be the Payroll ID Number for any other existing employee"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "description": "Employee's phone number\nAlphanumeric (30) Reference Data for the employee's Net-Chef Profile"
+    },
+    "posId": {
+      "type": "string",
+      "description": "POS Id\nAlphanumeric (40) Must not be the POS ID for any other Employee/Location. This will default to the employeeNumber by default unless otherwise entered to match the employee ID used in the POS. For the saveTimeClockEnhanced API endpoint, the Location \"posId\" must be provided as the \"employeeNumber\""
+    },
+    "positionCode01": {
+      "type": "string",
+      "description": "Position Code 1\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode02": {
+      "type": "string",
+      "description": "Position Code 2\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode03": {
+      "type": "string",
+      "description": "Position Code 3\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode04": {
+      "type": "string",
+      "description": "Position Code 4\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode05": {
+      "type": "string",
+      "description": "Position Code 5\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode06": {
+      "type": "string",
+      "description": "Position Code 6\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode07": {
+      "type": "string",
+      "description": "Position Code 7\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode08": {
+      "type": "string",
+      "description": "Position Code 8\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode09": {
+      "type": "string",
+      "description": "Position Code 9\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "positionCode10": {
+      "type": "string",
+      "description": "Position Code 10\nRecommended to use the \"employeePositions\" array to create and update employees positions and payRates"
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "\"Zip\" from Employee setup screen\nAlphanumeric (10) Reference Data for the employee's Net-Chef Profile"
+    },
+    "primaryLocationCode": {
+      "type": "string",
+      "description": "Assigned location employee typically works at\nRecommendation to use the \"employeeLocations\" array to assign and update Locations"
+    },
+    "primaryPositionName": {
+      "type": "string",
+      "description": "Primary job description"
+    },
+    "pto01": {
+      "type": "number",
+      "description": "Paid Time Off 1. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto02": {
+      "type": "number",
+      "description": "Paid Time Off 2. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto03": {
+      "type": "number",
+      "description": "Paid Time Off 3. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto04": {
+      "type": "number",
+      "description": "Paid Time Off 4. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto05": {
+      "type": "number",
+      "description": "Paid Time Off 5. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto06": {
+      "type": "number",
+      "description": "Paid Time Off 6. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto07": {
+      "type": "number",
+      "description": "Paid Time Off 7. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto08": {
+      "type": "number",
+      "description": "Paid Time Off 8. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto09": {
+      "type": "number",
+      "description": "Paid Time Off 9. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "pto10": {
+      "type": "number",
+      "description": "Paid Time Off 10. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+    },
+    "salaryAmount": {
+      "type": "number",
+      "description": "Employee's salary\nNumber (10,2) Required if \"Pay Type\" is not \"Hourly\""
+    },
+    "sex": {
+      "type": "string",
+      "description": "Employee's sex\nAlphanumeric (1) Valid values are 'F' (Female), 'M' (Male), 'X' (Non-Binary)",
+      "enum": [
+        "F",
+        "M",
+        "X"
+      ]
+    },
+    "sickHours": {
+      "type": "number",
+      "description": "Number of sick leave hours available. Value can be negative\nNumber (7,4) Reference data to track and deplete employee sick time"
+    },
+    "skillLevel01": {
+      "type": "number",
+      "description": "Skill Level 1\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel02": {
+      "type": "number",
+      "description": "Skill Level 2\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel03": {
+      "type": "number",
+      "description": "Skill Level 3\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel04": {
+      "type": "number",
+      "description": "Skill Level 4\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel05": {
+      "type": "number",
+      "description": "Skill Level 5\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel06": {
+      "type": "number",
+      "description": "Skill Level 6\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel07": {
+      "type": "number",
+      "description": "Skill Level 7\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel08": {
+      "type": "number",
+      "description": "Skill Level 8\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel09": {
+      "type": "number",
+      "description": "Skill Level 9\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "skillLevel10": {
+      "type": "number",
+      "description": "Skill Level 10\nRecommendation to use the \"employeePositions\" array to update Skill levels as they relate to Positions"
+    },
+    "socialSecurityNumber": {
+      "type": "string",
+      "description": "Social Security Number\nAlphanumeric (20) Reference Data"
+    },
+    "stateAdditionalWithholding": {
+      "type": "number",
+      "description": "Employee's additional withholding (state taxation purposes)\nNumber (8,2) Reference Data for the employee's Net-Chef Profile"
+    },
+    "stateExemptions": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Employee's additional withholding (state taxation purposes)\nNumber (3,0) Reference Data for the employee's Net-Chef Profile"
+    },
+    "stateMaritalStatus": {
+      "type": "string",
+      "description": "Employee's state marital status\nAlphanumeric (10) Code for the \"Marital Status\" from Enterprise Manager"
+    },
+    "stateProvince": {
+      "type": "string",
+      "description": "State\nAlphanumeric (3) Reference Data for the employee's Net-Chef Profile"
+    },
+    "status": {
+      "type": "string",
+      "description": "Employee status description\nAlphanumeric (10) Must be ‘Active’, ‘Leave’ or 'Terminated' or the Code associated to these descriptions in Enterprise Manager"
+    },
+    "statusCode": {
+      "type": "string",
+      "description": "\"statusCode\" from Employee setup screen"
+    },
+    "suiSdiTaxJurisdictionCode": {
+      "type": "string",
+      "description": "Employee SUI/SDI Tax Jurisdiction Code\nAlphanumeric (6) Reference Data for the employee's Net-Chef Profile"
+    },
+    "terminationReason": {
+      "type": "string",
+      "description": "Reason that employee was terminated. 'Code' of the configured termination reason from EM\nAlphanumeric (10) Reference data - 'Code' of the configured termination reason from Enterprise Manager"
+    },
+    "uniformDeductionAmount": {
+      "type": "number",
+      "description": "Employee's uniform deduction amount\nNumber (8,2) Reference Data for the employee's Net-Chef Profile"
+    },
+    "unionMembership": {
+      "type": "string",
+      "description": "Union that employee belongs\nAlphanumeric (10) Reference Data for the employee's Net-Chef Profile based on Union Codes configured in Enterprise Manager"
+    },
+    "wageMatrixRow01": {
+      "type": "number",
+      "description": "Wage Matrix 1\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow02": {
+      "type": "number",
+      "description": "Wage Matrix 2\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow03": {
+      "type": "number",
+      "description": "Wage Matrix 3\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow04": {
+      "type": "number",
+      "description": "Wage Matrix 4\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow05": {
+      "type": "number",
+      "description": "Wage Matrix 5\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow06": {
+      "type": "number",
+      "description": "Wage Matrix 6\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow07": {
+      "type": "number",
+      "description": "Wage Matrix 7\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow08": {
+      "type": "number",
+      "description": "Wage Matrix 8\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow09": {
+      "type": "number",
+      "description": "Wage Matrix 9\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    },
+    "wageMatrixRow10": {
+      "type": "number",
+      "description": "Wage Matrix 10\nRecommendation to use the \"employeePositions\" array to update Wage Matrix as they relate to Positions"
+    }
+  },
+  "$defs": {
+    "EmployeeAudit": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "auditDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of add, change or delete"
+        },
+        "changeType": {
+          "type": "string",
+          "description": "'A' = Add, 'C' = Change, 'D' = Delete', 'X' = Export",
+          "enum": [
+            "A",
+            "C",
+            "D",
+            "E",
+            "X"
+          ]
+        },
+        "changeValue": {
+          "type": "string",
+          "description": "Review date, availability week ending date + time, position name of value being changes (used for multiple row employee information)"
+        },
+        "editValue": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique Identifier"
+        },
+        "originalValue": {
+          "type": "string"
+        },
+        "sectionName": {
+          "type": "string",
+          "description": "Section name"
+        },
+        "userFirstName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "userLastName": {
+          "type": "string"
+        },
+        "valueDataType": {
+          "type": "string",
+          "description": "'C' = Character, 'D'= Date, 'N' = Numeric",
+          "enum": [
+            "C",
+            "D",
+            "N"
+          ]
+        }
+      },
+      "title": "EmployeeAudit",
+      "description": "EmployeeAudit description"
+    },
+    "EmployeeLocation": {
+      "type": "object",
+      "required": [
+        "locationCode"
+      ],
+      "properties": {
+        "activeFlag": {
+          "type": "string",
+          "description": "activeFlag\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will be set to ‘Y’ cannot be 'N' for the employee's primary location.Indicates whether the employee is \"active\" at the (non-primary) location.If the employee/location relationship is not active, the employee is ineligible to work at the location",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "allocateLaborTo": {
+          "type": "string",
+          "description": "Allocate labor indicator\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will be set to ‘N’.If ‘Y’, this record must come after a record where this value =‘N’.Indicates whether this location will be used when allocating labor data for multiple locations that the employee has worked",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "deleteFlag": {
+          "type": "string",
+          "description": "deleteFlag",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "employeeNumber": {
+          "type": "string",
+          "description": "employeeNumber"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique Identifier"
+        },
+        "locationCityName": {
+          "type": "string",
+          "description": "\"City\" selected in the Location/Company setup screen"
+        },
+        "locationCode": {
+          "type": "string",
+          "description": "Location Code\nAlphanumeric (6) Must match an existing locationCode from /getAllLocations"
+        },
+        "locationMarketName": {
+          "type": "string",
+          "description": "\"Market\" selected in the Location/Company setup screen (if any)"
+        },
+        "locationName": {
+          "type": "string",
+          "description": "\"Name\" from the Location/Company setup screen"
+        },
+        "locationStateName": {
+          "type": "string",
+          "description": "\"State/Province\" selected in the Location/Company setup screen (if any)"
+        },
+        "posExportFlag": {
+          "type": "boolean",
+          "description": "Export indicator"
+        },
+        "posId": {
+          "type": "string",
+          "description": "POS ID\nAlphanumeric (40) Must not be the POS ID for any other Employee/Location. This will default to the employeeNumber by default unless otherwise entered to match the employee ID used in the POS. For the saveTimeClockEnhanced API endpoint, the Location \"posId\" must be provided as the \"employeeNumber\""
+        },
+        "primaryLocationFlag": {
+          "type": "boolean",
+          "description": "Is Primary location for user working shift\nAt least one Location must be flagged as Primary"
+        }
+      },
+      "title": "EmployeeLocation",
+      "description": "EmployeeLocation description"
+    },
+    "EmployeePosition": {
+      "type": "object",
+      "required": [
+        "posCode",
+        "positionCode"
+      ],
+      "properties": {
+        "altLocationsFlag": {
+          "type": "string",
+          "description": "altLocationsFlag\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’. Allows employee to work this position at any non-primary Location. If 'N', an employee can only work that Position at their primary Location",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "deleteFlag": {
+          "type": "string",
+          "description": "deleteFlag\nAlphanumeric (1) If populated, must be ‘Y’ or ‘N’. An employee must have/retain at least one Position, flagged as \"primaryPositionFlag\": \"Y\".You can also \"delete\" an Employee/Position record by excluding it from the current \"save\" input",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "employeeNumber": {
+          "type": "string",
+          "description": "employeeNumber"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unique Identifier"
+        },
+        "payRate": {
+          "type": "number",
+          "description": "Pay Rate\nNumber (12,4) Required if employee “Pay Type” is ‘Hourly’"
+        },
+        "payRateDefault": {
+          "type": "number",
+          "description": "Default pay rate for this position"
+        },
+        "payRateMaximum": {
+          "type": "number",
+          "description": "Maximum pay rate for this position"
+        },
+        "payRateMinimum": {
+          "type": "number",
+          "description": "Minimum pay rate for this position"
+        },
+        "payrollCode": {
+          "type": "string",
+          "description": "Payroll code\nAlphanumeric (3) Reference Position Code that could be used in payroll exports"
+        },
+        "posCode": {
+          "type": "string",
+          "description": "POS Code\nAlphanumeric (10) Position Code that's used in the POS. The posCode is validated against the saveTimeClockEnhanced. Will default to the \"positionCode\""
+        },
+        "positionCode": {
+          "type": "string",
+          "description": "Code describing position\nAlphanumeric (10) Must match a Position Code configured in the Enterprise Manager Positions module"
+        },
+        "positionGlDescription": {
+          "type": "string",
+          "description": "GL to which this position is mapped"
+        },
+        "positionGlSubstructure": {
+          "type": "string"
+        },
+        "positionName": {
+          "type": "string",
+          "description": "Full description of position"
+        },
+        "positionPlGroupingCode": {
+          "type": "string"
+        },
+        "positionPlGroupingDesc": {
+          "type": "string"
+        },
+        "primaryPositionFlag": {
+          "type": "string",
+          "description": "Primary Position Flag\nAt least one Position must be flagged as Primary",
+          "enum": [
+            "N",
+            "Y"
+          ]
+        },
+        "skillLevelCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "skillLevelCode\nNumber (3) Must match a code configured in the Enterprise Manager Skill Levels module"
+        },
+        "skillLevelDescription": {
+          "type": "string"
+        },
+        "wageMatrix": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Wage Matrix assigned to the location\nNumber (3) Required if the employee’s primary location is associated with an active wage matrix that has passed its first effective date"
+        }
+      },
+      "title": "EmployeePosition",
+      "description": "EmployeePosition description"
+    }
+  }
+}

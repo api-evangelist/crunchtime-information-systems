@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crunchtime-information-systems/main/json-schema/crunchtime-information-systems-general-ledger-dto-schema.json",
+  "title": "GeneralLedgerDto",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/crunchtime-information-systems-cruise-platform-openapi.yml#/components/schemas/GeneralLedgerDto",
+  "type": "object",
+  "required": [
+    "allocatedExpenses",
+    "glDescription",
+    "glNumber",
+    "glSubstructure",
+    "pbiFlag",
+    "plGrouping",
+    "voFlag"
+  ],
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "allocatedExpenses": {
+      "type": "boolean",
+      "description": "\"allocatedExpenses\" from GeneralLedger setup screen."
+    },
+    "batchId": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "glDescription": {
+      "type": "string",
+      "description": "\"glDescription\" from GeneralLedger setup screen"
+    },
+    "glForReport": {
+      "type": "boolean"
+    },
+    "glNumber": {
+      "type": "string",
+      "description": "\"glNumber\" from GeneralLedger setup screen"
+    },
+    "glNumberForCGS": {
+      "type": "string",
+      "description": "\"glNumberForCGS\" from GeneralLedger setup screen.  Cost of Goods GL Code."
+    },
+    "glNumberForSales": {
+      "type": "string",
+      "description": "\"glNumberForSales\" from GeneralLedger setup screen.  Sales GL Code."
+    },
+    "glSubstructure": {
+      "type": "string",
+      "description": "\"glSubstructure\" from GeneralLedger setup screen"
+    },
+    "pbiFlag": {
+      "type": "boolean",
+      "description": "\"pbiFlag\" from GeneralLedger setup screen."
+    },
+    "plGrouping": {
+      "type": "string",
+      "description": "\"plGrouping\" from GeneralLedger setup screen"
+    },
+    "replicated": {
+      "type": "boolean"
+    },
+    "voFlag": {
+      "type": "boolean",
+      "description": "\"voFlag\" from GeneralLedger setup screen."
+    }
+  }
+}
