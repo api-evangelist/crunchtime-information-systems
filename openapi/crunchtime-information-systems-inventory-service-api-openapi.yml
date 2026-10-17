@@ -1,0 +1,4174 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Inventory Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Inventory Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Inventory Service
+  description: 'The Inventory Service combines a series of get and post calls used to update and review the quantity and value of a location stock on hand including:
+
+    -Inventory Adjustments (Waste)
+
+    -Value Adjustments
+
+    -Physical Inventory Counts'
+paths:
+  /cruise/inventory/inventoryadjustment/v1/getAllInventoryAdjustments:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllInventoryAdjustments
+      description: Retrieve inventory adjustments (waste transactions) by date and location.
+      operationId: getAllInventoryAdjustmentV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: componentRecipeAdjustmentFlag
+        in: query
+        description: Recipe Adjustment. When `true` indicates a recipe adjustment, when `false` indicates an inventory adjustment.
+        required: false
+        schema:
+          type: boolean
+      - name: daypartCode
+        in: query
+        description: The code for the Daypart associated with the adjustment.
+        required: false
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Date of transaction adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment. Fetch the details only if transaction number is provided.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a inventory adjustment record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number associated to the entry in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryAdjustmentDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryAdjustmentDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: inventory adjustment not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/inventoryadjustment/v1/getInventoryAdjustmentsByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getInventoryAdjustmentsByPage
+      description: Retrieve a page of inventory adjustments (waste transactions) by date and location.
+      operationId: getInventoryAdjustmentByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: componentRecipeAdjustmentFlag
+        in: query
+        description: Recipe Adjustment. When `true` indicates a recipe adjustment, when `false` indicates an inventory adjustment.
+        required: false
+        schema:
+          type: boolean
+      - name: daypartCode
+        in: query
+        description: The code for the Daypart associated with the adjustment.
+        required: false
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Date of transaction adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a inventory adjustment record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number associated to the entry in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InventoryAdjustmentBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryAdjustmentBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: inventory adjustment not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/inventoryadjustment/v1/saveInventoryAdjustments:
+    post:
+      tags:
+      - Inventory Service
+      summary: saveInventoryAdjustments
+      description: 'Create a new inventory adjustment entry.
+
+        Update an inventory adjustment entry.'
+      operationId: saveInventoryAdjustmentUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryAdjustmentDetailsList'
+        description: inventoryAdjustmentDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/inventoryvalueadjustment/v1/getAllInventoryValueAdjustments:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllInventoryValueAdjustments
+      description: Retrieve all inventory value adjustments by date and location.
+      operationId: getAllInventoryValueAdjustmentV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Date of transaction adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number associated to the entry in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryValueAdjustmentDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryValueAdjustmentDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Inventory value record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/inventoryvalueadjustment/v1/getInventoryValueAdjustmentsByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getInventoryValueAdjustmentsByPage
+      description: Retrieve a page of inventory adjustments (waste transactions) by date and location.
+      operationId: getInventoryValueAdjustmentByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Entry date of adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: Company Code for site name.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InventoryValueAdjustmentBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryValueAdjustmentBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Inventory value record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/inventoryvalueadjustment/v1/saveInventoryValueAdjustments:
+    post:
+      tags:
+      - Inventory Service
+      summary: saveInventoryValueAdjustments
+      description: 'Create a new inventory value adjustment entry.
+
+        Update an inventory value adjustment entry.'
+      operationId: saveInventoryValueAdjustmentUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryValueAdjustmentDetailsList'
+        description: inventoryValueAdjustmentDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/physicalinventorystandard/v1/getAllPhysicalInventoryStandards:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllPhysicalInventoryStandards
+      description: Retrieve a list of all physical inventory counts (quantity only) by date and location.
+      operationId: getAllPhysicalInventoryStandardUsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: inventoryDate
+        in: query
+        description: Inventory date of a scheduled inventory or final for post inventory in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: storageCode
+        in: query
+        description: Physical inventory item's storage code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: Retrieve user id details when `true`.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardDetailsGet'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Physical inventory record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/physicalinventorystandard/v1/getPhysicalInventoryStandardsByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getPhysicalInventoryStandardsByPage
+      description: Retrieve by page, all physical inventory counts (quantity only) by date and location.
+      operationId: getPhysicalInventoryStandardByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: inventoryDate
+        in: query
+        description: Inventory date of a scheduled inventory or final for post inventory in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: storageCode
+        in: query
+        description: Physical inventory item's storage code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: Retrieve user id details when `true`.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Physical inventory record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/inventory/physicalinventorystandard/v1/savePhysicalInventoryStandards:
+    post:
+      tags:
+      - Inventory Service
+      summary: savePhysicalInventoryStandards
+      description: 'Create a new physical inventory entry.
+
+        Update a physical inventory entry.'
+      operationId: savePhysicalInventoryStandardUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhysicalInventoryStandardDetailsList'
+        description: physicalInventoryStandardDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/currentinventory/v1/getCurrentInventoryByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getCurrentInventoryByPage
+      description: Retrieve the current inventory for a product or subset of products.
+      operationId: getCurrentInventoryByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The code that identifies the location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: The code number for the product to retrieve. (case sensitive).
+        required: false
+        schema:
+          type: string
+      - name: lotNumber
+        in: query
+        description: The Lot Number associated with the product in inventory.
+        required: false
+        schema:
+          type: string
+      - name: summarizeByProduct
+        in: query
+        description: Flag to control whether products are summed for the entire location or separated by storage location. Valid values are 'true' or 'false'. When 'true', results are aggregated across all storage locations and ordered by locationCode and productNumber. When 'false', results are separated by storage location and ordered by locationCode, storageName and productNumber. If left blank, the default is 'true'.
+        required: false
+        example: true
+        schema:
+          type: boolean
+          default: true
+      - name: categoryName
+        in: query
+        description: The category name assigned to the product. Use 3 or more characters.
+        required: false
+        schema:
+          type: string
+      - name: subcategoryName
+        in: query
+        description: The subcategory name assigned to the product. Use 3 or more characters.
+        required: false
+        schema:
+          type: string
+      - name: microcategoryName
+        in: query
+        description: The microcategory name assigned to the product. Use 3 or more characters.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CurrentInventoryBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentInventoryBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Current inventory not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventoryadjustment/v1/getAllInventoryAdjustments:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllInventoryAdjustments
+      description: Retrieve inventory adjustments (waste transactions) by date and location.
+      operationId: getInventoryInventoryadjustmentV1GetAllInventoryAdjustments
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: componentRecipeAdjustmentFlag
+        in: query
+        description: Recipe Adjustment. When `true` indicates a recipe adjustment, when `false` indicates an inventory adjustment.
+        required: false
+        schema:
+          type: boolean
+      - name: daypartCode
+        in: query
+        description: The code for the Daypart associated with the adjustment.
+        required: false
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Date of transaction adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment. Fetch the details only if transaction number is provided.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a inventory adjustment record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number associated to the entry in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryAdjustmentDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryAdjustmentDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: inventory adjustment not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllInventoryAdjustmentV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventoryadjustment/v1/getInventoryAdjustmentsByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getInventoryAdjustmentsByPage
+      description: Retrieve a page of inventory adjustments (waste transactions) by date and location.
+      operationId: getInventoryInventoryadjustmentV1GetInventoryAdjustmentsByPage
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: componentRecipeAdjustmentFlag
+        in: query
+        description: Recipe Adjustment. When `true` indicates a recipe adjustment, when `false` indicates an inventory adjustment.
+        required: false
+        schema:
+          type: boolean
+      - name: daypartCode
+        in: query
+        description: The code for the Daypart associated with the adjustment.
+        required: false
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Date of transaction adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a inventory adjustment record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number associated to the entry in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InventoryAdjustmentBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryAdjustmentBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: inventory adjustment not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getInventoryAdjustmentByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventoryadjustment/v1/saveInventoryAdjustments:
+    post:
+      tags:
+      - Inventory Service
+      summary: saveInventoryAdjustments
+      description: 'Create a new inventory adjustment entry.
+
+        Update an inventory adjustment entry.'
+      operationId: postInventoryInventoryadjustmentV1SaveInventoryAdjustments
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryAdjustmentDetailsList'
+        description: inventoryAdjustmentDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveInventoryAdjustmentUsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventorylocationtransfers/v1/getAllInventoryLocationTransfers:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllInventoryLocationTransfers
+      description: Retrieve inventory location and storage transfers for a location.
+      operationId: getAllInventoryLocationTransfersV1UsingGET
+      parameters:
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime. Matches either the source or the destination location of the transfer.
+        required: true
+        example: '000001'
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number of the transfer. Exact match, case-insensitive.
+        required: false
+        schema:
+          type: string
+      - name: transferType
+        in: query
+        description: 'Type of transfer to retrieve: `L` (Location) or `S` (Storage), case-insensitive. If left blank, both Location and Storage transfers are returned.'
+        required: false
+        example: L
+        schema:
+          type: string
+          enum:
+          - L
+          - S
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a transfer record was last updated. Use to set how far back to search. Must be 0 or greater.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: includeDetails
+        in: query
+        description: Retrieve the line items of each transfer. If `false`, the response contains header information only. If left blank, the default is `true`.
+        required: false
+        example: true
+        schema:
+          type: boolean
+          default: true
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryLocationTransfersDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryLocationTransfersDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: inventory location transfer not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventorylocationtransfers/v1/getInventoryLocationTransfersByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getInventoryLocationTransfersByPage
+      description: Retrieve a page of inventory location and storage transfers for a location.
+      operationId: getInventoryLocationTransfersByPageV1UsingGET
+      parameters:
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime. Matches either the source or the destination location of the transfer.
+        required: true
+        example: '000001'
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number of the transfer. Exact match, case-insensitive.
+        required: false
+        schema:
+          type: string
+      - name: transferType
+        in: query
+        description: 'Type of transfer to retrieve: `L` (Location) or `S` (Storage), case-insensitive. If left blank, both Location and Storage transfers are returned.'
+        required: false
+        example: L
+        schema:
+          type: string
+          enum:
+          - L
+          - S
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a transfer record was last updated. Use to set how far back to search. Must be 0 or greater.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: includeDetails
+        in: query
+        description: Retrieve the line items of each transfer. If `false`, the response contains header information only. If left blank, the default is `true`.
+        required: false
+        example: true
+        schema:
+          type: boolean
+          default: true
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page. Must be between 1 and 100.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InventoryLocationTransfersBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryLocationTransfersBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: inventory location transfer not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventoryvalueadjustment/v1/getAllInventoryValueAdjustments:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllInventoryValueAdjustments
+      description: Retrieve all inventory value adjustments by date and location.
+      operationId: getInventoryInventoryvalueadjustmentV1GetAllInventoryValueAdjustments
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Date of transaction adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number associated to the entry in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryValueAdjustmentDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryValueAdjustmentDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Inventory value record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllInventoryValueAdjustmentV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventoryvalueadjustment/v1/getInventoryValueAdjustmentsByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getInventoryValueAdjustmentsByPage
+      description: Retrieve a page of inventory adjustments (waste transactions) by date and location.
+      operationId: getInventoryInventoryvalueadjustmentV1GetInventoryValueAdjustmentsByPage
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: entryDate
+        in: query
+        description: Entry date of adjustment in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all the details of the inventory adjustment.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: Company Code for site name.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: transactionNumber
+        in: query
+        description: Transaction number to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InventoryValueAdjustmentBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryValueAdjustmentBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Inventory value record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getInventoryValueAdjustmentByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/inventoryvalueadjustment/v1/saveInventoryValueAdjustments:
+    post:
+      tags:
+      - Inventory Service
+      summary: saveInventoryValueAdjustments
+      description: 'Create a new inventory value adjustment entry.
+
+        Update an inventory value adjustment entry.'
+      operationId: postInventoryInventoryvalueadjustmentV1SaveInventoryValueAdjustments
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryValueAdjustmentDetailsList'
+        description: inventoryValueAdjustmentDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveInventoryValueAdjustmentUsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/physicalinventorystandard/v1/getAllPhysicalInventoryStandards:
+    get:
+      tags:
+      - Inventory Service
+      summary: getAllPhysicalInventoryStandards
+      description: Retrieve a list of all physical inventory counts (quantity only) by date and location.
+      operationId: getInventoryPhysicalinventorystandardV1GetAllPhysicalInventoryStandards
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: inventoryDate
+        in: query
+        description: Inventory date of a scheduled inventory or final for post inventory in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: storageCode
+        in: query
+        description: Physical inventory item's storage code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: Retrieve user id details when `true`.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardDetailsGet'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Physical inventory record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllPhysicalInventoryStandardUsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/physicalinventorystandard/v1/getPhysicalInventoryStandardsByPage:
+    get:
+      tags:
+      - Inventory Service
+      summary: getPhysicalInventoryStandardsByPage
+      description: Retrieve by page, all physical inventory counts (quantity only) by date and location.
+      operationId: getInventoryPhysicalinventorystandardV1GetPhysicalInventoryStandardsByPage
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: inventoryDate
+        in: query
+        description: Inventory date of a scheduled inventory or final for post inventory in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: storageCode
+        in: query
+        description: Physical inventory item's storage code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: Retrieve user id details when `true`.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhysicalInventoryStandardBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Physical inventory record not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getPhysicalInventoryStandardByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /inventory/physicalinventorystandard/v1/savePhysicalInventoryStandards:
+    post:
+      tags:
+      - Inventory Service
+      summary: savePhysicalInventoryStandards
+      description: 'Create a new physical inventory entry.
+
+        Update a physical inventory entry.'
+      operationId: postInventoryPhysicalinventorystandardV1SavePhysicalInventoryStandards
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhysicalInventoryStandardDetailsList'
+        description: physicalInventoryStandardDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: savePhysicalInventoryStandardUsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    InventoryAdjustmentDetailsDtoGet:
+      type: object
+      required:
+      - productNumber
+      - qualitativeJudgment
+      - quantity
+      properties:
+        lotNumber:
+          type: string
+          example: 165R-13593
+          description: Lot Number from adjustment transaction.
+        packageType:
+          type: string
+          example: GAL
+          description: Package Type from adjustment transaction.
+        productName:
+          type: string
+          example: OIL BLENDED
+          description: Company Product Name from adjustment transaction.
+        productNumber:
+          type: string
+          example: 100331
+          description: Product Number from adjustment transaction.
+        qualitativeJudgment:
+          type: string
+          example: BREAKAGE
+          description: Qualitative Judgment from adjustment transaction.
+        quantity:
+          type: number
+          example: 0.2475
+          description: Quantity from adjustment transaction.
+        recipeName:
+          type: string
+          example: MUSHROOMS ROASTED
+          description: Recipe Name from adjustment transaction.
+        recipeQuantity:
+          type: number
+          example: 9.9
+          description: Recipe Quantity from adjustment transaction.
+        storageCode:
+          type: string
+          example: '0004'
+          description: Storage Location Code from adjustment transaction. This is case sensitive.
+        transactionDate:
+          type: string
+          example: 12/14/2025
+          description: Transaction Date from adjustment transaction.
+        value:
+          type: number
+          example: 0.32
+          description: Value from adjustment transaction.
+        unitCost:
+          type: number
+          example: 19.2632
+          description: Unit Cost from adjustment transaction.
+        recipeValue:
+          type: number
+          example: 43.86
+          description: Recipe Value from adjustment transaction.
+      title: InventoryAdjustmentDetailsDtoGet
+      description: Inventory Adjustment Detail Fields
+    InventoryAdjustmentDetails:
+      type: object
+      properties:
+        inventoryAdjustmentDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryAdjustmentDetailsDto'
+        inventoryAdjustmentHeaderDetails:
+          $ref: '#/components/schemas/InventoryAdjustmentHeaderDto'
+      title: InventoryAdjustmentDetails
+      description: Inventory Adjustment Details
+    PhysicalInventoryStandardDetailsGet:
+      type: object
+      properties:
+        physicalInventoryStandardDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhysicalInventoryStandardDetails00'
+      title: PhysicalInventoryStandardDetails
+      description: PhysicalInventoryStandardDetails description
+    PhysicalInventoryStandardDetails:
+      type: object
+      properties:
+        physicalInventoryStandardDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhysicalInventoryStandardDetails1'
+      title: PhysicalInventoryStandardDetails0
+      description: PhysicalInventoryStandardDetails description
+    InventoryAdjustmentDetailsGet:
+      type: object
+      properties:
+        inventoryAdjustmentDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryAdjustmentDetailsDtoGet'
+        inventoryAdjustmentHeaderDetails:
+          $ref: '#/components/schemas/InventoryAdjustmentHeaderGetDto'
+      title: InventoryAdjustmentDetailsGet
+      description: InventoryAdjustmentDetailsGet description
+    PhysicalInventoryStandardDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+        physicalInventoryStandardDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhysicalInventoryStandardDetails'
+      title: PhysicalInventoryStandardDetailsList
+      description: PhysicalInventoryStandardDetailsList description
+    PhysicalInventoryStandardBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        physicalInventoryStandardDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhysicalInventoryStandardDetailsGet'
+        totalPages:
+          type: integer
+          format: int32
+      title: PhysicalInventoryStandardBatchResponseDto
+      description: PhysicalInventoryStandardBatchResponseDto description
+    InventoryValueAdjustmentBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        inventoryValueAdjustmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryValueAdjustmentDetailsGet'
+        totalPages:
+          type: integer
+          format: int32
+      title: InventoryValueAdjustmentBatchResponseDto
+      description: Inventory Value Adjustment Response
+    InventoryAdjustmentDetailsList:
+      type: object
+      properties:
+        inventoryAdjustmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryAdjustmentDetails'
+        locationCode:
+          type: string
+          example: BS002
+          description: Location Code from adjustment transaction.
+      title: InventoryAdjustmentDetailsList
+      description: Inventory Adjustment Header Fields
+    InventoryAdjustmentBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        inventoryAdjustmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryAdjustmentDetailsGet'
+        totalPages:
+          type: integer
+          format: int32
+      title: InventoryAdjustmentBatchResponseDto
+      description: Inventory Adjustment Response
+    InventoryValueAdjustmentDetailsGet:
+      type: object
+      properties:
+        inventoryValueAdjustmentDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryValueAdjustmentDetailsDto'
+        inventoryValueAdjustmentHeaderDetails:
+          $ref: '#/components/schemas/InventoryValueAdjustmentHeaderDtoGet'
+      title: InventoryValueAdjustmentDetailsGet
+      description: InventoryValueAdjustmentDetailsGet description
+    PhysicalInventoryStandardDetails1:
+      type: object
+      required:
+      - inventoryDate
+      - productNumber
+      - storageCode
+      - userId
+      properties:
+        altQuantity1:
+          type: number
+          example: 9.99
+          description: '"Alt Unit 1" Qty. from Physical Inventory'
+        altQuantity2:
+          type: number
+          example: 9.99
+          description: '"Alt Unit 2" Qty. from Physical Inventory'
+        altQuantity3:
+          type: number
+          example: 9.99
+          description: '"Alt Unit 3" Qty. from Physical Inventory'
+        inventoryDate:
+          type: string
+          example: 12/14/2025
+          description: Inventory "Date" from Physical Inventory
+        productNumber:
+          type: string
+          example: 20342
+          description: '"Product #" from Physical Inventory'
+        quantity:
+          type: number
+          example: 9.99
+          description: '"Quantity" from Physical Inventory. Input required for Alt Unit 1 Qty, Alt Unit 2 Qty, or Alt Unit 3 Qty if not provided.
+
+            '
+        storageCode:
+          type: string
+          example: 234
+          description: Storage Location "Code" from Physical Inventory
+        userId:
+          type: string
+          example: john
+          description: User ID for the user associated with the Physical Inventory
+      title: PhysicalInventoryStandardDetails
+      description: PhysicalInventoryStandardDetails description
+    InventoryAdjustmentHeaderGetDto:
+      type: object
+      properties:
+        componentRecipeAdjustmentFlag:
+          type: string
+          example: Y
+          description: "Recipe Adjustment Flag from adjustment transaction. \nIndicates whether this is an Inventory Adjustment (N) or Recipe Adjustment (Y)."
+        daypartCode:
+          type: integer
+          format: int64
+          example: 6
+          description: Daypart Code from adjustment transaction.
+        entryUser:
+          type: string
+          example: JSCOTT
+          description: User ID for the user associated with the adjustment transaction.
+        locationCode:
+          type: string
+          example: BS002
+          description: Location Code from adjustment transaction.
+        memo:
+          type: string
+          example: Items left out on counter
+          description: Memo from adjustment transaction.
+        transactionNumber:
+          type: string
+          example: BS002
+          description: Transaction Number from adjustment transaction.
+        transactionDate:
+          type: string
+          example: 12/14/2025
+          description: Transaction Date from adjustment transaction.
+        transactionValue:
+          type: number
+          example: 132.48
+          description: ' Transaction Value from adjustment transaction.'
+      title: InventoryAdjustmentHeaderGetDto
+      description: Inventory Adjustment Header Fields
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    InventoryAdjustmentDetailsDto:
+      type: object
+      required:
+      - productNumber
+      - qualitativeJudgment
+      - quantity
+      properties:
+        lotNumber:
+          type: string
+          example: 165R-13593
+          description: Lot Number from adjustment transaction.
+        packageType:
+          type: string
+          example: GAL
+          description: Package Type from adjustment transaction.
+        productNumber:
+          type: string
+          example: 100331
+          description: Company Product Number from adjustment transaction.
+        qualitativeJudgment:
+          type: string
+          example: BREAKAGE
+          description: Qualitative Judgment from adjustment transaction.
+        quantity:
+          type: number
+          example: 0.2475
+          description: Quantity from adjustment transaction.
+        storageCode:
+          type: string
+          example: '0004'
+          description: Storage Location Code from adjustment transaction. This is case sensitive.
+        transactionDate:
+          type: string
+          example: 10/08/2023
+          description: Transaction Date from adjustment transaction.
+      title: InventoryAdjustmentDetailsDto
+      description: Inventory Adjustment Detail Fields
+    InventoryValueAdjustmentDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        inventoryValueAdjustmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryValueAdjustmentDetails'
+        locationCode:
+          type: string
+          example: '000122'
+          description: The Code that identifies the Location in Crunchtime.
+      title: InventoryValueAdjustmentDetailsList
+      description: InventoryValueAdjustmentDetailsList description
+    InventoryValueAdjustmentHeaderDto:
+      type: object
+      properties:
+        comments:
+          type: string
+          example: 19191982982982
+          description: '"Memo" from Inventory Value Adjustment'
+        locationCode:
+          type: string
+          example: EMFR01
+          description: '"Location Code" from Inventory Value Adjustment'
+        source:
+          type: string
+          example: NC
+          description: '"Source" of the Inventory Value Adjustment'
+      title: InventoryValueAdjustmentHeaderDto
+      description: InventoryValueAdjustmentHeaderDto description
+    InventoryValueAdjustmentDetails:
+      type: object
+      properties:
+        inventoryValueAdjustmentDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryValueAdjustmentDetailsDto'
+        inventoryValueAdjustmentHeaderDetails:
+          $ref: '#/components/schemas/InventoryValueAdjustmentHeaderDto'
+      title: InventoryValueAdjustmentDetails
+      description: InventoryValueAdjustmentDetails description
+    InventoryValueAdjustmentHeaderDtoGet:
+      type: object
+      properties:
+        comments:
+          type: string
+          example: 19191982982982
+          description: '"Memo" from Inventory Value Adjustment'
+        locationCode:
+          type: string
+          example: EMFR01
+          description: '"Location Code" from Inventory Value Adjustment'
+        poNumber:
+          type: string
+          example: 12009
+          description: '"PO Number" from Inventory Value Adjustment'
+        shipCruiseCode:
+          type: string
+          example: 009987
+          description: '"shipCruiseCode" from Inventory Value Adjustment'
+        source:
+          type: string
+          example: NC
+          description: '"Source" of the Inventory Value Adjustment'
+        vendorExportCode:
+          type: string
+          example: Mc-002
+          description: '"Vendor Export Code" from Inventory Value Adjustment'
+      title: InventoryValueAdjustmentHeaderDtoGet
+      description: InventoryValueAdjustmentHeaderDtoGet description
+    InventoryValueAdjustmentDetailsDto:
+      type: object
+      required:
+      - adjustmentValue
+      - productCode
+      - qualitativeJudgment
+      - receivingQuantity
+      properties:
+        adjustmentValue:
+          type: number
+          example: 99.99
+          description: '"Adjustment Value" from Inventory Value Adjustment'
+        comments:
+          type: string
+          example: Inventory Cost Correction
+          description: '"Memo" from Inventory Value Adjustment'
+        conditionalGl:
+          type: string
+          example: GL
+          description: '"GL Description" associated with the Qualitative Judgment, from Inventory Value Adjustment'
+        productCode:
+          type: string
+          example: 0025369
+          description: '"Product Number" from Inventory Value Adjustment'
+        qualitativeJudgment:
+          type: string
+          example: Cost Correction
+          description: '"Qualitative Judgment" from Inventory Value Adjustment'
+        receivingQuantity:
+          type: number
+          example: 9
+          description: '"Receiving Quantity" (in Inventory Units) from Inventory Value Adjustment'
+      title: InventoryValueAdjustmentDetailsDto
+      description: InventoryValueAdjustmentDetailsDto description
+    PhysicalInventoryStandardDetails00:
+      type: object
+      required:
+      - inventoryDate
+      - productNumber
+      - storageCode
+      - userId
+      properties:
+        altQuantity1:
+          type: number
+          example: 9.99
+          description: '"Alt Unit 1" Qty. from Physical Inventory'
+        altQuantity2:
+          type: number
+          example: 9.99
+          description: '"Alt Unit 2" Qty. from Physical Inventory'
+        altQuantity3:
+          type: number
+          example: 9.99
+          description: '"Alt Unit 3" Qty. from Physical Inventory'
+        inventoryDate:
+          type: string
+          example: 09/10/2022
+          description: Inventory "Date" from Physical Inventory
+        productNumber:
+          type: string
+          example: 20342
+          description: '"Product #" from Physical Inventory'
+        quantity:
+          type: number
+          example: 9.99
+          description: '"Quantity" from Physical Inventory'
+        storageCode:
+          type: string
+          example: 234
+          description: Storage Location "Code" from Physical Inventory
+        userId:
+          type: string
+          example: john
+          description: User ID for the user associated with the Physical Inventory
+        inventoryType:
+          type: string
+          example: User Defined Category (Corporate)
+          description: '"Inventory Type" from Physical Inventory'
+        detail:
+          type: string
+          example: CRITICAL COMPONENTS
+          description: '"Detail" description from Physical Inventory'
+        inventoryUnit:
+          type: string
+          example: LB
+          description: '"Inventory Unit" from Physical Inventory'
+        totalQuantity:
+          type: number
+          example: 6
+          description: '"Total Quantity" from Physical Inventory'
+        unitPrice:
+          type: number
+          example: 3.6402
+          description: '"Unit Price" from Physical Inventory'
+        physicalValue:
+          type: number
+          example: 21.84
+          description: '"Physical Value" from Physical Inventory'
+        byExceptionFlag:
+          type: string
+          example: N
+          description: '"By Exception" flag from Physical Inventory'
+      title: PhysicalInventoryStandardDetails1
+      description: PhysicalInventoryStandardDetails description
+    InventoryAdjustmentHeaderDto:
+      type: object
+      properties:
+        componentRecipeAdjustmentFlag:
+          type: string
+          example: Y
+          description: "Recipe Adjustment Flag from adjustment transaction. \nIndicates whether this is an Inventory Adjustment (N) or Recipe Adjustment (Y)."
+        daypartCode:
+          type: integer
+          format: int64
+          example: 6
+          description: Daypart Code from adjustment transaction.
+        entryUser:
+          type: string
+          example: JSCOTT
+          description: User ID for the user associated with the adjustment transaction.
+        locationCode:
+          type: string
+          example: BS002
+          description: Location Code from adjustment transaction.
+        memo:
+          type: string
+          example: Items left out on counter
+          description: Memo from adjustment transaction.
+        transactionNumber:
+          type: string
+          example: BS002
+          description: Transaction Number from adjustment transaction.
+        transactionDate:
+          type: string
+          example: 12/14/2025
+          description: Transaction Date from adjustment transaction.
+      title: InventoryAdjustmentHeaderDto
+      description: Inventory Adjustment Header Fields
+    CurrentInventoryDetailsDto:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          example: BS002
+          description: Code for the Location.
+        locationName:
+          type: string
+          example: Boston Store
+          description: Name for the Location.
+        storageName:
+          type: string
+          example: Produce Cooler
+          description: Storage Name for the storage location.
+        storageCode:
+          type: string
+          example: '0004'
+          description: Storage Code for the storage location.
+        productName:
+          type: string
+          example: Romaine Lettuce
+          description: Name for the product in inventory.
+        productNumber:
+          type: string
+          example: 100331
+          description: Number for the product in inventory.
+        lotNumber:
+          type: string
+          example: 165R-13593
+          description: The Lot Number associated with the product in inventory.
+        categoryName:
+          type: string
+          example: FOOD
+          description: The category name assigned to the product.
+        subcategoryName:
+          type: string
+          example: PRODUCE
+          description: The subcategory name assigned to the product.
+        microcategoryName:
+          type: string
+          example: VEGETABLE
+          description: The microcategory name assigned to the product.
+        glCode:
+          type: string
+          example: 5010-0005
+          description: General Ledger Code associated with the product's category.
+        glDescription:
+          type: string
+          example: Produce
+          description: General Ledger Description associated with the product's category.
+        inventoryUnit:
+          type: string
+          example: LB
+          description: Inventory Unit for the product in inventory.
+        unitPrice:
+          type: number
+          example: '2.3456'
+          description: Unit Price for the product in inventory.
+        onHandQuantity:
+          type: number
+          example: 24
+          description: On Hand Quantity for the product in inventory.
+        onHandValue:
+          type: number
+          example: 35.7
+          description: On Hand Value for the product in inventory.
+        inTransitQuantity:
+          type: number
+          example: 4.5
+          description: In Transit Quantity for the product in inventory.
+        inTransitValue:
+          type: number
+          example: 7.49
+          description: In Transit Value for the product in inventory.
+        totalQuantity:
+          type: number
+          example: 45.8
+          description: Total Quantity for the product in inventory.
+        totalValue:
+          type: number
+          example: 98.58
+          description: Total Value for the product in inventory.
+        customerOrderQuantity:
+          type: number
+          example: 7.5
+          description: Customer Order Quantity for the product in inventory.
+        vendorOrderQuantity:
+          type: number
+          example: 20
+          description: Vendor Order Quantity for the product in inventory.
+      title: CurrentInventoryDetailsDto
+      description: CurrentInventoryDetailsDto description
+    InventoryLocationTransfersBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+          example: true
+          description: Indicates whether more pages are available.
+        inventoryLocationTransfersDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryLocationTransfersDetails'
+        totalPages:
+          type: integer
+          format: int32
+          example: 10
+          description: Total number of pages.
+      title: InventoryLocationTransfersBatchResponseDto
+      description: Inventory Location Transfers Response
+    InventoryLocationTransfersDetails:
+      type: object
+      properties:
+        inventoryLocationTransfersDetailDetails:
+          type: array
+          description: Line items of the transfer. Omitted when `includeDetails` is false or the transfer has no line items.
+          items:
+            $ref: '#/components/schemas/InventoryLocationTransfersDetailDto'
+        inventoryLocationTransfersHeaderDetails:
+          $ref: '#/components/schemas/InventoryLocationTransfersHeaderDto'
+      title: InventoryLocationTransfersDetails
+      description: InventoryLocationTransfersDetails description
+    InventoryLocationTransfersHeaderDto:
+      type: object
+      properties:
+        transferType:
+          type: string
+          example: Location
+          description: 'Type of transfer: `Location` or `Storage`.'
+        initiatedBy:
+          type: string
+          example: S
+          description: 'Who initiated the transfer: (S)ender, (R)eceiver or (A)utomated. Storage transfers are always sender initiated.'
+        transactionNumber:
+          type: string
+          example: TFR-10002
+          description: Transaction number of the transfer.
+        referenceNumber:
+          type: string
+          example: '000242052712'
+          description: Custom reference number or tracking identifier.
+        status:
+          type: string
+          example: Reconciled_Final
+          description: 'Status of the transfer: `Requested`, `In_Transit`, `Reconciled_Final` or `Cancelled`.'
+        transferDate:
+          type: string
+          example: 05/26/2012
+          description: Date the products became in transit, or the transaction entry date. Format MM/dd/yyyy.
+        entryUser:
+          type: string
+          example: USER0066
+          description: User ID of the user who entered the transfer.
+        sourceLocationCode:
+          type: string
+          example: '000001'
+          description: Code of the issuing (source) location.
+        sourceLocationName:
+          type: string
+          example: AUTOMATION TWO
+          description: Name of the issuing (source) location.
+        destinationLocationCode:
+          type: string
+          example: '000005'
+          description: Code of the receiving (destination) location.
+        destinationLocationName:
+          type: string
+          example: Rules THREE (GT3)
+          description: Name of the receiving (destination) location.
+        sourceStorageCode:
+          type: string
+          example: '0004'
+          description: Code of the issuing storage location. May be absent for Location transfers.
+        sourceStorageName:
+          type: string
+          example: DRY STORAGE
+          description: Name of the issuing storage location. May be absent for Location transfers.
+        destinationStorageCode:
+          type: string
+          example: '0004'
+          description: Code of the receiving storage location. May be absent for Location transfers.
+        destinationStorageName:
+          type: string
+          example: DRY STORAGE
+          description: Name of the receiving storage location. May be absent for Location transfers.
+        transferMemo:
+          type: string
+          example: Weekly stock transfer
+          description: Memo entered on the transfer.
+        transferTotal:
+          type: number
+          example: 37.38
+          description: Total value of the transfer.
+        reconcileDate:
+          type: string
+          example: 05/28/2012
+          description: Date the transfer was reconciled. Format MM/dd/yyyy.
+        reconcileUser:
+          type: string
+          example: USER0071
+          description: User ID of the user who reconciled the transfer.
+        rejectUser:
+          type: string
+          example: USER0072
+          description: User ID of the user who rejected the transfer.
+        rejectMemo:
+          type: string
+          example: Wrong quantities
+          description: Memo entered when the transfer was rejected.
+        requestDate:
+          type: string
+          example: 05/24/2012
+          description: Date the transfer was requested (receiver initiated transfers). Format MM/dd/yyyy.
+        requestUser:
+          type: string
+          example: USER0070
+          description: User ID of the user who requested the transfer.
+        requestMemo:
+          type: string
+          example: Need more for weekend
+          description: Memo entered on the transfer request.
+        requestTotal:
+          type: number
+          example: 40
+          description: Total value of the requested transfer.
+      title: InventoryLocationTransfersHeaderDto
+      description: Inventory Location Transfers Header Fields. Fields without a value are omitted from the response.
+    CurrentInventoryBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        currentInventoryDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentInventoryDetails'
+        totalPages:
+          type: integer
+          format: int32
+      title: CurrentInventoryBatchResponseDto
+      description: CurrentInventoryBatchResponseDto description
+    CurrentInventoryDetails:
+      type: object
+      properties:
+        currentInventoryDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentInventoryDetailsDto'
+      title: CurrentInventoryDetails
+      description: CurrentInventoryDetails description
+    InventoryLocationTransfersDetailDto:
+      type: object
+      properties:
+        productNumber:
+          type: string
+          example: '100377'
+          description: Product number identifier in Net-Chef.
+        productName:
+          type: string
+          example: TOMATO CRUSHED
+          description: Name of the product.
+        inventoryUnit:
+          type: string
+          example: 'CAN #10'
+          description: Inventory unit (package type) of the product.
+        unitPrice:
+          type: number
+          example: 3.2583
+          description: Inventory price per inventory unit.
+        issueQuantity:
+          type: number
+          example: 2
+          description: Quantity issued for transfer.
+        issueUnit:
+          type: string
+          example: 'CAN #10'
+          description: Unit of measure of the issued quantity.
+        issueAmount:
+          type: number
+          example: 6.5166
+          description: Amount of the issued quantity.
+        requestQuantity:
+          type: number
+          example: 2
+          description: Quantity requested (receiver initiated transfers).
+        requestUnit:
+          type: string
+          example: 'CAN #10'
+          description: Unit of measure of the requested quantity.
+        reconcileQuantity:
+          type: number
+          example: 2
+          description: Quantity reconciled by the receiver.
+        reconcileAmount:
+          type: number
+          example: 6.5166
+          description: Amount of the reconciled quantity.
+        sourceLotNumber:
+          type: string
+          example: LOT-0001
+          description: Lot number at the source location.
+        destinationLotNumber:
+          type: string
+          example: LOT-0001
+          description: Lot number at the destination location.
+        sourceStorageCode:
+          type: string
+          example: '0004'
+          description: Code of the issuing storage location.
+        sourceStorageName:
+          type: string
+          example: DRY STORAGE
+          description: Name of the issuing storage location.
+        destinationStorageCode:
+          type: string
+          example: '0004'
+          description: Code of the receiving storage location.
+        destinationStorageName:
+          type: string
+          example: DRY STORAGE
+          description: Name of the receiving storage location.
+      title: InventoryLocationTransfersDetailDto
+      description: Inventory Location Transfers Detail Fields. Fields without a value are omitted from the response.
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

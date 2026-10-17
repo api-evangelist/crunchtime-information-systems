@@ -1,0 +1,984 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Commissary Order Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Commissary Order Service
+  description: The Commissary Order Service allows you to retrieve commissary orders.
+paths:
+  /commissaryorder/v1/getAllCommissaryOrders:
+    get:
+      tags:
+      - Commissary Order Service
+      summary: getAllCommissaryOrders
+      description: Retrieves all commissary orders with the accompanying information.
+      operationId: getAllCommissaryOrdersV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: customerLocationCode
+        in: query
+        description: 'Code number for the Customer Location receiving the order (incoming commissary order). At least two of the following fields are required: locationCode, customerLocationCode, orderNumber, or orderDateStart/orderDateEnd.'
+        required: false
+        schema:
+          type: string
+      - name: expectedDeliveryDateStart
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or later (optional). Must be entered together with the end date.
+        required: false
+        example: 08-JAN-26
+        schema:
+          type: string
+      - name: expectedDeliveryDateEnd
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or earlier (optional). Must be entered together with the start date.
+        required: false
+        example: 08-JAN-26
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for one Commissary Order at a time (optional). When true,orderNumber must be used.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: 'Code number for the Commissary Location supplying the order (outgoing commissary order). At least two of the following fields are required: locationCode, customerLocationCode, orderNumber, or orderDateStart/orderDateEnd.'
+        required: false
+        schema:
+          type: string
+      - name: orderDateStart
+        in: query
+        description: 'Retrieve orders with entry date equal to this date or later. Must be entered together with the end date. At least two of the following fields are required: locationCode, customerLocationCode, orderNumber, or orderDateStart/orderDateEnd.'
+        required: false
+        example: 08-JAN-26 21:57:36
+        schema:
+          type: string
+      - name: orderDateEnd
+        in: query
+        description: 'Retrieve orders with entry date equal to this date or earlier. Must be entered together with the start date. At least two of the following fields are required: locationCode, customerLocationCode, orderNumber, or orderDateStart/orderDateEnd.'
+        required: false
+        example: 08-JAN-26 21:57:36
+        schema:
+          type: string
+      - name: orderNumber
+        in: query
+        description: 'Order Number for order to retrieve. At least two of the following fields are required: locationCode, customerLocationCode, orderNumber, or orderDateStart/orderDateEnd.'
+        required: false
+        schema:
+          type: string
+      - name: orderStatus
+        in: query
+        description: Order Status (NEW ORDER [1], SUBMITTED [18], PICKLISTED [19], INVOICED [2], CANCELED [4], PHYSICAL RECONCILED [7], FINAL RECONCILED [3]) for orders to retrieve (optional).
+        required: false
+        example: SUBMITTED
+        schema:
+          type: string
+          enum:
+          - NEWORDER
+          - '1'
+          - SUBMITTED
+          - '18'
+          - PICKLISTED
+          - '19'
+          - INVOICED
+          - '2'
+          - CANCELED
+          - '4'
+          - PHYSICALRECONCILED
+          - '7'
+          - FINALRECONCILED
+          - '3'
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: postDate
+        in: query
+        description: Retrieve orders with post date equal this date (optional).
+        required: false
+        example: 08-JAN-26
+        schema:
+          type: string
+      - name: referenceNumber
+        in: query
+        description: Reference Number for order to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Commissary Orders. Default is 'orderNumber' if not provided (Optional).
+        required: false
+        example: orderNumber
+        schema:
+          type: string
+          enum:
+          - orderPk
+          - orderNumber
+          - orderDate
+          - invoiceDate
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Commissary Orders: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional).'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommissaryOrderDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommissaryOrderDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: commissary order not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /commissaryorder/v1/getCommissaryOrdersByPage:
+    get:
+      tags:
+      - Commissary Order Service
+      summary: getCommissaryOrdersByPage
+      description: Retrieves all commissary orders with the accompanying information by page number.
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: customerLocationCode
+        in: query
+        description: Code number for the Customer Location receiving the order (incoming commissary order).
+        required: false
+        schema:
+          type: string
+      - name: expectedDeliveryDateStart
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or later (optional). Must be entered together with the end date.
+        required: false
+        example: 08-JAN-26
+        schema:
+          type: string
+      - name: expectedDeliveryDateEnd
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or earlier (optional). Must be entered together with the start date.
+        required: false
+        example: 08-JAN-26
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Commissary Order (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: Code number for the Commissary Location supplying the order (outgoing commissary order).
+        required: false
+        schema:
+          type: string
+      - name: orderDateStart
+        in: query
+        description: Retrieve orders with entry date equal to this date or later. Must be entered together with the end date.
+        required: false
+        example: 08-JAN-26 21:57:36
+        schema:
+          type: string
+      - name: orderDateEnd
+        in: query
+        description: Retrieve orders with entry date equal to this date or earlier. Must be entered together with the start date.
+        required: false
+        example: 08-JAN-26 21:57:36
+        schema:
+          type: string
+      - name: orderNumber
+        in: query
+        description: Order Number for order to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: orderStatus
+        in: query
+        description: Order Status (NEW ORDER [1], SUBMITTED [18], PICKLISTED [19], INVOICED [2], CANCELED [4], PHYSICAL RECONCILED [7], FINAL RECONCILED [3]) for orders to retrieve (optional).
+        required: false
+        example: SUBMITTED
+        schema:
+          type: string
+          enum:
+          - NEWORDER
+          - '1'
+          - SUBMITTED
+          - '18'
+          - PICKLISTED
+          - '19'
+          - INVOICED
+          - '2'
+          - CANCELED
+          - '4'
+          - PHYSICALRECONCILED
+          - '7'
+          - FINALRECONCILED
+          - '3'
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: postDate
+        in: query
+        description: Retrieve orders with post date equal this date (optional).
+        required: false
+        example: 08-JAN-26
+        schema:
+          type: string
+      - name: referenceNumber
+        in: query
+        description: Reference Number for order to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Commissary Orders. Default is 'orderNumber' if not provided (Optional).
+        required: false
+        example: orderNumber
+        schema:
+          type: string
+          enum:
+          - orderPk
+          - orderNumber
+          - orderDate
+          - invoiceDate
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Commissary Orders: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional).'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CommissaryOrderBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommissaryOrderBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: commissary order not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      operationId: getCommissaryorderV1GetCommissaryOrdersByPage
+      x-operation-id-source: derived
+components:
+  schemas:
+    CommissaryOrderDetails:
+      type: object
+      properties:
+        commissaryOrderDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommissaryOrderDetailsDto'
+        commissaryOrderHeaderDetails:
+          $ref: '#/components/schemas/CommissaryOrderHeaderDto'
+      title: CommissaryOrderDetails
+      description: CommissaryOrderDetails description
+    CommissaryOrderBatchResponseDto:
+      type: object
+      properties:
+        commissaryOrderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommissaryOrderDetails'
+        hasNext:
+          type: boolean
+          example: true
+          description: has Next
+        totalPages:
+          type: integer
+          format: int32
+          example: 10
+          description: Total Pages
+      title: CommissaryOrderBatchResponseDto
+      description: CommissaryOrderBatchResponseDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    CommissaryOrderHeaderDto:
+      type: object
+      properties:
+        arBatchNumber:
+          type: integer
+          format: int64
+          example: 175
+          description: Accounts Receivable Batch Number
+        consumptionDays:
+          type: number
+          example: 3
+          description: Number of days of consumption used when this order was created
+        customerCode:
+          type: string
+          example: '7654'
+          description: Location Code for the Customer Location receiving the order (incoming commissary order)
+        customerName:
+          type: string
+          example: Boston Store
+          description: Location Name for the Customer Location receiving the order (incoming commissary order)
+        entryDate:
+          type: string
+          example: 04/09/2018 07:26:52
+          description: Date order originally created, or an order in New Order status was last edited
+        entryDateUTC:
+          type: string
+          example: 04/09/2018 04:26:52
+          description: Entry Date in UTC
+        entryUser:
+          type: string
+          example: JAROD
+          description: User ID for the user who originally created order or last edited New Order Status
+        expectedDeliveryDate:
+          type: string
+          example: 04/10/2018
+          description: Expected Delivery Date
+        expectedDeliveryDateUTC:
+          type: string
+          example: 04/09/2018
+          description: Expected Delivery Date in UTC
+        finalReconcileDate:
+          type: string
+          example: 08/20/2025 10:15:00
+          description: Date order was final reconciled
+        finalReconcileDateUTC:
+          type: string
+          example: 08/20/2025 04:45:00
+          description: Final Reconcile Date in UTC
+        finalReconcileUser:
+          type: string
+          example: JAROD
+          description: User ID for the user who final Reconciled order, or last Edited final Reconciled order
+        finalReconcileValue:
+          type: number
+          example: 10.42
+          description: Total Value at Reconcile
+        invoiceDate:
+          type: string
+          example: 08/14/2025 09:17:58
+          description: Date the order was invoiced
+        invoiceDateUTC:
+          type: string
+          example: 08/14/2025 06:17:58
+          description: Invoice Date in UTC
+        invoiceUser:
+          type: string
+          example: JAROD
+          description: User ID for the user ID for the user who Invoiced order, or last Edited Invoiced order
+        invoiceValue:
+          type: number
+          example: 10.42
+          description: Before invoicing, this is the total value of the ordered products. After invoice, this is the invoiced value for all products. Note that this gets set to zero if an order is canceled.
+        locationCode:
+          type: string
+          example: JD
+          description: Code number for the Commissary Location supplying the order (outgoing commissary order)
+        locationName:
+          type: string
+          example: Boston Commissary
+          description: Code name for the Commissary Location supplying the order (outgoing commissary order)
+        orderNumber:
+          type: string
+          example: CO-10182
+          description: Order Number
+        orderStatus:
+          type: string
+          example: INVOICED
+          description: Order Status (NEW ORDER [1], SUBMITTED [18], PICKLISTED [19], INVOICED [2], CANCELED [4], PHYSICAL RECONCILED [7], FINAL RECONCILED [3])
+        physicalReconcileDate:
+          type: string
+          example: 08/18/2025 08:30:00
+          description: Date order was physically reconciled, or the last time a physically reconciled order was edited
+        physicalReconcileDateUTC:
+          type: string
+          example: 08/18/2025 03:00:00
+          description: Physical Reconcile Date in UTC
+        physicalReconcileUser:
+          type: string
+          example: JAROD
+          description: User ID for the user who Physical Reconciled order, or last Edited Physical Reconciled order
+        postDate:
+          type: string
+          example: 08/18/2025
+          description: Post date that this order falls in
+        postDateUTC:
+          type: string
+          example: 08/17/2025
+          description: Post Date in UTC
+        referenceNumber:
+          type: string
+          example: REF-2025-001
+          description: Reference Number
+        grandTotal:
+          type: number
+          example: 10.42
+          description: Total value of the products ordered plus any tax values
+        taxTotal:
+          type: number
+          example: 2.1
+          description: Total value of calculated tax from the products on the order
+      title: CommissaryOrderHeaderDto
+      description: CommissaryOrderHeaderDto description
+    CommissaryOrderDetailsDto:
+      type: object
+      properties:
+        completeTaxRate:
+          type: number
+          example: 1
+          description: Complete Tax Rate
+        conversionInventoryIssueUnit:
+          type: number
+          example: 1
+          description: Conversion from Inventory Unit to Issue Unit. Note that this is the configured Issue Unit from the Company Products screen, not necessarily the unit the order was placed in.
+        conversionInventoryOrderUnit:
+          type: number
+          example: 1
+          description: Conversion from Inventory Unit to the Ordered Unit
+        conversionInventoryPicklistUnit:
+          type: number
+          example: 1
+          description: Conversion from Inventory Unit to the Picklisted Unit
+        conversionInventoryInvoiceUnit:
+          type: number
+          example: 2.13
+          description: Conversion from Inventory Unit to the Invoiced Unit
+        conversionInventoryPhysReconUnit:
+          type: number
+          example: 2.13
+          description: Conversion from Inventory Unit to the Physically Reconciled Unit
+        conversionInventoryFinReconUnit:
+          type: number
+          example: 2.13
+          description: Conversion from Inventory Unit to the Final Reconciled Unit
+        customerStorageLocation:
+          type: string
+          example: '0002'
+          description: Storage code for the storage location at the receiving location (incoming commissary order)
+        customerStorageLocationCode:
+          type: string
+          example: WALK IN COOLER
+          description: Storage name for the storage location at the receiving location (incoming commissary order)
+        finalReconcilePrice:
+          type: number
+          example: 2.02
+          description: Price to customer at Final Reconcile. (This is stored per Inventory Unit)
+        finalReconcileQuantity:
+          type: number
+          example: 5.16
+          description: Final Reconciled Quantity, in issue units
+        finalReconcileQuantityForInv:
+          type: number
+          example: 5.16
+          description: Final Reconciled Quantity, in inventory units
+        finalReconcileQuantityForOrder:
+          type: number
+          example: 11
+          description: Final Reconciled Quantity for the ordered units
+        unitPrice:
+          type: number
+          example: 0.9484
+          description: Unit Price (This is stored per Inventory Unit)
+        invoicePrice:
+          type: number
+          example: 2.02
+          description: Price to customer at Invoice. (This is stored per Inventory Unit)
+        invoiceQuantity:
+          type: number
+          example: 5.16
+          description: Invoiced Quantity, in issue units
+        invoiceQuantityForInv:
+          type: number
+          example: 5.16
+          description: Invoiced Quantity, in inventory units
+        invoiceQuantityForOrder:
+          type: number
+          example: 11
+          description: Invoiced Quantity, in ordered units
+        orderQuantity:
+          type: number
+          example: 11
+          description: Ordered Quantity, in issue units
+        orderQuantityForInv:
+          type: number
+          example: 11
+          description: Ordered Quantity, in inventory units
+        orderQuantityForOrder:
+          type: number
+          example: 11
+          description: Ordered Quantity, in ordered units
+        physicalReconcilePrice:
+          type: number
+          example: 2.02
+          description: Price to customer at Physical Reconcile. (This is stored per Inventory Unit)
+        physicalReconcileQuantity:
+          type: number
+          example: 5.16
+          description: Physical Reconciled Quantity, in issue units
+        physicalReconcileQuantityForInv:
+          type: number
+          example: 5.16
+          description: Physical Reconciled Quantity, in inventory units
+        physicalReconcileQuantityForOrder:
+          type: number
+          example: 11
+          description: Physical Reconciled Quantity for the ordered units
+        picklistQuantity:
+          type: number
+          example: 11
+          description: Picklisted Quantity, in issue units
+        picklistQuantityForInv:
+          type: number
+          example: 11
+          description: Picklisted Quantity, in inventory units
+        picklistQuantityForOrder:
+          type: number
+          example: 11
+          description: Picklisted Quantity for the ordered units
+        productName:
+          type: string
+          example: P-ADOBO SAUCE
+          description: Product Name
+        productNumber:
+          type: string
+          example: '1000011'
+          description: Product Number
+        qualitativeJudgment:
+          type: string
+          example: ACCEPTABLE
+          description: Qualitative judgment supplied (if any) for the line item at the receiving location. (Incoming commissary order)
+        storageLocation:
+          type: string
+          example: '01'
+          description: Storage name for the storage location at the commissary location sending the product (outgoing commissary order)
+        storageLocationCode:
+          type: string
+          example: STORE1
+          description: Storage code for the storage location at the commissary location sending the product (outgoing commissary order)
+        suggestedQuantity:
+          type: number
+          example: 0
+          description: Suggested Quantity
+        taxCode:
+          type: string
+          example: TX-FOOD-LOCAL
+          description: Tax code related to the product (if any)
+        taxDescription:
+          type: string
+          example: Local Food Tax
+          description: Tax description related to the product (if any)
+        taxValue:
+          type: number
+          example: 0.25
+          description: Value of the tax for the product
+        orderUnit:
+          type: string
+          example: QT
+          description: The unit of measure (package type) this product was ordered in
+        picklistUnit:
+          type: string
+          example: QT
+          description: The unit of measure (package type) this product was picklisted in
+        invoiceUnit:
+          type: string
+          example: LB
+          description: The unit of measure (package type) this product was invoiced in
+        physicalReconcileUnit:
+          type: string
+          example: LB
+          description: The unit of measure (package type) this product was physical reconciled in
+        finalReconcileUnit:
+          type: string
+          example: LB
+          description: The unit of measure (package type) this product was final reconciled in
+        inventoryUnit:
+          type: string
+          example: QT
+          description: The Inventory Unit of the product
+        issueUnit:
+          type: string
+          example: QT
+          description: The Issue Unit of the product
+      title: CommissaryOrderDetailsDto
+      description: CommissaryOrderDetailsDto description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

@@ -1,0 +1,2726 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Location Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Location Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Location Service
+  description: The Locations Service allows you to review and configure general information about each location (restaurant, venue etc.) such as the address and phone number, as well as detailed preference settings regarding the location’s post settings, associated concepts, codes used to align Crunchtime with other systems, labor details and more.
+paths:
+  /cruise/location/v1/getAllLocations:
+    get:
+      tags:
+      - Location Service
+      summary: getAllLocationsV1
+      description: Retrieve a list of all Locations.
+      operationId: getAllLocationsV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Locations.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: corporate
+        in: query
+        description: Use 'true' to retrieve "Location" data for the Company location only.
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: market
+        in: query
+        description: Market Name from main location record
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: Code for the City associated with this location
+        required: false
+        schema:
+          type: string
+      - name: stateProvince
+        in: query
+        description: Code for the State/Province associated with this location
+        required: false
+        schema:
+          type: string
+      - name: country
+        in: query
+        description: Code for the Country associated with this location
+        required: false
+        schema:
+          type: string
+      - name: franchiseCode
+        in: query
+        description: Links the location to a specific franchise
+        required: false
+        schema:
+          type: string
+      - name: exportCode
+        in: query
+        description: Export Code for the location, from the Alternate Address tab
+        required: false
+        schema:
+          type: string
+      - name: payrollExportCode
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Locations. Default is 'locationCode ' if not provided (Optional)
+        required: false
+        example: 'locationCode '
+        schema:
+          type: string
+          enum:
+          - 'locationCode '
+          - locationName
+          - city
+          - lastUpdated
+          - lastEditDate
+          - createDate
+          - lastEditUser
+          - market
+          - franchiseCode
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Locations: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional)'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/location/v1/getLocationsByPage:
+    get:
+      tags:
+      - Location Service
+      summary: getLocationsByPageV1
+      description: Retrieve a list of Locations by page number.
+      operationId: getLocationsByPageV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Locations.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: corporate
+        in: query
+        description: Use 'true' to retrieve "Location" data for the Company location only.
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: market
+        in: query
+        description: Market Name from main location record
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: Code for the City associated with this location
+        required: false
+        schema:
+          type: string
+      - name: stateProvince
+        in: query
+        description: Code for the State/Province associated with this location
+        required: false
+        schema:
+          type: string
+      - name: country
+        in: query
+        description: Code for the Country associated with this location
+        required: false
+        schema:
+          type: string
+      - name: franchiseCode
+        in: query
+        description: Links the location to a specific franchise
+        required: false
+        schema:
+          type: string
+      - name: exportCode
+        in: query
+        description: Export Code for the location, from the Alternate Address tab
+        required: false
+        schema:
+          type: string
+      - name: payrollExportCode
+        in: query
+        description: Payroll Export Code for the location, from the Alternate Address tab
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Locations. Default is 'locationCode ' if not provided (Optional)
+        required: false
+        example: 'locationCode '
+        schema:
+          type: string
+          enum:
+          - 'locationCode '
+          - locationName
+          - city
+          - lastUpdated
+          - lastEditDate
+          - createDate
+          - lastEditUser
+          - market
+          - franchiseCode
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Locations: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional)'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationBatchResponseDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Location not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/location/v1/saveLocation:
+    post:
+      tags:
+      - Location Service
+      summary: saveLocationV1
+      description: 'Create a new location.
+
+        Update a location''s details.'
+      operationId: saveLocationV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationDetails'
+        description: locationDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LocationDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetails'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /location/v1/getAllLocations:
+    get:
+      tags:
+      - Location Service
+      summary: getAllLocationsV1
+      description: Retrieve a list of all Locations.
+      operationId: getLocationV1GetAllLocations
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Locations.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: corporate
+        in: query
+        description: Use 'true' to retrieve "Location" data for the Company location only.
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: market
+        in: query
+        description: Market Name from main location record
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: Code for the City associated with this location
+        required: false
+        schema:
+          type: string
+      - name: stateProvince
+        in: query
+        description: Code for the State/Province associated with this location
+        required: false
+        schema:
+          type: string
+      - name: country
+        in: query
+        description: Code for the Country associated with this location
+        required: false
+        schema:
+          type: string
+      - name: franchiseCode
+        in: query
+        description: Code for the Franchise associated with this location
+        required: false
+        schema:
+          type: string
+      - name: franchiseName
+        in: query
+        description: Name of the Franchise associated with this location. Use 3 or more characters. (Optional)
+        required: false
+        schema:
+          type: string
+      - name: exportCode
+        in: query
+        description: Export Code for the location, from the Alternate Address tab
+        required: false
+        schema:
+          type: string
+      - name: payrollExportCode
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Locations. Default is 'locationCode ' if not provided (Optional)
+        required: false
+        example: 'locationCode '
+        schema:
+          type: string
+          enum:
+          - 'locationCode '
+          - locationName
+          - city
+          - lastUpdated
+          - lastEditDate
+          - createDate
+          - lastEditUser
+          - market
+          - franchiseCode
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Locations: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional)'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationDetailsGet_2'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationDetailsGet_2'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllLocationsV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /location/v1/getLocationsByPage:
+    get:
+      tags:
+      - Location Service
+      summary: getLocationsByPageV1
+      description: Retrieve a list of Locations by page number.
+      operationId: getLocationV1GetLocationsByPage
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Locations.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: corporate
+        in: query
+        description: Use 'true' to retrieve "Location" data for the Company location only.
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: market
+        in: query
+        description: Market Name from main location record
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: Code for the City associated with this location
+        required: false
+        schema:
+          type: string
+      - name: stateProvince
+        in: query
+        description: Code for the State/Province associated with this location
+        required: false
+        schema:
+          type: string
+      - name: country
+        in: query
+        description: Code for the Country associated with this location
+        required: false
+        schema:
+          type: string
+      - name: franchiseCode
+        in: query
+        description: Code for the Franchise associated with this location
+        required: false
+        schema:
+          type: string
+      - name: franchiseName
+        in: query
+        description: Name of the Franchise associated with this location. Use 3 or more characters. (Optional)
+        required: false
+        schema:
+          type: string
+      - name: exportCode
+        in: query
+        description: Export Code for the location, from the Alternate Address tab
+        required: false
+        schema:
+          type: string
+      - name: payrollExportCode
+        in: query
+        description: Payroll Export Code for the location, from the Alternate Address tab
+        required: false
+        schema:
+          type: string
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Locations. Default is 'locationCode ' if not provided (Optional)
+        required: false
+        example: 'locationCode '
+        schema:
+          type: string
+          enum:
+          - 'locationCode '
+          - locationName
+          - city
+          - lastUpdated
+          - lastEditDate
+          - createDate
+          - lastEditUser
+          - market
+          - franchiseCode
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Locations: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional)'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationBatchResponseDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Location not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getLocationsByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /location/v1/saveLocation:
+    post:
+      tags:
+      - Location Service
+      summary: saveLocationV1
+      description: 'Create a new location.
+
+        Update a location''s details.'
+      operationId: postLocationV1SaveLocation
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationDetails'
+        description: locationDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LocationDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationDetails'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveLocationV1UsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    LocationConceptInfoDetailDto:
+      type: object
+      required:
+      - conceptCode
+      - conceptName
+      - locationCode
+      properties:
+        conceptCode:
+          type: string
+          example: BSC1
+          description: '"Concept Code" from Location setup screen.'
+        conceptName:
+          type: string
+          example: BS Concept 1
+          description: '"Concept Name" from Location setup screen.'
+        locationCode:
+          type: string
+          example: WGT1
+          description: '"Location Code" from Location setup screen.'
+        remove:
+          type: string
+          example: N
+          description: "\"Delete\" flag (Y/N). \nIf set to ‘Y’, it will delete this Concept from the Location record"
+          enum:
+          - N
+          - Y
+      title: LocationConceptInfoDetailDto
+      description: LocationConceptInfoDetailDto description
+    LocationDetails:
+      type: object
+      properties:
+        locationAltAddressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAltAddrDetailDto'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Code" from Company setup screen'
+        locationConceptInfoDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationConceptInfoDetailDto'
+        locationDeliverInfoDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDeliverInfoDetailDto'
+        locationDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailsDetailDto'
+        locationHoursOfOperationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationHoursOfOperationDetailDto'
+        locationLaborDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationLaborDetailDto'
+        locationNameAddressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationNameAddrDetailDto'
+        locationPostDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationPostDetailDto'
+        locationSafeLogDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationSafeLogDetailDto'
+        locationTimeClockInTwxDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationTimeClockInTwxDetailDto'
+      title: LocationDetails
+      description: LocationDetails description
+    LocationPostDetailDto:
+      type: object
+      required:
+      - enabledFlag
+      - locationCode
+      - postingGrp
+      properties:
+        enabledFlag:
+          type: string
+          example: Y
+          description: '"Enabled" flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        locationCode:
+          type: string
+          example: WGT1
+          description: Location "Code" from Location setup screen.
+        postingGrp:
+          type: string
+          example: 1
+          description: '"Posting Group ID" from Location setup screen.'
+      title: LocationPostDetailDto
+      description: LocationPostDetailDto description
+    LocationLaborDetailDto:
+      type: object
+      required:
+      - corporateFlag
+      - locationCode
+      properties:
+        businessDayBegins:
+          type: string
+          example: 02:50
+          description: '"Business Day Begin Time" from Location setup screen.'
+        corporateFlag:
+          type: string
+          example: N
+          description: '"Corporate" flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        locationCode:
+          type: string
+          example: WGT1
+          description: Location "Code" from Location setup screen.
+      title: LocationLaborDetailDto
+      description: LocationLaborDetailDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    LocationDetailDetailDtoGet:
+      type: object
+      required:
+      - allowAutoPost
+      - locationCode
+      properties:
+        allowAutoPost:
+          type: string
+          example: Y
+          description: '''Auto-Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        allowAutoTransfer:
+          type: string
+          example: N
+          description: '''Allow Auto-Transfer'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoCreatePOSRecipe:
+          type: string
+          example: N
+          description: '''Allow Menu Mix File to Create Recipes for Unknown POS Recipes'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoPostDaysOffset:
+          type: integer
+          format: int64
+          example: 1
+          description: Offset from Post Date ___ Days from Location setup screen.
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+        autoPostMethod:
+          type: string
+          example: A
+          description: "Auto-Post Method from Location setup screen \n‘A’ for Auto-Post Inventory or ‘X’ for Auto-Post Inventory By Exception."
+          enum:
+          - A
+          - X
+        autoPostTime:
+          type: object
+          example: '15:00'
+          description: Auto-Post Time from Location setup screen.
+        autoPrepForDepletion:
+          type: string
+          example: N
+          description: '''Auto-Daily Prep for sales depletion flag'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        baseCurrency:
+          type: string
+          example: USD
+          description: '''Base Currency'' Code from Location setup screen.'
+        biziqCompDate:
+          type: string
+          format: date-time
+          example: 12/03/2023
+          description: The date on which BizIQ year over year comparisons start for the location, in 'YYYYMMDD' format.
+        borrowCnsEndDate:
+          type: string
+          format: date-time
+          example: 12/30/2023
+          description: '''Use Historical Consumption from'' Date from Location setup screen.'
+        borrowCnsLocationCode:
+          type: string
+          example: MASF11
+          description: '''Use Historical Consumption from'' Location Code from Location setup screen.'
+        buffetQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 999
+          description: Buffet Quantity Alert (%) from Location setup screen.
+        dailyPrepReview:
+          type: string
+          example: Y
+          description: '''Daily Prep Review'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        earliestPostDateTimeBasedOn:
+          type: string
+          example: C
+          description: "'Earliest Post Date/Time based on' setting from Location setup screen. \n‘C’ for Closing Time or ‘E’ for End of Business Day."
+          enum:
+          - C
+          - E
+        gmtOffset:
+          type: integer
+          format: int64
+          example: -4
+          description: GMT Offset from Location setup screen.
+        grandOpeningDate:
+          type: string
+          format: date-time
+          example: 12/03/2023
+          description: Opening Date from Location setup screen.
+        inventoryAutoFlag:
+          type: string
+          example: N
+          description: Indicates whether the last inventory post was completed via Auto-Post (Y/N).
+        inventoryDataEntryDate:
+          type: string
+          format: date-time
+          example: '2025-01-13T13:46:05'
+          description: Displays the date of the last inventory data entry, in UTC format.
+        inventoryPostUpFlag:
+          type: string
+          example: Y
+          description: Indicates whether the last inventory post was completed via Post Up (Y/N).
+        inventoryUserId:
+          type: string
+          example: IM_OWNER
+          description: Displays the User ID of the user that completed the last inventory.
+        laborAutoFlag:
+          type: string
+          example: N
+          description: Indicates whether the last labor post was completed via Auto-Post (Y/N).
+        laborDataEntryDate:
+          type: string
+          format: date-time
+          example: '2024-06-26T01:37:03'
+          description: Displays the date of the last labor review, in UTC format.
+        laborPostUpFlag:
+          type: string
+          example: Y
+          description: Indicates whether the last labor post was completed via Post Up (Y/N).
+        laborUserId:
+          type: string
+          example: IM_OWNER
+          description: Displays the User ID of the user that completed the last labor review.
+        lastInventoryPost:
+          type: string
+          format: date-time
+          example: 12/30/2024
+          description: Displays the date of the last inventory post.
+        lastLaborPost:
+          type: string
+          format: date-time
+          example: 06/24/2024
+          description: Displays the date of the last labor post.
+        locationCode:
+          type: string
+          example: '786_98'
+          description: Location Code from Location setup screen.
+        lotTracking:
+          type: string
+          example: N
+          description: Lot Tracking Flag from Location setup screen.
+          enum:
+          - N
+          - Y
+        market:
+          type: string
+          example: ASMarket
+          description: Market Name from Location setup screen.
+        missingPrepCheck:
+          type: string
+          example: N
+          description: '''Check for Missing Prep in Final for Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        optimalDaysOnHand:
+          type: integer
+          format: int64
+          example: 22
+          description: Optimal Days On Hand from Location setup screen.
+        ownershipEntity:
+          type: string
+          example: Crunchtime
+          description: Ownership Entity from Location setup screen.
+        posFilePath:
+          type: string
+          example: Deprecated
+          description: POS File Path from Location setup screen.
+        posType:
+          type: string
+          example: STANDARD
+          description: POS Type from Location setup screen.
+        productionQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 999
+          description: Production Quantity Alert (%) from Location setup screen.
+        purchaseType:
+          type: string
+          example: D
+          description: "Purchase Type from Location setup screen. \n‘M’ for Master Order, ‘D’ for Direct (Vendor) Order, or 'C' for Combination."
+          enum:
+          - C
+          - D
+          - M
+        secMrktPurchase:
+          type: string
+          example: Y
+          description: '''Allow purchase from secondary Market Vendors'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        smartPicklist:
+          type: string
+          example: N
+          description: '''Smart Picklist'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        software:
+          type: string
+          example: STANDARD
+          description: Accounting Software from Location setup screen.
+        timezone:
+          type: integer
+          format: int64
+          example: 48
+          description: Time Zone setting from Location setup screen.
+      title: LocationDetailDetailDtoGet
+      description: LocationDetailDetailDtoGet description
+    LocationAltAddrDetailDto:
+      type: object
+      required:
+      - locationCode
+      - stateProvince
+      - zip
+      properties:
+        acapCode:
+          type: string
+          example: test1
+          description: '"ACAP Code" from Location setup screen.'
+        accoCode:
+          type: string
+          example: test
+          description: '"ACCO Code" from Location setup screen.'
+        altAddressOne:
+          type: string
+          example: testAddress1
+          description: '"Alt. Address 1" from Location setup screen.'
+        altAddressTwo:
+          type: string
+          example: testAddress2
+          description: '"Alt. Address 2" from Location setup screen.'
+        altPhone:
+          type: string
+          example: 145674332
+          description: '"Alt. Phone" from Location setup screen.'
+        cdpEMail:
+          type: string
+          example: cdp@crunchtime.com
+          description: '"CDP E-Mail" from Location setup screen.'
+        city:
+          type: string
+          example: Test City
+          description: '"City" from Location setup screen.'
+        companyNameForPO:
+          type: string
+          example: test
+          description: '"Company Name for PO" from Location setup screen.'
+        exportCode:
+          type: string
+          example: 67
+          description: '"Export Code" from Location setup screen.'
+        importCode:
+          type: string
+          example: 89
+          description: '"Import Code" from Location setup screen.'
+        locationCode:
+          type: string
+          example: WGT1
+          description: '"Location Code" from Location setup screen.'
+        payrollExportCode:
+          type: string
+          example: 23
+          description: '"Payroll Export Code" from Location setup screen.'
+        stateProvince:
+          type: string
+          example: MD
+          description: '"State/Province" from Location setup screen.'
+        zip:
+          type: string
+          example: 20852
+          description: '"Zip Code" from Location setup screen.'
+      title: LocationAltAddrDetailDto
+      description: LocationAltAddrDetailDto description
+    LocationTimeClockInTwxDetailDto:
+      type: object
+      required:
+      - locationCode
+      properties:
+        allowTimeClockInMTX:
+          type: boolean
+          example: true
+          description: '"allowTimeClockInMTX" from Location Labor setup screen'
+        allowTimeClockInTWX:
+          type: boolean
+          example: true
+          description: '"allowTimeClockInTWX" from Location Labor setup screen'
+        locationCode:
+          type: string
+          example: WGT1
+          description: '"Location Code" from Location setup screen'
+        minutesEarly:
+          type: integer
+          format: int32
+          example: 10
+          description: '"minutesEarly" from Location Labor setup screen'
+        minutesLate:
+          type: integer
+          format: int32
+          example: 5
+          description: '"minutesLate" from Location Labor setup screen'
+        prefix:
+          type: string
+        contentReportingEmail:
+          type: string
+          example: email@provider.com; email2@otherprovider.com
+          description: '"Inappropriate Content Reporting Emails" from Location -> Labor setup screen'
+      title: LocationTimeClockInTwxDetailDto
+      description: The Labor Setup tab on the Enterprise Manager Location screen contains information about the Time Clock in Teamworx section. This section provides details about the time clock setup in Teamworx.
+    LocationDeliverInfoDetailDto:
+      type: object
+      required:
+      - deliverToCode
+      - deliverToName
+      - locationCode
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active Flag" from Location setup screen'
+          enum:
+          - N
+          - Y
+        delete:
+          type: string
+          example: N
+          description: '"Delete Flag" from Location setup screen'
+          enum:
+          - N
+          - Y
+        deliverToCode:
+          type: string
+          example: 123
+          description: '"Deliver To Code" from Location setup screen'
+        deliverToName:
+          type: string
+          example: MASF11
+          description: '"Deliver To Name" from Location setup screen'
+        locationCode:
+          type: string
+          example: WGT1
+          description: '"Location Code" from Location setup screen'
+      title: LocationDeliverInfoDetailDto
+      description: LocationDeliverInfoDetailDto description
+    LocationHoursOfOperationDetailDto:
+      type: object
+      required:
+      - corporateFlag
+      - dayOfWeek
+      - locationCode
+      properties:
+        closingTime:
+          type: string
+          example: '16:00'
+          description: '"Closing Time " from Location setup screen.'
+        closingTimeCleanup:
+          type: string
+          example: '20:30'
+          description: '"Closing Time (Cleanup)" from Location setup screen.'
+        corporateFlag:
+          type: string
+          example: N
+          description: '"Corporate" flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        dayOfWeek:
+          type: integer
+          format: int64
+          example: 5
+          description: "\"Day Of Week\" from Location setup screen. \n '1'– Sun, '2'– Mon, '3'– Tue, '4'- Wed, '5'– Thur, '6'– Fri, '7'– Sat."
+        locationCode:
+          type: string
+          example: WGT1
+          description: Location " Code" from Location setup screen.
+        openingTime:
+          type: string
+          example: '10:30'
+          description: '"Opening Time " from Location setup screen.'
+        openingTimeSetup:
+          type: string
+          example: 08:00
+          description: '"Opening Time (Setup)" from Location setup screen.'
+      title: LocationHoursOfOperationDetailDto
+      description: LocationHoursOfOperationDetailDto description
+    LocationDetailsGet:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationAltAddressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAltAddrDetailDto'
+        locationCode:
+          type: string
+          example: '000000'
+          description: Company "Code" from Company setup screen.
+        locationConceptInfoDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationConceptInfoDetailDto'
+        locationDeliverInfoDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDeliverInfoDetailDto'
+        locationDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailDetailDtoGet'
+        locationHoursOfOperationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationHoursOfOperationDetailDto'
+        locationLaborDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationLaborDetailDto'
+        locationNameAddressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationNameAddrDetailDto'
+        locationPostDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationPostDetailDto'
+        locationSafeLogDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationSafeLogDetailDto'
+        locationTimeClockInTwxDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationTimeClockInTwxDetailDto'
+        locationUdaDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationUdaDetailDto'
+      title: LocationDetailsGet
+      description: LocationDetailsGet description
+    LocationBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        locationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailsGet'
+      title: LocationBatchResponseDto
+      description: LocationBatchResponseDto description
+    LocationDetailsDetailDto:
+      type: object
+      required:
+      - allowAutoPost
+      - locationCode
+      properties:
+        allowAutoPost:
+          type: string
+          example: N
+          description: '''Auto-Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        allowAutoTransfer:
+          type: string
+          example: Y
+          description: '''Allow Auto-Transfer'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoCreatePOSRecipe:
+          type: string
+          example: N
+          description: '''Allow Menu Mix File to Create Recipes for Unknown POS Recipes'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoPostDaysOffset:
+          type: integer
+          format: int64
+          example: 2
+          description: Offset from Post Date ___ Days from Location setup screen.
+        autoPostMethod:
+          type: string
+          example: A
+          description: "Auto-Post Method from Location setup screen \n‘A’ for Auto-Post Inventory or ‘X’ for Auto-Post Inventory By Exception."
+          enum:
+          - A
+          - X
+        autoPostTime:
+          type: object
+          example: 05:30
+          description: Auto-Post Time from Location setup screen.
+        autoPrepForDepletion:
+          type: string
+          example: N
+          description: '''Auto-Daily Prep for sales depletion flag'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        baseCurrency:
+          type: string
+          example: USD
+          description: '''Base Currency'' Code from Location setup screen.'
+        biziqCompDate:
+          type: string
+          format: date
+          example: 12/03/2023
+          description: The date on which BizIQ year over year comparisons start for the location, in 'YYYYMMDD' format.
+        borrowCnsEndDate:
+          type: string
+          format: date
+          example: 12/30/2023
+          description: '''Use Historical Consumption from'' Date from Location setup screen.'
+        borrowCnsLocationCode:
+          type: string
+          example: MASF11
+          description: '''Use Historical Consumption from'' Location Code from Location setup screen.'
+        buffetQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 32
+          description: Buffet Quantity Alert (%) from Location setup screen.
+        dailyPrepReview:
+          type: string
+          example: Y
+          description: '''Daily Prep Review'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        earliestPostDateTimeBasedOn:
+          type: string
+          example: C
+          description: "'Earliest Post Date/Time based on' setting from Location setup screen. \n‘C’ for Closing Time or ‘E’ for End of Business Day."
+          enum:
+          - C
+          - E
+        gmtOffset:
+          type: integer
+          format: int64
+          example: 3
+          description: GMT Offset from Location setup screen.
+        grandOpeningDate:
+          type: string
+          format: date
+          example: 12/03/2023
+          description: Opening Date from Location setup screen.
+        locationCode:
+          type: string
+          example: WGT1
+          description: Location Code from Location setup screen
+        lotTracking:
+          type: string
+          example: Y
+          description: '''Lot Tracking'' flag from Location setup screen'
+          enum:
+          - N
+          - Y
+        market:
+          type: string
+          example: Market 02
+          description: Market Name from Location setup screen
+        missingPrepCheck:
+          type: string
+          example: N
+          description: '''Check for Missing Prep in Final for Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        optimalDaysOnHand:
+          type: integer
+          format: int64
+          example: 22
+          description: Optimal Days On Hand from Location setup screen
+        ownershipEntity:
+          type: string
+          example: Crunchtime
+          description: Ownership Entity from Location setup screen
+        posFilePath:
+          type: string
+          example: Deprecated
+          description: POS File Path from Location setup screen.
+        posType:
+          type: string
+          example: 'Squirrel  '
+          description: POS Type from Location setup screen.
+        productionQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 65
+          description: '"Production Quantity Alert (%) from Location setup screen.'
+        purchaseType:
+          type: string
+          example: M
+          description: "Purchase Type from Location setup screen. \n‘M’ for Master Order, ‘D’ for Direct (Vendor) Order, or 'C' for Combination."
+          enum:
+          - C
+          - D
+          - M
+        secMrktPurchase:
+          type: string
+          example: Y
+          description: '''Allow purchase from secondary Market Vendors'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        smartPicklist:
+          type: string
+          example: Y
+          description: '''Smart Picklist'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        software:
+          type: string
+          example: Epicor Platinum
+          description: Accounting Software from Location setup screen.
+        timezone:
+          type: integer
+          format: int64
+          example: 5
+          description: Time Zone setting from Location setup screen.
+      title: LocationDetailsDetailDto
+      description: LocationDetailsDetailDto description
+    LocationUdaDetailDto:
+      type: object
+      required:
+      - dataType
+      - lastTouchDate
+      - locationCode
+      - replicatedFlag
+      - requiredFlag
+      - udaCode
+      - udaDescription
+      - udaGroup
+      - udaType
+      - udaValue
+      properties:
+        dataType:
+          type: string
+          example: CHAR
+          description: '"dataType" from Location setup screen'
+        lastTouchDate:
+          type: string
+          format: date-time
+          example: 1641463415000
+          description: '"lastTouchDate" from Location setup screen'
+        locationCode:
+          type: string
+          example: MASF11
+          description: '"locationCode" from Location setup screen'
+        prefix:
+          type: string
+        replicatedFlag:
+          type: boolean
+          example: true
+          description: '"replicatedFlag" from Location setup screen'
+        requiredFlag:
+          type: string
+          example: Y
+          description: '"requiredFlag" from Location setup screen'
+          enum:
+          - N
+          - Y
+        udaCode:
+          type: string
+          example: ADDRESS
+          description: '"udaCode" from Location setup screen'
+        udaDescription:
+          type: string
+          example: Address
+          description: '"udaDescription" from Location setup screen'
+        udaGroup:
+          type: string
+          example: USERDEFINED
+          description: '"udaGroup" from Location setup screen'
+        udaType:
+          type: string
+          example: COMPANY
+          description: '"udaType" from Location setup screen'
+        udaValue:
+          type: string
+          example: New City
+          description: '"udaValue" from Location setup screen'
+      title: LocationUdaDetailDto
+      description: LocationUdaDetailDto description
+    LocationSafeLogDetailDto:
+      type: object
+      required:
+      - locationCode
+      - safeLogName
+      - expectedValue
+      - currencyCode
+      properties:
+        locationCode:
+          type: string
+          example: WGT1
+          description: Location "Code" from Location setup screen.
+        safeLogName:
+          type: string
+          example: Test Safe
+          description: '"Safe Log Name" from Location Safe Log screen.'
+        expectedValue:
+          type: number
+          example: 1000.55
+          description: '"Expected Value" from Location Safe Log screen.'
+        currencyCode:
+          type: string
+          example: USD
+          description: '"Currency Code" from Location Safe Log screen. Supported values include USD, CAD, GBP, EUR, AUD, AED, and SAR.'
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active Flag" from Location Safe Log screen.'
+          enum:
+          - N
+          - Y
+        noteRequiredForVarianceFlag:
+          type: string
+          example: Y
+          description: '"Note Required" flag from Location Safe Log screen. If ''Y'', user must include a note with each Safe Log entry.'
+          enum:
+          - N
+          - Y
+        varianceThreshold:
+          type: integer
+          format: int64
+          example: 700
+          description: '"Note Variance" from Location Safe Log screen; indicates the acceptable threshold for a discrepancy between the Expected and Actual values.'
+      title: LocationSafeLogDetailDto
+      description: LocationSafeLogDetailDto description
+    LocationNameAddrDetailDto:
+      type: object
+      required:
+      - addressOne
+      - city
+      - locationCode
+      - locationName
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        addressOne:
+          type: string
+          example: Addr1
+          description: '"Address 1" from Location setup screen.'
+        addressTwo:
+          type: string
+          example: Addr2
+          description: '"Address 2" from Location setup screen.'
+        city:
+          type: string
+          example: Glacier
+          description: '"City" from Location setup screen.'
+        country:
+          type: string
+          example: USA
+          description: '"Country" from Location setup screen.'
+        eMail:
+          type: string
+          example: test@abc.com
+          description: '"E-Mail" from Location setup screen.'
+        fax:
+          type: string
+          example: 5678
+          description: '"Fax" from Location setup screen.'
+        franchiseCode:
+          type: string
+          example: 1
+          description: '"Franchise Code" from Location setup screen.'
+        locationADRemoteName:
+          type: string
+          example: Test 1
+          description: '"AD Location Name" from Location setup screen.'
+        locationCode:
+          type: string
+          example: WGT1
+          description: '"Location Code" from Location setup screen.'
+        locationName:
+          type: string
+          example: New York
+          description: '"Location Name" from Location setup screen.'
+        phone:
+          type: string
+          example: '8008675309'
+          description: '"Phone" from Location setup screen.'
+        prefix:
+          type: string
+        stateProvince:
+          type: string
+          example: NJ
+          description: '"State/Province" from Location setup screen.'
+        zip:
+          type: string
+          example: '20867'
+          description: '"Zip Code" from Location setup screen.'
+      title: LocationNameAddrDetailDto
+      description: LocationNameAddrDetailDto description
+    LocationDetailDetailDtoGet_2:
+      type: object
+      required:
+      - allowAutoPost
+      - locationCode
+      properties:
+        allowAutoPost:
+          type: string
+          example: Y
+          description: '''Auto-Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        allowAutoTransfer:
+          type: string
+          example: N
+          description: '''Allow Auto-Transfer'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoCreatePOSRecipe:
+          type: string
+          example: N
+          description: '''Allow Menu Mix File to Create Recipes for Unknown POS Recipes'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoPostDaysOffset:
+          type: integer
+          format: int64
+          example: 1
+          description: Offset from Post Date ___ Days from Location setup screen.
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+        autoPostMethod:
+          type: string
+          example: A
+          description: "Auto-Post Method from Location setup screen \n‘A’ for Auto-Post Inventory or ‘X’ for Auto-Post Inventory By Exception."
+          enum:
+          - A
+          - X
+        autoPostTime:
+          type: string
+          example: '15:00'
+          description: Auto-Post Time from Location setup screen.
+        autoPrepForDepletion:
+          type: string
+          example: N
+          description: '''Auto-Daily Prep for sales depletion flag'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        baseCurrency:
+          type: string
+          example: USD
+          description: '''Base Currency'' Code from Location setup screen.'
+        biziqCompDate:
+          type: string
+          format: date
+          example: 12/03/2023
+          description: The date on which BizIQ year over year comparisons start for the location, in 'YYYYMMDD' format.
+        borrowCnsEndDate:
+          type: string
+          format: date
+          example: 12/30/2023
+          description: '''Use Historical Consumption from'' Date from Location setup screen.'
+        borrowCnsLocationCode:
+          type: string
+          example: MASF11
+          description: '''Use Historical Consumption from'' Location Code from Location setup screen.'
+        buffetQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 999
+          description: Buffet Quantity Alert (%) from Location setup screen.
+        dailyPrepReview:
+          type: string
+          example: Y
+          description: '''Daily Prep Review'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        earliestPostDateTimeBasedOn:
+          type: string
+          example: C
+          description: "'Earliest Post Date/Time based on' setting from Location setup screen. \n‘C’ for Closing Time or ‘E’ for End of Business Day."
+          enum:
+          - C
+          - E
+        gmtOffset:
+          type: integer
+          format: int64
+          example: -4
+          description: GMT Offset from Location setup screen.
+        grandOpeningDate:
+          type: string
+          format: date
+          example: 12/03/2023
+          description: Opening Date from Location setup screen.
+        inventoryAutoFlag:
+          type: string
+          example: N
+          description: Indicates whether the last inventory post was completed via Auto-Post (Y/N).
+        inventoryDataEntryDate:
+          type: string
+          format: date-time
+          example: '2025-01-13T13:46:05'
+          description: Displays the date of the last inventory data entry, in UTC format.
+        inventoryPostUpFlag:
+          type: string
+          example: Y
+          description: Indicates whether the last inventory post was completed via Post Up (Y/N).
+        inventoryUserId:
+          type: string
+          example: IM_OWNER
+          description: Displays the User ID of the user that completed the last inventory.
+        laborAutoFlag:
+          type: string
+          example: N
+          description: Indicates whether the last labor post was completed via Auto-Post (Y/N).
+        laborDataEntryDate:
+          type: string
+          format: date-time
+          example: '2024-06-26T01:37:03'
+          description: Displays the date of the last labor review, in UTC format.
+        laborPostUpFlag:
+          type: string
+          example: Y
+          description: Indicates whether the last labor post was completed via Post Up (Y/N).
+        laborUserId:
+          type: string
+          example: IM_OWNER
+          description: Displays the User ID of the user that completed the last labor review.
+        lastInventoryPost:
+          type: string
+          format: date-time
+          example: 12/30/2024
+          description: Displays the date of the last inventory post.
+        lastLaborPost:
+          type: string
+          format: date-time
+          example: 06/24/2024
+          description: Displays the date of the last labor post.
+        locationCode:
+          type: string
+          example: '786_98'
+          description: Location Code from Location setup screen.
+        lotTracking:
+          type: string
+          example: N
+          description: Lot Tracking Flag from Location setup screen.
+          enum:
+          - N
+          - Y
+        market:
+          type: string
+          example: ASMarket
+          description: Market Name from Location setup screen.
+        missingPrepCheck:
+          type: string
+          example: N
+          description: '''Check for Missing Prep in Final for Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        optimalDaysOnHand:
+          type: integer
+          format: int64
+          example: 22
+          description: Optimal Days On Hand from Location setup screen.
+        ownershipEntity:
+          type: string
+          example: Crunchtime
+          description: Ownership Entity from Location setup screen.
+        posFilePath:
+          type: string
+          example: Deprecated
+          description: POS File Path from Location setup screen.
+        posType:
+          type: string
+          example: STANDARD
+          description: POS Type from Location setup screen.
+        productionQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 999
+          description: Production Quantity Alert (%) from Location setup screen.
+        purchaseType:
+          type: string
+          example: D
+          description: "Purchase Type from Location setup screen. \n‘M’ for Master Order, ‘D’ for Direct (Vendor) Order, or 'C' for Combination."
+          enum:
+          - C
+          - D
+          - M
+        secMrktPurchase:
+          type: string
+          example: Y
+          description: '''Allow purchase from secondary Market Vendors'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        smartPicklist:
+          type: string
+          example: N
+          description: '''Smart Picklist'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        software:
+          type: string
+          example: STANDARD
+          description: Accounting Software from Location setup screen.
+        timezone:
+          type: integer
+          format: int64
+          example: 48
+          description: Time Zone setting from Location setup screen.
+      title: LocationDetailDetailDtoGet
+      description: LocationDetailDetailDtoGet description
+    LocationDetailsGet_2:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationAltAddressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationAltAddrDetailDto'
+        locationCode:
+          type: string
+          example: '000000'
+          description: Company "Code" from Company setup screen.
+        locationConceptInfoDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationConceptInfoDetailDto'
+        locationDeliverInfoDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDeliverInfoDetailDto'
+        locationDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetailDetailDtoGet_2'
+        locationHoursOfOperationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationHoursOfOperationDetailDto'
+        locationLaborDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationLaborDetailDto'
+        locationNameAddressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationNameAddrDetailGetDto'
+        locationPostDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationPostDetailDto'
+        locationSafeLogDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationSafeLogDetailDto'
+        locationTimeClockInTwxDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationTimeClockInTwxDetailDto'
+        locationUdaDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationUdaDetailDto'
+      title: LocationDetailsGet
+      description: LocationDetailsGet description
+    LocationDetailsDetailDto_2:
+      type: object
+      required:
+      - allowAutoPost
+      - locationCode
+      properties:
+        allowAutoPost:
+          type: string
+          example: N
+          description: '''Auto-Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        allowAutoTransfer:
+          type: string
+          example: Y
+          description: '''Allow Auto-Transfer'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoCreatePOSRecipe:
+          type: string
+          example: N
+          description: '''Allow Menu Mix File to Create Recipes for Unknown POS Recipes'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        autoPostDaysOffset:
+          type: integer
+          format: int64
+          example: 2
+          description: Offset from Post Date ___ Days from Location setup screen.
+        autoPostMethod:
+          type: string
+          example: A
+          description: "Auto-Post Method from Location setup screen \n‘A’ for Auto-Post Inventory or ‘X’ for Auto-Post Inventory By Exception."
+          enum:
+          - A
+          - X
+        autoPostTime:
+          type: string
+          example: 05:30
+          description: Auto-Post Time from Location setup screen.
+        autoPrepForDepletion:
+          type: string
+          example: N
+          description: '''Auto-Daily Prep for sales depletion flag'' from Location setup screen.'
+          enum:
+          - N
+          - Y
+        baseCurrency:
+          type: string
+          example: USD
+          description: '''Base Currency'' Code from Location setup screen.'
+        biziqCompDate:
+          type: string
+          format: date
+          example: 12/03/2023
+          description: The date on which BizIQ year over year comparisons start for the location, in 'YYYYMMDD' format.
+        borrowCnsEndDate:
+          type: string
+          format: date
+          example: 12/30/2023
+          description: '''Use Historical Consumption from'' Date from Location setup screen.'
+        borrowCnsLocationCode:
+          type: string
+          example: MASF11
+          description: '''Use Historical Consumption from'' Location Code from Location setup screen.'
+        buffetQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 32
+          description: Buffet Quantity Alert (%) from Location setup screen.
+        dailyPrepReview:
+          type: string
+          example: Y
+          description: '''Daily Prep Review'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        earliestPostDateTimeBasedOn:
+          type: string
+          example: C
+          description: "'Earliest Post Date/Time based on' setting from Location setup screen. \n‘C’ for Closing Time or ‘E’ for End of Business Day."
+          enum:
+          - C
+          - E
+        gmtOffset:
+          type: integer
+          format: int64
+          example: 3
+          description: GMT Offset from Location setup screen.
+        grandOpeningDate:
+          type: string
+          format: date
+          example: 12/03/2023
+          description: Opening Date from Location setup screen.
+        locationCode:
+          type: string
+          example: WGT1
+          description: Location Code from Location setup screen
+        lotTracking:
+          type: string
+          example: Y
+          description: '''Lot Tracking'' flag from Location setup screen'
+          enum:
+          - N
+          - Y
+        market:
+          type: string
+          example: Market 02
+          description: Market Name from Location setup screen
+        missingPrepCheck:
+          type: string
+          example: N
+          description: '''Check for Missing Prep in Final for Post'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        optimalDaysOnHand:
+          type: integer
+          format: int64
+          example: 22
+          description: Optimal Days On Hand from Location setup screen
+        ownershipEntity:
+          type: string
+          example: Crunchtime
+          description: Ownership Entity from Location setup screen
+        posFilePath:
+          type: string
+          example: Deprecated
+          description: POS File Path from Location setup screen.
+        posType:
+          type: string
+          example: 'Squirrel  '
+          description: POS Type from Location setup screen.
+        productionQuantityAlertPercent:
+          type: integer
+          format: int64
+          example: 65
+          description: '"Production Quantity Alert (%) from Location setup screen.'
+        purchaseType:
+          type: string
+          example: M
+          description: "Purchase Type from Location setup screen. \n‘M’ for Master Order, ‘D’ for Direct (Vendor) Order, or 'C' for Combination."
+          enum:
+          - C
+          - D
+          - M
+        secMrktPurchase:
+          type: string
+          example: Y
+          description: '''Allow purchase from secondary Market Vendors'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        smartPicklist:
+          type: string
+          example: Y
+          description: '''Smart Picklist'' flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        software:
+          type: string
+          example: Epicor Platinum
+          description: Accounting Software from Location setup screen.
+        timezone:
+          type: integer
+          format: int64
+          example: 5
+          description: Time Zone setting from Location setup screen.
+      title: LocationDetailsDetailDto
+      description: LocationDetailsDetailDto description
+    LocationNameAddrDetailGetDto:
+      type: object
+      required:
+      - addressOne
+      - city
+      - locationCode
+      - locationName
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag from Location setup screen.'
+          enum:
+          - N
+          - Y
+        addressOne:
+          type: string
+          example: Addr1
+          description: '"Address 1" from Location setup screen.'
+        addressTwo:
+          type: string
+          example: Addr2
+          description: '"Address 2" from Location setup screen.'
+        city:
+          type: string
+          example: Glacier
+          description: '"City" from Location setup screen.'
+        country:
+          type: string
+          example: USA
+          description: '"Country" from Location setup screen.'
+        eMail:
+          type: string
+          example: test@abc.com
+          description: '"E-Mail" from Location setup screen.'
+        fax:
+          type: string
+          example: 5678
+          description: '"Fax" from Location setup screen.'
+        franchiseCode:
+          type: string
+          example: 11
+          description: '"Franchise Code" for the Franchise Entity from the Location setup screen.'
+        franchiseName:
+          type: string
+          example: Franchisee 11
+          description: '"Franchise Name" for the Franchise Entity from the Location setup screen.'
+        franchiseSiteName:
+          type: string
+          example: test11
+          description: '"Franchise Site Name" for the Franchise Entity from the Location setup screen.'
+        locationADRemoteName:
+          type: string
+          example: Test 1
+          description: '"AD Location Name" from Location setup screen.'
+        locationCode:
+          type: string
+          example: WGT1
+          description: '"Location Code" from Location setup screen.'
+        locationName:
+          type: string
+          example: New York
+          description: '"Location Name" from Location setup screen.'
+        phone:
+          type: string
+          example: '8008675309'
+          description: '"Phone" from Location setup screen.'
+        prefix:
+          type: string
+        stateProvince:
+          type: string
+          example: NJ
+          description: '"State/Province" from Location setup screen.'
+        zip:
+          type: string
+          example: '20867'
+          description: '"Zip Code" from Location setup screen.'
+      title: LocationNameAddrDetailGetDto
+      description: LocationNameAddrDetailGetDto description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

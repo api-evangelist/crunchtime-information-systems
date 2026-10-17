@@ -169,9 +169,11 @@ common:
 
 apis:
 - name: Crunchtime Inventory & Labor APIs
-  description: REST data-integration API for Crunchtime's Inventory Management, Labor & Scheduling, and Cruise products. GET and POST operations
-    move employees, locations, budgets, categories, products, recipes, sales/menu mix, purchase orders, inventory counts, time clock, forecasting,
-    and vendor data in and out of Crunchtime. Custom header-based token authentication; page-based pagination; documented rate limits.
+  description: >-
+    REST data-integration API for Crunchtime's Inventory Management, Labor & Scheduling, and Cruise products.
+    GET and POST operations move employees, locations, budgets, categories, products, recipes, sales/menu
+    mix, purchase orders, inventory counts, time clock, forecasting, and vendor data in and out of Crunchtime.
+    Custom header-based token authentication; page-based pagination; documented rate limits.
   humanURL: https://developer.crunchtime.com/
   baseURL: https://webservices.net-chef.com
   tags:
@@ -205,22 +207,28 @@ apis:
     url: sandbox/crunchtime-information-systems-sandbox.yml
   - type: X-MCPServerCandidate
     url: mcp/crunchtime-information-systems-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
-      API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
-      the artifact-type surfaces with a server that does not exist.'
+    note: >-
+      Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+      — a tool list derived from the published API contracts, not an existing server. The scorer already
+      read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+      surfaces with a server that does not exist.
   aid: crunchtime-information-systems:crunchtime-inventory-labor-apis
-- aid: crunchtime-information-systems:crunchtime-information-systems-cruise-platform
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-application-user-service-api
   name: Crunchtime Information Systems Application User Service API
-  description: The Application User service is used to create and retrieve user profiles where each user is assigned a unique User ID and password
-    for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager Console.   It links users to specific locations, hierarchies, customers
-    and markets, and assigns each user to a user group, which determines which screens and tasks the user will be able to access in the applications.
+  description: >-
+    The Application User service is used to create and retrieve user profiles where each user is assigned
+    a unique User ID and password for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager
+    Console.   It links users to specific locations, hierarchies, customers and markets, and assigns each
+    user to a user group, which determines which screens and tasks the user will be able to access in
+    the applications.
   humanURL: https://developer.crunchtime.com/
   baseURL: https://webservices.net-chef.com
   tags:
   - Application User Service
   properties:
   - type: OpenAPI
-    url: openapi/crunchtime-information-systems-cruise-platform-openapi.yml
+    url: openapi/crunchtime-information-systems-application-user-service-api-openapi.yml
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
   - type: JSONSchema
@@ -233,31 +241,1141 @@ apis:
     url: json-schema/crunchtime-information-systems-location-details-get-schema.json
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
-- aid: crunchtime-information-systems:crunchtime-information-systems-inventory-labor
-  name: Crunchtime Information Systems Application User Service API
-  description: The Application User service is used to create and retrieve user profiles where each user is assigned a unique User ID and password
-    for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager Console.   It links users to specific locations, hierarchies, customers
-    and markets, and assigns each user to a user group, which determines which screens and tasks the user will be able to access in the applications.
-  humanURL: https://developer.crunchtime.com/
-  baseURL: https://webservices.net-chef.com
-  tags:
-  - Application User Service
-  properties:
-  - type: OpenAPI
-    url: openapi/crunchtime-information-systems-inventory-labor-openapi.yml
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-employee-get-schema.json
-  - type: JSONSchema
-    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-authentication-service-api
+  name: Crunchtime Information Systems Authentication Service API
+  description: >-
+    The Authentication Service is allowing to validate user access to a franchisee site using a username
+    and password.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Authentication Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-authentication-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
   - type: JSONSchema
     url: json-schema/crunchtime-information-systems-application-user-details-schema.json
-
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-budget-service-api
+  name: Crunchtime Information Systems Budget Service API
+  description: >-
+    The Budgets Service allows you to create and retrieve budgets for each post period at each location.
+    Budget figures for each General Ledger can be entered either as currency values or as percentages.
+    Budget values and calculations are used in the Profit and Loss reports, which compare actual sales
+    and costs to what was budgeted.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Budget Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-budget-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-category-service-api
+  name: Crunchtime Information Systems Category Service API
+  description: The Category Service allows you to create and retrieve product categories.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Category Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-category-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-check-menu-mix-service-api
+  name: Crunchtime Information Systems Check Menu Mix Service API
+  description: >-
+    The Check Menu Mix Service allows for the import of Check and Item based data from the POS system
+    in order to deplete inventory according to the Recipe configuration in Enterprise Manager. The get
+    call will also allow you to extract the check and item based data for externally generated reports
+    as well.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Check Menu Mix Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-check-menu-mix-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-commissary-order-service-api
+  name: Crunchtime Information Systems Commissary Order Service API
+  description: The Commissary Order Service allows you to retrieve commissary orders.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Commissary Order Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-commissary-order-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-company-product-enhanced-service-api
+  name: Crunchtime Information Systems Company Product Enhanced Service API
+  description: >-
+    The Company Product Service allows you to create and retrieve the global, above store list of products
+    that can be used elsewhere in the application, including recipe components (see the Recipe Enhanced
+    Service) or as Location Products (see the Location Product Pricing Service). Company Products can
+    also be referred to as Items or Ingredients.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Company Product Enhanced Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-company-product-enhanced-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-confirm-receipt-standard-service-api
+  name: Crunchtime Information Systems Confirm Receipt Standard Service API
+  description: >-
+    The Confirm Receipt Standard Service allows you to create and retrieve confirmation receipts.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Confirm Receipt Standard Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-confirm-receipt-standard-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-currency-ratio-service-api
+  name: Crunchtime Information Systems Currency Ratio Service API
+  description: "The Currency Ratios Service is used to enter the exchange rates that will to convert monetary\
+    \ values from one currency to another. The \"toCurrencyCode\" is equal to the base currency in Enterprise\
+    \ Manager, then enter the exchange rate to convert the \"fromCurrencyCode\" to that base currency.\
+    \ \n**Note**: A Currency Ratio cannot be established until that Currency has been configured as the\
+    \ base currency for a location, vendor, or market."
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Currency Ratio Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-currency-ratio-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-customer-order-enhanced-service-api
+  name: Crunchtime Information Systems Customer Order Enhanced Service API
+  description: The Customer Order Enhanced service allows you to create and retrieve customer orders.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Customer Order Enhanced Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-customer-order-enhanced-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-customer-service-api
+  name: Crunchtime Information Systems Customer Service API
+  description: >-
+    The Customer Service can be used to create a “Customer” that is an establishment or outlet to which
+    a Crunchtime Location sells or distributes products and/or produced Recipe items. It may be an outlet
+    within the Location or an entirely external entity, e.g. a “catering” Customer. “Customer” records
+    are required to “issue” items to these entities via “Customer Order” transactions.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Customer Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-customer-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-daily-prep-service-api
+  name: Crunchtime Information Systems Daily Prep Service API
+  description: >-
+    The Daily Prep Service allows you to create, update, finalize, cancel, or retrieve daily prep transactions.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Daily Prep Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-daily-prep-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-electronic-invoice-service-api
+  name: Crunchtime Information Systems Electronic Invoice Service API
+  description: The Electronic Invoice service enables you to upload e-invoice data into Crunchtime.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Electronic Invoice Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-electronic-invoice-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-employee-service-api
+  name: Crunchtime Information Systems Employee Service API
+  description: >-
+    The Employee Service combines what used to be three Crunchtime Data Pump (CDP) imports into one API
+    call with multiple arrays. The Employee Service is used to create or review an employee in Crunchtime.
+    Employee records can be used when creating labor schedules, exporting payroll data, and maintaining
+    employee data in 3rd party systems.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Employee Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-employee-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-general-ledger-service-api
+  name: Crunchtime Information Systems General Ledger Service API
+  description: >-
+    The General Ledger services allows the Crunchtime applications to be aligned with the company’s accounting
+    and bookkeeping systems. General Ledger codes and descriptions are associated with P&L groupings and
+    substructures.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - General Ledger Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-general-ledger-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-hierarchy-service-api
+  name: Crunchtime Information Systems Hierarchy Service API
+  description: >-
+    The Hierarchy Service is used to group locations together for reporting purposes. For example, if
+    the company is a national restaurant chain divided into six regions, setting up the hierarchy configuration
+    allows each regional manager to view revenue, cost and consumption data (reports) only for the stores
+    in his or her region. To associate a user, such as the regional manager, to a specific hierarchy,
+    reference the Application User Service.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Hierarchy Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-hierarchy-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-inventory-service-api
+  name: Crunchtime Information Systems Inventory Service API
+  description: >-
+    The Inventory Service combines a series of get and post calls used to update and review the quantity
+    and value of a location stock on hand including:
+     -Inventory Adjustments (Waste)
+     -Value Adjustments
+     -Physical Inventory Counts
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Inventory Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-inventory-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-location-product-pricing-service-api
+  name: Crunchtime Information Systems Location Product Pricing Service API
+  description: >-
+    The Location Product Pricing Service API from Crunchtime Information Systems — 6 operation(s) for
+    location product pricing service.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Location Product Pricing Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-location-product-pricing-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-location-service-api
+  name: Crunchtime Information Systems Location Service API
+  description: >-
+    The Locations Service allows you to review and configure general information about each location (restaurant,
+    venue etc.) such as the address and phone number, as well as detailed preference settings regarding
+    the location’s post settings, associated concepts, codes used to align Crunchtime with other systems,
+    labor details and more.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Location Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-location-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-nutrition-service-api
+  name: Crunchtime Information Systems Nutrition Service API
+  description: The Nutrition Service is used to create and retrieve data for Nutrition Product records.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Nutrition Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-nutrition-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-package-type-service-api
+  name: Crunchtime Information Systems Package Type Service API
+  description: >-
+    The Package Type Service offers a way to create, update, and retrieve package type entries.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Package Type Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-package-type-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-pbi-service-api
+  name: Crunchtime Information Systems Pbi Service API
+  description: >-
+    The Purchase by Invoice Service is used to create and retrieve purchasing data that is not directly
+    associated with products. Typically this Service is used to record expenses for services, like monthly
+    cleaning charges, or other fixed fees like utilities.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Pbi Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-pbi-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-projected-consumption-service-api
+  name: Crunchtime Information Systems Projected Consumption Service API
+  description: >-
+    The Projected Consumption service is used to get Consumption data that has been systematically calculated
+    based on a Location's Suggested Order configuration, or post Projected Consumption, overriding the
+    system calculated value. Projected Consumption data is used to help a location choose how much to
+    purchase from a vendor or how much to prep for the day.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Projected Consumption Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-projected-consumption-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-purchase-order-service-api
+  name: Crunchtime Information Systems Purchase Order Service API
+  description: The Purchase Order Service allows you to create and retrieve vendor order records.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Purchase Order Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-purchase-order-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-recipe-enhanced-service-api
+  name: Crunchtime Information Systems Recipe Enhanced Service API
+  description: >-
+    The Recipe Service is used to create or extract recipe data including the header and component details.
+    Recipes are created in Crunchtime for the purpose of inventory depletion. They are used to deplete
+    Products through POS sales (See the Check Menu Mix Service for addition details) and through the production
+    of prep items.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Recipe Enhanced Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-recipe-enhanced-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-recipe-location-service-api
+  name: Crunchtime Information Systems Recipe Location Service API
+  description: The Recipe Location Service allows you to create and retrieve location specific recipes.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Recipe Location Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-recipe-location-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-sales-forecast-service-api
+  name: Crunchtime Information Systems Sales Forecast Service API
+  description: >-
+    The Sales Forecasts Service can be used to ensure that Sales Forecasting data aligns between Crunchtime
+    and other systems. You can use the service to get Forecast data that has been systematically calculated
+    based on a Location's Suggested Order configuration or post a Sales Forecast, overriding the systemcalculated
+    value.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Sales Forecast Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-sales-forecast-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-sales-mix-service-api
+  name: Crunchtime Information Systems Sales Mix Service API
+  description: >-
+    The Sales Mix Service is used to align Crunchtime with Daily Sales Information generated in a PointofSale
+    system. The data includes: Sales, Sales Tax, Paid Outs, Non Cash Media, Comps and Discounts and Bank
+    Deposits.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Sales Mix Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-sales-mix-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-scheduled-export-service-api
+  name: Crunchtime Information Systems Scheduled Export Service API
+  description: >-
+    The Scheduled Export service is an API that Crunchtime customers can use to download export files
+    that have been generated via Scheduled Events in Enterprise Manager and convert the file content to
+    JSON.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Scheduled Export Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-scheduled-export-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-storage-location-service-api
+  name: Crunchtime Information Systems Storage Location Service API
+  description: >-
+    The Storage Location service offers viewing and managing data associated with primary and secondary
+    storage locations.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Storage Location Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-storage-location-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-supplemental-wage-service-api
+  name: Crunchtime Information Systems Supplemental Wage Service API
+  description: >-
+    The Supplemental Wage Service allows you to get or post Lump Sum or Hourly values to individual employees/positions
+    for various supplemental earnings, such as tip sharing, vacation pay, sick pay, jury duty, etc. The
+    Supplemental Wage Codes referenced in the API must be preconfigured in Enterprise Manager. This service
+    contains all of the data required to review and process these records in the NetChef Labor Summary
+    screen or extract the data for Payroll purposes.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Supplemental Wage Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-supplemental-wage-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-time-clock-enhanced-service-api
+  name: Crunchtime Information Systems Time Clock Enhanced Service API
+  description: >-
+    The Time Clock Enhanced service allows you to get or post employee time clock records that typically
+    come from an external payroll or POS system. The post call will contain the original time punch data
+    needed to process time clock records in the Net- Chef Labor Summary screen, whereas the Get call will
+    retrieve the adjusted time clock records from the Net-Chef Labor Summary screen.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Time Clock Enhanced Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-time-clock-enhanced-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-uda-service-api
+  name: Crunchtime Information Systems Uda Service API
+  description: >-
+    The User Defined Attributes (UDA) Service allows for the retrieval of the location and vendor User-Defined
+    Attributes (UDAs). Location UDAs can be configured at the corporate level or specific to a particular
+    location.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Uda Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-uda-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-vendor-location-service-api
+  name: Crunchtime Information Systems Vendor Location Service API
+  description: >-
+    The Vendor Location Service enables for quick setup of vendor locations for companies with large amounts
+    of locationspecific information per vendor, such as payment terms, order minimums, email addresses,
+    etc.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Vendor Location Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-vendor-location-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-vendor-payment-service-api
+  name: Crunchtime Information Systems Vendor Payment Service API
+  description: >-
+    The Vendor Payment service allows you to create and retrieve payment information that typically comes
+    from an Accounts Payable system. The Post call will update reconciled Vendor Orders and Purchase by
+    Invoice transactions with Check Number, Check Amount, Check Date and Check Amount Allocated to the
+    Invoice (since the same check can be used for multiple invoices). When payment information has been
+    processed, this will be indicated in the Vendor Order and/or Purchase by Invoice screens in Net-Chef,
+    as well as in Crunchtime Xchange.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Vendor Payment Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-vendor-payment-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: >-
+    crunchtime-information-systems:crunchtime-information-systems-vendor-product-pricing-service-api
+  name: Crunchtime Information Systems Vendor Product Pricing Service API
+  description: "Project Read Me - API Descriptions (SOURCE OF TRUTH)\nProject Read Me - API Descriptions\
+    \ (SOURCE OF TRUTH)\n100%\n10\nVendor Product Pricing Service\n1 of 2\nB22 Vendor Product Pricing\
+    \ Service [<<glossary:Beta>>] \nC22\n\nThe Vendor Product Pricing Service allows users to “GET”, or\
+    \ retrieve extract product pricing data from Crunchtime. The Vendor Product Pricing does not support\
+    \ the “POST” action and therefore cannot be used to insert or update product pricing data in Crunchtime.\n\
+    \ \n \n \t\nThe Vendor Product Pricing Service allows users to “GET”, or retrieve extract product\
+    \ pricing data from Crunchtime. The Vendor Product Pricing does not support the “POST” action and\
+    \ therefore cannot be used to insert or update product pricing data in Crunchtime.\nTurn on screen\
+    \ reader support\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts,\
+    \ press ⌘slash"
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Vendor Product Pricing Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-vendor-product-pricing-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
+- aid: crunchtime-information-systems:crunchtime-information-systems-vendor-service-api
+  name: Crunchtime Information Systems Vendor Service API
+  description: >-
+    The Vendor Service is used to create/review records of all Vendors that can be used to record expenses
+    in Crunchtime. Typically, a third-party system is the system of record for Vendors and vendor data
+    is posted to Crunchtime. Once created, additional configuration is required within Enterprise Manager
+    to ensure stores can place and receive Vendor Orders or record Simple Receipt and Purchase by Invoice
+    (PBI) transactions.
+  humanURL: https://developer.crunchtime.com/
+  baseURL: https://webservices.net-chef.com
+  tags:
+  - Vendor Service
+  properties:
+  - type: OpenAPI
+    url: openapi/crunchtime-information-systems-vendor-service-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-vendor-get-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-scheduled-batch-export-files-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-application-user-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-location-details-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-general-ledger-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-employee-get-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-purchase-order-header-dto-schema.json
+  - type: JSONSchema
+    url: json-schema/crunchtime-information-systems-daily-prep-dto-schema.json
 x-enrichment:
   date: '2026-07-19'
   status: backfilled

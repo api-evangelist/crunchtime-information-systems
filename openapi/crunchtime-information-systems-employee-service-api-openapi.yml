@@ -1,0 +1,2519 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Employee Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Employee Service
+  description: The Employee Service combines what used to be three Crunchtime Data Pump (CDP) imports into one API call with multiple arrays. The Employee Service is used to create or review an employee in Crunchtime. Employee records can be used when creating labor schedules, exporting payroll data, and maintaining employee data in 3rd party systems.
+paths:
+  /employee/v1/detail:
+    get:
+      tags:
+      - Employee Service
+      summary: getEmployeeV1
+      description: Retrieve one employee's details using `employeeNumber` and `siteName`.
+      operationId: getEmployeeV1UsingGET
+      parameters:
+      - name: auditLog
+        in: query
+        description: Use `true` to retrieve the employee's audit log.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: employeeNumber
+        in: query
+        description: The employee number from the employee record.
+        required: true
+        schema:
+          type: string
+      - name: employeeId
+        in: query
+        description: The employee id from the employee record.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmployeeGet'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Employee Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /employee/v1/getEmployeeNumbers:
+    get:
+      tags:
+      - Employee Service
+      summary: getEmployeeNumbersV1
+      description: Retrieves a list of employee numbers from a specified location.
+      operationId: getEmployeeNumbersV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: isIncludeTerminated
+        in: query
+        description: Use `true` to retrieve employees whose status is Terminated.
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since an employee record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                uniqueItems: true
+                items:
+                  type: string
+            application/json:
+              schema:
+                type: array
+                uniqueItems: true
+                items:
+                  type: string
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Employee Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /employee/v1/getEmployeesByPage:
+    get:
+      tags:
+      - Employee Service
+      summary: getEmployeesByPageV1
+      description: Get Employees By Page
+      operationId: getEmployeesByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeAudits
+        in: query
+        description: Include Audits to retrieve (optional)
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: includeLocations
+        in: query
+        description: Include Locations (All,True,False) to retrieve (optional)
+        required: false
+        schema:
+          type: string
+      - name: includePositions
+        in: query
+        description: Include Positions to retrieve (optional)
+        required: false
+        schema:
+          type: boolean
+          default: true
+      - name: includeTerminated
+        in: query
+        description: Include Terminated to retrieve (optional)
+        required: false
+        schema:
+          type: string
+          default: 'false'
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since an employee record was last updated. Use to set how far back to search. (optional).
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `10`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: updatedAfter
+        in: query
+        description: 'Earliest date in search range (optional). Format: yyyy-MM-dd''T''HH:mm:ss'
+        required: false
+        schema:
+          type: string
+      - name: updatedBefore
+        in: query
+        description: 'Latest date in search range (optional). Format: yyyy-MM-dd''T''HH:mm:ss'
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmployeeBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customer order enhanced not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /employee/v1/getSchedules:
+    get:
+      tags:
+      - Employee Service
+      summary: getSchedulesV1
+      description: List schedules of employees.
+      operationId: getSchedulesV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since the schedule record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: Start date of schedule to retrieve, in 'YYYYMMDD' format.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScheduleDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScheduleDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Employee Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /employee/v1/saveEmployee:
+    post:
+      tags:
+      - Employee Service
+      summary: saveEmployeeV1
+      description: 'Create a new employee.
+
+        Update an employee''s details.'
+      operationId: saveEmployeeV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeSave'
+        description: employee
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '207':
+          description: Partial Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EmployeeGet'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    ScheduleDto:
+      type: object
+      properties:
+        employeeNumber:
+          type: string
+          example: 0000000285
+          description: The Employee Number for the scheduled employee/shift.
+        employeePosCode:
+          type: string
+          example: 314005
+          description: The POS Code for the scheduled employee/shift.
+        endDatetime:
+          type: string
+          format: date-time
+          example: 06/05/2012 10:00:00
+          description: The End Date & Time for the employee's scheduled shift.
+        laborDate:
+          type: string
+          example: 20120605
+          description: The Labor Date for the schedule.
+        locationCode:
+          type: string
+          example: 7654
+          description: The Code for the Location associated with the schedule.
+        positionCode:
+          type: string
+          example: 110
+          description: The Position Code for the scheduled employee/shift.
+        positionName:
+          type: string
+          example: CLEANING (GT)
+          description: The Position Name for the scheduled employee/shift.
+        startDatetime:
+          type: string
+          format: date-time
+          example: 06/05/2012 06:00:00
+          description: The Start Date & Time for the employee's scheduled shift.
+      title: ScheduleDto
+      description: ScheduleDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    EmployeeGet:
+      type: object
+      required:
+      - dateHired
+      - dateOfBirth
+      - employeeNumber
+      - firstName
+      - lastName
+      - payType
+      - status
+      properties:
+        address1:
+          type: string
+          example: 200 Main Street
+          description: '"Address" from Employee setup screen
+
+            Alphanumeric (30) Reference Data for the employee''s Net-Chef Profile'
+        address2:
+          type: string
+          description: Not in use
+        age:
+          type: integer
+          format: int32
+          example: 29
+          description: Age
+        allergies:
+          type: string
+          description: 'Employee''s allergies (free text field)
+
+            Alphanumeric (25) Reference Data for the employee''s Net-Chef Profile'
+        breakWaiver:
+          type: string
+          example: Y
+          description: 'Employee has signed a break waiver or not.  Impacts Employee Break reports and Labor Actuals.
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will set to ‘N’ for new records; will not update existing records'
+          enum:
+          - N
+          - Y
+        broadcastSchedule:
+          type: string
+          example: Y
+          description: Should the weekly labor schedule be emailed to this employee (Y/N)
+          enum:
+          - N
+          - Y
+        city:
+          type: string
+          example: Anywhere
+          description: 'Now storing city as character data
+
+            Alphanumeric (40) Reference Data for the employee''s Net-Chef Profile'
+        country:
+          type: string
+          example: USA
+          description: 'Country
+
+            Alphanumeric (40) Reference Data for the employee''s Net-Chef Profile'
+        createUser:
+          type: integer
+          format: int64
+          example: 10000003
+          description: User that created the employee (FK to t_user)
+        dateCreate:
+          type: string
+          format: date
+          example: 04/17/2012
+          description: Date the employee was created
+        dateEdit:
+          type: string
+          format: date
+          example: 11/30/2016
+          description: Date the employee was last edited
+        dateEditUtc:
+          type: string
+          example: '2021-08-12T10:21:46'
+          description: Date the employee was last edited in UTC
+        dateHired:
+          type: string
+          format: date
+          example: 02/01/2012
+          description: '"Date Hired" from Employee setup screen
+
+            Date (mm/dd/yyyy) Reference Data for the employee''s Net-Chef Profile'
+        dateOfBirth:
+          type: string
+          format: date
+          example: 07/30/1991
+          description: '"Date of Birth" from Employee setup screen
+
+            Date (mm/dd/yyyy) Used by the employee as part of Teamworx login authentication'
+        dateTerminated:
+          type: string
+          format: date
+          example: 12/31/9999
+          description: '"Date Terminated" from Employee setup screen
+
+            Date (mm/dd/yyyy) Reference Data for the employee''s Net-Chef Profile'
+        editUser:
+          type: integer
+          format: int64
+          example: 10000001
+          description: User that last edited the employee (FK to t_user)
+        eligibleForRehire:
+          type: string
+          example: false
+          description: 'Is this employee eligible for rehire (Y/N)
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’'
+          enum:
+          - 'false'
+          - 'true'
+        emailAddress:
+          type: string
+          description: 'Employee''s email address
+
+            Alphanumeric (75) Reference data - Employee''s Email Address'
+        emergencyContactName:
+          type: string
+          description: 'Name of person to contact in the event of an emergency regarding this employee
+
+            Alphanumeric (40) Reference Data for the employee''s Net-Chef Profile'
+        emergencyContactPhone:
+          type: string
+          description: 'Phone number of person to contact in the event of an emergency regarding this employee
+
+            Alphanumeric (30) Reference Data for the employee''s Net-Chef Profile'
+        employeeAudits:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeAudit'
+        employeeChecklistItem01:
+          type: string
+          description: 'Check List Item 1
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem02:
+          type: string
+          description: 'Check List Item 2
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem03:
+          type: string
+          description: 'Check List Item 3
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem04:
+          type: string
+          description: 'Check List Item 4
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem05:
+          type: string
+          description: 'Check List Item 5
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem06:
+          type: string
+          description: 'Check List Item 6
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem07:
+          type: string
+          description: 'Check List Item 7
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem08:
+          type: string
+          description: 'Check List Item 8
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem09:
+          type: string
+          description: 'Check List Item 9
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem10:
+          type: string
+          description: 'Check List Item 10
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeLocation'
+        employeeNickname:
+          type: string
+          description: 'Employee nickname
+
+            Alphanumeric (20) Must not contain characters other than letters, numbers, spaces and the following special characters: single quote, hyphen or underline. Reference Data for the employee''s Net-Chef Profile and visible on the schedule'
+        employeeNumber:
+          type: string
+          example: AUTO-0000000004
+          description: '"Employee Number" from Employee setup screen
+
+            Alphanumeric (40) Must be unique globally. Primary key to make updates against an employees profile, meaning it cannot be updated /save calls'
+        employeePositions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeePosition'
+        ethnicGroup:
+          type: string
+          description: 'Employee''s ethnic group
+
+            Alphanumeric (10) Code for the "Ethnic Group" from Enterprise Manager'
+        federalAdditionalWithholding:
+          type: number
+          example: 0
+          description: 'Employee''s additional withholding (federal taxation purposes)
+
+            Number (8,2) Reference Data for the employee''s Net-Chef Profile'
+        federalExemptions:
+          type: integer
+          format: int64
+          example: 0
+          description: 'Employee''s additional withholding (federal taxation purposes)
+
+            Number (3,0) Reference Data for the employee''s Net-Chef Profile'
+        federalMaritalStatus:
+          type: string
+          example: SINGLE
+          description: 'Employee''s federal marital status
+
+            Alphanumeric (10) Code for the "Marital Status" from Enterprise Manager'
+        firstName:
+          type: string
+          example: John
+          description: '"First Name" from Employee setup screen
+
+            Alphanumeric (40) "First Name" for the Employee Profile'
+        flexField01:
+          type: string
+          description: 'Flexible Field 1
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField02:
+          type: string
+          description: 'Flexible Field 2
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField03:
+          type: string
+          description: 'Flexible Field 3
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField04:
+          type: string
+          description: 'Flexible Field 4
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField05:
+          type: string
+          description: 'Flexible Field 5
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField06:
+          type: string
+          description: 'Flexible Field 6
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField07:
+          type: string
+          description: 'Flexible Field 7
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField08:
+          type: string
+          description: 'Flexible Field 8
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField09:
+          type: string
+          description: 'Flexible Field 9
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField10:
+          type: string
+          description: 'Flexible Field 10
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        lastName:
+          type: string
+          example: Doe
+          description: '"Last Name" from Employee setup screen
+
+            Alphanumeric (40) "Last Name" for the Employee Profile'
+        locationId:
+          type: integer
+          format: int64
+          example: PL8
+          description: '"location Id" from Employee setup screen'
+        locationName:
+          type: string
+          example: AUTOMATION THREE
+          description: Unique identifier for Location at/for which Employee record was created from Employee setup screen
+        manager:
+          type: string
+          example: Y
+          description: 'Is this employee a manager (Y/N)
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will set to ‘N’ for new records'
+          enum:
+          - N
+          - Y
+        mealProgramDeduction:
+          type: number
+          example: 0
+          description: 'Employee''s meal program deduction amount
+
+            Number (8,2) Meal Program Deduction from the Net-Chef Employee record'
+        middleName:
+          type: string
+          example: Middle
+          description: '"Middle Name" from Employee setup screen
+
+            Alphanumeric (40) "Middle Name" for the Employee Profile'
+        minorLaborProgramCode:
+          type: string
+          description: 'Minor program for employee
+
+            Alphanumeric (10) Code for any Minor Labor Program configured in Enterprise Manager'
+        partTime:
+          type: string
+          example: Y
+          description: 'Marked Y/true when not full time
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’'
+          enum:
+          - N
+          - Y
+        payRate01:
+          type: number
+          description: 'Pay Rate 1
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate02:
+          type: number
+          description: 'Pay Rate 2
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate03:
+          type: number
+          description: 'Pay Rate 3
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate04:
+          type: number
+          description: 'Pay Rate 4
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate05:
+          type: number
+          description: 'Pay Rate 5
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate06:
+          type: number
+          description: 'Pay Rate 6
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate07:
+          type: number
+          description: 'Pay Rate 7
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate08:
+          type: number
+          description: 'Pay Rate 8
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate09:
+          type: number
+          description: 'Pay Rate 9
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate10:
+          type: number
+          description: 'Pay Rate 10
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payType:
+          type: string
+          example: H
+          description: 'Employee pay type
+
+            Alphanumeric (20) Must be ‘Salary’, ‘Hourly’ or ‘Salary Exempt’'
+        payrollIdNumber:
+          type: string
+          example: '0000000004'
+          description: 'Employee Payroll ID Number
+
+            Alphanumeric (20) If the Labor Preference to “Allow Duplicate Payroll ID Number” is NOT enabled, must not be the Payroll ID Number for any other existing employee'
+        phoneNumber:
+          type: string
+          description: 'Employee''s phone number
+
+            Alphanumeric (30) Reference Data for the employee''s Net-Chef Profile'
+        posId:
+          type: string
+          description: 'POS Id
+
+            Alphanumeric (40) Must not be the POS ID for any other Employee/Location. This will default to the employeeNumber by default unless otherwise entered to match the employee ID used in the POS. For the saveTimeClockEnhanced API endpoint, the Location "posId" must be provided as the "employeeNumber"'
+        positionCode01:
+          type: string
+          description: 'Position Code 1
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode02:
+          type: string
+          description: 'Position Code 2
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode03:
+          type: string
+          description: 'Position Code 3
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode04:
+          type: string
+          description: 'Position Code 4
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode05:
+          type: string
+          description: 'Position Code 5
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode06:
+          type: string
+          description: 'Position Code 6
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode07:
+          type: string
+          description: 'Position Code 7
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode08:
+          type: string
+          description: 'Position Code 8
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode09:
+          type: string
+          description: 'Position Code 9
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode10:
+          type: string
+          description: 'Position Code 10
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        postalCode:
+          type: string
+          example: '01234'
+          description: '"Zip" from Employee setup screen
+
+            Alphanumeric (10) Reference Data for the employee''s Net-Chef Profile'
+        primaryLocationCode:
+          type: string
+          description: 'Assigned location employee typically works at
+
+            Recommendation to use the "employeeLocations" array to assign and update Locations'
+        primaryPositionName:
+          type: string
+          example: DINING ROOM SERVER (GT)
+          description: Primary job description
+        pto01:
+          type: number
+          description: "Paid Time Off 1. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto02:
+          type: number
+          description: "Paid Time Off 2. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto03:
+          type: number
+          description: "Paid Time Off 3. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto04:
+          type: number
+          description: "Paid Time Off 4. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto05:
+          type: number
+          description: "Paid Time Off 5. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto06:
+          type: number
+          description: "Paid Time Off 6. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto07:
+          type: number
+          description: "Paid Time Off 7. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto08:
+          type: number
+          description: "Paid Time Off 8. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto09:
+          type: number
+          description: "Paid Time Off 9. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto10:
+          type: number
+          description: "Paid Time Off 10. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        salaryAmount:
+          type: number
+          example: 0
+          description: 'Employee''s salary
+
+            Number (10,2) Required if "Pay Type" is not "Hourly"'
+        sex:
+          type: string
+          example: F
+          description: 'Employee''s sex
+
+            Alphanumeric (1) Valid values are ''F'' (Female), ''M'' (Male), ''X'' (Non-Binary)'
+          enum:
+          - F
+          - M
+          - X
+        sickHours:
+          type: number
+          example: 0
+          description: 'Number of sick leave hours available. Value can be negative
+
+            Number (7,4) Reference data to track and deplete employee sick time'
+        skillLevel01:
+          type: number
+          description: 'Skill Level 1
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel02:
+          type: number
+          description: 'Skill Level 2
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel03:
+          type: number
+          description: 'Skill Level 3
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel04:
+          type: number
+          description: 'Skill Level 4
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel05:
+          type: number
+          description: 'Skill Level 5
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel06:
+          type: number
+          description: 'Skill Level 6
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel07:
+          type: number
+          description: 'Skill Level 7
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel08:
+          type: number
+          description: 'Skill Level 8
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel09:
+          type: number
+          description: 'Skill Level 9
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel10:
+          type: number
+          description: 'Skill Level 10
+
+            Recommendation to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        socialSecurityNumber:
+          type: string
+          example: 123456789
+          description: 'Social Security Number
+
+            Alphanumeric (20) Reference Data'
+        stateAdditionalWithholding:
+          type: number
+          example: 0
+          description: 'Employee''s additional withholding (state taxation purposes)
+
+            Number (8,2) Reference Data for the employee''s Net-Chef Profile'
+        stateExemptions:
+          type: integer
+          format: int64
+          example: 0
+          description: 'Employee''s additional withholding (state taxation purposes)
+
+            Number (3,0) Reference Data for the employee''s Net-Chef Profile'
+        stateMaritalStatus:
+          type: string
+          example: SINGLE
+          description: 'Employee''s state marital status
+
+            Alphanumeric (10) Code for the "Marital Status" from Enterprise Manager'
+        stateProvince:
+          type: string
+          example: MA
+          description: 'State
+
+            Alphanumeric (3) Reference Data for the employee''s Net-Chef Profile'
+        status:
+          type: string
+          example: Leave
+          description: 'Employee status description
+
+            Alphanumeric (10) Must be ‘Active’, ‘Leave’ or ''Terminated'' or the Code associated to these descriptions in Enterprise Manager'
+        statusCode:
+          type: string
+          example: Terminated
+          description: '"statusCode" from Employee setup screen'
+        suiSdiTaxJurisdictionCode:
+          type: string
+          description: 'Employee SUI/SDI Tax Jurisdiction Code
+
+            Alphanumeric (6) Reference Data for the employee''s Net-Chef Profile'
+        terminationReason:
+          type: string
+          description: 'Reason that employee was terminated. ''Code'' of the configured termination reason from EM
+
+            Alphanumeric (10) Reference data - ''Code'' of the configured termination reason from Enterprise Manager'
+        uniformDeductionAmount:
+          type: number
+          example: 0
+          description: 'Employee''s uniform deduction amount
+
+            Number (8,2) Reference Data for the employee''s Net-Chef Profile'
+        unionMembership:
+          type: string
+          description: 'Union that employee belongs
+
+            Alphanumeric (10) Reference Data for the employee''s Net-Chef Profile based on Union Codes configured in Enterprise Manager'
+        wageMatrixRow01:
+          type: number
+          description: 'Wage Matrix 1
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow02:
+          type: number
+          description: 'Wage Matrix 2
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow03:
+          type: number
+          description: 'Wage Matrix 3
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow04:
+          type: number
+          description: 'Wage Matrix 4
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow05:
+          type: number
+          description: 'Wage Matrix 5
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow06:
+          type: number
+          description: 'Wage Matrix 6
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow07:
+          type: number
+          description: 'Wage Matrix 7
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow08:
+          type: number
+          description: 'Wage Matrix 8
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow09:
+          type: number
+          description: 'Wage Matrix 9
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow10:
+          type: number
+          description: 'Wage Matrix 10
+
+            Recommendation to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+      title: EmployeeGet
+      description: EmployeeGet description
+    EmployeeLocation:
+      type: object
+      required:
+      - locationCode
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: 'activeFlag
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will be set to ‘Y’ cannot be ''N'' for the employee''s primary location.Indicates whether the employee is "active" at the (non-primary) location.If the employee/location relationship is not active, the employee is ineligible to work at the location'
+          enum:
+          - N
+          - Y
+        allocateLaborTo:
+          type: string
+          example: N
+          description: 'Allocate labor indicator
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will be set to ‘N’.If ‘Y’, this record must come after a record where this value =‘N’.Indicates whether this location will be used when allocating labor data for multiple locations that the employee has worked'
+          enum:
+          - N
+          - Y
+        deleteFlag:
+          type: string
+          example: N
+          description: deleteFlag
+          enum:
+          - N
+          - Y
+        employeeNumber:
+          type: string
+          example: 1
+          description: employeeNumber
+        id:
+          type: integer
+          format: int64
+          example: 17
+          description: Unique Identifier
+        locationCityName:
+          type: string
+          example: Anywhere
+          description: '"City" selected in the Location/Company setup screen'
+        locationCode:
+          type: string
+          example: 7654
+          description: 'Location Code
+
+            Alphanumeric (6) Must match an existing locationCode from /getAllLocations'
+        locationMarketName:
+          type: string
+          description: '"Market" selected in the Location/Company setup screen (if any)'
+        locationName:
+          type: string
+          example: AUTOMATION THREE
+          description: '"Name" from the Location/Company setup screen'
+        locationStateName:
+          type: string
+          example: MASSACHUSETTS
+          description: '"State/Province" selected in the Location/Company setup screen (if any)'
+        posExportFlag:
+          type: boolean
+          example: false
+          description: Export indicator
+        posId:
+          type: string
+          example: 247160
+          description: 'POS ID
+
+            Alphanumeric (40) Must not be the POS ID for any other Employee/Location. This will default to the employeeNumber by default unless otherwise entered to match the employee ID used in the POS. For the saveTimeClockEnhanced API endpoint, the Location "posId" must be provided as the "employeeNumber"'
+        primaryLocationFlag:
+          type: boolean
+          example: true
+          description: 'Is Primary location for user working shift
+
+            At least one Location must be flagged as Primary'
+      title: EmployeeLocation
+      description: EmployeeLocation description
+    EmployeeBatchResponseDto:
+      type: object
+      properties:
+        employeeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeGet'
+        hasNext:
+          type: boolean
+          example: true
+          description: has Next
+        totalPages:
+          type: integer
+          format: int32
+          example: 10
+          description: Total Pages
+      title: EmployeeBatchResponseDto
+      description: EmployeeBatchResponseDto description
+    EmployeePosition:
+      type: object
+      required:
+      - posCode
+      - positionCode
+      properties:
+        altLocationsFlag:
+          type: string
+          description: 'altLocationsFlag
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. Allows employee to work this position at any non-primary Location. If ''N'', an employee can only work that Position at their primary Location'
+          enum:
+          - N
+          - Y
+        deleteFlag:
+          type: string
+          example: N
+          description: 'deleteFlag
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. An employee must have/retain at least one Position, flagged as "primaryPositionFlag": "Y".You can also "delete" an Employee/Position record by excluding it from the current "save" input'
+          enum:
+          - N
+          - Y
+        employeeNumber:
+          type: string
+          example: 1
+          description: employeeNumber
+        id:
+          type: integer
+          format: int64
+          description: Unique Identifier
+        payRate:
+          type: number
+          description: 'Pay Rate
+
+            Number (12,4) Required if employee “Pay Type” is ‘Hourly’'
+        payRateDefault:
+          type: number
+          description: Default pay rate for this position
+        payRateMaximum:
+          type: number
+          description: Maximum pay rate for this position
+        payRateMinimum:
+          type: number
+          description: Minimum pay rate for this position
+        payrollCode:
+          type: string
+          description: 'Payroll code
+
+            Alphanumeric (3) Reference Position Code that could be used in payroll exports'
+        posCode:
+          type: string
+          description: 'POS Code
+
+            Alphanumeric (10) Position Code that''s used in the POS. The posCode is validated against the saveTimeClockEnhanced. Will default to the "positionCode"'
+        positionCode:
+          type: string
+          description: 'Code describing position
+
+            Alphanumeric (10) Must match a Position Code configured in the Enterprise Manager Positions module'
+        positionGlDescription:
+          type: string
+          description: GL to which this position is mapped
+        positionGlSubstructure:
+          type: string
+        positionName:
+          type: string
+          description: Full description of position
+        positionPlGroupingCode:
+          type: string
+        positionPlGroupingDesc:
+          type: string
+        primaryPositionFlag:
+          type: string
+          description: 'Primary Position Flag
+
+            At least one Position must be flagged as Primary'
+          enum:
+          - N
+          - Y
+        skillLevelCode:
+          type: integer
+          format: int64
+          description: 'skillLevelCode
+
+            Number (3) Must match a code configured in the Enterprise Manager Skill Levels module'
+        skillLevelDescription:
+          type: string
+        wageMatrix:
+          type: integer
+          format: int64
+          description: 'Wage Matrix assigned to the location
+
+            Number (3) Required if the employee’s primary location is associated with an active wage matrix that has passed its first effective date'
+      title: EmployeePosition
+      description: EmployeePosition description
+    Employee:
+      type: object
+      required:
+      - dateHired
+      - dateOfBirth
+      - employeeNumber
+      - firstName
+      - lastName
+      - payType
+      - status
+      properties:
+        address1:
+          type: string
+          example: 200 Main Street
+          description: '"Address" from Employee setup screen
+
+            Alphanumeric (30) Reference Data for the employee''s Net-Chef Profile'
+        address2:
+          type: string
+          description: Not in use
+        age:
+          type: integer
+          format: int32
+          example: 29
+          description: Age
+        allergies:
+          type: string
+          description: 'Employee''s allergies (free text field)
+
+            Alphanumeric (25) Reference Data for the employee''s Net-Chef Profile'
+        breakWaiver:
+          type: string
+          example: Y
+          description: 'Employee has signed a break waiver or not.  Impacts Employee Break reports and Labor Actuals.
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’. If not populated, will set to ‘N’ for new records; will not update existing records'
+          enum:
+          - N
+          - Y
+        broadcastSchedule:
+          type: string
+          example: Y
+          description: Should the weekly labor schedule be emailed to this employee (Y/N)
+          enum:
+          - N
+          - Y
+        city:
+          type: string
+          example: Anywhere
+          description: 'Now storing city as character data
+
+            Alphanumeric (40) Reference Data for the employee''s Net-Chef Profile'
+        country:
+          type: string
+          example: USA
+          description: 'Country
+
+            Alphanumeric (40) Reference Data for the employee''s Net-Chef Profile'
+        createUser:
+          type: integer
+          format: int64
+          example: 10000003
+          description: User that created the employee (FK to t_user)
+        dateCreate:
+          type: string
+          format: date
+          example: 04/17/2012
+          description: Date the employee was created
+        dateHired:
+          type: string
+          format: date
+          example: 02/01/2012
+          description: '"Date Hired" from Employee setup screen
+
+            Date (mm/dd/yyyy) Reference Data for the employee''s Net-Chef Profile'
+        dateOfBirth:
+          type: string
+          format: date
+          example: 07/30/1991
+          description: '"Date of Birth" from Employee setup screen
+
+            Date (mm/dd/yyyy) Used by the employee as part of Teamwork login authentication'
+        dateTerminated:
+          type: string
+          format: date
+          example: 12/31/9999
+          description: '"Date Terminated" from Employee setup screen
+
+            Date (mm/dd/yyyy) Reference Data for the employee''s Net-Chef Profile'
+        editUser:
+          type: integer
+          format: int64
+          example: 10000001
+          description: User that last edited the employee (FK to t_user)
+        eligibleForRehire:
+          type: string
+          example: false
+          description: 'Is this employee eligible for rehire (Y/N)
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’'
+          enum:
+          - 'false'
+          - 'true'
+        emailAddress:
+          type: string
+          description: 'Employee''s email address
+
+            Alphanumeric (75) Reference data - Employee''s Email Address'
+        emergencyContactName:
+          type: string
+          description: 'Name of person to contact in the event of an emergency regarding this employee
+
+            Alphanumeric (40) Reference Data for the employee''s Net-Chef Profile'
+        emergencyContactPhone:
+          type: string
+          description: 'Phone number of person to contact in the event of an emergency regarding this employee
+
+            Alphanumeric (30) Reference Data for the employee''s Net-Chef Profile'
+        employeeChecklistItem01:
+          type: string
+          description: 'Check List Item 1
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem02:
+          type: string
+          description: 'Check List Item 2
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem03:
+          type: string
+          description: 'Check List Item 3
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem04:
+          type: string
+          description: 'Check List Item 4
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem05:
+          type: string
+          description: 'Check List Item 5
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem06:
+          type: string
+          description: 'Check List Item 6
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem07:
+          type: string
+          description: 'Check List Item 7
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem08:
+          type: string
+          description: 'Check List Item 8
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem09:
+          type: string
+          description: 'Check List Item 9
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeChecklistItem10:
+          type: string
+          description: 'Check List Item 10
+
+            Alphanumeric (40) Reference Data associated to the "New Hire Checklist" configured in Enterprise Manager'
+        employeeLocations:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeLocation'
+        employeeNickname:
+          type: string
+          description: 'Employee nickname
+
+            Alphanumeric (20) Must not contain characters other than letters, numbers, spaces and the following special characters: single quote, hyphen or underline. Reference Data for the employee''s Net-Chef Profile and visible on the schedule'
+        employeeNumber:
+          type: string
+          example: AUTO-0000000004
+          description: '"Employee Number" from Employee setup screen
+
+            Alphanumeric (40) Must be unique globally. Primary key to make updates against an employees profile, meaning it cannot be updated /save calls'
+        employeePositions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeePosition'
+        ethnicGroup:
+          type: string
+          description: 'Employee''s ethnic group
+
+            Alphanumeric (10) Code for the "Ethnic Group" from Enterprise Manager'
+        federalAdditionalWithholding:
+          type: number
+          example: 0
+          description: 'Employee''s additional withholding (federal taxation purposes)
+
+            Number (8,2) Reference Data for the employee''s Net-Chef Profile'
+        federalExemptions:
+          type: integer
+          format: int64
+          example: 0
+          description: 'Employee''s number of exemptions (federal taxation purposes)
+
+            Number (3,0) Reference Data for the employee''s Net-Chef Profile'
+        federalMaritalStatus:
+          type: string
+          example: SINGLE
+          description: 'Employee''s federal marital status
+
+            Alphanumeric (10) Code for the "Marital Status" from Enterprise Manager'
+        firstName:
+          type: string
+          example: John
+          description: '"First Name" from Employee setup screen
+
+            Alphanumeric (40) "First Name" for the Employee Profile'
+        flexField01:
+          type: string
+          description: 'Flexible Field 1
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField02:
+          type: string
+          description: 'Flexible Field 2
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField03:
+          type: string
+          description: 'Flexible Field 3
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField04:
+          type: string
+          description: 'Flexible Field 4
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField05:
+          type: string
+          description: 'Flexible Field 5
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField06:
+          type: string
+          description: 'Flexible Field 6
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField07:
+          type: string
+          description: 'Flexible Field 7
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField08:
+          type: string
+          description: 'Flexible Field 8
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField09:
+          type: string
+          description: 'Flexible Field 9
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        flexField10:
+          type: string
+          description: 'Flexible Field 10
+
+            Alphanumeric (30) Data for the selected Flex Field from the Net-Chef Employee record. Integrators are responsible for knowing which values belong in which "flexField" #s'
+        lastName:
+          type: string
+          example: Doe
+          description: '"Last Name" from Employee setup screen
+
+            Alphanumeric (40) "Last Name" for the Employee Profile'
+        locationId:
+          type: integer
+          format: int64
+          example: PL8
+          description: '"location Id" from Employee setup screen'
+        locationName:
+          type: string
+          example: AUTOMATION THREE
+          description: Unique identifier for Location at/for which Employee record was created from Employee setup screen
+        manager:
+          type: string
+          example: Y
+          description: 'Is this employee a manager (Y/N)
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’.If not populated, will set to ‘N’ for new records'
+          enum:
+          - N
+          - Y
+        mealProgramDeduction:
+          type: number
+          example: 0
+          description: 'Employee''s meal program deduction amount
+
+            Number (8,2) Meal Program Deduction from the Net-Chef Employee record'
+        middleName:
+          type: string
+          example: Middle
+          description: '"Middle Name" from Employee setup screen
+
+            Alphanumeric (40) "Middle Name" for the Employee Profile'
+        minorLaborProgramCode:
+          type: string
+          description: 'Minor program for employee
+
+            Alphanumeric (10) Code for any Minor Labor Program configured in Enterprise Manager'
+        partTime:
+          type: string
+          example: Y
+          description: 'Marked Y/true when not full time
+
+            Alphanumeric (1) If populated, must be ‘Y’ or ‘N’'
+          enum:
+          - N
+          - Y
+        payRate01:
+          type: number
+          description: 'Pay Rate 1
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate02:
+          type: number
+          description: 'Pay Rate 2
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate03:
+          type: number
+          description: 'Pay Rate 3
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate04:
+          type: number
+          description: 'Pay Rate 4
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate05:
+          type: number
+          description: 'Pay Rate 5
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate06:
+          type: number
+          description: 'Pay Rate 6
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate07:
+          type: number
+          description: 'Pay Rate 7
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate08:
+          type: number
+          description: 'Pay Rate 8
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate09:
+          type: number
+          description: 'Pay Rate 9
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payRate10:
+          type: number
+          description: 'Pay Rate 10
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        payType:
+          type: string
+          example: H
+          description: 'Employee pay type
+
+            Alphanumeric (20) Must be ‘Salary’, ‘Hourly’ or ‘Salary Exempt’'
+        payrollIdNumber:
+          type: string
+          example: '0000000004'
+          description: 'Employee Payroll ID Number
+
+            Alphanumeric (20) If the Labor Preference to “Allow Duplicate Payroll ID Number” is NOT enabled, must not be the Payroll ID Number for any other existing employee'
+        phoneNumber:
+          type: string
+          description: 'Employee''s phone number
+
+            Alphanumeric (30) Reference Data for the employee''s Net-Chef Profile'
+        posId:
+          type: string
+          description: 'POS ID
+
+            Alphanumeric (40) Must not be the POS ID for any other Employee/Location. This will default to the employeeNumber by default unless otherwise entered to match the employee ID used in the POS. For the saveTimeClockEnhanced API endpoint, the Location "posId" must be provided as the "employeeNumber"'
+        positionCode01:
+          type: string
+          description: 'Position Code 1
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode02:
+          type: string
+          description: 'Position Code 2
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode03:
+          type: string
+          description: 'Position Code 3
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode04:
+          type: string
+          description: 'Position Code 4
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode05:
+          type: string
+          description: 'Position Code 5
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode06:
+          type: string
+          description: 'Position Code 6
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode07:
+          type: string
+          description: 'Position Code 7
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode08:
+          type: string
+          description: 'Position Code 8
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode09:
+          type: string
+          description: 'Position Code 9
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        positionCode10:
+          type: string
+          description: 'Position Code 10
+
+            Recommended to use the "employeePositions" array to create and update employees positions and payRates'
+        postalCode:
+          type: string
+          example: '01234'
+          description: '"Zip" from Employee setup screen
+
+            Alphanumeric (10) Reference Data for the employee''s Net-Chef Profile'
+        primaryLocationCode:
+          type: string
+          description: 'Assigned location employee typically works at
+
+            Recommendation to use the "employeeLocations" array to assign and update Locations'
+        primaryPositionName:
+          type: string
+          example: DINING ROOM SERVER (GT)
+          description: Primary job description
+        pto01:
+          type: number
+          description: "Paid Time Off 1. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto02:
+          type: number
+          description: "Paid Time Off 2. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto03:
+          type: number
+          description: "Paid Time Off 3. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto04:
+          type: number
+          description: "Paid Time Off 4. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto05:
+          type: number
+          description: "Paid Time Off 5. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto06:
+          type: number
+          description: "Paid Time Off 6. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto07:
+          type: number
+          description: "Paid Time Off 7. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto08:
+          type: number
+          description: "Paid Time Off 8. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto09:
+          type: number
+          description: "Paid Time Off 9. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        pto10:
+          type: number
+          description: "Paid Time Off 10. \nFormatted as '000.0000'. Setting 'null' value for a field does not override (i.e. delete) an existing value for that field in the Employee's record. \nEmployee setup allows customers to customize up to 10 \"Paid Time Off\" type records, in the Enterprise Manager \"Paid Time Off\" screen. You can import PTO balances for employee's to reference. Integrators are responsible for knowing which values correspond to particular \"pto\" #s"
+        salaryAmount:
+          type: number
+          example: 0
+          description: 'Employee''s salary
+
+            Number (10,2) Required if "Pay Type" is not "Hourly"'
+        sex:
+          type: string
+          example: F
+          description: 'Employee''s sex
+
+            Alphanumeric (1) Valid values are ''F'' (Female), ''M'' (Male), ''X'' (Non-Binary)'
+          enum:
+          - F
+          - M
+          - X
+        sickHours:
+          type: number
+          example: 0
+          description: 'Number of sick leave hours available. Value can be negative
+
+            Number (7,4) Reference data to track and deplete employee sick time'
+        skillLevel01:
+          type: number
+          description: 'Skill Level 1
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel02:
+          type: number
+          description: 'Skill Level 2
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel03:
+          type: number
+          description: 'Skill Level 3
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel04:
+          type: number
+          description: 'Skill Level 4
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel05:
+          type: number
+          description: 'Skill Level 5
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel06:
+          type: number
+          description: 'Skill Level 6
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel07:
+          type: number
+          description: 'Skill Level 7
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel08:
+          type: number
+          description: 'Skill Level 8
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel09:
+          type: number
+          description: 'Skill Level 9
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        skillLevel10:
+          type: number
+          description: 'Skill Level 10
+
+            Recommended to use the "employeePositions" array to update Skill levels as they relate to Positions'
+        socialSecurityNumber:
+          type: string
+          example: 123456789
+          description: 'Social Security Number
+
+            Alphanumeric (20) Reference Data for the employee''s Net-Chef Profile'
+        stateAdditionalWithholding:
+          type: number
+          example: 0
+          description: 'Employee''s additional withholding (state taxation purposes)
+
+            Number (8,2) Reference Data for the employee''s Net-Chef Profile'
+        stateExemptions:
+          type: integer
+          format: int64
+          example: 0
+          description: 'Employee''s additional withholding (state taxation purposes)
+
+            Number (3,0) Reference Data for the employee''s Net-Chef Profile'
+        stateMaritalStatus:
+          type: string
+          example: SINGLE
+          description: 'Employee''s state marital status
+
+            Alphanumeric (10) Code for the "Marital Status" from Enterprise Manager'
+        stateProvince:
+          type: string
+          example: MA
+          description: 'State
+
+            Alphanumeric (3) Reference Data for the employee''s Net-Chef Profile'
+        status:
+          type: string
+          example: Leave
+          description: 'Employee status description
+
+            Alphanumeric (10) Must be ‘Active’, ‘Leave’ or ''Terminated'' or the Code associated to these descriptions in Enterprise Manager'
+        statusCode:
+          type: string
+          example: Terminated
+          description: '"statusCode" from Employee setup screen'
+        suiSdiTaxJurisdictionCode:
+          type: string
+          description: 'Employee SUI/SDI Tax Jurisdiction Code
+
+            Alphanumeric (6) Reference Data for the employee''s Net-Chef Profile'
+        terminationReason:
+          type: string
+          description: 'Reason that employee was terminated. ''Code'' of the configured termination reason from EM
+
+            Alphanumeric (10) Reference data - ''Code'' of the configured termination reason from Enterprise Manager'
+        uniformDeductionAmount:
+          type: number
+          example: 0
+          description: 'Employee''s uniform deduction amount
+
+            Number (8,2) Reference Data for the employee''s Net-Chef Profile'
+        unionMembership:
+          type: string
+          description: 'Union that employee belongs
+
+            Alphanumeric (10) Reference Data for the employee''s Net-Chef Profile based on Union Codes configured in Enterprise Manager'
+        wageMatrixRow01:
+          type: number
+          description: 'Wage Matrix 1
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow02:
+          type: number
+          description: 'Wage Matrix 2
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow03:
+          type: number
+          description: 'Wage Matrix 3
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow04:
+          type: number
+          description: 'Wage Matrix 4
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow05:
+          type: number
+          description: 'Wage Matrix 5
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow06:
+          type: number
+          description: 'Wage Matrix 6
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow07:
+          type: number
+          description: 'Wage Matrix 7
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow08:
+          type: number
+          description: 'Wage Matrix 8
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow09:
+          type: number
+          description: 'Wage Matrix 9
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+        wageMatrixRow10:
+          type: number
+          description: 'Wage Matrix 10
+
+            Recommended to use the "employeePositions" array to update Wage Matrix as they relate to Positions'
+      title: Employee
+      description: Employee description
+    EmployeeSave:
+      type: object
+      properties:
+        employee:
+          type: array
+          items:
+            $ref: '#/components/schemas/Employee'
+        franchiseSite:
+          type: string
+          description: 'franchiseSite description
+
+            Option for the Franchisor to upload employee data on behalf of the Franchisee without modifying the API Header Parameters. If used, must be the "Franchise Code" from the the "Franchise" setup in Enterprise Manager'
+      title: EmployeeSave
+      description: EmployeeSave description
+    EmployeeAudit:
+      type: object
+      required:
+      - id
+      properties:
+        auditDate:
+          type: string
+          format: date-time
+          example: '2015-06-19T17:34:36'
+          description: Date of add, change or delete
+        changeType:
+          type: string
+          example: E
+          description: '''A'' = Add, ''C'' = Change, ''D'' = Delete'', ''X'' = Export'
+          enum:
+          - A
+          - C
+          - D
+          - E
+          - X
+        changeValue:
+          type: string
+          example: LABOR AUTOMATION THREE
+          description: Review date, availability week ending date + time, position name of value being changes (used for multiple row employee information)
+        editValue:
+          type: string
+          example: N
+        fieldName:
+          type: string
+          example: NC Changed Employee
+        id:
+          type: integer
+          format: int64
+          example: 388777
+          description: Unique Identifier
+        originalValue:
+          type: string
+          example: Y
+        sectionName:
+          type: string
+          example: Employee
+          description: Section name
+        userFirstName:
+          type: string
+          example: John
+        userId:
+          type: string
+          example: IM_OWNER
+        userLastName:
+          type: string
+          example: Doe
+        valueDataType:
+          type: string
+          example: C
+          description: '''C'' = Character, ''D''= Date, ''N'' = Numeric'
+          enum:
+          - C
+          - D
+          - N
+      title: EmployeeAudit
+      description: EmployeeAudit description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

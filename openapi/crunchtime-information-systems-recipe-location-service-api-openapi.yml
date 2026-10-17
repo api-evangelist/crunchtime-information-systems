@@ -1,0 +1,874 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Recipe Location Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Recipe Location Service
+  description: The Recipe Location Service allows you to create and retrieve location specific recipes.
+paths:
+  /recipelocation/v1/getAllRecipeLocations:
+    get:
+      tags:
+      - Recipe Location Service
+      summary: getAllRecipeLocations
+      description: Get All Recipe Locations
+      operationId: getAllRecipeLocationV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: This indicates whether or not the recipe is available to each location.
+        required: false
+        schema:
+          type: boolean
+      - name: atCostItem
+        in: query
+        description: If yes, the Actual/Theoretical Cost report will display costs for the recipe item (not its components) at the specified location.  Analogous field in Recipe API is “calcAtCost”.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a recipe location record was last updated. Use to set how far back to search. Required if recipeName, productNumber and pluNumber input not provided.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: pluNumber
+        in: query
+        description: Retrieve a Recipe's specific PLU Number. The PLU links the recipe to the point-of-sale system and allows ingredients to be depleted from inventory based on sales. This query param will search both the actual pluNumber (header) OR Location plu Number. Required if recipeName, productNumber and minutesSinceUpdate input not provided.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: posDecrement
+        in: query
+        description: This determines how quantities will be depleted from inventory when a recipe product is sold.
+        required: false
+        schema:
+          type: string
+      - name: prepReportFlag
+        in: query
+        description: This indicates whether or not the recipe is eligible to be included in the Net-Chef Prep Report at this location.
+        required: false
+        schema:
+          type: boolean
+      - name: productionType
+        in: query
+        description: 'This determines whether component ingredients from the location will be used to make this recipe. '
+        required: false
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: The Product Number of the Recipe to retrieve. Required if recipeName, pluNumber and minutesSinceUpdate input not provided.
+        required: false
+        schema:
+          type: string
+      - name: recipeName
+        in: query
+        description: This is the recipe name and can be different names at different locations. Use 3 or more characters. This query param will search both the actual recipe name (header) OR recipe location name. Required if productNumber, pluNumber and minutesSinceUpdate input not provided.
+        required: false
+        schema:
+          type: string
+      - name: recipePrice
+        in: query
+        description: Displays the Ideal Price per Portion from the Recipes…Modeling tab in Enterprise Manager. In the Recipe API the analogous field is called “price”.
+        required: false
+        schema:
+          type: number
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipeLocationDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipeLocationDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: recipe location not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /recipelocation/v1/getRecipeLocationsByPage:
+    get:
+      tags:
+      - Recipe Location Service
+      summary: getRecipeLocationsByPage
+      description: getRecipeLocationsByPage Implementation Notes
+      operationId: getRecipeLocationByPageV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: This indicates whether or not the recipe is available to each location.
+        required: false
+        schema:
+          type: boolean
+      - name: atCostItem
+        in: query
+        description: If yes, the Actual/Theoretical Cost report will display costs for the recipe item (not its components) at the specified location.  Analogous field in Recipe API is “calcAtCost”.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a recipe location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: 'Provide the page number to retrieve Application Users on a particular page.
+
+          Default is 1 when no ''pageNumber'' value provided.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: pluNumber
+        in: query
+        description: Retrieve a Recipe's specific PLU Number. The PLU links the recipe to the point-of-sale system and allows ingredients to be depleted from inventory based on sales. This query param will search both the actual pluNumber (header) OR Location plu Number.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: posDecrement
+        in: query
+        description: This determines how quantities will be depleted from inventory when a recipe product is sold.
+        required: false
+        schema:
+          type: string
+      - name: prepReportFlag
+        in: query
+        description: This indicates whether or not the recipe is eligible to be included in the Net-Chef Prep Report at this location.
+        required: false
+        schema:
+          type: boolean
+      - name: productionType
+        in: query
+        description: 'This determines whether component ingredients from the location will be used to make this recipe. '
+        required: false
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: The Product Number of the Recipe to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: recipeName
+        in: query
+        description: This is the recipe name and can be different names at different locations. Use 3 or more characters. This query param will search both the actual recipe name (header) OR recipe location name.
+        required: false
+        schema:
+          type: string
+      - name: recipePrice
+        in: query
+        description: Displays the Ideal Price per Portion from the Recipes…Modeling tab in Enterprise Manager. In the Recipe API the analogous field is called “price”.
+        required: false
+        schema:
+          type: number
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecipeLocationBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeLocationBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: recipe location not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /recipelocation/v1/saveRecipeLocations:
+    post:
+      tags:
+      - Recipe Location Service
+      summary: saveRecipeLocation
+      description: saveRecipeLocation Implementation Notes
+      operationId: saveRecipeLocationUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeLocationDetailsList'
+        description: recipeLocationDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    RecipeLocationHeaderDto:
+      type: object
+      properties:
+        pluNumber:
+          type: integer
+          format: int64
+          example: 10004
+          description: '"PLU Number" from Recipe Screen'
+        productNumber:
+          type: string
+          example: 103141
+          description: '"Product Number" from Recipe Screen'
+        recipeName:
+          type: string
+          example: CTest Recipe 1
+          description: '"Recipe Name" from Recipe Screen'
+      title: RecipeLocationHeaderDto
+      description: RecipeLocationHeaderDto description
+    RecipeLocationDetailsDto:
+      type: object
+      required:
+      - locationCode
+      - productNumber
+      properties:
+        activeFlag:
+          type: string
+          example: N
+          description: '"Active Flag" from Recipe Screen''s Location Tab'
+          enum:
+          - N
+          - Y
+        atCostItem:
+          type: string
+          example: N
+          description: '"A/T Cost Item" from Recipe Screen''s Location Tab'
+          enum:
+          - N
+          - Y
+        locationCode:
+          type: string
+          example: 7654
+          description: '"Location Code" from Recipe Screen''s Location Tab'
+        pluNumber:
+          type: integer
+          format: int64
+          example: 10004
+          description: '"PLU Number" from Recipe Screen''s Location Tab'
+        posDecrement:
+          type: string
+          example: I
+          description: '"POS Decrement" from Recipe Screen''s Location Tab'
+          enum:
+          - C
+          - I
+        prepReportFlag:
+          type: string
+          example: Y
+          description: '"Prep Report Flag" from Recipe Screen''s Location Tab'
+          enum:
+          - N
+          - Y
+        productNumber:
+          type: string
+          example: 103141
+          description: '"Product Number" from Recipe Screen'
+        productionType:
+          type: string
+          example: P
+          description: '"Production Type" from Recipe Screen''s Location Tab'
+          enum:
+          - O
+          - P
+        recipeName:
+          type: string
+          example: CTest Rcp Location 1
+          description: '"Recipe Location Name" from Recipe Screen''s Location Tab'
+        recipePrice:
+          type: number
+          example: 5.67
+          description: '"Recipe Price" from Recipe Screen''s Location Tab'
+      title: RecipeLocationDetailsDto
+      description: RecipeLocationDetailsDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    RecipeLocationDetailsGet:
+      type: object
+      properties:
+        recipeLocationDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeLocationDetailGet'
+        recipeLocationHeaderDetails:
+          $ref: '#/components/schemas/RecipeLocationHeaderDto'
+      title: RecipeLocationDetailsGet
+      description: RecipeLocationDetailsGet description
+    RecipeLocationDetails:
+      type: object
+      properties:
+        recipeLocationDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeLocationDetailsDto'
+        recipeLocationHeaderDetails:
+          $ref: '#/components/schemas/RecipeLocationHeaderDto'
+      title: RecipeLocationDetails
+      description: RecipeLocationDetails description
+    RecipeLocationBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+          example: true
+          description: has Next
+        recipeLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeLocationDetailsGet'
+        totalPages:
+          type: integer
+          format: int32
+          example: 10
+          description: Total Pages
+      title: RecipeLocationBatchResponseDto
+      description: RecipeLocationBatchResponseDto description
+    RecipeLocationDetailGet:
+      type: object
+      required:
+      - locationCode
+      - productNumber
+      properties:
+        activeFlag:
+          type: string
+          example: N
+          description: '"Active Flag" from Recipe Screen''s Location Tab'
+          enum:
+          - N
+          - Y
+        atCostItem:
+          type: string
+          example: N
+          description: '"A/T Cost Item" from Recipe Screen''s Location Tab'
+          enum:
+          - N
+          - Y
+        lastTouchDate:
+          type: string
+          example: 10/12/2022 12:48:36
+          description: '"Last Touch Date" from Recipe Screen''s Location Tab'
+        locationCode:
+          type: string
+          example: 7654
+          description: '"Location Code" from Recipe Screen''s Location Tab'
+        pluNumber:
+          type: integer
+          format: int64
+          example: 10004
+          description: '"PLU Number" from Recipe Screen''s Location Tab'
+        posDecrement:
+          type: string
+          example: I
+          description: '"POS Decrement" from Recipe Screen''s Location Tab'
+          enum:
+          - C
+          - I
+        prepReportFlag:
+          type: string
+          example: Y
+          description: '"Prep Report Flag" from Recipe Screen''s Location Tab'
+          enum:
+          - N
+          - Y
+        productNumber:
+          type: string
+          example: 103141
+          description: '"Product Number" from Recipe Screen'
+        productionType:
+          type: string
+          example: P
+          description: '"Production Type" from Recipe Screen''s Location Tab'
+          enum:
+          - O
+          - P
+        recipeName:
+          type: string
+          example: CTest Rcp Location 1
+          description: '"Recipe Location Name" from Recipe Screen''s Location Tab'
+        recipePrice:
+          type: number
+          example: 5.67
+          description: '"Recipe Price" from Recipe Screen''s Location Tab'
+      title: RecipeLocationDetailGet
+      description: RecipeLocationDetailGet description
+    RecipeLocationDetailsList:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Code" from Company setup screen'
+        recipeLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeLocationDetails'
+      title: RecipeLocationDetailsList
+      description: RecipeLocationDetailsList description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

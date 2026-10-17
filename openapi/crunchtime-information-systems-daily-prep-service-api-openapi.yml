@@ -1,0 +1,1134 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Daily Prep Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Daily Prep Service
+  description: The Daily Prep Service allows you to create, update, finalize, cancel, or retrieve daily prep transactions.
+paths:
+  /dailyprep/v1/getAllDailyPreps:
+    get:
+      tags:
+      - Daily Prep Service
+      summary: getAllDailyPreps
+      description: Retrieves all Daily Prep transactions with the accompanying information.
+      operationId: getAllDailyPrepsV1UsingGET
+      parameters:
+      - name: locationCode
+        in: query
+        description: The Location where the Daily Prep transaction is created.
+        required: true
+        schema:
+          type: string
+      - name: dailyPrepDate
+        in: query
+        description: Date that the Daily Prep transaction is recorded for inventory (optional). If not provided, all transactions for the location with a prep date greater than or equal to the current date will be returned.
+        required: false
+        example: 08-FEB-26
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Daily Prep status (Completed, Incomplete or Canceled) to retrieve (optional).
+        required: false
+        example: Incomplete
+        schema:
+          type: string
+      - name: templateName
+        in: query
+        description: Template Name selected for the Daily Prep transaction (optional). Required if using Template Location Code.
+        required: false
+        schema:
+          type: string
+      - name: templateLocationCode
+        in: query
+        description: Template Location Code selected for the Daily Prep transaction (optional). Required if using Template Name.
+        required: false
+        schema:
+          type: string
+      - name: prepStation
+        in: query
+        description: Prep Station Name selected for the Daily Prep transaction (optional). This value is stored in recipe details.
+        required: false
+        schema:
+          type: string
+      - name: description
+        in: query
+        description: Daily Prep description (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: prepLocation
+        in: query
+        description: Name of the Prep Customer selected for the Daily Prep transaction (optional).
+        required: false
+        schema:
+          type: string
+      - name: startTime
+        in: query
+        description: Start time of the Daily Prep transaction as selected when the transaction was created (optional). Format HH:mm (24hr)
+        required: false
+        example: '13:30'
+        schema:
+          type: string
+      - name: createDate
+        in: query
+        description: Date that the Daily Prep transaction was created (optional).
+        required: false
+        example: 31-AUG-26
+        schema:
+          type: string
+      - name: createUser
+        in: query
+        description: Application User who created the transaction (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: completeDate
+        in: query
+        description: Date that the Daily Prep transaction was finalized (optional).
+        required: false
+        example: 25-JUL-26
+        schema:
+          type: string
+      - name: completeUser
+        in: query
+        description: Application User who finalized the transaction (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: cancelDate
+        in: query
+        description: Date that the Daily Prep transaction was canceled (optional).
+        required: false
+        example: 01-MAY-26
+        schema:
+          type: string
+      - name: cancelUser
+        in: query
+        description: Application User who canceled the transaction (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: dailyPrepApp
+        in: query
+        description: 'Application or process that created the Daily Prep transaction (optional). Current possible values: NC (Net-Chef), KS (KitchenSync), MM (Menu Mix) and UN (Undo Menu Mix).'
+        required: false
+        schema:
+          type: string
+      - name: autoPrepFlag
+        in: query
+        description: If true, retrieves Daily Prep transactions created by Menu Mix or Undo Menu Mix (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: cateringOrderFlag
+        in: query
+        description: Filters Daily Prep transactions based on whether they include Catering Customer Orders (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: addProjectedConsumptionFlag
+        in: query
+        description: Filters Daily Prep transactions based on whether they include additional Projected Consumption (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: includeDetails
+        in: query
+        description: Retrieve all details (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Daily Preps. Default is 'dailyPrepDate' if not provided (Optional).
+        required: false
+        example: description
+        schema:
+          type: string
+          enum:
+          - description
+          - status
+          - createUser
+          - dailyPrepDate
+          - templateName
+          - templateLocationCode
+          - cateringOrderFlag
+          - dailyPrepApp
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Daily Preps: ascending (ASC) or descending (DESC). Default is ASC if not specified (optional).'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: includeNull
+        in: query
+        description: Specify 'true' to include null data elements in output.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyPrepDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyPrepDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Daily Prep transactions not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /dailyprep/v1/getDailyPrepsByPage:
+    get:
+      tags:
+      - Daily Prep Service
+      summary: getDailyPrepsByPage
+      description: Retrieves all Daily Prep transactions with the accompanying information by page number.
+      operationId: getDailyPrepsByPageV1UsingGET
+      parameters:
+      - name: locationCode
+        in: query
+        description: The Location where the Daily Prep transaction is created.
+        required: true
+        schema:
+          type: string
+      - name: dailyPrepDate
+        in: query
+        description: Date that the Daily Prep transaction is recorded for inventory (optional). If not provided, all transactions for the location with a prep date greater than or equal to the current date will be returned.
+        required: false
+        example: 08-FEB-26
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Daily Prep status (Completed, Incomplete or Canceled) to retrieve (optional).
+        required: false
+        example: Incomplete
+        schema:
+          type: string
+      - name: templateName
+        in: query
+        description: Template Name selected for the Daily Prep transaction (optional). Required if using Template Location Code.
+        required: false
+        schema:
+          type: string
+      - name: templateLocationCode
+        in: query
+        description: Template Location Code selected for the Daily Prep transaction (optional). Required if using Template Name.
+        required: false
+        schema:
+          type: string
+      - name: prepStation
+        in: query
+        description: Prep Station Name selected for the Daily Prep transaction (optional). This value is stored in recipe details.
+        required: false
+        schema:
+          type: string
+      - name: description
+        in: query
+        description: Daily Prep description (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: prepLocation
+        in: query
+        description: Name of the Prep Customer selected for the Daily Prep transaction (optional).
+        required: false
+        schema:
+          type: string
+      - name: startTime
+        in: query
+        description: Start time of the Daily Prep transaction as selected when the transaction was created (optional). Format HH:mm (24hr)
+        required: false
+        example: '13:30'
+        schema:
+          type: string
+      - name: createDate
+        in: query
+        description: Date that the Daily Prep transaction was created (optional).
+        required: false
+        example: 31-AUG-26
+        schema:
+          type: string
+      - name: createUser
+        in: query
+        description: Application User who created the transaction (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: completeDate
+        in: query
+        description: Date that the Daily Prep transaction was finalized (optional).
+        required: false
+        example: 25-JUL-26
+        schema:
+          type: string
+      - name: completeUser
+        in: query
+        description: Application User who finalized the transaction (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: cancelDate
+        in: query
+        description: Date that the Daily Prep transaction was canceled (optional).
+        required: false
+        example: 01-MAY-26
+        schema:
+          type: string
+      - name: cancelUser
+        in: query
+        description: Application User who canceled the transaction (optional). The value is case-insensitive but must otherwise match exactly.
+        required: false
+        schema:
+          type: string
+      - name: dailyPrepApp
+        in: query
+        description: 'Application or process that created the Daily Prep transaction (optional). Current possible values: NC (Net-Chef), KS (KitchenSync), MM (Menu Mix) and UN (Undo Menu Mix).'
+        required: false
+        schema:
+          type: string
+      - name: autoPrepFlag
+        in: query
+        description: If true, retrieves Daily Prep transactions created by Menu Mix or Undo Menu Mix (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: cateringOrderFlag
+        in: query
+        description: Filters Daily Prep transactions based on whether they include Catering Customer Orders (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: addProjectedConsumptionFlag
+        in: query
+        description: Filters Daily Prep transactions based on whether they include additional Projected Consumption (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: includeDetails
+        in: query
+        description: Retrieve all details (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Daily Preps. Default is 'dailyPrepDate' if not provided (Optional).
+        required: false
+        example: description
+        schema:
+          type: string
+          enum:
+          - description
+          - status
+          - createUser
+          - dailyPrepDate
+          - templateName
+          - templateLocationCode
+          - cateringOrderFlag
+          - dailyPrepApp
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Daily Preps: ascending (ASC) or descending (DESC). Default is ASC if not specified (optional).'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: includeNull
+        in: query
+        description: Specify `true` to include null data elements in output.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DailyPrepBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyPrepBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Daily Prep transactions not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /dailyprep/v1/saveDailyPreps:
+    post:
+      tags:
+      - Daily Prep Service
+      summary: saveDailyPreps (beta)
+      description: Saves Daily Prep transactions for a location. Supports creating, updating, finalizing, or canceling a Daily Prep based on the `action` field.
+      operationId: saveDailyPrepsUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyPrepDetailsList'
+        description: dailyPreps
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DailyPrepDetailsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyPrepDetailsList'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyPrepApiError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyPrepApiError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Daily Prep transactions not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    DailyPrepDetailsList:
+      type: object
+      required:
+      - locationCode
+      - dailyPreps
+      properties:
+        locationCode:
+          type: string
+          example: AB121
+          description: The Code for the Location associated with the Daily Prep. Required for all flows (create, edit, cancel).
+        dailyPreps:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyPrepSaveDto'
+          description: Daily Prep records to save. Required for all flows (create, edit, cancel).
+      title: DailyPrepDetailsList
+      description: Daily prep records to save
+    DailyPrepRecipeDto:
+      type: object
+      properties:
+        productNumber:
+          type: string
+          example: R-123
+          description: '"Product Number" from Daily Prep Screen''s Recipes Tab'
+        name:
+          type: string
+          example: Test Recipe
+          description: '"Recipe Name" from the Daily Prep screen''s Recipes tab'
+        batchQty:
+          type: number
+          format: double
+          example: 1.4
+          description: '"Batch Qty" is the quantity produced in a single batch'
+        batchUnit:
+          type: string
+          example: KG
+          description: '"Batch Unit" is the unit of measure for the batch quantity'
+        projectedConsumption:
+          type: number
+          format: double
+          example: 10.53
+          description: '"Projected Consumption" is the amount expected to be used during the day'
+        suggestedProduction:
+          type: number
+          format: double
+          example: 1
+          description: '"Suggested Production" is the system-recommended quantity'
+        actualProd:
+          type: number
+          format: double
+          example: 23.01
+          description: '"Actual Prod" is the actual quantity prepared'
+        actualBatchCost:
+          type: number
+          format: double
+          example: 63.1
+          description: '"Actual Batch Cost" is the calculated cost of producing one batch'
+        storageLocation:
+          type: string
+          example: Walk-In Cooler
+          description: '"Storage Location" is the location where the prepared item is stored'
+        prepStation:
+          type: string
+          example: Cold Prep
+          description: '"Prep Station" is the kitchen station where the recipe is prepared'
+        components:
+          $ref: '#/components/schemas/DailyPrepComponentDto'
+      title: DailyPrepRecipeDto
+      description: Recipe details for a Daily Prep transaction
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    DailyPrepSaveDto:
+      type: object
+      required:
+      - action
+      properties:
+        dailyPrepId:
+          type: string
+          example: f+zZA8P02QBuHFSyYdqz5g==
+          description: Daily Prep Identifier. Required for edit and cancel flows (identifies the existing Daily Prep to update or cancel). Must be omitted on create — a new Daily Prep is generated.
+        action:
+          type: string
+          example: SAVE
+          description: 'Action to perform on the Daily Prep. Required for all flows. Allowed values: `SAVE` (save in Incomplete status), `FINALIZE` (save and finalize as Completed), `CANCEL` (cancel an existing Daily Prep — requires `dailyPrepId`).'
+          enum:
+          - SAVE
+          - FINALIZE
+          - CANCEL
+        dailyPrepDate:
+          type: string
+          example: 02/20/2026
+          description: Daily Prep Date in `MM/dd/yyyy` format — the date the Daily Prep is recorded for inventory. Required on create. Ignored on edit and cancel.
+        startTime:
+          type: string
+          example: 09:00
+          description: Start Time of the Daily Prep in `HH:mm` (24hr) format. Optional on create. Ignored on edit and cancel.
+        description:
+          type: string
+          example: Daily Prep Desc
+          description: Free-text Daily Prep description. Optional on create; if left blank, the system will populate this with the Daily Prep Date. Ignored on edit and cancel.
+        prepLocation:
+          type: string
+          example: Prep Location
+          description: Name of the Prep Location (Prep Customer) for the Daily Prep. Optional on create. Ignored on edit and cancel.
+        recipes:
+          type: array
+          description: List of recipes included in the Daily Prep. Optional on create and edit. Ignored on cancel. On edit, only the recipes provided are updated; recipes already on the Daily Prep that are not included remain unchanged.
+          items:
+            type: object
+            required:
+            - productNumber
+            - actualProd
+            properties:
+              productNumber:
+                type: string
+                example: R001
+                description: Recipe identifier. Required for each entry in `recipes` (used to match the recipe being created or updated).
+              actualProd:
+                type: number
+                format: double
+                example: 23.01
+                description: Planned production quantity for the recipe. Required for each entry in `recipes`. On edit, sending `null` removes the recipe from the Daily Prep.
+      title: DailyPrepSaveDto
+      description: "Daily prep record to save. Three flows are supported: \n- **Create** — omit `dailyPrepId`; `action` (`SAVE` or `FINALIZE`) and `dailyPrepDate` are required. \n- **Edit** — provide `dailyPrepId`; `action` (`SAVE` or `FINALIZE`) is required; other top-level fields are ignored. \n- **Cancel** — provide `dailyPrepId` and `action=CANCEL`; all other fields are ignored."
+    DailyPrepDto:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          example: AB121
+          description: '"Location Code" where the Daily Prep transaction is created'
+        description:
+          type: string
+          example: Daily Prep description
+          description: '"Description" is entered by the user when the transaction was created. If none was entered, this will be the Daily Prep Date.'
+        status:
+          type: string
+          example: Incomplete
+          description: '"Status" of the Daily Prep transaction. Possible values: Completed, Incomplete, or Canceled'
+        createDate:
+          type: string
+          format: date
+          example: 11/10/2020
+          description: '"Create Date" is a date the transaction was created'
+        createUser:
+          type: string
+          example: testuser
+          description: '"Create User" is the user ID of the user who created the transaction'
+        completeDate:
+          type: string
+          format: date-time
+          example: 11/10/2020 07:47:05
+          description: '"Complete Date" is a date with time the transaction was finalized'
+        completeUser:
+          type: string
+          example: testuser
+          description: '"Complete User" is the user ID of the user who finalized the transaction'
+        cancelDate:
+          type: string
+          format: date-time
+          example: 11/10/2020 14:24:51
+          description: '"Cancel Date" is a date with time the transaction was canceled'
+        cancelUser:
+          type: string
+          example: testuser
+          description: '"Cancel User" is the user ID of the user who canceled the transaction'
+        dailyPrepDate:
+          type: string
+          format: date-time
+          example: 11/10/2020 13:45
+          description: '"Daily Prep Date" is the date and time when the Daily Prep was performed, as selected by the user during creation'
+        templateName:
+          type: string
+          example: Morning Prep
+          description: '"Template Name" is the name of the Daily Prep template used for the transaction'
+        templateLocationCode:
+          type: string
+          example: AB121
+          description: '"Template Location Code" is the location code associated with the Daily Prep template'
+        cateringOrder:
+          type: string
+          example: N
+          description: '"Catering Order" indicates whether the prep transaction included Catering customer orders'
+        dailyPrepApp:
+          type: string
+          example: NC
+          description: '"Daily Prep App" is the application or process that created the Daily Prep transaction'
+        prepLocation:
+          type: string
+          example: Main Kitchen
+          description: '"Prep Location" is the name of the Prep Customer selected for the Daily Prep transaction'
+        recipes:
+          $ref: '#/components/schemas/DailyPrepRecipeDto'
+      title: DailyPrepDto
+      description: Daily Prep transaction details
+    DailyPrepComponentDto:
+      type: object
+      properties:
+        productNumber:
+          type: string
+          example: C1233
+          description: '"Product Number" from Daily Prep Screen''s Components Tab'
+        name:
+          type: string
+          example: Test Component
+          description: '"Product Name" from Daily Prep Screen''s Components Tab'
+        majorIngredient:
+          type: string
+          example: Y
+          description: '"Major Ingredient" indicates whether the product is marked as a major ingredient in the recipe'
+        quantity:
+          type: number
+          format: double
+          example: 13.5
+          description: '"Quantity" is the amount of the product required for the recipe'
+        invUnit:
+          type: string
+          example: EA
+          description: '"Inv. Unit" is the inventory unit of measure used for the product'
+        storageLocation:
+          type: string
+          example: Walk-In Cooler
+          description: '"Storage Location" is the location where the product is stored'
+        unitPrice:
+          type: number
+          format: double
+          example: 10.45
+          description: '"Unit Price" is the cost per inventory unit of the product'
+        extendedValue:
+          type: number
+          format: double
+          example: 121.99
+          description: '"Extended Value" is the total cost calculated as quantity multiplied by unit price'
+      title: DailyPrepComponentDto
+      description: Component details for a Daily Prep recipe
+    DailyPrepApiError:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: AB121
+          description: The Code for the Location associated with the Daily Prep.
+        index:
+          type: integer
+          format: int64
+          example: 12
+          description: Daily Prep index in the array
+        errorMessages:
+          type: array
+          items:
+            type: string
+            example: Cannot find valid post period for this date.
+            description: Error state for unsaved Daily Prep
+        warningMessages:
+          type: array
+          items:
+            type: string
+            example: Recipe '10117' is not available for this Daily Prep.
+            description: Warning state for partially saved Daily Prep
+      title: DailyPrepApiError
+      description: Daily Prep errors and warnings
+    DailyPrepBatchResponseDto:
+      type: object
+      properties:
+        dailyPreps:
+          type: array
+          items:
+            $ref: '#/components/schemas/DailyPrepDto'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: DailyPrepBatchResponseDto
+      description: Response containing Daily Prep transactions with pagination details
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

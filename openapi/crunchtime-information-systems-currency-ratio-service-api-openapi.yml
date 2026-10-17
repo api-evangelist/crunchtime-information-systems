@@ -1,0 +1,961 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Currency Ratio Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Currency Ratio Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Currency Ratio Service
+  description: 'The Currency Ratios Service is used to enter the exchange rates that will to convert monetary values from one currency to another. The "toCurrencyCode" is equal to the base currency in Enterprise Manager, then enter the exchange rate to convert the "fromCurrencyCode" to that base currency.
+
+    **Note**: A Currency Ratio cannot be established until that Currency has been configured as the base currency for a location, vendor, or market.'
+paths:
+  /cruise/currencyratio/v1/getAllCurrencyRatio:
+    get:
+      tags:
+      - Currency Ratio Service
+      summary: getAllCurrencyRatio
+      operationId: getAllCurrencyRatioV1UsingGET_1
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: fromCurrencyCode
+        in: query
+        description: The alternate currency code.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. test or production
+        required: true
+        schema:
+          type: string
+      - name: toCurrencyCode
+        in: query
+        description: The base currency code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CurrencyRatioDetailsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyRatioDetailsList'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: currency Ratio not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/currencyratio/v1/getCurrencyRatioByPage:
+    get:
+      tags:
+      - Currency Ratio Service
+      summary: getCurrencyRatioByPage
+      operationId: getCurrencyRatioByPageV1UsingGET_1
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: fromCurrencyCode
+        in: query
+        description: The alternate currency code.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. test or production
+        required: true
+        schema:
+          type: string
+      - name: toCurrencyCode
+        in: query
+        description: The base currency code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CurrencyRatioBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyRatioBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: currency Ratio not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/currencyratio/v1/saveCurrencyRatio:
+    post:
+      tags:
+      - Currency Ratio Service
+      summary: saveCurrencyRatio
+      description: 'Create a new currency exchange rate.
+
+        Update a currency exchange rate details.'
+      operationId: saveCurrencyRatioUsingPOST_1
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. test or production
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrencyRatioDetailsList'
+        description: currencyRatioDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /currencyratio/v1/getAllCurrencyRatio:
+    get:
+      tags:
+      - Currency Ratio Service
+      summary: getAllCurrencyRatio
+      description: Retrieve a single currency exchange rate.
+      operationId: getAllCurrencyRatioV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: fromCurrencyCode
+        in: query
+        description: The alternate currency code.
+        required: false
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: toCurrencyCode
+        in: query
+        description: The base currency code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CurrencyRatioDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CurrencyRatioDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: currency Ratio not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /currencyratio/v1/getCurrencyRatioByPage:
+    get:
+      tags:
+      - Currency Ratio Service
+      summary: getCurrencyRatioByPage
+      description: Retrieve a single currency exchange rate by `pageNumber`.
+      operationId: getCurrencyRatioByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: fromCurrencyCode
+        in: query
+        description: The alternate currency code.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: toCurrencyCode
+        in: query
+        description: The base currency code.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CurrencyRatioBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrencyRatioBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: currency Ratio not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /currencyratio/v1/saveCurrencyRatio:
+    post:
+      tags:
+      - Currency Ratio Service
+      summary: saveCurrencyRatio
+      description: 'Create a new currency exchange rate.
+
+        Update a currency exchange rate details.'
+      operationId: saveCurrencyRatioUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrencyRatioDetailsList_2'
+        description: currencyRatioDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    CurrencyRatioDetails:
+      type: object
+      properties:
+        currencyRatioDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyRatioDetailsDto'
+      title: CurrencyRatioDetails
+      description: CurrencyRatioDetails description
+    CurrencyRatioDetailsDto:
+      type: object
+      required:
+      - fromCurrencyCode
+      - toCurrencyCode
+      - toFactor
+      properties:
+        exchangeRate:
+          type: number
+          example: 32.9
+          description: '"Exchange Rate" from Currency Ratio'
+        fromCurrencyCode:
+          type: string
+          example: USD
+          description: '"From Currency" Code from Currency Ratio'
+        fromFactor:
+          type: integer
+          format: int64
+          description: '"From" Factor from Currency Ratio'
+        toCurrencyCode:
+          type: string
+          example: EUR
+          description: '"To Currency" Code from Currency Ratio'
+        toFactor:
+          type: integer
+          format: int64
+          description: '"To" Factor from Currency Ratio'
+      title: CurrencyRatioDetailsDto
+      description: CurrencyRatioDetailsDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    CurrencyRatioBatchResponseDto:
+      type: object
+      properties:
+        currencyRatioDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyRatioDetails'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: CurrencyRatioBatchResponseDto
+      description: CurrencyRatioBatchResponseDto description
+    CurrencyRatioDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        currencyRatioDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyRatioDetails'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Code" from Company setup screen'
+      title: CurrencyRatioDetailsList
+      description: CurrencyRatioDetailsList description
+    CurrencyRatioDetailsDto_2:
+      type: object
+      required:
+      - exchangeRate
+      - fromCurrencyCode
+      - toCurrencyCode
+      properties:
+        exchangeRate:
+          type: number
+          example: 32.9
+          description: '"Exchange Rate" from Currency Ratio.'
+        fromCurrencyCode:
+          type: string
+          example: USD
+          description: '"From Currency" Code from Currency Ratio.'
+        fromFactor:
+          type: integer
+          format: int64
+          description: '"From" Factor from Currency Ratio.'
+        toCurrencyCode:
+          type: string
+          example: EUR
+          description: '"To Currency" Code from Currency Ratio.'
+        toFactor:
+          type: integer
+          format: int64
+          description: '"To" Factor from Currency Ratio.'
+      title: CurrencyRatioDetailsDto
+      description: CurrencyRatioDetailsDto description
+    CurrencyRatioDetailsList_2:
+      type: object
+      required:
+      - locationCode
+      properties:
+        currencyRatioDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrencyRatioDetails'
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+      title: CurrencyRatioDetailsList
+      description: CurrencyRatioDetailsList description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

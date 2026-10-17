@@ -1,0 +1,1182 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Location Product Pricing…
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Location Product Pricing Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Location Product Pricing Service
+paths:
+  /cruise/locationproductpricing/v1/getAllLocationProductPricing:
+    get:
+      tags:
+      - Location Product Pricing Service
+      summary: getAllLocationProductPricing
+      description: Retrieve all product pricing by location.
+      operationId: getAllLocationProductPricingV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location product record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationProductPricingDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationProductPricingDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: location product pricing not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/locationproductpricing/v1/getLocationProductPricingByPage:
+    get:
+      tags:
+      - Location Product Pricing Service
+      summary: getLocationProductPricingByPage
+      description: Retrieve product pricing for a specific location.
+      operationId: getLocationProductPricingByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location product record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LocationProductPricingBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationProductPricingBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: location product pricing not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/locationproductpricing/v1/saveLocationProductPricing:
+    post:
+      tags:
+      - Location Product Pricing Service
+      summary: saveLocationProductPricing
+      description: 'Create a new product''s price in a specific location.
+
+        Update a product''s price in a specific location.'
+      operationId: saveLocationProductPricingUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationProductPricingDetailsList'
+        description: locationProductPricingDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /locationproductpricing/v1/getAllLocationProductPricing:
+    get:
+      tags:
+      - Location Product Pricing Service
+      summary: getAllLocationProductPricing
+      description: Retrieve all product pricing by location.
+      operationId: getLocationproductpricingV1GetAllLocationProductPricing
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location product record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationProductPricingDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationProductPricingDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: location product pricing not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllLocationProductPricingV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /locationproductpricing/v1/getLocationProductPricingByPage:
+    get:
+      tags:
+      - Location Product Pricing Service
+      summary: getLocationProductPricingByPage
+      description: Retrieve product pricing for a specific location.
+      operationId: getLocationproductpricingV1GetLocationProductPricingByPage
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a location product record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LocationProductPricingBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationProductPricingBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: location product pricing not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getLocationProductPricingByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /locationproductpricing/v1/saveLocationProductPricing:
+    post:
+      tags:
+      - Location Product Pricing Service
+      summary: saveLocationProductPricing
+      description: 'Create a new product''s price in a specific location.
+
+        Update a product''s price in a specific location.'
+      operationId: postLocationproductpricingV1SaveLocationProductPricing
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationProductPricingDetailsList'
+        description: locationProductPricingDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveLocationProductPricingUsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    LocationProductPricingBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        locationProductPricingDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationProductPricingDetails'
+        totalPages:
+          type: integer
+          format: int32
+      title: LocationProductPricingBatchResponseDto
+      description: LocationProductPricingBatchResponseDto description
+    LocationProductPricingDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+        locationProductPricingDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationProductPricingDetails'
+      title: LocationProductPricingDetailsList
+      description: LocationProductPricingDetailsList description
+    LocationProductPricingDetails:
+      type: object
+      properties:
+        locationProductPricingAutoTransferDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationProductPricingAutoTransferDetailRow'
+        locationProductPricingSeqStorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationProductPricingDetailsDto'
+        locationProductPricingUnitsDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationProductPricingUnitsDetailDto'
+      title: LocationProductPricingDetails
+      description: LocationProductPricingDetails description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    LocationProductPricingDetailsDto:
+      type: object
+      required:
+      - locationCode
+      - lastTouchDate
+      - productNumber
+      properties:
+        locationCode:
+          type: string
+          example: '000'
+          description: '"locationCode" from Location Product Pricing'
+        primaryFlag:
+          type: string
+          example: Y
+          description: '"primaryFlag" from Location Product Pricing'
+        productNumber:
+          type: string
+          example: Gallop55concept
+          description: '"productNumber" from Location Product Pricing'
+        sequenceActiveFlag:
+          type: string
+          example: Y
+          description: '"sequenceActiveFlag" from Location Product Pricing'
+        sequenceNumber:
+          type: integer
+          format: int64
+          example: 41
+          description: '"sequenceNumber" from Location Product Pricing'
+        storage:
+          type: string
+          example: BAR
+          description: '"storage" from Location Product Pricing'
+        storageActiveFlag:
+          type: string
+          example: Y
+          description: '"storageActiveFlag" from Location Product Pricing'
+        lastTouchDate:
+          type: string
+          example: 02/17/2025 10:00:03
+          description: '"lastTouchDate" from Location Product Pricing'
+      title: LocationProductPricingDetailsDto
+      description: LocationProductPricingDetailsDto description
+    LocationProductPricingAutoTransferDetailRow:
+      type: object
+      required:
+      - autoTransferFlag
+      - lastTouchDate
+      - locationCode
+      - productNumber
+      properties:
+        autoTransferFlag:
+          type: string
+          example: Y
+          description: '"autoTransferFlag" from Location Product Pricing'
+        locationCode:
+          type: string
+          example: '000'
+          description: '"locationCode" from Location Product Pricing'
+        productNumber:
+          type: string
+          example: Gallop55concept
+          description: '"productNumber" from Location Product Pricing'
+        sourceLocation:
+          type: string
+          example: '000011'
+          description: '"sourceLocation" from Location Product Pricing'
+        lastTouchDate:
+          type: string
+          example: 02/17/2025 10:00:03
+          description: '"lastTouchDate" from Location Product Pricing'
+      title: LocationProductPricingAutoTransferDetailRow
+      description: LocationProductPricingAutoTransferDetailRow description
+    LocationProductPricingUnitsDetailDto:
+      type: object
+      required:
+      - altUnitOneConversion
+      - altUnitThreeConversion
+      - altUnitTwoConversion
+      - lastTouchDate
+      - locationCode
+      - productNumber
+      properties:
+        allowSplitFlag:
+          type: string
+          example: N
+          description: '"allowSplitFlag" from Location Product Pricing'
+        altUnitOneAltUnit:
+          type: string
+          example: CAN 13OZ
+          description: '"altUnitOneAltUnit" from Location Product Pricing'
+        altUnitOneConversion:
+          type: number
+          example: 2.561538
+          description: '"altUnitOneConversion" from Location Product Pricing'
+        altUnitThreeAltUnit:
+          type: string
+          example: QT
+          description: '"altUnitThreeAltUnit" from Location Product Pricing'
+        altUnitThreeConversion:
+          type: number
+          example: 0.6213
+          description: '"altUnitThreeConversion" from Location Product Pricing'
+        altUnitTwoAltUnit:
+          type: string
+          example: B-4 4TH PAN
+          description: '"altUnitOneAltUnit" from Location Product Pricing'
+        altUnitTwoConversion:
+          type: number
+          example: 0.32813
+          description: '"altUnitTwoConversion" from Location Product Pricing'
+        alternatePrimaryFlag:
+          type: string
+          example: Y
+          description: '"alternatePrimaryFlag" from Location Product Pricing'
+        alternatePrimaryOnly:
+          type: string
+          example: N
+          description: '"alternatePrimaryOnly" from Location Product Pricing'
+        custOrderPricPreferred:
+          type: number
+          example: 1
+          description: '"custOrderPricPreferred" from Location Product Pricing'
+        custOrderPricPremium:
+          type: number
+          example: 1
+          description: '"custOrderPricPremium" from Location Product Pricing'
+        custOrderPricStandard:
+          type: number
+          example: 1
+          description: '"custOrderPricStandard" from Location Product Pricing'
+        inventory:
+          type: number
+          example: 2.2444
+          description: '"inventory" from Location Product Pricing'
+        issue:
+          type: number
+          example: 0.40702816
+          description: '"issue" from Location Product Pricing'
+        locTransferFlag:
+          type: string
+          example: Y
+          description: '"locTransferFlag" from Location Product Pricing'
+        locationCode:
+          type: string
+          example: '000'
+          description: '"locationCode" from Location Product Pricing'
+        markupMarket:
+          type: number
+          example: 9999.99
+          description: '"markupMarket" from Location Product Pricing'
+        maxPar:
+          type: number
+          example: 1
+          description: '"maxPar" from Location Product Pricing'
+        minDaysOnHand:
+          type: number
+          example: 99.99
+          description: '"minDaysOnHand" from Location Product Pricing'
+        minPar:
+          type: number
+          example: 1
+          description: '"minPar" from Location Product Pricing'
+        productNumber:
+          type: string
+          example: Gallop55concept
+          description: '"productNumber" from Location Product Pricing'
+        reOrderCoFlag:
+          type: string
+          example: N
+          description: '"reOrderCoFlag" from Location Product Pricing'
+        reOrderVoFlag:
+          type: string
+          example: Y
+          description: '"reOrderVoFlag" from Location Product Pricing'
+        splitOnlyFlag:
+          type: string
+          example: Y
+          description: '"splitOnlyFlag" from Location Product Pricing'
+        theoreticalEqualsActualFlag:
+          type: string
+          example: N
+          description: '"theoreticalEqualsActualFlag" from Location Product Pricing'
+        lastTouchDate:
+          type: string
+          example: 02/17/2025 10:00:03
+          description: '"lastTouchDate" from Location Product Pricing'
+      title: LocationProductPricingUnitsDetailDto
+      description: LocationProductPricingUnitsDetailDto description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

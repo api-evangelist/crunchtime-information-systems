@@ -1,0 +1,979 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Projected Consumption…
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Projected Consumption Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Projected Consumption Service
+  description: The Projected Consumption service is used to get Consumption data that has been systematically calculated based on a Location's Suggested Order configuration, or post Projected Consumption, overriding the system calculated value. Projected Consumption data is used to help a location choose how much to purchase from a vendor or how much to prep for the day.
+paths:
+  /cruise/projectedconsumption/v1/getAllProjectedConsumption:
+    get:
+      tags:
+      - Projected Consumption Service
+      summary: getAllProjectedConsumption
+      description: Retrieve the details of all projected consumption entries.
+      operationId: getAllProjectedConsumptionV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: projCnsDate
+        in: query
+        description: Projected consumption date to retrieve in format DD-MMM-YY.
+        required: true
+        example: 18-OCT-23
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectedConsumptionDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectedConsumptionDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: projected consumption not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/projectedconsumption/v1/getProjectedConsumptionByPage:
+    get:
+      tags:
+      - Projected Consumption Service
+      summary: getProjectedConsumptionByPage
+      description: Retrieve a projected consumption entry's details by page number.
+      operationId: getProjectedConsumptionByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: projCnsDate
+        in: query
+        description: Projected consumption date to retrieve in format DD-MMM-YY.
+        required: true
+        example: 18-OCT-23
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectedConsumptionBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectedConsumptionBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: projected consumption not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/projectedconsumption/v1/saveProjectedConsumption:
+    post:
+      tags:
+      - Projected Consumption Service
+      summary: saveProjectedConsumption
+      description: 'Create a new projected consumption entry.
+
+        Update a projected consumption entry''s details.'
+      operationId: saveProjectedConsumptionUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectedConsumptionDetailsList'
+        description: projectedConsumptionDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /projectedconsumption/v1/getAllProjectedConsumption:
+    get:
+      tags:
+      - Projected Consumption Service
+      summary: getAllProjectedConsumption
+      description: Retrieve the details of all projected consumption entries.
+      operationId: getProjectedconsumptionV1GetAllProjectedConsumption
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: projCnsDate
+        in: query
+        description: Projected consumption date to retrieve in format DD-MMM-YY.
+        required: true
+        example: 18-OCT-23
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectedConsumptionDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectedConsumptionDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: projected consumption not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllProjectedConsumptionV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /projectedconsumption/v1/getProjectedConsumptionByPage:
+    get:
+      tags:
+      - Projected Consumption Service
+      summary: getProjectedConsumptionByPage
+      description: Retrieve a projected consumption entry's details by page number.
+      operationId: getProjectedconsumptionV1GetProjectedConsumptionByPage
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: projCnsDate
+        in: query
+        description: Projected consumption date to retrieve in format DD-MMM-YY.
+        required: true
+        example: 18-OCT-23
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectedConsumptionBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectedConsumptionBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: projected consumption not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getProjectedConsumptionByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /projectedconsumption/v1/saveProjectedConsumption:
+    post:
+      tags:
+      - Projected Consumption Service
+      summary: saveProjectedConsumption
+      description: 'Create a new projected consumption entry.
+
+        Update a projected consumption entry''s details.'
+      operationId: postProjectedconsumptionV1SaveProjectedConsumption
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectedConsumptionDetailsList'
+        description: projectedConsumptionDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveProjectedConsumptionUsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    ProjectedConsumptionDetails:
+      type: object
+      properties:
+        projectedConsumptionDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectedConsumptionDetailsDto'
+        projectedConsumptionHeaderDetails:
+          $ref: '#/components/schemas/ProjectedConsumptionHeaderDto'
+      title: ProjectedConsumptionDetails
+      description: ProjectedConsumptionDetails description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    ProjectedConsumptionBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        projectedConsumptionDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectedConsumptionDetails'
+        totalPages:
+          type: integer
+          format: int32
+      title: ProjectedConsumptionBatchResponseDto
+      description: ProjectedConsumptionBatchResponseDto description
+    ProjectedConsumptionDetailsDto:
+      type: object
+      required:
+      - productNumber
+      - projCnsQty
+      properties:
+        productNumber:
+          type: string
+          example: R-001
+          description: '"productNumber" from projected consumption'
+        projCnsQty:
+          type: number
+          example: 99999999.9999
+          description: '"projCnsQty" from projected consumption'
+      title: ProjectedConsumptionDetailsDto
+      description: ProjectedConsumptionDetailsDto description
+    ProjectedConsumptionHeaderDto:
+      type: object
+      required:
+      - locationCode
+      - projCnsDate
+      properties:
+        locationCode:
+          type: string
+          example: '000122'
+          description: '"locationCode" from projected consumption'
+        projCnsDate:
+          type: string
+          example: MM/dd/yyyy
+          description: '"projCnsDate" from projected consumption'
+      title: ProjectedConsumptionHeaderDto
+      description: ProjectedConsumptionHeaderDto description
+    ProjectedConsumptionDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000122'
+          description: The Code that identifies the Location in Crunchtime.
+        projectedConsumptionDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectedConsumptionDetails'
+      title: ProjectedConsumptionDetailsList
+      description: ProjectedConsumptionDetailsList description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

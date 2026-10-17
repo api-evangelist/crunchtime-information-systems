@@ -1,0 +1,1156 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Customer Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Customer Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Customer Service
+  description: The Customer Service can be used to create a “Customer” that is an establishment or outlet to which a Crunchtime Location sells or distributes products and/or produced Recipe items. It may be an outlet within the Location or an entirely external entity, e.g. a “catering” Customer. “Customer” records are required to “issue” items to these entities via “Customer Order” transactions.
+paths:
+  /cruise/customer/v1/getAllCustomers:
+    get:
+      tags:
+      - Customer Service
+      summary: getAllCustomers
+      description: 'Retrieve a list of customer account details.
+
+        Retrieve one customer''s account details using `customerAccountNumber` and `customerCode`.'
+      operationId: getAllCustomerRecordsV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Customers.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: customerAccountNumber
+        in: query
+        description: The Account Number associated with the Customer.
+        required: false
+        schema:
+          type: string
+      - name: customerCode
+        in: query
+        description: The Code that identifies the Customer in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDetailsRes'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDetailsRes'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customers not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/customer/v1/getCustomersByPage:
+    get:
+      tags:
+      - Customer Service
+      summary: getCustomersByPage
+      description: 'Retrieve customer account details by `pageNumber`.
+
+        Use to retrieve data in smaller chunks.'
+      operationId: getCustomerRecordsByPageV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Customers.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: customerAccountNumber
+        in: query
+        description: The Account Number associated with the Customer.
+        required: false
+        schema:
+          type: string
+      - name: customerCode
+        in: query
+        description: The Code that identifies the Customer in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customers not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/customer/v1/saveCustomers:
+    post:
+      tags:
+      - Customer Service
+      summary: saveCustomers
+      description: 'Create a new customer account.
+
+        Update a customer''s account details.'
+      operationId: saveCustomerRecordsUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDetailsList'
+        description: customerDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /customer/v1/getAllCustomers:
+    get:
+      tags:
+      - Customer Service
+      summary: getAllCustomers
+      description: 'Retrieve a list of customer account details.
+
+        Retrieve one customer''s account details using `customerAccountNumber` and `customerCode`.'
+      operationId: getCustomerV1GetAllCustomers
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Customers.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: customerAccountNumber
+        in: query
+        description: The Account Number associated with the Customer.
+        required: false
+        schema:
+          type: string
+      - name: customerCode
+        in: query
+        description: The Code that identifies the Customer in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDetailsRes'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerDetailsRes'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customers not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllCustomerRecordsV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /customer/v1/getCustomersByPage:
+    get:
+      tags:
+      - Customer Service
+      summary: getCustomersByPage
+      description: 'Retrieve customer account details by `pageNumber`.
+
+        Use to retrieve data in smaller chunks.'
+      operationId: getCustomerV1GetCustomersByPage
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Customers.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: customerAccountNumber
+        in: query
+        description: The Account Number associated with the Customer.
+        required: false
+        schema:
+          type: string
+      - name: customerCode
+        in: query
+        description: The Code that identifies the Customer in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customers not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getCustomerRecordsByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /customer/v1/saveCustomers:
+    post:
+      tags:
+      - Customer Service
+      summary: saveCustomers
+      description: 'Create a new customer account.
+
+        Update a customer''s account details.'
+      operationId: postCustomerV1SaveCustomers
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDetailsList'
+        description: customerDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveCustomerRecordsUsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    CustomerDetailsDtoReq:
+      type: object
+      required:
+      - address1
+      - city
+      - country
+      - customerCode
+      - customerName
+      - locationCode
+      - supplyPricing
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"activeFlag" from Customer'
+        address1:
+          type: string
+          example: 100 Main Street1
+          description: '"address1" from Customer'
+        address2:
+          type: string
+          example: 100 Main Street2
+          description: '"address2" from Customer'
+        city:
+          type: string
+          example: BOSTON
+          description: '"city" from Customer'
+        country:
+          type: string
+          example: USA
+          description: '"country" from Customer'
+        customerAccountNumber:
+          type: string
+          example: 860 536-4589 428
+          description: '"customerAccountNumber" from Customer'
+        customerCode:
+          type: string
+          example: 030292
+          description: '"customerCode" from Customer'
+        customerName:
+          type: string
+          example: Melissa's Vendor
+          description: '"customerName" from Customer'
+        deleteFlag:
+          type: string
+          example: Y
+          description: '"deleteFlag" from Customer'
+        exportCode:
+          type: string
+          example: EXP1
+          description: '"exportCode" from Customer'
+        importCode:
+          type: string
+          example: new_imp_code1
+          description: '"importCode" from Customer'
+        locationCode:
+          type: string
+          example: 123456
+          description: '"locationCode" from Customer'
+        retailPricing:
+          type: string
+          example: STAN
+          description: '"retailPricing" from Customer'
+        state:
+          type: string
+          example: IN
+          description: '"state" from Customer'
+        supplyPricing:
+          type: string
+          example: COST PLUS
+          description: '"supplyPricing" from Customer'
+        zipcode:
+          type: string
+          example: '02114'
+          description: '"zipcode" from Customer'
+      title: CustomerDetailsDtoReq
+      description: CustomerDetailsDto description
+    CustomerDetailsDtoRes:
+      type: object
+      required:
+      - address1
+      - city
+      - country
+      - customerCode
+      - customerName
+      - locationCode
+      - supplyPricing
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"activeFlag" from Customer'
+        address1:
+          type: string
+          example: 100 Main Street1
+          description: '"address1" from Customer'
+        address2:
+          type: string
+          example: 100 Main Street2
+          description: '"address2" from Customer'
+        city:
+          type: string
+          example: BOSTON
+          description: '"city" from Customer'
+        country:
+          type: string
+          example: USA
+          description: '"country" from Customer'
+        customerAccountNumber:
+          type: string
+          example: 860 536-4589 428
+          description: '"customerAccountNumber" from Customer'
+        customerCode:
+          type: string
+          example: 030292
+          description: '"customerCode" from Customer'
+        customerName:
+          type: string
+          example: Melissa's Vendor
+          description: '"customerName" from Customer'
+        exportCode:
+          type: string
+          example: EXP1
+          description: '"exportCode" from Customer'
+        importCode:
+          type: string
+          example: new_imp_code1
+          description: '"importCode" from Customer'
+        locationCode:
+          type: string
+          example: 123456
+          description: '"locationCode" from Customer'
+        retailPricing:
+          type: string
+          example: STAN
+          description: '"retailPricing" from Customer'
+        state:
+          type: string
+          example: IN
+          description: '"state" from Customer'
+        supplyPricing:
+          type: string
+          example: COST PLUS
+          description: '"supplyPricing" from Customer'
+        zipcode:
+          type: string
+          example: '02114'
+          description: '"zipcode" from Customer'
+      title: CustomerDetailsDtoRes
+      description: CustomerDetailsDto description
+    CustomerBatchResponseDto:
+      type: object
+      properties:
+        customerDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerDetailsRes'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: CustomerBatchResponseDto
+      description: CustomerBatchResponseDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    CustomerDetailsReq:
+      type: object
+      properties:
+        customerDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerDetailsDtoReq'
+      title: CustomerDetailsReq
+      description: CustomerDetails description
+    CustomerDetailsRes:
+      type: object
+      properties:
+        customerDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerDetailsDtoRes'
+      title: CustomerDetailsRes
+      description: CustomerDetails description
+    CustomerDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        customerDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerDetailsReq'
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+      title: CustomerDetailsList
+      description: CustomerDetailsList description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

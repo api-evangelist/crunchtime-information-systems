@@ -1,0 +1,1028 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Pbi Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Pbi Service
+  description: The Purchase by Invoice Service is used to create and retrieve purchasing data that is not directly associated with products. Typically this Service is used to record expenses for services, like monthly cleaning charges, or other fixed fees like utilities.
+paths:
+  /pbi/v2/getAllPbis:
+    get:
+      tags:
+      - Pbi Service
+      summary: getAllPbisV2
+      description: Retrieve a list of all >s.
+      operationId: getAllPbisV2UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: invoiceDate
+        in: query
+        description: Invoice Date to retrieve in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: invoiceNumber
+        in: query
+        description: Invoice number to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PbiDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PbiDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: pbi not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /pbi/v2/getAttachmentsByPage:
+    get:
+      tags:
+      - Pbi Service
+      summary: getAttachmentsByPageV2
+      description: Retrieves purchase by invoice records with the accompanying information (by page).
+      operationId: getAttachmentsByPageV2
+      parameters:
+      - name: locationCode
+        in: query
+        description: Code for the Location to retrieve. Required if minutesSinceUpdate or one of vendorCode, or vendorInvoiceNumber is not provided.
+        required: false
+        example: DT-777
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: Code for the Vendor to retrieve. Required if minutesSinceUpdate or one of locationCode or vendorInvoiceNumber is not provided.
+        required: false
+        example: DARLIN
+        schema:
+          type: string
+      - name: vendorInvoiceNumber
+        in: query
+        description: Vendor Invoice Number to retrieve. Required if minutesSinceUpdate or one of locationCode or vendorCode is not provided.
+        required: false
+        example: TEST1
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since the file was uploaded. Use to set how far back to search. Required if one of locationCode, vendorInvoiceNumber, or vendorCode is not provided.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        description: Specifies the field to sort the attachments by. Default field 'fileName' (optional).
+        required: false
+        example: fileName
+        schema:
+          type: string
+          enum:
+          - fileName
+          - fileDescription
+          - fileSize
+          - uploadDate
+          - vendorInvoiceNumber
+      - name: sortOrder
+        in: query
+        description: Specifies record sort order  in ascending (ASC) or descending (DESC) direction, Default ASC.(Optional).
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        example: 1
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: traceabilityCode
+        in: query
+        description: Retrieve orders where the Traceability Code in the details matches the value provided (optional).
+        required: false
+        example: BFCA179A152023213
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to include null data elements in the output.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PbiAttachmentBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PbiAttachmentBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: pbi attachments not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /pbi/v2/getPbisByPage:
+    get:
+      tags:
+      - Pbi Service
+      summary: getAllPbisByPageV2
+      description: Retrieve a list of all >s from a specific page.
+      operationId: getAllPbisByPageV2UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: invoiceDate
+        in: query
+        description: Invoice Date to retrieve in format DD-MMM-YY.
+        required: true
+        schema:
+          type: string
+      - name: invoiceNumber
+        in: query
+        description: Invoice number to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PbiBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PbiBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: pbi not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /pbi/v2/savePbi:
+    post:
+      tags:
+      - Pbi Service
+      summary: savePbiV2
+      description: 'Create a new >.
+
+        Update one or more >s.'
+      operationId: savePbiV2UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PbiDetailsList'
+        description: pbiDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    PbiHeaderDto:
+      type: object
+      required:
+      - deliveryDate
+      - invoiceDate
+      - invoiceNumber
+      - invoiceTotal
+      - vendorCode
+      properties:
+        checkNumber:
+          type: string
+          example: '1701'
+          description: Check Number used to pay the invoice.
+        deliveryDate:
+          type: string
+          format: date
+          example: 12/14/2025
+          description: Date the product was delivered or service performed.
+        invoiceDate:
+          type: string
+          format: date
+          example: 12/14/2025
+          description: Date the vendor issued the invoice.
+        invoiceNumber:
+          type: string
+          example: '74205'
+          description: Invoice Number from the vendor's invoice.
+        invoiceTotal:
+          type: number
+          example: 15
+          description: Total value for the entire invoice.
+        locationCode:
+          type: string
+          example: '100122'
+          description: Code or Name for the Location. Must match an active Location in Enterprise Manager.
+        vendorCode:
+          type: string
+          example: '100700'
+          description: Must match a Location Export Code, Export Code, or Code for an active Vendor in Enterprise Manager.
+      title: PbiHeaderDto
+      description: PbiHeaderDto description
+    PbiDetailsGet:
+      type: object
+      properties:
+        pbiDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PbiDetailDto'
+        pbiHeaderDetails:
+          $ref: '#/components/schemas/PbiHeaderDtoGet'
+      title: PbiDetailsGet
+      description: PbiDetailsGet description
+    PbiHeaderDtoGet:
+      type: object
+      required:
+      - deliveryDate
+      - invoiceDate
+      - invoiceNumber
+      - invoiceTotal
+      - vendorCode
+      properties:
+        checkNumber:
+          type: string
+          example: '1701'
+          description: Check Number used to pay the invoice.
+        deliveryDate:
+          type: string
+          format: date
+          example: 12/14/2025
+          description: Date the product was delivered or service performed.
+        invoiceDate:
+          type: string
+          format: date
+          example: 12/14/2025
+          description: Date the vendor issued the invoice.
+        invoiceNumber:
+          type: string
+          example: '74656'
+          description: Invoice Number from the vendor's invoice.
+        invoiceTotal:
+          type: number
+          example: 15
+          description: Total value for the entire invoice.
+        locationCode:
+          type: string
+          example: '100122'
+          description: Code or Name for the Location. Must match an active Location in Enterprise Manager.
+        vendorCode:
+          type: string
+          example: '100700'
+          description: Must match a Location Export Code, Export Code, or Code for an active Vendor in Enterprise Manager.
+        transactionStatus:
+          type: integer
+          format: int32
+          example: '3'
+          description: 'Indicates the transaction status: 7 for Awaiting Reconcile, 3 for Reconciled, 4 for Cancelled, and 12 for Awaiting Allocation.'
+        postInventoryScheduledDate:
+          type: string
+          example: 12/14/2025
+          description: Post Date for Purchase by Invoice transaction
+        reconcileDate:
+          type: string
+          example: 12/14/2025
+          description: Date the invoice was reconciled
+      title: PbiHeaderDtoGet
+      description: PbiHeaderDtoGet description
+    PbiDetailDto:
+      type: object
+      required:
+      - category
+      - detailAmount
+      - microcategory
+      - subcategory
+      properties:
+        category:
+          type: string
+          example: NON-FOOD
+          description: Must match an existing Category in Enterprise Manager.
+        detailAmount:
+          type: number
+          example: 15
+          description: Total value of this item row.
+        detailMemo:
+          type: string
+          example: Purchased Cleaning Supplies
+          description: Description of the product delivered or service performed.
+        glNumber:
+          type: string
+          example: 704701
+          description: Must match an existing GL Number in Enterprise Manager.
+        microcategory:
+          type: string
+          example: PAPER TOWELS
+          description: Must match an existing Microcategory in Enterprise Manager.  Required if “Link GL to” Preference is “Microcategory”
+        subcategory:
+          type: string
+          example: PAPER GOODS
+          description: Must match an existing Subcategory in Enterprise Manager.  Required if “Link GL to” Preference is “Subcategory” or “Microcategory”
+      title: PbiDetailDto
+      description: PbiDetailDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    PbiAttachmentDto:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          description: Location Code of the attachment file.
+          example: LOC123
+        fileName:
+          type: string
+          description: File name associated with the attachment.
+          example: IMG_6717.JPG
+        fileDescription:
+          type: string
+          description: File description associated with the attachment.
+          example: Delivery photo
+        fileSize:
+          type: integer
+          format: int64
+          description: File Size of the attachment file (in KB).
+          example: 20
+        fileUrl:
+          type: string
+          description: Downloadable file url starts with https://download.net-chef.com/. This url expires 5 minutes after it is generated; call the endpoint again to generate a new link if the file still needs to be downloaded. Only one of fileContent or fileUrl will be populated in the response.
+          example: https://download.net-chef.com/attachment
+        fileContent:
+          type: string
+          format: byte
+          description: Base64 encoded data representing binary byte file. Only one of fileContent or fileUrl will be populated in the response.
+        vendorInvoiceNumber:
+          type: string
+          description: Vendor Invoice/Reference Number.
+          example: 91
+        vendorCode:
+          type: string
+          description: Vendor or customer code associated with the attachment.
+          example: KATSIR
+        locationExportCode:
+          type: string
+          description: Location export code associated with the attachment.
+          example: 0409
+        vendorExportCode:
+          type: string
+          description: Vendor export code associated with the attachment.
+          example: VREIN15
+        uploadDate:
+          type: string
+          description: Date the attachment file was uploaded.
+          example: 05/25/2021 08:11:18
+      title: PbiAttachmentDto
+      description: PbiAttachmentDto description
+    PbiBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        pbiDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PbiDetailsGet'
+        totalPages:
+          type: integer
+          format: int32
+      title: PbiBatchResponseDto
+      description: PbiBatchResponseDto description
+    PbiDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000122'
+          description: The Code that identifies the Location in Crunchtime.
+        pbiDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PbiDetails'
+      title: PbiDetailsList
+      description: PbiDetailsList description
+    PbiDetails:
+      type: object
+      properties:
+        pbiDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PbiDetailDto'
+        pbiHeaderDetails:
+          $ref: '#/components/schemas/PbiHeaderDto'
+      title: PbiDetails
+      description: PbiDetails description
+    PbiAttachmentBatchResponseDto:
+      type: object
+      description: PbiAttachmentBatchResponseDto description
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        hasNext:
+          type: boolean
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PbiAttachmentDto'
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

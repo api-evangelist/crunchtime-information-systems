@@ -1,0 +1,1457 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Vendor Location Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Vendor Location Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Vendor Location Service
+  description: The Vendor Location Service enables for quick setup of vendor locations for companies with large amounts of locationspecific information per vendor, such as payment terms, order minimums, email addresses, etc.
+paths:
+  /cruise/vendorlocation/v1/getAllVendorLocation:
+    get:
+      tags:
+      - Vendor Location Service
+      summary: getAllVendorLocation
+      description: Retrieve vendor location details.
+      operationId: getAllVendorLocationV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Retrieve active vendors (Y/N) - optional.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all details (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: 'The Code that identifies the Location in Crunchtime. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: 'Vendor code. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VendorLocationDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VendorLocationDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Vendor Location Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/vendorlocation/v1/getVendorLocationByPage:
+    get:
+      tags:
+      - Vendor Location Service
+      summary: getVendorLocationByPage
+      description: Retrieve vendor location details by page number.
+      operationId: getVendorLocationByPageV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Retrieve active vendors (Y/N) - optional.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all details (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: 'The Code that identifies the Location in Crunchtime. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: 'Vendor code. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VendorLocationBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorLocationBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Vendor Location Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/vendorlocation/v1/saveVendorLocation:
+    post:
+      tags:
+      - Vendor Location Service
+      summary: saveVendorLocation
+      description: 'Create a new vendor location entry.
+
+        Update a vendor''s location details.'
+      operationId: saveVendorLocationV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorLocationDetailsList'
+        description: vendorLocationDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /vendorlocation/v1/getAllVendorLocation:
+    get:
+      tags:
+      - Vendor Location Service
+      summary: getAllVendorLocation
+      description: Retrieve vendor location details.
+      operationId: getVendorlocationV1GetAllVendorLocation
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Retrieve active vendors (Y/N) - optional.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all details (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: 'The Code that identifies the Location in Crunchtime. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: 'Vendor code. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VendorLocationDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VendorLocationDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Vendor Location Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllVendorLocationV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /vendorlocation/v1/getVendorLocationByPage:
+    get:
+      tags:
+      - Vendor Location Service
+      summary: getVendorLocationByPage
+      description: Retrieve vendor location details by page number.
+      operationId: getVendorlocationV1GetVendorLocationByPage
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Retrieve active vendors (Y/N) - optional.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Retrieve all details (optional).
+        required: false
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: 'The Code that identifies the Location in Crunchtime. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: 'Vendor code. (A request requires at least one of the following: vendorCode or locationCode.)'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VendorLocationBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorLocationBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Vendor Location Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getVendorLocationByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /vendorlocation/v1/saveVendorLocation:
+    post:
+      tags:
+      - Vendor Location Service
+      summary: saveVendorLocation
+      description: 'Create a new vendor location entry.
+
+        Update a vendor''s location details.'
+      operationId: postVendorlocationV1SaveVendorLocation
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorLocationDetailsList'
+        description: vendorLocationDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveVendorLocationV1UsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    VendorLocationDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000122'
+          description: '"locationCode"'
+        vendorLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorLocationDetails'
+      title: VendorLocationDetailsList
+      description: VendorLocationDetailsList description
+    VendorLocationDetails:
+      type: object
+      properties:
+        scheduleOverrideRowList:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorLocationScheduleOverrideDetails'
+        vendorLocationHeaderDetails:
+          $ref: '#/components/schemas/VendorLocationHeaderDto'
+        vendorLocationOtherDetail:
+          $ref: '#/components/schemas/VendorLocationOtherDetailsDto'
+        vendorLocationScheduleDetail:
+          $ref: '#/components/schemas/VendorLocationScheduleDetailDto'
+        vendorLocationTransmissionDetail:
+          $ref: '#/components/schemas/VendorLocationTransmissionDetailDto'
+      title: VendorLocationDetails
+      description: VendorLocationDetails description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    VendorLocationTransmissionDetailDto:
+      type: object
+      required:
+      - locationCode
+      - vendorCode
+      properties:
+        accountNumber:
+          type: string
+          example: 1234567890
+          description: '"Account Number" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        accrualFlag:
+          type: string
+          example: Y
+          description: '"Accrual" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        allowSimpleReceiptFlag:
+          type: string
+          example: Y
+          description: '"Allow SR" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        autoReconcileEinvoiceFlag:
+          type: string
+          example: Y
+          description: '"Auto-Reconcile" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        allowVOFlag:
+          type: string
+          example: Y
+          description: '"Allow VO" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        codFlag:
+          type: string
+          example: Y
+          description: '"COD" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        electronicInvoiceFlag:
+          type: string
+          example: Y
+          description: '"E.Invoice" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        enforceMinimums:
+          type: string
+          example: Y
+          description: '"Enforce Minimums" flag from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        locationCode:
+          type: string
+          example: '000122'
+          description: Location "Code" from Company setup screen.
+        minimumCases:
+          type: string
+          example: 10
+          description: '"Min. # of Cases" from Vendor Location Details.'
+        minimumValue:
+          type: string
+          example: 500
+          description: '"Min. Value" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderAlert:
+          type: string
+          example: High Priority
+          description: '"Order Alert" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderVendorUnitofMeasure:
+          type: string
+          example: Unit1
+          description: '"Order V. OUM" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        referenceNumber:
+          type: string
+          example: REF-001
+          description: '"Reference Number" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        userName:
+          type: string
+          example: john_doe
+          description: '"User Name" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        userPassword:
+          type: string
+          example: P@ssw0rd
+          description: '"Password" from Vendor Location Details. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        vendorCode:
+          type: string
+          example: 122
+          description: Vendor "Code" from Vendors setup screen.
+        voEMail:
+          type: string
+          example: example@example.com
+          description: '"VO Email". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        voFax:
+          type: string
+          example: '+1234567890'
+          description: '"VO Fax". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        voMode:
+          type: string
+          example: E-Mail PDF
+          description: '"VO Mode" If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - E-Mail Excel
+          - E-Mail PDF
+          - E-Mail PDF - Custom
+          - E-Mail Text
+          - FTP
+          - Fax
+          - Phone
+          - Secure FTP
+          - Web Services
+      title: VendorLocationTransmissionDetailDto
+      description: VendorLocationTransmissionDetailDto description
+    VendorLocationHeaderDto:
+      type: object
+      required:
+      - locationCode
+      - vendorCode
+      properties:
+        active:
+          type: string
+          example: Y
+          description: '"active"'
+          enum:
+          - N
+          - Y
+        childID:
+          type: string
+          example: '001'
+          description: Child ID. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.
+        deleteFlag:
+          type: string
+          example: Y
+          description: Delete flag
+          enum:
+          - N
+          - Y
+        exportCode:
+          type: string
+          example: EXP001
+          description: Export code. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.
+        locationCode:
+          type: string
+          example: '000122'
+          description: '"locationCode" from Company setup screen'
+        tradingPartnerID:
+          type: string
+          example: '001'
+          description: Trading partner ID. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.
+        vendorCode:
+          type: string
+          example: 122
+          description: '"vendorCode" from Vendors screen'
+        vendorDistrictID:
+          type: string
+          example: '001'
+          description: Vendor district ID. If the field value is null, the previously saved value will remain. To erase it, please enter '#DELETE' value.
+      title: VendorLocationHeaderDto
+      description: VendorLocationHeaderDto description
+    VendorLocationScheduleDetailDto:
+      type: object
+      required:
+      - locationCode
+      - vendorCode
+      properties:
+        deliverDayFriday:
+          type: string
+          example: 1
+          description: '"deliverDayFriday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayMonday:
+          type: string
+          example: 1
+          description: '"deliverDayMonday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDaySaturday:
+          type: string
+          example: 1
+          description: '"deliverDaySaturday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDaySunday:
+          type: string
+          example: 1
+          description: '"deliverDaySunday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayThursday:
+          type: string
+          example: 1
+          description: '"deliverDayThursday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayTuesday:
+          type: string
+          example: 1
+          description: '"deliverDayTuesday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayWednesday:
+          type: string
+          example: 1
+          description: '"deliverDayWednesday" is delivery day for Wednesday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        locationCode:
+          type: string
+          example: '000122'
+          description: '"locationCode" from Company setup screen'
+        orderByTimeFriday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeFriday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeMonday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeMonday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeSaturday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeSaturday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeSunday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeSunday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeThursday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeThursday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeTuesday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeTuesday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeWednesday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeWednesday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderDayFridayFlag:
+          type: string
+          description: '"orderDayFridayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayMondayFlag:
+          type: string
+          description: '"orderDayMondayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDaySaturdayFlag:
+          type: string
+          description: '"orderDaySaturdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDaySundayFlag:
+          type: string
+          description: '"orderDaySundayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayThursdayFlag:
+          type: string
+          description: '"orderDayThursdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayTuesdayFlag:
+          type: string
+          description: '"orderDayTuesdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayWednesdayFlag:
+          type: string
+          description: '"orderDayWednesdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        vendorCode:
+          type: string
+          example: 122
+          description: '"vendorCode" from Vendors screen'
+      title: VendorLocationScheduleDetailDto
+      description: VendorLocationScheduleDetailDto description
+    VendorLocationScheduleOverrideDetails:
+      type: object
+      required:
+      - endDate
+      - locationCode
+      - name
+      - oldStartDate
+      - recordType
+      - startDate
+      - vendorCode
+      properties:
+        deliverDayFriday:
+          type: string
+          example: 1
+          description: '"deliverDayFriday" is delivery day for Friday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayMonday:
+          type: string
+          example: 1
+          description: '"deliverDayMonday" is delivery day for Monday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDaySaturday:
+          type: string
+          example: 1
+          description: '"deliverDaySaturday" is delivery day for Saturday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDaySunday:
+          type: string
+          example: 1
+          description: '"deliverDaySunday" is delivery day for Sunday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayThursday:
+          type: string
+          example: 1
+          description: '"deliverDayThursday" is delivery day for Sunday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayTuesday:
+          type: string
+          example: 1
+          description: '"deliverDayTuesday" is delivery day for Sunday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        deliverDayWednesday:
+          type: string
+          example: 1
+          description: '"deliverDayWednesday" is delivery day for Sunday. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        endDate:
+          type: string
+          example: 10/01/2018
+          description: '"endDate"  is Effective End Date. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        locationCode:
+          type: string
+          example: '000122'
+          description: '"locationCode" from Company setup screen'
+        name:
+          type: string
+          example: Christmas Day
+          description: '"name"'
+        note:
+          type: string
+          example: Description
+          description: '"note" is Description related to Override. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        oldStartDate:
+          type: string
+          example: 10/01/2018
+          description: '"oldStartDate" is Start Date existing Schedule Override (it''s necessary for determine an existing record).'
+        orderByTimeFriday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeFriday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeMonday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeMonday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeSaturday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeSaturday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeSunday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeSunday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeThursday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeThursday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeTuesday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeTuesday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderByTimeWednesday:
+          type: string
+          example: '15:10'
+          description: '"orderByTimeWednesday". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        orderDayFridayFlag:
+          type: string
+          description: '"orderDayFridayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayMondayFlag:
+          type: string
+          description: '"orderDayMondayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDaySaturdayFlag:
+          type: string
+          description: '"orderDaySaturdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDaySundayFlag:
+          type: string
+          description: '"orderDaySundayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayThursdayFlag:
+          type: string
+          description: '"orderDayThursdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayTuesdayFlag:
+          type: string
+          description: '"orderDayTuesdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        orderDayWednesdayFlag:
+          type: string
+          description: '"orderDayWednesdayFlag". If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+          enum:
+          - N
+          - Y
+        recordType:
+          type: string
+          example: A
+          description: '"recordType"'
+          enum:
+          - A/M/D
+        startDate:
+          type: string
+          example: 10/01/2018
+          description: '"startDate" is Effective Start Date'
+        vendorCode:
+          type: string
+          example: 122
+          description: '"vendorCode" from Vendors screen'
+      title: VendorLocationScheduleOverrideDetails
+      description: VendorLocationScheduleOverrideDetails description
+    VendorLocationBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        vendorLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorLocationDetails'
+      title: VendorLocationBatchResponseDto
+      description: VendorLocationBatchResponseDto description
+    VendorLocationOtherDetailsDto:
+      type: object
+      required:
+      - locationCode
+      - vendorCode
+      properties:
+        contactName:
+          type: string
+          example: Name
+          description: '"contactName" from Vendor Information screen. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        contactPhone:
+          type: string
+          example: 222-222-222
+          description: '"contactPhone" from Vendor Information screen. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        contactTitle:
+          type: string
+          example: Title
+          description: '"contactTitle" from Vendor Information screen. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        locationCode:
+          type: string
+          example: '000122'
+          description: '"locationCode" from Company setup screen'
+        message:
+          type: string
+          example: Message
+          description: '"message" from Vendor Information screen. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        notes:
+          type: string
+          example: Description
+          description: '"notes" from Vendor Information screen. If the field value is null, the previously saved value will remain. To erase it, please enter ''#DELETE'' value.'
+        vendorCode:
+          type: string
+          example: 122
+          description: '"vendorCode" from Vendors screen'
+      title: VendorLocationOtherDetailsDto
+      description: VendorLocationOtherDetailsDto description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

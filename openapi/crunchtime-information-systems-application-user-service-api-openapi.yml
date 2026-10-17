@@ -1,0 +1,1490 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Application User Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Application User Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Application User Service
+  description: The Application User service is used to create and retrieve user profiles where each user is assigned a unique User ID and password for logging in to Enterprise Manager, Net-Chef, or the Teamworx Manager Console. It links users to specific locations, hierarchies, customers and markets, and assigns each user to a user group, which determines which screens and tasks the user will be able to access in the applications.
+paths:
+  /cruise/applicationuser/v1/getAllApplicationUsers:
+    get:
+      tags:
+      - Application User Service
+      summary: getAllApplicationUsers
+      description: 'Retrieve a list of Application Users, with limited information (e.g. Active status and User Group assignment).
+
+        Retrieve this information about a single Application User, with additional details (e.g. User/Location(s), User/Market(s), etc.) by using the `userIdForDetails` and `includeDetails` fields.'
+      operationId: getAllApplicationUsersV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: 'Use `true` to limit retrieval to active Application Users.
+
+          Use `false` to limit retrieval to inactive Application Users.
+
+          Omit to retrieve all Application Users.'
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for a single Application User by using the user id as the `userIdForDetails` parameter value.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: 'Provide the `userId` for a specific Application User to limit retrieval of that Application User''s information.
+
+          Add `includeDetails = true` for complete Application User information.'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since an application user record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationUserDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationUserDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/applicationuser/v1/getApplicationUsersByPage:
+    get:
+      tags:
+      - Application User Service
+      summary: getApplicationUsersByPage
+      description: 'Retrieve a list of Application Users across multiple pages.
+
+        Include additional details (e.g. User/Locations(s), User/Market(s), etc.) for a single Application User or all Application Users by using the `includeDetails` parameter.
+
+        Default page size is 10 Application Users, including their details if `includeDetails` is `true`.'
+      operationId: getApplicationUsersByPageV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: 'Use `true` to limit retrieval to active Application Users.
+
+          Use `false` to limit retrieval of inactive Application Users.
+
+          Omit to retrieve all Application Users.'
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Application User.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: pageNumber
+        in: query
+        description: 'Provide the page number to retrieve Application Users on a particular page.
+
+          Default is 1 when no ''pageNumber'' value provided.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: 'Provide the `userId` for a specific Application User to limit retrieval of that Application User''s information.
+
+          Add `includeDetails = true` for complete Application User information.'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since an application user record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApplicationUserBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationUserBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/applicationuser/v1/saveApplicationUser:
+    post:
+      tags:
+      - Application User Service
+      summary: saveApplicationUser
+      description: 'Create a new application user.
+
+        Update an application user''s details.'
+      operationId: saveApplicationUsersV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationUserDetails'
+        description: Application user details.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApplicationUserDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationUserDetails'
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /applicationuser/v1/getAllApplicationUsers:
+    get:
+      tags:
+      - Application User Service
+      summary: getAllApplicationUsers
+      description: 'Retrieve a list of Application Users, with limited information (e.g. Active status and User Group assignment).
+
+        Retrieve this information about a single Application User, with additional details (e.g. User/Location(s), User/Market(s), etc.) by using the `userIdForDetails` and `includeDetails` fields.'
+      operationId: getApplicationuserV1GetAllApplicationUsers
+      parameters:
+      - name: activeFlag
+        in: query
+        description: 'Use `true` to limit retrieval to active Application Users.
+
+          Use `false` to limit retrieval to inactive Application Users.
+
+          Omit to retrieve all Application Users.'
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for a single Application User by using the user id as the `userIdForDetails` parameter value.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: 'Provide the `userId` for a specific Application User to limit retrieval of that Application User''s information.
+
+          Add `includeDetails = true` for complete Application User information.'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since an application user record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationUserDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicationUserDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllApplicationUsersV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /applicationuser/v1/getApplicationUsersByPage:
+    get:
+      tags:
+      - Application User Service
+      summary: getApplicationUsersByPage
+      description: 'Retrieve a list of Application Users across multiple pages.
+
+        Include additional details (e.g. User/Locations(s), User/Market(s), etc.) for a single Application User or all Application Users by using the `includeDetails` parameter.
+
+        Default page size is 10 Application Users, including their details if `includeDetails` is `true`.'
+      operationId: getApplicationuserV1GetApplicationUsersByPage
+      parameters:
+      - name: activeFlag
+        in: query
+        description: 'Use `true` to limit retrieval to active Application Users.
+
+          Use `false` to limit retrieval of inactive Application Users.
+
+          Omit to retrieve all Application Users.'
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Application User.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: pageNumber
+        in: query
+        description: 'Provide the page number to retrieve Application Users on a particular page.
+
+          Default is 1 when no ''pageNumber'' value provided.'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: userIdForDetails
+        in: query
+        description: 'Provide the `userId` for a specific Application User to limit retrieval of that Application User''s information.
+
+          Add `includeDetails = true` for complete Application User information.'
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since an application user record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApplicationUserBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationUserBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getApplicationUsersByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /applicationuser/v1/saveApplicationUser:
+    post:
+      tags:
+      - Application User Service
+      summary: saveApplicationUser
+      description: 'Create a new application user.
+
+        Update an application user''s details.'
+      operationId: postApplicationuserV1SaveApplicationUser
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationUserDetails'
+        description: Application user details.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApplicationUserDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationUserDetails'
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveApplicationUsersV1UsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    AppUserHierarchyDetailDto:
+      type: object
+      required:
+      - consolidatedDashboardFlag
+      - hierarchyType
+      - limitExportLocationsFlag
+      - locationCode
+      - logicalName
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Hierarchy record.'
+          enum:
+          - N
+          - Y
+        consolidatedDashboardFlag:
+          type: string
+          example: N
+          description: '"Consolidated Dashboard" flag from the application user Hierarchy details.'
+          enum:
+          - N
+          - Y
+        hierarchyType:
+          type: string
+          example: customer
+          description: '"hierarchy Type" from the application user Hierarchy details.'
+        limitExportLocationsFlag:
+          type: string
+          example: N
+          description: '"Limit Export Locations" flag from the application user Hierarchy details.'
+          enum:
+          - N
+          - Y
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Location" Code for the Hierarchy from the application user Hierarchy details.'
+        logicalName:
+          type: string
+          example: logicName
+          description: Parent "Logical Name" for the Hierarchy from the application user Hierarchy details.
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserHierarchyDetailDto
+      description: AppUserHierarchyDetailDto description
+    AppUserPasswordDetailDto:
+      type: object
+      required:
+      - password
+      - userId
+      properties:
+        password:
+          type: string
+          example: I@123
+          description: Password for the Crunchtime Application User.
+        userId:
+          type: string
+          example: 1233
+          description: '"User ID" from the application user details.'
+      title: AppUserPasswordDetailDto
+      description: AppUserPasswordDetailDto description
+    ApplicationUserBatchResponseDto:
+      type: object
+      properties:
+        applicationUserDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplicationUserDetailsGet'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: ApplicationUserBatchResponseDto
+    CdpError:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        fieldNumber:
+          type: integer
+          format: int32
+        lineNumber:
+          type: integer
+          format: int32
+        parentFileLineNumber:
+          type: integer
+          format: int32
+      title: CdpError
+    AppUserDailyAlertDetailDto:
+      type: object
+      required:
+      - emailFormat
+      - hierarchyType
+      - locationCode
+      - logicalName
+      - reportName
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Daily Alert record.'
+          enum:
+          - N
+          - Y
+        emailFormat:
+          type: string
+          example: user@crunchtime.com
+          description: '"E-mail Format" setting from the application user Daily Alert details. Must be ‘T’ (Text) or ‘I’ (Image).'
+        hierarchyType:
+          type: string
+          example: '001'
+          description: '"Hierarchy" Type from the application user Daily Alert details.'
+        locationCode:
+          type: string
+          example: '0000'
+          description: '"Location" Code for the Hierarchy from the application user Daily Alert details.'
+        logicalName:
+          type: string
+          example: crunchtime
+          description: Location "Logical Name" for the Hierarchy from the application user Daily Alert details.
+        reportName:
+          type: string
+          example: test
+          description: '"Report" name from the application user Daily Alert details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserDailyAlertDetailDto
+      description: AppUserDailyAlertDetailDto description
+    AppUserDepartmentDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - locationCode
+      - locationDepartment
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Department record.'
+        approvalAuthority:
+          type: string
+          example: Authority
+          description: '"Approval Authority" flag from the application user Department details.'
+        approvalLimit:
+          type: integer
+          format: int64
+          example: 112334212
+          description: '"Approval Limit" from the application user Department details.'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Location Code" for the Location associated with the Department, from the application user Department details.'
+        locationDepartment:
+          type: string
+          example: crunchtime
+          description: '"location Department" name from the application user Department details.'
+        userId:
+          type: string
+          example: 1233
+          description: '"User ID" from the application user details.'
+      title: AppUserDepartmentDetailDto
+      description: AppUserDepartmentDetailDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    AppUserConsolidationVendorDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - userId
+      - vendorCode
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Consolidation Vendor record.'
+          enum:
+          - N
+          - Y
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+        vendorCode:
+          type: string
+          example: vendorCode
+          description: '"Vendor Code" from the application user Consolidation Vendor details.'
+      title: AppUserConsolidationVendorDetailDto
+      description: AppUserConsolidationVendorDetailDto description
+    AppUserLocationDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - locationCode
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Location record.'
+          enum:
+          - N
+          - Y
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Location" Code from the application user Location details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserLocationDetailDto
+      description: AppUserLocationDetailDto description
+    AppUserFranchiseDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - franchiseCode
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Franchise record.'
+          enum:
+          - N
+          - Y
+        franchiseCode:
+          type: string
+          example: C012
+          description: '"Franchise Code" from the application user Franchise details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserFranchiseDetailDto
+      description: AppUserFranchiseDetailDto description
+    AppUserCustomerDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - customer
+      - locationCode
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Customer record.'
+          enum:
+          - N
+          - Y
+        customer:
+          type: string
+          example: customer
+          description: '"Customer Code" from the application user Customer details.'
+        locationCode:
+          type: string
+          example: '0000'
+          description: '"Location Code" for the Location associated with the Customer, from the application user Customer details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserCustomerDetailDto
+      description: AppUserCustomerDetailDto description
+    AppUserBizIQDetailDto:
+      type: object
+      required:
+      - bizIqAccessLevel
+      - userId
+      properties:
+        bizIqAccessLevel:
+          type: string
+          example: C
+          description: '"BizIQ User Access" level from the application user details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserBizIQDetailDto
+      description: AppUserBizIQDetailDto description
+    ApplicationUserDetailsGet:
+      type: object
+      properties:
+        appUserBizIQDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserBizIQDetailDto'
+        appUserConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserConceptDetailDto'
+        appUserConsolidationVendorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserConsolidationVendorDetailDto'
+        appUserCustomerDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserCustomerDetailDto'
+        appUserDailyAlertDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserDailyAlertDetailDto'
+        appUserDepartmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserDepartmentDetailDto'
+        appUserDetails:
+          $ref: '#/components/schemas/AppUserDetailDto'
+        appUserFranchiseDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserFranchiseDetailDto'
+        appUserHierarchyDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserHierarchyDetailDto'
+        appUserLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserLocationDetailDto'
+        appUserMarketDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserMarketDetailDto'
+        appUserPasswordDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserPasswordDetailDto'
+        userId:
+          type: string
+          example: 1233
+          description: '"User Id" from applicationUsers'
+      title: ApplicationUserDetailsGet
+      description: ApplicationUserDetailsGet description
+    AppUserConceptDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - conceptCode
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Concept record.'
+          enum:
+          - N
+          - Y
+        conceptCode:
+          type: string
+          example: code
+          description: '"Concept Code" from the application user Concept details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserConceptDetailDto
+      description: AppUserConceptDetailDto description
+    AppUserMarketDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - market
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag for the User/Market record.'
+          enum:
+          - N
+          - Y
+        market:
+          type: string
+          example: boston
+          description: '"Market" name from the application user Market details.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user details.'
+      title: AppUserMarketDetailDto
+      description: AppUserMarketDetailDto description
+    ApplicationUserDetails:
+      type: object
+      required:
+      - locationCode
+      properties:
+        appUserBizIQDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserBizIQDetailDto'
+        appUserConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserConceptDetailDto'
+        appUserConsolidationVendorDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserConsolidationVendorDetailDto'
+        appUserCustomerDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserCustomerDetailDto'
+        appUserDailyAlertDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserDailyAlertDetailDto'
+        appUserDepartmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserDepartmentDetailDto'
+        appUserDetails:
+          $ref: '#/components/schemas/AppUserDetailDto'
+        appUserFranchiseDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserFranchiseDetailDto'
+        appUserHierarchyDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserHierarchyDetailDto'
+        appUserLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserLocationDetailDto'
+        appUserMarketDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserMarketDetailDto'
+        appUserPasswordDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUserPasswordDetailDto'
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+      title: ApplicationUserDetails
+      description: ApplicationUserDetails description
+    AppUserDetailDto:
+      type: object
+      required:
+      - activeFlag
+      - email
+      - firstName
+      - lastName
+      - newHireFlag
+      - userGroup
+      - userId
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag from the application user ''User'' tab.'
+          enum:
+          - N
+          - Y
+        email:
+          type: string
+          example: John@gmail.com
+          description: '"E-mail" address from the application user ''User'' tab.'
+        employeeNumber:
+          type: string
+          example: AUTO-0000000005
+          description: '"Employee Record" number from the application user ''User'' tab.'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CdpError'
+        ext:
+          type: string
+          example: '+12'
+          description: Telephone "Ext" from the application user 'User' tab.
+        firstName:
+          type: string
+          example: acf
+          description: '"First Name" from the application user ''User'' tab.'
+        hhUserFlag:
+          type: string
+          example: Y
+          description: '"Hand-held User Flag" from the application user ''User'' tab.'
+          enum:
+          - N
+          - Y
+        hhUserId:
+          type: string
+          example: 12321
+          description: '"Hand-held User ID" from the application user ''User'' tab.'
+        hhUserPassword:
+          type: string
+          example: 12@hi
+          description: '"Hand-held User Password" from the application user ''User'' tab.'
+        language:
+          type: string
+          example: English
+          description: '"Language" from the application user ''User'' tab.'
+        lastName:
+          type: string
+          example: john
+          description: '"Last Name" from the application user ''User'' tab.'
+        newHireFlag:
+          type: string
+          example: N
+          description: '"New Hire" flag from the application user ''User'' tab.'
+          enum:
+          - N
+          - Y
+        teamworxFlag:
+          type: string
+          example: Y
+          description: '"Access Teamworx Mgr. Console" flag from the application user ''User'' tab.'
+          enum:
+          - N
+          - Y
+        telephone:
+          type: string
+          example: 222-222-222
+          description: '"Telephone" from the application user ''User'' tab.'
+        userGroup:
+          type: string
+          example: usersGroup
+          description: '"User Group" from the application user ''User'' tab.'
+        userId:
+          type: string
+          example: 1
+          description: '"User ID" from the application user ''User'' tab.'
+      title: AppUserDetailDto
+      description: AppUserDetailDto description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

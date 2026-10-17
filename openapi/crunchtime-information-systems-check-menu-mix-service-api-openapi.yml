@@ -1,0 +1,919 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Check Menu Mix Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Check Menu Mix Service
+  description: The Check Menu Mix Service allows for the import of Check and Item based data from the POS system in order to deplete inventory according to the Recipe configuration in Enterprise Manager. The get call will also allow you to extract the check and item based data for externally generated reports as well.
+paths:
+  /checkmenumix/v1/getAllCheckMenuMix:
+    get:
+      tags:
+      - Check Menu Mix Service
+      summary: GetAllCheckMenuMixRecordsV1
+      description: 'Retrieve Menu Mix sales data stored at the Check/Recipe Item level of granularity.
+
+        Retrieve a single Menu Mix sales data record with details using `checkNumber` and `includeDetails`.'
+      operationId: getAllCheckMenuMixRecordsV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: businessDate
+        in: query
+        description: 'A 24-hour period defined in the checkMenuMixHeaderDetails. Use format: dd-MMM-yy.'
+        required: true
+        schema:
+          type: string
+      - name: checkNumber
+        in: query
+        description: The number attributed to a guest check within the POS system.
+        required: false
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for Guest Checks. When `true` the `checkNumber` must be used.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: includeEmptyChecks
+        in: query
+        description: If 'true', includes empty checks; default value is 'false' (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckMenuMixDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CheckMenuMixDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Check Menu Mix not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /checkmenumix/v1/getCheckMenuMixByPage:
+    get:
+      tags:
+      - Check Menu Mix Service
+      summary: getCheckMenuMixRecordsByPage
+      description: 'Retrieve Menu Mix sales data stored at the Check/Recipe Item level of granularity, split across 1-to-many pages using `pageNumber`.
+
+        Use to retrieve data in smaller chunks.'
+      operationId: getCheckMenuMixRecordsByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: businessDate
+        in: query
+        description: 'A 24-hour period defined in the checkMenuMixHeaderDetails. Use format: dd-MMM-yy.'
+        required: true
+        schema:
+          type: string
+      - name: checkNumber
+        in: query
+        description: The number attributed to a guest check within the POS system.
+        required: false
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Guest Check.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: includeEmptyChecks
+        in: query
+        description: If 'true', includes empty checks; default value is 'false' (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CheckMenuMixBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckMenuMixBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Check Menu Mix not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /checkmenumix/v1/saveCheckMenuMix:
+    post:
+      tags:
+      - Check Menu Mix Service
+      summary: saveCheckMenuMixRecordsV1
+      description: 'Create a new Menu Mix item.
+
+        Update a Menu Mix item.'
+      operationId: saveCheckMenuMixRecordsV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckMenuMixDetailsList'
+        description: A list of Check Menu Mix items.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CheckMenuMixDetailsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckMenuMixDetailsList'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    CheckMenuMixHeaderDto:
+      type: object
+      required:
+      - businessDate
+      - customerCode
+      - locationCode
+      properties:
+        businessDate:
+          type: string
+          example: 08/11/2019
+          description: Date the check was created.
+        customerCode:
+          type: string
+          example: '000011'
+          description: "The Customer \"Code\" or \"Import Code\" for a Customer linked to \n the Location, or the Location \"Code\" or \"Import Code\"."
+        locationCode:
+          type: string
+          example: '000011'
+          description: Company Code for site name.
+      title: CheckMenuMixHeaderDto
+      description: Check Menu Mix Header items.
+    CheckMenuMixCheckDetailDto:
+      type: object
+      required:
+      - checkNumber
+      - checkOpenTime
+      - timeOfSale
+      properties:
+        chargeTips:
+          type: number
+          example: 9999.99
+          description: The tips charged to a credit card.
+        checkCloseTime:
+          type: string
+          example: '11:30'
+          description: Time the check was closed in format HH:mm (24hr format).
+        checkNumber:
+          type: string
+          example: 12345
+          description: The check number.
+        checkOpenTime:
+          type: string
+          example: '11:30'
+          description: Time the check was opened in format HH:mm (24hr format).
+        excludeConsumptionFlag:
+          type: string
+          example: Y
+          description: Exclude the sales data from this check in Consumption calculations.
+        guestCount:
+          type: integer
+          format: int64
+          example: 99
+          description: The number of guests listed on the check.
+        timeOfSale:
+          type: string
+          example: '11:30'
+          description: Time sale time listed on the check in format HH:mm (24hr format).
+      title: CheckMenuMixCheckDetailDto
+      description: Check Menu Mix check item details.
+    CheckMenuMixBatchResponseDto:
+      type: object
+      properties:
+        checkMenuMixDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckMenuMixDetails'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: CheckMenuMixBatchResponseDto
+      description: CheckMenuMixBatchResponseDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    CheckMenuMixGroupDetails:
+      type: object
+      description: CheckMenuMixGroupDetails description
+      properties:
+        checkMenuMixCheckDetails:
+          description: List of check details.
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckMenuMixCheckDetailDto'
+        checkMenuMixItemDetails:
+          type: array
+          description: 'List of items on the check. '
+          items:
+            $ref: '#/components/schemas/CheckMenuMixItemDetailDto'
+        checkMenuMixMiscCheckDetails:
+          type: array
+          description: List of miscellaneous check details.
+          items:
+            $ref: '#/components/schemas/CheckMenuMixMiscCheckDetailDto'
+        checkMenuMixMiscItemDetails:
+          type: array
+          description: List of miscellaneous item details.
+          items:
+            $ref: '#/components/schemas/CheckMenuMixMiscItemDetailDto'
+        checkMenuMixTimeDetails:
+          type: array
+          description: List of time details on the check.
+          items:
+            $ref: '#/components/schemas/CheckMenuMixTimeDetailDto'
+      title: CheckMenuMixGroupDetails
+    CheckMenuMixItemDetailDto:
+      type: object
+      required:
+      - checkNumber
+      - pluNumber
+      - posLineNumber
+      - posPrice
+      - posQuantity
+      - posValue
+      - timeOfSale
+      properties:
+        checkNumber:
+          type: string
+          example: 12345
+          description: The check number.
+        cost:
+          type: number
+          example: 55.61
+          description: The cost of the Recipe item.
+        itemType:
+          type: integer
+          format: int64
+          example: 3
+          description: Identification for Price Lookup type (recipe vs discount).
+        parentLineNumber:
+          type: integer
+          format: int64
+          example: 9999
+          description: Parent Recipe item line number.
+        pluNumber:
+          type: integer
+          format: int64
+          example: 9999
+          description: Price lookup number for Recipe item.
+        posLineNumber:
+          type: integer
+          format: int64
+          example: 12345
+          description: The line number of the Recipe item on the check.
+        posPrice:
+          type: number
+          example: 9999.9
+          description: The sale price of the Recipe item.
+        posQuantity:
+          type: number
+          example: 9999.9
+          description: The quantity sold of the Recipe item.
+        posValue:
+          type: number
+          example: 9999.9
+          description: The sale value of the Recipe item.
+        productNumber:
+          type: string
+          example: R1717_EM
+          description: The product number of the Recipe item.
+        recipeName:
+          description: Recipe Name to help identify the Price lookup number.
+          example: TURKEY AVOCADO CLUB_EM
+          type: string
+        revenueCenter:
+          type: string
+          example: 9
+          description: Sale item revenue center code.
+        serverID:
+          type: string
+          example: 10
+          description: ID or code for server who sold the item.
+        timeOfSale:
+          type: string
+          example: '12:30'
+          description: Item sale time in format HH:mm (24hr clock).
+      title: CheckMenuMixItemDetailDto
+      description: CheckMenuMixItemDetailDto description
+    CheckMenuMixTimeDetailDto:
+      type: object
+      required:
+      - checkNumber
+      - posTimeId
+      - value
+      properties:
+        checkNumber:
+          type: string
+          example: 12345
+          description: The check number.
+        posTimeId:
+          type: integer
+          format: int64
+          example: 9
+          description: ID for time sensitive tasks.
+        value:
+          type: number
+          example: 9
+          description: Duration of a task in seconds.
+      title: CheckMenuMixTimeDetailDto
+      description: CheckMenuMixTimeDetailDto description
+    CheckMenuMixMiscCheckDetailDto:
+      type: object
+      required:
+      - checkNumber
+      - dataValue
+      - miscId
+      properties:
+        checkNumber:
+          type: string
+          example: 12345
+          description: The check number.
+        dataValue:
+          type: string
+          example: TEST
+          description: Information linked to the miscellaneous id.
+        miscId:
+          type: integer
+          format: int64
+          example: 9
+          description: ID for miscellaneous information.
+      title: CheckMenuMixMiscCheckDetailDto
+      description: CheckMenuMixMiscCheckDetailDto description
+    CheckMenuMixDetails:
+      type: object
+      properties:
+        checkMenuMixGroupDetails:
+          type: array
+          description: A list of Check Menu Mix set of details.
+          items:
+            $ref: '#/components/schemas/CheckMenuMixGroupDetails'
+        checkMenuMixHeaderDetails:
+          $ref: '#/components/schemas/CheckMenuMixHeaderDto'
+      title: CheckMenuMixDetails
+    CheckMenuMixDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        checkMenuMixDetails:
+          type: array
+          description: Check Menu Mix details.
+          items:
+            $ref: '#/components/schemas/CheckMenuMixDetails'
+        locationCode:
+          type: string
+          example: '000000'
+          description: Company Code for site name.
+      title: CheckMenuMixDetailsList
+      description: CheckMenuMixDetailsList description
+    CheckMenuMixDetailsGet:
+      type: object
+      properties:
+        checkMenuMixDetails:
+          $ref: '#/components/schemas/CheckMenuMixHeaderDto'
+        checkMenuMixGroupDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckMenuMixGroupDetails'
+        checkMenuMixHeaderDetails:
+          $ref: '#/components/schemas/CheckMenuMixHeaderDto'
+      title: CheckMenuMixDetailsGet
+      description: CheckMenuMixDetailsGet description
+    CheckMenuMixMiscItemDetailDto:
+      type: object
+      required:
+      - checkNumber
+      - dataValue
+      - miscId
+      - pluNumber
+      - posLineNumber
+      properties:
+        checkNumber:
+          type: string
+          example: 12345
+          description: The check number.
+        dataValue:
+          type: string
+          example: TEST
+          description: Information linked to the miscellaneous id.
+        miscId:
+          type: integer
+          format: int64
+          example: 9
+          description: ID for miscellaneous information
+        pluNumber:
+          type: integer
+          format: int64
+          example: 9999
+          description: Price lookup number for Recipe item.
+        posLineNumber:
+          type: integer
+          format: int64
+          example: 12345
+          description: The line number of the Recipe item on the check
+      title: CheckMenuMixMiscItemDetailDto
+      description: CheckMenuMixMiscItemDetailDto description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

@@ -1,0 +1,1147 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Hierarchy Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Hierarchy Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Hierarchy Service
+  description: The Hierarchy Service is used to group locations together for reporting purposes. For example, if the company is a national restaurant chain divided into six regions, setting up the hierarchy configuration allows each regional manager to view revenue, cost and consumption data (reports) only for the stores in his or her region. To associate a user, such as the regional manager, to a specific hierarchy, reference the Application User Service.
+paths:
+  /cruise/hierarchy/v1/getHierarchies:
+    get:
+      tags:
+      - Hierarchy Service
+      summary: getHierarchiesV1
+      description: Retrieve a list of hierarchies.
+      operationId: getHierarchiesV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HierarchyV1Type'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HierarchyV1Type'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/hierarchy/v1/getHierarchyDetails/{hierarchyType}:
+    get:
+      tags:
+      - Hierarchy Service
+      summary: getHierarchyDetailsV1
+      description: Retrieve the details of a specific hierarchy.
+      operationId: getHierarchyDetailsV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: hierarchyType
+        in: path
+        description: Hierarchy type to retrieve.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GetHierarchyV1DetailsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHierarchyV1DetailsResponse'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Hierarchy Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/hierarchy/v1/saveHierarchy:
+    post:
+      tags:
+      - Hierarchy Service
+      summary: saveHierarchyV1
+      description: 'Create a new hierarchy.
+
+        Update a hierarchy''s details.
+
+        Delete a hierarchy.'
+      operationId: saveHierarchyV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HierarchyV1DetailsList'
+        description: hierarchy
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HierarchyV1Details'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HierarchyV1Details'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /hierarchy/v2/getHierarchies:
+    get:
+      tags:
+      - Hierarchy Service
+      summary: getHierarchiesV2
+      description: Retrieve a list of hierarchies.
+      operationId: getHierarchiesV2UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HierarchyV2Type'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HierarchyV2Type'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /hierarchy/v2/getHierarchyDetails:
+    get:
+      tags:
+      - Hierarchy Service
+      summary: getHierarchyDetailsV2
+      description: Retrieve the details of a specific hierarchy.
+      operationId: getHierarchyDetailsV2UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: hierarchyType
+        in: query
+        description: Hierarchy type to retrieve.
+        required: true
+        schema:
+          type: string
+      - name: levelNumber
+        in: query
+        description: Hierarchy level to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: parentLogicalName
+        in: query
+        description: Hierarchy parent to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GetHierarchyV2DetailsResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetHierarchyV2DetailsResponse'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Hierarchy Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /hierarchy/v2/saveHierarchy:
+    post:
+      tags:
+      - Hierarchy Service
+      summary: saveHierarchyV2
+      description: 'Create a new hierarchy.
+
+        Update a hierarchy''s details.
+
+        Delete a hierarchy.'
+      operationId: saveHierarchyV2UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: false
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HierarchyV2DetailsList'
+        description: hierarchy
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HierarchyV2Details'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HierarchyV2Details'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    HierarchyV1LevelDto:
+      type: object
+      required:
+      - levelDescription
+      - levelName
+      - levelNumber
+      properties:
+        levelDescription:
+          type: string
+          example: Regions
+          description: '"Level Description" from Hierarchy setup screen.'
+        levelName:
+          type: string
+          example: Regions
+          description: '"Level Name" from Hierarchy setup screen.'
+        levelNumber:
+          type: integer
+          format: int64
+          example: 2
+          description: '"Hierarchy Level" number from Hierarchy setup screen.'
+      title: HierarchyV1LevelDto
+      description: Hierarchy V1 Level Dto description
+    GetHierarchyV1DetailsResponse:
+      type: object
+      properties:
+        hierarchyType:
+          type: string
+          example: Corporate Structure
+          description: '"Hierarchy Type" (the name of the hierarchy) from Hierarchy setup screen.'
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/HierarchyV1LevelDto'
+        locationCode:
+          type: string
+          example: '129000'
+          description: '"Location Code" from Hierarchy setup screen.'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/HierarchyDetailDto'
+      title: GetHierarchyV1DetailsResponse
+      description: GetHierarchyV1DetailsResponse description
+    HierarchyV1DetailsList:
+      type: object
+      properties:
+        hierarchyDetails:
+          $ref: '#/components/schemas/HierarchyV1Details'
+      title: HierarchyV1DetailsList
+      description: HierarchyV1DetailsList
+    HierarchyHeaderDto:
+      type: object
+      required:
+      - hierarchyType
+      - locationCode
+      properties:
+        deleteFlag:
+          type: string
+          example: N
+          description: '"Delete Flag" indicator. If populated, must be ‘Y'' or ''N''. If not populated, will be ''N''.'
+        hierarchyType:
+          type: string
+          example: Corporate Structure
+          description: '"Hierarchy Type" (the name of the hierarchy) from Hierarchy setup screen.'
+        locationCode:
+          type: string
+          example: '129000'
+          description: The Company "Code" from Company setup screen.
+      title: HierarchyHeaderDto
+      description: Creates a new Hierarchy or updates the Physical Locations of an existing Hierarchy.
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    HierarchyDetailDto:
+      type: object
+      required:
+      - levelDescription
+      - levelName
+      - levelNumber
+      properties:
+        hasChildren:
+          type: boolean
+          description: Indicates whether the hierarchy has more than just one level. Valid values are 'true' or 'false'.
+        levelDescription:
+          type: string
+          example: Regions
+          description: '"Level Description" from Hierarchy setup screen.'
+        levelName:
+          type: string
+          example: Regions
+          description: '"Level Name" from Hierarchy setup screen.'
+        levelNumber:
+          type: integer
+          format: int64
+          example: 2
+          description: '"Nierarchy Level" number from Hierarchy setup screen.'
+        locationCode:
+          type: string
+          example: '300004'
+          description: '"Code" for the physical location from Hierarchy setup screen.'
+        locationName:
+          type: string
+          description: Name for the physical "Location" from Hierarchy setup screen.
+        logicalName:
+          type: string
+          example: Northeast
+          description: Name for the logical "Location" from Hierarchy setup screen.
+        parentLogicalName:
+          type: string
+          example: Corporate
+          description: Name of the "Parent Location" from Hierarchy setup screen.
+      title: HierarchyDetailDto
+      description: Hierarchy Detail description
+    HierarchyV1Type:
+      type: object
+      required:
+      - hierarchyType
+      properties:
+        hierarchyType:
+          type: string
+          example: Corporate Structure
+          description: '"Hierarchy Type" (the name of the hierarchy) from Hierarchy setup screen.'
+      title: HierarchyV1Type
+      description: HierarchyV1 Type description
+    HierarchyV1Details:
+      type: object
+      required:
+      - hierarchyDetailDetails
+      - hierarchyHeaderDetails
+      properties:
+        hierarchyDetailDetails:
+          type: array
+          example:
+          - levelNumber: 1
+            levelName: Corp
+            levelDescription: Corporate
+            logicalName: Corporate
+            parentLogicalName: ''
+            locationCode: ''
+          - levelNumber: 2
+            levelName: Region
+            levelDescription: Regions
+            logicalName: Northeast
+            parentLogicalName: Corporate
+            locationCode: ''
+          - levelNumber: 3
+            levelName: Store
+            levelDescription: Stores
+            logicalName: ''
+            parentLogicalName: Northeast
+            locationCode: '300004'
+          - levelNumber: 3
+            levelName: Store
+            levelDescription: Stores
+            logicalName: ''
+            parentLogicalName: Northeast
+            locationCode: '300004'
+          description: '"Hierarchy Detail Details" from Hierarchy setup screen'
+          items:
+            $ref: '#/components/schemas/HierarchyDetailDto'
+        hierarchyHeaderDetails:
+          $ref: '#/components/schemas/HierarchyHeaderDto'
+      title: HierarchyV1Details
+      description: HierarchyV1Details description
+    HierarchyV2Details:
+      type: object
+      required:
+      - hierarchyDetailDetails
+      - hierarchyHeaderDetails
+      properties:
+        hierarchyDetailDetails:
+          type: array
+          example:
+          - levelNumber: 1
+            levelName: Corp
+            levelDescription: Corporate
+            logicalName: Corporate
+            parentLogicalName: ''
+            locationCode: ''
+          - levelNumber: 2
+            levelName: Reg
+            levelDescription: Regions
+            logicalName: Northeast
+            parentLogicalName: Corporate
+            locationCode: ''
+          - levelNumber: 3
+            levelName: Store
+            levelDescription: Stores
+            logicalName: ''
+            parentLogicalName: Northeast
+            locationCode: Test11
+          - levelNumber: 3
+            levelName: Store
+            levelDescription: Stores
+            logicalName: ''
+            parentLogicalName: Northeast
+            locationCode: Test12
+          description: '"hierarchyDetailDetails" from Hierarchy setup screen'
+          items:
+            $ref: '#/components/schemas/HierarchyDetailDto_2'
+        hierarchyHeaderDetails:
+          $ref: '#/components/schemas/HierarchyHeaderDto_2'
+      title: HierarchyV2Details
+      description: HierarchyV2Details description
+    HierarchyV2DetailsList:
+      type: object
+      properties:
+        hierarchyDetails:
+          $ref: '#/components/schemas/HierarchyV2Details'
+      title: HierarchyV2DetailsList
+      description: HierarchyV2DetailsList description
+    HierarchyHeaderDto_2:
+      type: object
+      required:
+      - hierarchyType
+      - locationCode
+      properties:
+        deleteFlag:
+          type: string
+          example: N
+          description: '"deleteFlag" from Hierarchy setup screen'
+        hierarchyType:
+          type: string
+          example: HierarchyType1
+          description: '"hierarchyType" from Hierarchy setup screen'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"locationCode" from Hierarchy setup screen'
+      title: HierarchyHeaderDto
+      description: Hierarchy Header description
+    HierarchyV2LevelDto:
+      type: object
+      required:
+      - levelDescription
+      - levelName
+      - levelNumber
+      properties:
+        levelDescription:
+          type: string
+          example: Regions
+          description: '"levelDescription" from Hierarchy setup screen.'
+        levelName:
+          type: string
+          example: Reg
+          description: '"levelName" from Hierarchy setup screen.'
+        levelNumber:
+          type: integer
+          format: int64
+          example: 2
+          description: '"levelNumber" from Hierarchy setup screen.'
+      title: HierarchyV2LevelDto
+      description: Hierarchy V2 Level Dto description
+    HierarchyDetailDto_2:
+      type: object
+      required:
+      - levelDescription
+      - levelName
+      - levelNumber
+      properties:
+        hasChildren:
+          type: boolean
+          description: '"hasChildren" from Hierarchy setup screen'
+        levelDescription:
+          type: string
+          example: Regions
+          description: '"levelDescription" from Hierarchy setup screen'
+        levelName:
+          type: string
+          example: Reg
+          description: '"levelName" from Hierarchy setup screen'
+        levelNumber:
+          type: integer
+          format: int64
+          example: 2
+          description: '"levelNumber" from Hierarchy setup screen'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"locationCode" from Hierarchy setup screen'
+        locationName:
+          type: string
+          description: '"locationName" from Hierarchy setup screen'
+        logicalName:
+          type: string
+          example: Northeast
+          description: '"logicalName" from Hierarchy setup screen'
+        parentLogicalName:
+          type: string
+          example: Corporate
+          description: '"parentLogicalName" from Hierarchy setup screen'
+      title: HierarchyDetailDto
+      description: Hierarchy Detail description
+    HierarchyV2Type:
+      type: object
+      required:
+      - hierarchyType
+      properties:
+        hierarchyType:
+          type: string
+          example: HierarchyType1
+          description: '"hierarchyType" from Hierarchy setup screen'
+      title: HierarchyV2Type
+      description: HierarchyV2 Type description
+    GetHierarchyV2DetailsResponse:
+      type: object
+      properties:
+        hierarchyType:
+          type: string
+          example: '000000'
+          description: '"hierarchyType" from Hierarchy setup screen'
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/HierarchyV2LevelDto'
+        locationCode:
+          type: string
+          example: RTest Hierarchy 1
+          description: '"locationCode" from Hierarchy setup screen'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/HierarchyDetailDto_2'
+      title: GetHierarchyV2DetailsResponse
+      description: GetHierarchyV2DetailsResponse description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

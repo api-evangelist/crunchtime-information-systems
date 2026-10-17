@@ -1,0 +1,1071 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Customer Order Enhanced Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Customer Order Enhanced Service
+  description: The Customer Order Enhanced service allows you to create and retrieve customer orders.
+paths:
+  /customerorderenhanced/v1/getAllCustomerOrderEnhanced:
+    get:
+      tags:
+      - Customer Order Enhanced Service
+      summary: getAllCustomerOrderEnhanced
+      description: Retrieves all customer orders with the accompanying information.
+      operationId: getAllCustomerOrderEnhancedV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: cateringOrderFlag
+        in: query
+        description: Retrieve orders with Catering Order Flag enabled (Y/N) - optional.
+        required: false
+        schema:
+          type: boolean
+      - name: customerCode
+        in: query
+        description: Code number for the Customer to retrieve. Required if Order Number or Order Date inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: daypartCode
+        in: query
+        description: Code number for the Daypart to retrieve (optional).
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: expectedDeliveryDate
+        in: query
+        description: Expected Delivery Date (DD-MMM-YY) for orders to retrieve (optional).
+        required: false
+        example: 01-JUL-21
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for one Customer Order at a time (optional). When `true`, `orderNumber` must be used.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: invoiceDate
+        in: query
+        description: Invoice Date (DD-MMM-YY) for orders to retrieve (optional).
+        required: false
+        example: 30-JUN-21
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: orderDate
+        in: query
+        description: Order Date (DD-MMM-YY) for orders to retrieve. Required if Order Number or Customer Code inputs not provided.
+        required: false
+        example: 30-JUN-21
+        schema:
+          type: string
+      - name: orderNumber
+        in: query
+        description: Order Number for order to retrieve. Required if Customer Code or Order Date inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: orderStatus
+        in: query
+        description: Order Status (SUBMITTED [18], PICKLISTED [19], INVOICED [2], CANCELED [4], FINAL RECONCILED [3]) for orders to retrieve (optional).
+        required: false
+        example: SUBMITTED
+        schema:
+          type: string
+          enum:
+          - SUBMITTED
+          - '18'
+          - PICKLISTED
+          - '19'
+          - INVOICED
+          - '2'
+          - CANCELED
+          - '4'
+          - FINALRECONCILED
+          - '3'
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: postDate
+        in: query
+        description: Post Date (DD-MMM-YY) for orders to retrieve (optional).
+        required: false
+        example: 05-JUL-21
+        schema:
+          type: string
+      - name: referenceNumber
+        in: query
+        description: Reference Number for order to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: revenueCenter
+        in: query
+        description: Revenue Center for transactions to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerOrderEnhancedDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerOrderEnhancedDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customer order enhanced not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /customerorderenhanced/v1/getCustomerOrderEnhancedByPage:
+    get:
+      tags:
+      - Customer Order Enhanced Service
+      summary: getCustomerOrderEnhancedByPage
+      description: Retrieves all customer orders with the accompanying information by page number.
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: cateringOrderFlag
+        in: query
+        description: Retrieve orders with Catering Order Flag enabled (Y/N) - optional.
+        required: false
+        schema:
+          type: boolean
+      - name: customerCode
+        in: query
+        description: Code number of the Customer for orders to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: daypartCode
+        in: query
+        description: Code number for the Daypart to retrieve (optional).
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: expectedDeliveryDate
+        in: query
+        description: Expected Delivery Date (DD-MMM-YY) for orders to retrieve (optional).
+        required: false
+        example: 01-JUL-21
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for one Customer Order at a time (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: invoiceDate
+        in: query
+        description: Invoice Date (DD-MMM-YY) for orders to retrieve (optional).
+        required: false
+        example: 30-JUN-21
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: "The Code that identifies the Location in Crunchtime. \n Required if `orderNumber`, `orderDate` and `customerCode` not provided."
+        required: false
+        schema:
+          type: string
+      - name: orderDate
+        in: query
+        description: Order Date (DD-MMM-YY) for orders to retrieve. Required if Location Code, Order Number and Customer Code input not provided.
+        required: false
+        example: 30-JUN-21
+        schema:
+          type: string
+      - name: orderNumber
+        in: query
+        description: Order Number of order to retrieve. Required if Location Code, Customer Code and Order Date input not provided.
+        required: false
+        schema:
+          type: string
+      - name: orderStatus
+        in: query
+        description: "Order Status (SUBMITTED [18], PICKLISTED [19], INVOICED [2], CANCELED [4], FINAL RECONCILED [3]) for orders to retrieve (optional).  \n Can use status description or code number"
+        required: false
+        example: SUBMITTED
+        schema:
+          type: string
+          enum:
+          - SUBMITTED
+          - '18'
+          - PICKLISTED
+          - '19'
+          - INVOICED
+          - '2'
+          - CANCELED
+          - '4'
+          - FINALRECONCILED
+          - '3'
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: postDate
+        in: query
+        description: Post Date (DD-MMM-YY) for orders to retrieve (optional).
+        required: false
+        example: 05-JUL-21
+        schema:
+          type: string
+      - name: referenceNumber
+        in: query
+        description: Reference Number for order to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: revenueCenter
+        in: query
+        description: Revenue Center for transactions to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CustomerOrderEnhancedBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerOrderEnhancedBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customer order enhanced not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      operationId: getCustomerorderenhancedV1GetCustomerOrderEnhancedByPage
+      x-operation-id-source: derived
+  /customerorderenhanced/v1/saveCustomerOrderEnhanced:
+    post:
+      tags:
+      - Customer Order Enhanced Service
+      summary: saveCustomerOrderEnhanced
+      description: 'Create a new customer order entry.
+
+        Update a customer order entry.'
+      operationId: saveCustomerOrderEnhancedUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerOrderEnhancedDetailsList'
+        description: customerOrderEnhancedDetails
+        required: true
+      responses:
+        '200':
+          description: 'Success (Auto generated customer order number is returned) '
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerOrderAutoGenerateDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerOrderAutoGenerateDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: customer order enhanced not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    CustomerOrderEnhancedDetails:
+      type: object
+      properties:
+        customerOrderEnhancedDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerOrderEnhancedDetailsDto'
+        customerOrderEnhancedHeaderDetails:
+          $ref: '#/components/schemas/CustomerOrderEnhancedHeaderDto'
+      title: CustomerOrderEnhancedDetails
+      description: CustomerOrderEnhancedDetails description
+    CustomerOrderEnhancedHeaderDto:
+      type: object
+      required:
+      - customerCode
+      - locationCode
+      properties:
+        cateringOrder:
+          type: string
+          example: N
+          description: '"cateringOrder" from Customer Order setup screen'
+        customerCode:
+          type: string
+          example: '001'
+          description: '"customerCode" from Customer Order setup screen'
+        daypartCode:
+          type: integer
+          format: int64
+          example: 1
+          description: '"daypartCode" from Customer Order setup screen'
+        expectedDeliveryDate:
+          type: string
+          example: 05/04/2019
+          description: '"expectedDeliveryDate" from Customer Order setup screen'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"locationCode" from Customer Order setup screen'
+        referenceNumber:
+          type: string
+          example: 3874
+          description: '"referenceNumber" from Customer Order setup screen'
+        revenueCenter:
+          type: string
+          example: 1
+          description: '"revenueCenter" from Customer Order setup screen'
+      title: CustomerOrderEnhancedHeaderDto
+      description: CustomerOrderEnhancedHeaderDto description
+    CustomerOrderAutoGenerateDetails:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+          example: CO-23387-MU002
+          description: '"orderNumber" from Customer Order setup screen'
+      title: CustomerOrderAutoGenerateDetails
+      description: CustomerOrderAutoGenerateDetails description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    CustomerOrderEnhancedDetailsList:
+      type: object
+      properties:
+        customerOrderEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerOrderEnhancedDetails'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"Code" from Company setup screen'
+      title: CustomerOrderEnhancedDetailsList
+      description: CustomerOrderEnhancedDetailsList description
+    CustomerOrderEnhancedHeaderDtoGet:
+      type: object
+      required:
+      - customerCode
+      - locationCode
+      properties:
+        cateringOrder:
+          type: string
+          example: N
+          description: '"cateringOrder" from Customer Order setup screen'
+        customerCode:
+          type: string
+          example: '001'
+          description: '"customerCode" from Customer Order setup screen'
+        customerName:
+          type: string
+          example: BS Loc 1 50% Markup
+          description: '"customerName" from Customer Order setup screen'
+        dailyPrepDate:
+          type: string
+          example: 06/30/2021
+          description: '"dailyPrepDate" from Customer Order setup screen'
+        dailyPrepDescription:
+          type: string
+          example: Markup
+          description: '"dailyPrepDescription" from Customer Order setup screen'
+        daypartCode:
+          type: integer
+          format: int64
+          example: 1
+          description: '"daypartCode" from Customer Order setup screen'
+        daypartDescription:
+          type: string
+          example: BREAKFAST
+          description: '"daypartDescription" from Customer Order setup screen'
+        entryUser:
+          type: string
+          example: BSUSER1
+          description: '"entryUser" from Customer Order setup screen'
+        expectedDeliveryDate:
+          type: string
+          example: 05/04/2019
+          description: '"expectedDeliveryDate" from Customer Order setup screen'
+        finalReconcileDate:
+          type: string
+          example: 06/30/2021
+          description: '"finalReconcileDate" from Customer Order setup screen'
+        finalReconcileUser:
+          type: string
+          example: BSUSER1
+          description: '"finalReconcileUser" from Customer Order setup screen'
+        finalReconcileValue:
+          type: string
+          example: 0
+          description: '"finalReconcileValue" from Customer Order setup screen'
+        invoiceDate:
+          type: string
+          example: 06/30/2021
+          description: '"invoiceDate" from Customer Order setup screen'
+        invoiceUser:
+          type: string
+          example: BSUSER1
+          description: '"invoiceUser" from Customer Order setup screen'
+        invoiceValue:
+          type: string
+          example: 1.12
+          description: '"invoiceValue" from Customer Order setup screen'
+        locationCode:
+          type: string
+          example: '000000'
+          description: '"locationCode" from Customer Order setup screen'
+        locationName:
+          type: string
+          example: (BS)-QA Loc One
+          description: '"locationName" from Customer Order setup screen'
+        orderDate:
+          type: string
+          example: 06/30/2021
+          description: '"orderDate" from Customer Order setup screen'
+        orderNumber:
+          type: string
+          example: PROD
+          description: '"orderNumber" from Customer Order setup screen'
+        orderStatus:
+          type: string
+          example: INVOICED
+          description: '"orderStatus" from Customer Order setup screen'
+          enum:
+          - CANCELED
+          - FINALRECONCILED
+          - INVOICED
+          - PICKLISTED
+          - SUBMITTED
+        postDate:
+          type: string
+          example: 06/30/2021
+          description: '"postDate" from Customer Order setup screen'
+        referenceNumber:
+          type: string
+          example: 3874
+          description: '"referenceNumber" from Customer Order setup screen'
+        revenueCenter:
+          type: string
+          example: 1
+          description: '"revenueCenter" from Customer Order setup screen'
+        revenueCenterDescription:
+          type: string
+          example: BAR
+          description: '"revenueCenterDescription" from Customer Order setup screen'
+        grandTotal:
+          type: string
+          example: 1.32
+          description: '"grandTotal" from Customer Order setup screen'
+        taxTotal:
+          type: string
+          example: 0.2
+          description: '"taxTotal" from Customer Order setup screen'
+      title: CustomerOrderEnhancedHeaderDtoGet
+      description: CustomerOrderEnhancedHeaderDtoGet description
+    CustomerOrderEnhancedDetailsDto:
+      type: object
+      required:
+      - orderQuantity
+      - productNumber
+      properties:
+        orderQuantity:
+          type: number
+          example: 1
+          description: '"orderQuantity" from Customer Order setup screen'
+        productNumber:
+          type: string
+          example: PRD-53275742
+          description: '"productNumber" from Customer Order setup screen'
+      title: CustomerOrderEnhancedDetailsDto
+      description: CustomerOrderEnhancedDetailsDto description
+    CustomerOrderEnhancedBatchResponseDto:
+      type: object
+      properties:
+        customerOrderEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerOrderEnhancedDetailsGet'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: CustomerOrderEnhancedBatchResponseDto
+      description: CustomerOrderEnhancedBatchResponseDto description
+    CustomerOrderEnhancedDetailGet:
+      type: object
+      required:
+      - completeTaxRate
+      - conversionInventoryIssueUnit
+      - inventoryUnit
+      - issueUnit
+      - orderQuantity
+      - productName
+      - productNumber
+      - storageLocation
+      - storageLocationCode
+      - taxCode
+      - taxDescription
+      properties:
+        completeTaxRate:
+          type: string
+          example: 1
+          description: '"completeTaxRate" from Customer Order setup screen'
+        conversionInventoryIssueUnit:
+          type: string
+          example: 1
+          description: '"conversionInventoryIssueUnit" from Customer Order setup screen'
+        fillQuantity:
+          type: number
+          example: 9999.9999
+          description: '"fillQuantity" from Customer Order setup screen'
+        finalReconcileQuantity:
+          type: number
+          example: 9999.9999
+          description: '"finalReconcileQuantity" from Customer Order setup screen'
+        inventoryPrice:
+          type: number
+          example: 0.37172525
+          description: '"inventoryPrice" from Customer Order setup screen'
+        inventoryUnit:
+          type: string
+          example: 11
+          description: '"inventoryUnit" from Customer Order setup screen'
+        invoiceQuantity:
+          type: number
+          example: 9999.9999
+          description: '"invoiceQuantity" from Customer Order setup screen'
+        issueUnit:
+          type: string
+          example: 11
+          description: '"issueUnit" from Customer Order setup screen'
+        orderQuantity:
+          type: number
+          example: 1
+          description: '"orderQuantity" from Customer Order setup screen'
+        productName:
+          type: string
+          example: 11
+          description: '"productName" from Customer Order setup screen'
+        productNumber:
+          type: string
+          example: PRD-53275742
+          description: '"productNumber" from Customer Order setup screen'
+        storageLocation:
+          type: string
+          example: 11
+          description: '"storageLocation" from Customer Order setup screen'
+        storageLocationCode:
+          type: string
+          example: '006'
+          description: '"storageLocationCode" from Customer Order setup screen'
+        taxCode:
+          type: string
+          example: 11
+          description: '"taxCode" from Customer Order setup screen'
+        taxDescription:
+          type: string
+          example: 11
+          description: '"taxDescription" from Customer Order setup screen'
+        taxValue:
+          type: string
+          example: 0.2
+          description: '"taxValue" from Customer Order setup screen'
+        unitPrice:
+          type: number
+          example: 9999.9999
+          description: '"unitPrice" from Customer Order setup screen'
+        storageLocationName:
+          type: string
+          example: BEER COOLER
+          description: '"storageLocationName" from Customer Order setup screen'
+      title: CustomerOrderEnhancedDetailGet
+      description: CustomerOrderEnhancedDetailGet description
+    CustomerOrderEnhancedDetailsGet:
+      type: object
+      properties:
+        customerOrderEnhancedDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerOrderEnhancedDetailGet'
+        customerOrderEnhancedHeaderDetails:
+          $ref: '#/components/schemas/CustomerOrderEnhancedHeaderDtoGet'
+      title: CustomerOrderEnhancedDetailsGet
+      description: CustomerOrderEnhancedDetailsGet description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

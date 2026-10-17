@@ -1,0 +1,2083 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Purchase Order Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Purchase Order Service
+  description: The Purchase Order Service allows you to create and retrieve vendor order records.
+paths:
+  /purchaseorder/v1/getAllPurchaseOrders:
+    get:
+      tags:
+      - Purchase Order Service
+      summary: getAllPurchaseOrders
+      description: Retrieves all vendor orders with the accompanying information.
+      operationId: getAllPurchaseOrdersV1UsingGET
+      parameters:
+      - name: actualDeliveryDateEnd
+        in: query
+        description: Retrieve orders with actual delivery date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: actualDeliveryDateStart
+        in: query
+        description: Retrieve orders with actual delivery date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: expectedDeliveryDateEnd
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: expectedDeliveryDateStart
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: show order details or not. Default to False, if not provided.  Including details is available only if the purchase order number or the vendor invoice number are entered.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: invoiceDateEnd
+        in: query
+        description: Retrieve orders with invoice date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: invoiceDateStart
+        in: query
+        description: Retrieve orders with invoice date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        example: DT-777
+        schema:
+          type: string
+      - name: orderDateEnd
+        in: query
+        description: Retrieve orders with create date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: orderDateStart
+        in: query
+        description: Retrieve orders with create date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: orderType
+        in: query
+        description: The type of order to retrieve (optional; case sensitive)
+        required: false
+        example: VO or VR
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: postDate
+        in: query
+        description: Retrieve orders with post date equal this date (optional)
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: Retrieve orders where the product number in the details is exactly equal to the provided value (optional).
+        required: false
+        example: TBPE3-3
+        schema:
+          type: string
+      - name: purchaseOrderNumber
+        in: query
+        description: The system-assigned PO# of the order to retrieve (optional; case sensitive)
+        required: false
+        example: vo-98637
+        schema:
+          type: string
+      - name: reconcileDateEnd
+        in: query
+        description: Retrieve orders with reconcile date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: reconcileDateStart
+        in: query
+        description: Retrieve orders with reconcile date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Retrieve orders with inventory type status (New Order (Not sent) [1], Submitted [2], Confirmation of Receipt [6], Confirmation of Terms [7], Consolidated [8], Reconciled [3], Cancelled [4]) equal to this number (optional)
+        required: false
+        example: '3'
+        schema:
+          type: string
+          enum:
+          - '1'
+          - '2'
+          - '6'
+          - '7'
+          - '8'
+          - '3'
+          - '4'
+      - name: submitDateEnd
+        in: query
+        description: Retrieve orders with submit date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: submitDateStart
+        in: query
+        description: Retrieve orders with submit date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: traceabilityCode
+        in: query
+        description: Retrieve orders where the traceability code in the details is exactly equal to the value provided (optional).
+        required: false
+        example: BFCA179A152023213
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User
+        required: true
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: The Code number for the vendor's orders to retrieve (optional; case sensitive)
+        required: false
+        example: DARLIN
+        schema:
+          type: string
+      - name: vendorInvoiceNumber
+        in: query
+        description: 'The vendor''s Invoice # for the order to retrieve (optional; case sensitive)'
+        required: false
+        example: DT-777
+        schema:
+          type: string
+      - name: vendorProductName
+        in: query
+        description: Retrieve orders where the vendor product name in the details contains the provided value. The name must be at least 3 characters long (optional).
+        required: false
+        example: VendorProduct
+        schema:
+          type: string
+      - name: vendorProductNumber
+        in: query
+        description: Retrieve orders where the vendor product number in the details is exactly equal to the provided value (optional).
+        required: false
+        example: TBPE3-3
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a record was last updated. Use to set how far back to search. Must be more than 0 and less than 10080 (7 days). Can be standalone parameter.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Purchase Orders. Default is 'lastUpdated' if not provided (Optional)
+        required: false
+        example: lastUpdated
+        schema:
+          type: string
+          enum:
+          - orderPk
+          - orderNumber
+          - lastUpdated
+          - submitDate
+          - createDate
+          - invoiceDate
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Purchase Orders: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional)'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseOrderHeaderDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseOrderHeaderDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: purchase orders not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /purchaseorder/v1/getAttachmentsByPage:
+    get:
+      tags:
+      - Purchase Order Service
+      summary: getAttachmentsByPage
+      description: Retrieves purchase order attachment records with the accompanying information (by page).
+      operationId: getAttachmentsByPageV1UsingGET
+      parameters:
+      - name: locationCode
+        in: query
+        description: Code for the Location to retrieve. Required if minutesSinceUpdate or one of purchaseOrderNumber, vendorCode, or vendorInvoiceNumber is not provided.
+        required: false
+        example: DT-777
+        schema:
+          type: string
+      - name: purchaseOrderNumber
+        in: query
+        description: Purchase Order Number to retrieve. Required if minutesSinceUpdate or one of locationCode, vendorCode, or vendorInvoiceNumber is not provided.
+        required: false
+        example: vo-98637
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: Code for the Vendor to retrieve. Required if minutesSinceUpdate or one of locationCode, purchaseOrderNumber or vendorInvoiceNumber is not provided.
+        required: false
+        example: DARLIN
+        schema:
+          type: string
+      - name: vendorInvoiceNumber
+        in: query
+        description: Vendor Invoice Number to retrieve. Required if minutesSinceUpdate or one of locationCode, purchaseOrderNumber or vendorCode is not provided.
+        required: false
+        example: TEST1
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since the file was uploaded. Use to set how far back to search. Must be more than 0 and less than 10080 (7 days). Required if one of locationCode, purchaseOrderNumber, vendorCode, or vendorInvoiceNumber is not provided.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        description: Specifies the field to sort the attachments by. Default field 'fileName' (optional).
+        required: false
+        example: fileName
+        schema:
+          type: string
+          enum:
+          - purchaseOrderNumber
+          - fileName
+          - fileDescription
+          - fileSize
+          - uploadDate
+      - name: sortOrder
+        in: query
+        description: Specifies record sort order  in ascending (ASC) or descending (DESC) direction, Default ASC.(Optional).
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        example: 1
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: traceabilityCode
+        in: query
+        description: Retrieve orders where the Traceability Code in the details matches the value provided (optional).
+        required: false
+        example: BFCA179A152023213
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderAttachmentBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderAttachmentBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: purchase order attachments not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /purchaseorder/v1/getPurchaseOrdersByPage:
+    get:
+      tags:
+      - Purchase Order Service
+      summary: getPurchaseOrdersByPage
+      description: Retrieves all vendor orders with the accompanying information by page number.
+      operationId: getPurchaseOrdersByPageV1UsingGET
+      parameters:
+      - name: actualDeliveryDateEnd
+        in: query
+        description: Retrieve orders with actual delivery date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: actualDeliveryDateStart
+        in: query
+        description: Retrieve orders with actual delivery date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: expectedDeliveryDateEnd
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: expectedDeliveryDateStart
+        in: query
+        description: Retrieve orders with expected delivery date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: show order details or not. Default to False, if not provided.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: invoiceDateEnd
+        in: query
+        description: Retrieve orders with invoice date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: invoiceDateStart
+        in: query
+        description: Retrieve orders with invoice date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        example: DT-777
+        schema:
+          type: string
+      - name: orderDateEnd
+        in: query
+        description: Retrieve orders with create date equal to this date or earlier (optional). Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: orderDateStart
+        in: query
+        description: Retrieve orders with create date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: orderType
+        in: query
+        description: The type of order to retrieve (optional; case sensitive)
+        required: false
+        example: VO or VR
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`.
+        required: false
+        example: 1
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: postDate
+        in: query
+        description: Retrieve orders with post date equal this date (optional)
+        required: false
+        example: 05/02/2021
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: Retrieve orders where the product number in the details is exactly equal to the provided value (optional).
+        required: false
+        example: TBPE3-3
+        schema:
+          type: string
+      - name: purchaseOrderNumber
+        in: query
+        description: The system-assigned PO# of the order to retrieve (optional; case sensitive)
+        required: false
+        example: vo-98637
+        schema:
+          type: string
+      - name: reconcileDateEnd
+        in: query
+        description: Retrieve orders with reconcile date equal to this date or earlier (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: reconcileDateStart
+        in: query
+        description: Retrieve orders with reconcile date equal to this date or later (optional). Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Retrieve orders with inventory type status (New Order (Not sent) [1], Submitted [2], Confirmation of Receipt [6], Confirmation of Terms [7], Consolidated [8], Reconciled [3], Cancelled [4]) equal to this number (optional)
+        required: false
+        example: '3'
+        schema:
+          type: string
+          enum:
+          - '1'
+          - '2'
+          - '6'
+          - '7'
+          - '8'
+          - '3'
+          - '4'
+      - name: submitDateEnd
+        in: query
+        description: Retrieve orders with submit date equal to this date or earlier (optional). Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: submitDateStart
+        in: query
+        description: Retrieve orders with submit date equal to this date or later (optional).  Must be entered together with the start date and the range between the start and end must be no more than 31 days.
+        required: false
+        example: 05/02/2021 21:57:36
+        schema:
+          type: string
+      - name: traceabilityCode
+        in: query
+        description: Retrieve orders where the traceability code in the details is exactly equal to the value provided (optional).
+        required: false
+        example: BFCA179A152023213
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: vendorCode
+        in: query
+        description: The Code number for the vendor's orders to retrieve (optional; case sensitive)"
+        required: false
+        example: DARLIN
+        schema:
+          type: string
+      - name: vendorInvoiceNumber
+        in: query
+        description: 'The vendor''s Invoice # for the order to retrieve (optional; case sensitive)'
+        required: false
+        example: DT-777
+        schema:
+          type: string
+      - name: vendorProductName
+        in: query
+        description: Retrieve orders where the vendor product name in the details contains the provided value. The name must be at least 3 characters long (optional).
+        required: false
+        example: VendorProduct
+        schema:
+          type: string
+      - name: vendorProductNumber
+        in: query
+        description: Retrieve orders where the vendor product number in the details is exactly equal to the provided value (optional).
+        required: false
+        example: TBPE3-3
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a record was last updated. Use to set how far back to search. Must be more than 0 and less than 10080 (7 days). Can be standalone parameter.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortBy
+        in: query
+        description: Specifies the field used to sort the Purchase Orders. Default is 'lastUpdated' if not provided (Optional)
+        required: false
+        example: lastUpdated
+        schema:
+          type: string
+          enum:
+          - orderPk
+          - orderNumber
+          - lastUpdated
+          - submitDate
+          - createDate
+          - invoiceDate
+      - name: sortOrder
+        in: query
+        description: 'Specifies the sort direction for Purchase Orders: ascending (ASC) or descending (DESC). Default is ASC if not specified (Optional)'
+        required: false
+        example: ASC
+        schema:
+          type: string
+          enum:
+          - ASC
+          - DESC
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseOrderBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: purchase orders not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /purchaseorder/v1/savePurchaseOrders:
+    post:
+      tags:
+      - Purchase Order Service
+      summary: savePurchaseOrders
+      description: Save purchase orders.
+      operationId: savePurchaseOrdersUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: '"User ID" for the Crunchtime Application User.'
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseOrderRowsList'
+        description: Purchase orders to save
+        required: true
+      responses:
+        '200':
+          description: Success(Auto generated customer order number is returned)
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseOrderAutoGeneratePONumbers'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseOrderAutoGeneratePONumbers'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    PurchaseOrderBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        purchaseOrderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderHeaderDto'
+        totalPages:
+          type: integer
+          format: int32
+      title: PurchaseOrderBatchResponseDto
+      description: PurchaseOrderBatchResponseDto description
+    PurchaseOrderHeaderDto:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          example: 223
+          description: Receiving location's specific account number with the vendor
+        actualDeliveryDate:
+          type: string
+          example: 05/25/2021
+          description: Actual Delivery Date
+        adjustInvoicePrices:
+          type: boolean
+          example: true
+          description: Indicates if invoice prices will be adjusted based on vendor setting at the time of invoice
+        apBatchNumber:
+          type: string
+          example: APBATCH123
+          description: AP Batch Number
+        approvalDate:
+          type: string
+          example: 06/23/2021
+          description: Date an order was approved
+        approvalDateUTC:
+          type: string
+          example: 06/23/2021
+          description: Date an order was approved UTC
+        approvalRequiredFlag:
+          type: boolean
+          example: true
+          description: Indicates whether the vendor order requires approval because of a price/quantity discrepancy
+        approvalUser:
+          type: string
+          example: 21123
+          description: User that approved an order
+        autoOrderFlag:
+          type: boolean
+          example: true
+          description: Indicates whether the order was created by Auto-Order
+        autoOrderTransmitFlag:
+          type: boolean
+          example: true
+          description: Indicates whether the autoorder has been successfully transmitted
+        checkNumber:
+          type: string
+          example: 123
+          description: Check Number (COD)
+        confirmAnticipatedShipDate:
+          type: string
+          example: 06/23/2021
+          description: Confirm Anticipated Ship Date
+        confirmAnticipatedShipDateUTC:
+          type: string
+          example: 06/23/2021
+          description: Confirm Anticipated Ship Date UTC
+        confirmDate:
+          type: string
+          example: 05/25/2021
+          description: Date Confirmed Terms for order
+        confirmReceiptDate:
+          type: string
+          example: 05/25/2021
+          description: Date Confirmed Receipt for order
+        confirmReceiptFlag:
+          type: boolean
+          example: true
+          description: Indicates that a Vendor Order Confirm Receipt has been received for the Vendor Order
+        confirmReceiptTrackingNum:
+          type: string
+          example: 2123
+          description: Vendor’s tracking number for the Vendor Order
+        confirmReceiptUser:
+          type: string
+          example: 21123
+          description: User who confirmed receipt
+        confirmTermsAlert:
+          type: boolean
+          example: true
+          description: Indicates whether an alert (price or quantity) was identified during the confirm terms process
+        confirmTermsFlag:
+          type: boolean
+          example: true
+          description: Indicates when a confirm terms file is successfully processed
+        confirmUser:
+          type: string
+          example: 21123
+          description: User who confirmed Terms for order
+        consumptionDays:
+          type: number
+          format: double
+          example: 30
+          description: Number of days of consumption
+        corporateCurrency:
+          type: string
+          example: USD
+          description: Corporate Currency
+        createDate:
+          type: string
+          example: 05/25/2021 08:11:18
+          description: Create Date
+        createDateUTC:
+          type: string
+          example: 05/25/2021 08:11:18
+          description: Create Date UTC
+        createdByOcr:
+          type: boolean
+          example: true
+          description: Indicates whether the order was created by OCR
+        createdByReconciler:
+          type: boolean
+          example: true
+          description: Indicates whether the order was created by Reconciler Mobile application
+        ctxConfirmReceiptUser:
+          type: string
+          example: user@mail.com
+          description: CTX user email that acknowledged the order
+        ctxConfirmUser:
+          type: string
+          example: user@mail.com
+          description: CTX user email that confirmed the order
+        ctxInvoiceUser:
+          type: string
+          example: user@mail.com
+          description: CTX user email that invoiced the order
+        deliverToLocationCode:
+          type: string
+          example: LOC456
+          description: Deliver to Location Code
+        details:
+          type: array
+          description: Product Details for the order
+          items:
+            $ref: '#/components/schemas/PurchaseOrderDetailsDto'
+        disputeDate:
+          type: string
+          example: 06/23/2021
+          description: The date that the Vendor Order is rejected by the vendor
+        disputeDateTime:
+          type: string
+          example: 06/23/2021 08:48:58
+          description: Dispute DateTime
+        disputeDateTimeUTC:
+          type: string
+          example: 06/23/2021 08:48:58
+          description: Dispute DateTime UTC
+        disputeDateUTC:
+          type: string
+          example: 06/23/2021
+          description: The date that the Vendor Order is rejected by the vendor UTC
+        doNotTransmitFlag:
+          type: boolean
+          example: false
+          description: The user submitted the order without transmitting it
+        electronicInvoiceDate:
+          type: string
+          example: 06/23/2021
+          description: Electronic Invoice Date
+        electronicInvoiceDateUTC:
+          type: string
+          example: 06/23/2021
+          description: Electronic Invoice Date UTC
+        electronicInvoiceFlag:
+          type: boolean
+          example: true
+          description: Was Electronic Invoice received
+        entryDate:
+          type: string
+          example: 05/25/2021 08:11:18
+          description: Date order originally created
+        entryDateUTC:
+          type: string
+          example: 05/25/2021 08:11:18
+          description: Date order originally created UTC
+        entryUser:
+          type: string
+          example: 21123
+          description: User who originally created order
+        expectedDeliveryDate:
+          type: string
+          example: 05/25/2021
+          description: Expected Delivery Date
+        finalReconcileDate:
+          type: string
+          example: 06/23/2021 08:48:58
+          description: Date/time of final reconciliation of warehoused order
+        finalReconcileDateUTC:
+          type: string
+          example: 06/23/2021 08:48:58
+          description: Date/time of final reconciliation of warehoused order UTC
+        finalReconcileUser:
+          type: string
+          example: 21123
+          description: User performing final reconciliation of warehoused order
+        invoiceDate:
+          type: string
+          example: 05/25/2021
+          description: Invoice Date
+        invoiceNumber:
+          type: string
+          example: 12
+          description: Invoice Number
+        invoiceTotal:
+          type: number
+          format: double
+          example: 3.25
+          description: Invoice Total
+        locCorpCurrencyRatio:
+          type: number
+          format: double
+          example: 1
+          description: Conversion from Vendor Base Currency to Location Base Currency
+        locationCode:
+          type: string
+          example: LOC123
+          description: Location Code
+        locationCurrency:
+          type: string
+          example: USD
+          description: Location Currency
+        marketName:
+          type: string
+          example: MarketX
+          description: Market Name
+        message:
+          type: string
+          example: Simple message for order
+          description: Vendor Order Message
+        misc1Amount:
+          type: number
+          format: double
+          example: 0
+          description: Amount entered for "Misc. 1" at Vendor Order Reconcile
+        misc1GlNumber:
+          type: string
+          example: 1122
+          description: General Ledger number selected for "Misc. 1" at Vendor Order Reconcile
+        misc2Amount:
+          type: number
+          format: double
+          example: 5
+          description: Amount entered for "Misc. 2" at Vendor Order Reconcile
+        misc2GlNumber:
+          type: string
+          example: 3321
+          description: General Ledger number selected for "Misc. 2" at Vendor Order Reconcile
+        orderType:
+          type: string
+          example: VO
+          description: Vendor Order Type
+        orderUnitSelected:
+          type: string
+          example: I
+          description: I/V.  'I' = Order in Inventory Units, 'V' = Order in Vendor Units
+        postDate:
+          type: string
+          example: 12/27/2021
+          description: Post Date
+        receivedWithoutInvoiceFlag:
+          type: boolean
+          example: false
+          description: Indicate whether the vendor order has been Physically Received
+        reconcileDate:
+          type: string
+          example: 06/23/2021 08:48:58
+          description: Date order Reconciled
+        reconcileDateUTC:
+          type: string
+          example: 06/23/2021 08:48:58
+          description: Date order Reconciled UTC
+        reconcileUser:
+          type: string
+          example: 21123
+          description: User who reconciled order
+        referenceNumber:
+          type: string
+          example: DT-7772
+          description: Reference Number
+        remediateDate:
+          type: string
+          example: 06/23/2021
+          description: Remediate Date
+        remediateDateUTC:
+          type: string
+          example: 06/23/2021
+          description: Remediate Date UTC
+        remediateUser:
+          type: string
+          example: 21123
+          description: Remediate User
+        remediationDate:
+          type: string
+          example: 06/23/2021
+          description: The date the corporate user changes the vendor order
+        remediationDateUTC:
+          type: string
+          example: 06/23/2021
+          description: The date the corporate user changes the vendor order UTC
+        remediationFlag:
+          type: boolean
+          example: false
+          description: Indicates when the Vendor Order requires remediation from the corporate office
+        remediationUser:
+          type: string
+          example: 21123
+          description: User that updated vendor order.
+        shippingAmount:
+          type: number
+          format: double
+          example: 20
+          description: Amount entered for "Freight/Shipping" at Vendor Order Reconcile
+        shippingGlNumber:
+          type: string
+          example: 123
+          description: Tax General Ledger Number selected for "Freight/Shipping"
+        status:
+          type: integer
+          format: int32
+          example: 3
+          description: Inventory Type Status
+        submitDate:
+          type: string
+          example: 05/25/2021 08:11:20
+          description: Date order submitted
+        submitDateUTC:
+          type: string
+          example: 05/25/2021 08:11:20
+          description: Date order submitted UTC
+        submitUser:
+          type: string
+          example: 21123
+          description: User who submitted order
+        taxAmount:
+          type: number
+          format: double
+          example: 1
+          description: Amount entered for "Tax" at Vendor Order Reconcile
+        taxGlNumber:
+          type: string
+          example: TAX123
+          description: Tax General Ledger Number
+        transactionNumber:
+          type: string
+          example: vo-98637
+          description: Transaction Number
+        userMatchAlertFlag:
+          type: boolean
+          example: false
+          description: Indicates whether the same user submitted and reconciled a non e-invoice order
+        venLocCurrencyRatio:
+          type: number
+          format: double
+          example: 1
+          description: Vendor to Location Currency Ratio
+        vendorCode:
+          type: string
+          example: DT-445
+          description: Vendor Code
+        vendorCurrency:
+          type: string
+          example: USD
+          description: Vendor Currency
+        vendorPortalOrderExists:
+          type: boolean
+          example: true
+          description: Vendor Portal Order Exists
+        vpInvoiceFlag:
+          type: boolean
+          example: false
+          description: Indicates that the vendor order was invoiced via the vendor portal
+      title: PurchaseOrderHeaderDto
+      description: PurchaseOrderHeaderDto description
+    PurchaseOrderAutoGeneratePONumbers:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+          example: vo-111111
+          description: The Purchase Order Number for the transaction.
+      title: PurchaseOrderAutoGeneratePONumbers
+      description: PurchaseOrderAutoGeneratePONumbers description
+    PurchaseOrderAttachmentBatchResponseDto:
+      type: object
+      description: PurchaseOrderAttachmentBatchResponseDto description
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        hasNext:
+          type: boolean
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentDto'
+    AttachmentDto:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          description: Location Code of the attachment file.
+          example: LOC123
+        purchaseOrderNumber:
+          type: string
+          description: Purchase Order Number of the attachment file.
+          example: vo-98637
+        fileName:
+          type: string
+          description: File name associated with the attachment.
+          example: IMG_6717.JPG
+        fileDescription:
+          type: string
+          description: File description associated with the attachment.
+          example: Delivery photo
+        fileSize:
+          type: integer
+          format: int64
+          description: File Size of the attachment file (in KB).
+          example: 20
+        fileUrl:
+          type: string
+          description: Downloadable file url starts with https://download.net-chef.com/. This url expires 5 minutes after it is generated; call the endpoint again to generate a new link if the file still needs to be downloaded. Only one of fileContent or fileUrl will be populated in the response.
+          example: https://download.net-chef.com/attachment
+        fileContent:
+          type: string
+          format: byte
+          description: Base64 encoded data representing binary byte file. Only one of fileContent or fileUrl will be populated in the response.
+        vendorInvoiceNumber:
+          type: string
+          description: Vendor Invoice/Reference Number.
+          example: 91
+        vendorCode:
+          type: string
+          description: Vendor or customer code associated with the attachment.
+          example: KATSIR
+        locationExportCode:
+          type: string
+          description: Location export code associated with the attachment.
+          example: 0409
+        vendorExportCode:
+          type: string
+          description: Vendor export code associated with the attachment.
+          example: VREIN15
+        uploadDate:
+          type: string
+          description: Date the attachment file was uploaded.
+          example: 05/25/2021 08:11:18
+      title: AttachmentDto
+      description: AttachmentDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    PurchaseOrderDetailRow:
+      type: object
+      required:
+      - orderQuantity
+      - vendorProductNumber
+      - vendorUnit
+      properties:
+        orderQuantity:
+          type: number
+          example: 2
+          description: The Order Quantity for the product line item.
+        vendorProductNumber:
+          type: string
+          example: 3AB
+          description: The Vendor's Product Number for the product line item.
+        vendorUnit:
+          type: string
+          example: Box
+          description: The Vendor's Package Type/Unit for the product line item.
+      title: PurchaseOrderDetailRow
+      description: PurchaseOrderDetailRow description
+    PurchaseOrderHeaderRow:
+      type: object
+      required:
+      - doNotTransmit
+      - expectedDeliveryDate
+      - locationCode
+      - orderStatus
+      - orderType
+      - vendorCode
+      properties:
+        doNotTransmit:
+          type: string
+          example: Y
+          description: "Indicates whether a “Submitted” order should be transmitted to the vendor. \nEnter 'Y' or 'y' for Yes; leave blank for No."
+          enum:
+          - Y
+          - y
+        expectedDeliveryDate:
+          type: string
+          example: MM/dd/yyyy
+          description: The Expected Delivery Date if the Order Type is 'VO' or the Return Date if the Order Type is 'VR'.
+        locationCode:
+          type: string
+          example: 2AB
+          description: The Code for the Location associated with the transaction.
+        message:
+          type: string
+          example: This is a simple message
+          description: Message for the transaction document.
+        misc1GlDescription:
+          type: string
+          example: Misc1
+          description: The GL account associated with the Misc. 1 charge for a Vendor Return.
+        misc1GlValue:
+          type: number
+          example: 2
+          description: The amount of the Misc. 1 charge for a Vendor Return.
+        misc2GlDescription:
+          type: string
+          example: Misc2
+          description: The GL account associated with the Misc. 2 charge a Vendor Return.
+        misc2GlValue:
+          type: number
+          example: 2
+          description: The amount of the Misc. 2 charge for a Vendor Return.
+        orderStatus:
+          type: string
+          example: SUBMITTED
+          description: Must be ‘New’ or ‘Submitted’ (not case sensitive).
+          enum:
+          - NEW
+          - New
+          - SUBMITTED
+          - Submitted
+          - new
+          - submitted
+        orderType:
+          type: string
+          example: VO
+          description: Must be ‘VO’ for Vendor Order or ‘VR’ for Vendor Return (not case sensitive).
+          enum:
+          - VO
+          - VR
+          - Vo
+          - Vr
+          - vo
+          - vr
+        referenceNumber:
+          type: string
+          example: B2A
+          description: The Reference Number for the transaction.
+        shippingGlDescription:
+          type: string
+          example: 5200
+          description: The GL account associated with the Freight/Shipping charge for a Vendor Return.
+        shippingValue:
+          type: number
+          example: 2
+          description: The amount of the Freight/Shipping charge for a Vendor Return.
+        taxGlDescription:
+          type: string
+          example: Tax
+          description: The GL account associated with the Tax charged on a Vendor Return.
+        taxValue:
+          type: number
+          example: 2
+          description: The amount of the Tax charged on a Vendor Return.
+        vendorCode:
+          type: string
+          example: 2BA
+          description: The Code for the vendor associated with the transaction.
+      title: PurchaseOrderHeaderRow
+      description: PurchaseOrderHeaderRow description
+    PurchaseOrderRowsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code for the Location associated with the transaction.
+        purchaseOrderSaveRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderSaveRows'
+      title: PurchaseOrderRowsList
+      description: PurchaseOrderRowsList description
+    PurchaseOrderSaveRows:
+      type: object
+      properties:
+        purchaseOrderDetailRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderDetailRow'
+        purchaseOrderHeaderRow:
+          $ref: '#/components/schemas/PurchaseOrderHeaderRow'
+      title: PurchaseOrderSaveRows
+      description: PurchaseOrderSaveRows description
+    PurchaseOrderDetailsDto:
+      type: object
+      properties:
+        actualBidContractConv:
+          type: number
+          format: double
+          example: 1
+          description: Actual Conversion from Bid or Contract Price from Vendor Bid
+        actualBidContractPrice:
+          type: number
+          format: double
+          example: 12
+          description: Actual Bid or Contract Price from Vendor Bid
+        addVendorCode:
+          type: string
+          example: VEND123
+          description: Vendor for which the vendor product was received from. Only populated if the vendor product was received from a different vendor than the order was with
+        altVpFlag:
+          type: boolean
+          example: false
+          description: Indicates the vendor product line item of a vendor order in which is considered the primary vendor product on order and was not split into secondary vendor products
+        approvePriceAlertFlag:
+          type: boolean
+          example: true
+          description: Flags whether the line item had a Price Alert which requires approval
+        approveQuantityAlertFlag:
+          type: boolean
+          example: false
+          description: Flags whether the line item had a Quantity Alert which requires approval
+        catchWeighted:
+          type: boolean
+          example: false
+          description: Catch Weighted
+        cnvConfirmToInventory:
+          type: number
+          format: double
+          example: 1
+          description: Conversion from Vendor Unit to Inventory Unit at Confirm Terms
+        cnvEntryToInventory:
+          type: number
+          format: double
+          example: 1
+          description: Conversion from Vendor Unit to Inventory Unit from create
+        cnvReconcileToInventory:
+          type: number
+          format: double
+          example: 1
+          description: Conversion from Vendor Unit to Inventory Unit at Reconcile
+        completeTaxRate:
+          type: number
+          format: double
+          example: 20
+          description: Complete Tax Rate
+        confirmTermsPriceAlert:
+          type: boolean
+          example: false
+          description: Whether a price alert was identified during the confirm terms
+        confirmTermsQuantityAlert:
+          type: boolean
+          example: true
+          description: Whether a quantity alert was identified during the confirm terms
+        creditValue:
+          type: number
+          format: double
+          example: 18
+          description: Credit used to adjust the receiving Invoice value of the transaction by adjusting the Invoice Price
+        expirationDate:
+          type: string
+          example: 12/27/2021
+          description: Expiration Date
+        expirationDateUTC:
+          type: string
+          example: 12/27/2021
+          description: Expiration Date UTC
+        lotNumber:
+          type: string
+          example: 223
+          description: Lot Number
+        manufacturerNumber:
+          type: string
+          example: MAN123
+          description: Manufacturer Number
+        marketName:
+          type: string
+          example: MarketX
+          description: Market Name
+        minDaysOnHand:
+          type: number
+          format: double
+          example: 3
+          description: Min Days On Hand
+        notApproved:
+          type: boolean
+          example: false
+          description: Not Approved
+        poLineNumber:
+          type: integer
+          format: int64
+          example: 1
+          description: PO Line Number
+        priceCaptureDate:
+          type: string
+          example: 12/27/2021
+          description: Price Capture Date
+        priceCaptureDateUTC:
+          type: string
+          example: 12/27/2021
+          description: Price Capture Date UTC
+        priceConfirmation:
+          type: number
+          format: double
+          example: 40
+          description: Confirm Terms Item price per Vendor Unit
+        priceEntry:
+          type: number
+          format: double
+          example: 45
+          description: Item price per Vendor Unit
+        priceInvoice:
+          type: number
+          format: double
+          example: 35
+          description: Invoice Price per Vendor Unit
+        priceInvoiceOriginal:
+          type: number
+          format: double
+          example: 3.25
+          description: Original Invoice Price of line item, prior to credit adjustment
+        priceReconcile:
+          type: number
+          format: double
+          example: 30
+          description: Vendor Product Price
+        priceRemediationFlag:
+          type: boolean
+          example: true
+          description: Price discrepancies between invoice and reconcile
+        priceUsed:
+          type: number
+          format: double
+          example: 25
+          description: Inventory Price
+        productBrand:
+          type: string
+          example: Nestle
+          description: Product Brand from Vendor Bid/Contract
+        productNumber:
+          type: string
+          example: TBPE3-3
+          description: Product Number
+        projectedConsumption:
+          type: number
+          example: 2
+          description: Projected Consumption calculated for this product
+        qualitativeJudgement:
+          type: string
+          example: SHELF LIFE
+          description: Qualitative Judgement
+        quantityConfirm:
+          type: number
+          format: double
+          example: 75
+          description: Confirm Terms Quantity, in Vendor Units
+        quantityConfirmForInv:
+          type: number
+          format: double
+          example: 70
+          description: Confirm Terms Quantity, in Inventory Units
+        quantityEntry:
+          type: number
+          format: double
+          example: 85
+          description: Quantity ordered, in Vendor units
+        quantityEntryForInv:
+          type: number
+          format: double
+          example: 80
+          description: Quantity ordered, in Inventory units
+        quantityInvoice:
+          type: number
+          format: double
+          example: 65
+          description: Invoice Quantity, in Vendor Units
+        quantityInvoiceForInv:
+          type: number
+          format: double
+          example: 60
+          description: Invoice Quantity, in Inventory Units
+        quantityMoForInv:
+          type: number
+          format: double
+          example: 100
+          description: Order Quantity originally requested in Master Order
+        quantityReconcile:
+          type: number
+          format: double
+          example: 55
+          description: Physical Quantity received, in Vendor Units
+        quantityReconcileForInv:
+          type: number
+          format: double
+          example: 50
+          description: Physical Quantity received, in Inventory Units
+        quantityRemediationFlag:
+          type: boolean
+          example: false
+          description: Quantity discrepancies between invoice and reconcile
+        quantitySuggestedForInv:
+          type: number
+          format: double
+          example: 90
+          description: Quantity for the line item as suggested to the user
+        referenceLineNumber:
+          type: integer
+          format: int32
+          example: 456
+          description: Reference Line Number
+        referenceNumber:
+          type: string
+          example: REF123
+          description: Reference Number
+        restricted:
+          type: boolean
+          example: true
+          description: Restricted
+        splitFlag:
+          type: boolean
+          example: true
+          description: Status of Vendor Bid "Split" flag at create of order based on bid/contract
+        storageCode:
+          type: string
+          example: DT1462
+          description: Storage Code
+        subConversionFactor:
+          type: number
+          format: double
+          example: 1.5
+          description: Sub Conversion Factor
+        subPackage:
+          type: string
+          example: G
+          description: Sub Package Type
+        subProductFlag:
+          type: boolean
+          example: false
+          description: Indicates if the vendor product was substituted when received on an electronic invoice
+        subProductName:
+          type: string
+          example: Pineapples
+          description: Sub Product Name
+        subProductNumber:
+          type: string
+          example: 134553
+          description: Sub Product Number
+        taxCode:
+          type: string
+          example: VAT
+          description: Tax Code
+        temperature:
+          type: number
+          format: double
+          example: 5.5
+          description: Temperature entered during NC Reconcile
+        traceabilityCode:
+          type: string
+          example: BFCA179A152023213
+          description: Traceability Lot Code
+        traceabilityCodeSource:
+          type: string
+          example: FoodTraceability, Inc. 123 Main Street Anytown, PA 12345 (222) 123-4567
+          description: Traceability Lot Code Source
+        vendorPackage:
+          type: string
+          example: G
+          description: Vendor Package Type
+        vendorPackageOrder:
+          type: string
+          example: G
+          description: Vendor Package Order Type
+        vendorPortalDetailExists:
+          type: boolean
+          example: true
+          description: Vendor Portal Detail Exists
+        vendorPortalSubExists:
+          type: boolean
+          example: true
+          description: Vendor Portal Sub Exists
+        vendorProductName:
+          type: string
+          example: VendorProduct
+          description: Vendor Product Name
+        vendorProductNumber:
+          type: string
+          example: TBPE3-3
+          description: Vendor Product Number
+        vpOriginalReconcilePrice:
+          type: number
+          format: double
+          example: 4
+          description: The Original Reconcile Price
+        vpOriginalReconcileQuantity:
+          type: number
+          format: double
+          example: 6
+          description: The Original Reconcile Quantity
+      title: PurchaseOrderDetailsDto
+      description: PurchaseOrderDetailsDto description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

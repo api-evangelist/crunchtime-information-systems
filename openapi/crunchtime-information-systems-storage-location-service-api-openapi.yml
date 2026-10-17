@@ -1,0 +1,863 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Storage Location Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Storage Location Service
+  description: The Storage Location service offers viewing and managing data associated with primary and secondary storage locations.
+paths:
+  /storagelocation/v1/getAllStorageLocations:
+    get:
+      tags:
+      - Storage Location Service
+      summary: getAllStorageLocations
+      description: getAllStorageLocationsV1 Implementation Notes
+      operationId: getAllStorageLocationV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: centralStorageFlag
+        in: query
+        description: The 'Central Storage' flag for the storage location. Use true or false.
+        required: false
+        schema:
+          type: boolean
+      - name: closingIntermediary
+        in: query
+        description: The “Intermediary” Primary Closing Method for the storage location. Must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: closingNonInventory
+        in: query
+        description: The “Non-Stock” Primary Closing Method for the storage location. Must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: closingSales
+        in: query
+        description: The “Sales” Primary Closing Method for the storage location. Must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: closingStock
+        in: query
+        description: The “Stock” Primary Closing Method for the storage location. Must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code for the location associated with the storage location. Must match an existing active location in Enterprise Manager.
+        required: true
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a Storage Location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: prepStationCode
+        in: query
+        description: The prep station Code for the storage location.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingIntermediary
+        in: query
+        description: The “Intermediary” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingNonInventory
+        in: query
+        description: The “Non-Stock” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingSales
+        in: query
+        description: The “Sales” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingStock
+        in: query
+        description: The “Stock” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. test or production
+        required: true
+        schema:
+          type: string
+      - name: storageCode
+        in: query
+        description: The Code for the storage location.
+        required: false
+        schema:
+          type: string
+      - name: storageName
+        in: query
+        description: The Storage Name for the storage location. Use 2 or more characters.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StorageLocationDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StorageLocationDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Storage Location not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /storagelocation/v1/getStorageLocationsByPage:
+    get:
+      tags:
+      - Storage Location Service
+      summary: getStorageLocationsByPage
+      description: getStorageLocationsByPage Implementation Notes
+      operationId: getStorageLocationByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: centralStorageFlag
+        in: query
+        description: The 'Central Storage' flag for the storage location. Use true or false.
+        required: false
+        schema:
+          type: boolean
+      - name: closingIntermediary
+        in: query
+        description: The “Intermediary” Primary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: closingNonInventory
+        in: query
+        description: The “Non-Stock” Primary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: closingSales
+        in: query
+        description: The “Sales” Primary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: closingStock
+        in: query
+        description: The “Stock” Primary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: locationCode
+        in: query
+        description: The Code for the location to be associated with the storage location. Must match an existing active location in Enterprise Manager.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a Storage Location record was last updated. Use to set how far back to search.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: pageNumber
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: pageSize
+        in: query
+        description: pageSize
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: prepStationCode
+        in: query
+        description: The prep station Code for the storage location.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingIntermediary
+        in: query
+        description: The “Intermediary” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingNonInventory
+        in: query
+        description: The “Non-Stock” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingSales
+        in: query
+        description: The “Sales” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: secondaryClosingStock
+        in: query
+        description: The “Stock” Secondary Closing Method for the storage location. must be ‘B’, ‘E’, ‘L’ or ‘Z’.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. test or production
+        required: true
+        schema:
+          type: string
+      - name: storageCode
+        in: query
+        description: The Code for the storage location.
+        required: false
+        schema:
+          type: string
+      - name: storageName
+        in: query
+        description: The Storage Name for the storage location. Use 2 or more characters.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StorageLocationBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageLocationBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Storage Location not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /storagelocation/v1/saveStorageLocations:
+    post:
+      tags:
+      - Storage Location Service
+      summary: saveStorageLocations
+      description: saveStorageLocations Implementation Notes
+      operationId: saveStorageLocationUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. test or production
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageLocationDetailsList'
+        description: storageLocationDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/StorageLocationDetailsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageLocationDetailsList'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    StorageLocationBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        storageLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageLocationDetails'
+        totalPages:
+          type: integer
+          format: int32
+      title: StorageLocationBatchResponseDto
+      description: StorageLocationBatchResponseDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    StorageLocationDetails:
+      type: object
+      properties:
+        storageLocationDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageLocationDetailsDto'
+      title: StorageLocationDetails
+      description: StorageLocationDetails description
+    StorageLocationDetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code for the location associated with the storage location.
+        storageLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageLocationDetails'
+      title: StorageLocationDetailsList
+      description: StorageLocationDetailsList description
+    StorageLocationDetailsDto:
+      type: object
+      required:
+      - locationCode
+      - storageCode
+      - storageName
+      properties:
+        centralStorageFlag:
+          type: string
+          example: Y
+          description: The 'Central Storage' flag for the storage location.
+          enum:
+          - N
+          - Y
+        closingIntermediary:
+          type: string
+          example: B
+          description: The “Intermediary” Primary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        closingNonInventory:
+          type: string
+          example: B
+          description: The “Non-Stock” Primary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        closingSales:
+          type: string
+          example: B
+          description: The “Sales” Primary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        closingStock:
+          type: string
+          example: B
+          description: The “Stock” Primary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        locationCode:
+          type: string
+          example: '000125'
+          description: The Code for the location to which the storage location is linked.
+        prepStationCode:
+          type: string
+          example: 12333
+          description: The Code for the Prep Station to which the storage location is linked.
+        secondaryClosingIntermediary:
+          type: string
+          example: B
+          description: The “Intermediary” Secondary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        secondaryClosingNonInventory:
+          type: string
+          example: B
+          description: The “Non-Stock” Secondary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        secondaryClosingSales:
+          type: string
+          example: B
+          description: The “Sales” Secondary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        secondaryClosingStock:
+          type: string
+          example: B
+          description: The “Stock” Secondary Closing Method for the storage location.
+          enum:
+          - B
+          - E
+          - L
+          - Z
+        storageCode:
+          type: string
+          example: UNASGN
+          description: The Code for the storage location.
+        storageName:
+          type: string
+          example: Unassigned
+          description: The Storage Name for the storage location.
+      title: StorageLocationDetailsDto
+      description: StorageLocationDetailsDto description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

@@ -1,0 +1,2008 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Company Product Enhanced…
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Company Product Enhanced Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Company Product Enhanced Service
+  description: The Company Product Service allows you to create and retrieve the global, above store list of products that can be used elsewhere in the application, including recipe components (see the Recipe Enhanced Service) or as Location Products (see the Location Product Pricing Service). Company Products can also be referred to as Items or Ingredients.
+paths:
+  /cruise/companyproduct/v1/getAllCompanyProductsEnhanced:
+    get:
+      tags:
+      - Company Product Enhanced Service
+      summary: getAllCompanyProductsEnhancedV1
+      description: 'Retrieve all company products'' details.
+
+        Retrieve one company product''s details using `productNumber` and `inculdeDetails`.'
+      operationId: getAllCompanyProductsEnhancedV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Company Products.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for one Company Product. When `true`, `productNumber` must be used.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/companyproduct/v1/getCompanyProductsEnhancedByPage:
+    get:
+      tags:
+      - Company Product Enhanced Service
+      summary: getCompanyProductsEnhancedByPage
+      description: 'Retrieve one or more company products by `pageNumber`.
+
+        Use to retrieve data in smaller chunks.'
+      operationId: getCompanyProductsEnhancedByPageV1UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Company Products.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Company Product.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/companyproduct/v1/saveCompanyProductsEnhanced:
+    post:
+      tags:
+      - Company Product Enhanced Service
+      summary: saveCompanyProductEnhancedV1
+      description: 'Create a new product.
+
+        Update an existing product''s details.'
+      operationId: saveCompanyProductEnhancedV1UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyProductEnhancedDetails'
+        description: companyProductEnhancedDetails
+        required: true
+      responses:
+        '200':
+          description: Success (If Automatically Create Company Product Number preference is OFF then success response is empty otherwise auto generated product number with name is returned )
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedAutoGenerateDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedAutoGenerateDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedDetails'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /companyproduct/v1/getAllCompanyProductsEnhanced:
+    get:
+      tags:
+      - Company Product Enhanced Service
+      summary: getAllCompanyProductsEnhancedV1
+      description: 'Retrieve all company products'' details.
+
+        Retrieve one company product''s details using `productNumber` and `inculdeDetails`.'
+      operationId: getCompanyproductV1GetAllCompanyProductsEnhanced
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Company Products.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for one Company Product. When `true`, `productNumber` must be used.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a company product record was last updated. Use to set how far back to search, Must be more than 0 and less than 43200 (30 days).
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: productName
+        in: query
+        description: Product Name to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: category
+        in: query
+        description: Retrieve company products linked to a particular category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: concept
+        in: query
+        description: Retrieve company products linked to a particular concept. (optional)
+        required: false
+        schema:
+          type: string
+      - name: microCategory
+        in: query
+        description: Retrieve company products linked to a particular micro category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: subCategory
+        in: query
+        description: Retrieve company products linked to a particular subcategory. (optional)
+        required: false
+        schema:
+          type: string
+      - name: universalProductCode
+        in: query
+        description: Retrieve company products identified with a particular upc code. (optional)
+        required: false
+        schema:
+          type: string
+      - name: userDefinedCategory
+        in: query
+        description: Retrieve company products linked to a particular user defined category. (optional)
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+        '206':
+          description: Partial Content
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllCompanyProductsEnhancedV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /companyproduct/v1/getCompanyProductsEnhancedByPage:
+    get:
+      tags:
+      - Company Product Enhanced Service
+      summary: getCompanyProductsEnhancedByPage
+      description: 'Retrieve one or more company products by `pageNumber`.
+
+        Use to retrieve data in smaller chunks.'
+      operationId: getCompanyproductV1GetCompanyProductsEnhancedByPage
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Company Products.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Company Product.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a company product record was last updated. Use to set how far back to search, Must be more than 0 and less than 43200 (30 days).
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: A unique alphanumeric code used to identify a product.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: productName
+        in: query
+        description: Product Name to retrieve (optional).
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: category
+        in: query
+        description: Retrieve company products linked to a particular category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: concept
+        in: query
+        description: Retrieve company products linked to a particular concept. (optional)
+        required: false
+        schema:
+          type: string
+      - name: microCategory
+        in: query
+        description: Retrieve company products linked to a particular micro category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: subCategory
+        in: query
+        description: Retrieve company products linked to a particular subcategory. (optional)
+        required: false
+        schema:
+          type: string
+      - name: universalProductCode
+        in: query
+        description: Retrieve company products identified with a particular upc code. (optional)
+        required: false
+        schema:
+          type: string
+      - name: userDefinedCategory
+        in: query
+        description: Retrieve company products linked to a particular user defined category. (optional)
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: getCompanyProductsEnhancedByPageV1UsingGET
+    servers:
+    - url: //webservices-test.net-chef.com
+  /companyproduct/v1/saveCompanyProductsEnhanced:
+    post:
+      tags:
+      - Company Product Enhanced Service
+      summary: saveCompanyProductEnhancedV1
+      description: 'Create a new product.
+
+        Update an existing product''s details.'
+      operationId: postCompanyproductV1SaveCompanyProductsEnhanced
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyProductEnhancedDetails'
+        description: companyProductEnhancedDetails
+        required: true
+      responses:
+        '200':
+          description: Success (If Automatically Create Company Product Number preference is OFF then success response is empty otherwise auto generated product number with name is returned )
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedAutoGenerateDetails'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyProductEnhancedAutoGenerateDetails'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyProductEnhancedDetails'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: normalized
+      x-operation-id-original: saveCompanyProductEnhancedV1UsingPOST
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    CompanyProductEnhancedBatchResponseDto:
+      type: object
+      properties:
+        companyProductEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedDetailsGet'
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+      title: CompanyProductEnhancedBatchResponseDto
+      description: Company Product Enhanced Batch Response.
+    CompanyProductEnhancedUserDefinedCategoryDetailDto:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the User Defined Category record is Active. \n If populated, must be ‘Y’ or ‘N’. If left blank, will default to ‘Y’."
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: cd 1
+          description: The "Short Name" for an existing User Defined Category.
+      title: CompanyProductEnhancedUserDefinedCategoryDetailDto
+      description: CompanyProductEnhancedUserDefinedCategoryDetailDto description
+    CompanyProductEnhancedConceptDetailDto:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Product details active flag.
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: SEAFOOD-EM
+          description: UPC code for product.
+      title: CompanyProductEnhancedConceptDetailDto
+      description: Company Product Enhanced Concept Details.
+    CompanyProductEnhancedUpcDetailDto:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the Alternate UPC record is Active. \n If populated, must be ‘Y’ or ‘N’. If left blank, will default to ‘Y’."
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: '12300123'
+          description: The Alternate "UPC" code for the Company Product.
+      title: CompanyProductEnhancedUpcDetailDto
+      description: CompanyProductEnhancedUpcDetailDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    CompanyProductEnhancedDetailsGet:
+      type: object
+      properties:
+        companyProductEnhancedAllergenAttributeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedAllergenAttributeDetailDto'
+        companyProductEnhancedConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedConceptDetailDto'
+        companyProductEnhancedDepartmentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedDepartmentDetailDto'
+        companyProductEnhancedHeaderDetails:
+          $ref: '#/components/schemas/CompanyProductEnhancedHeaderDto'
+        companyProductEnhancedShipLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedShipLocationDetailDto'
+        companyProductEnhancedUpcDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedUpcDetailDto'
+        companyProductEnhancedUserDefinedCategoryDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedUserDefinedCategoryDetailDto'
+      title: CompanyProductEnhancedDetailsGet
+      description: CompanyProductEnhancedDetailsGet description
+    CompanyProductEnhancedShipLocationDetailDto:
+      type: object
+      required:
+      - locationName
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the Ship Location record is Active. \n If populated, must be ‘Y’ or ‘N’. If left blank, will default to ‘Y’."
+          enum:
+          - N
+          - Y
+        locationName:
+          type: string
+          example: Excelsior
+          description: The Name for an existing Ship Location.
+      title: CompanyProductEnhancedShipLocationDetailDto
+      description: CompanyProductEnhancedShipLocationDetailDto description
+    CompanyProductEnhancedDetails:
+      type: object
+      properties:
+        companyProductEnhancedAllergenAttributeDetails:
+          type: array
+          description: Product allergen details.
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedAllergenAttributeDetailDto'
+        companyProductEnhancedConceptDetails:
+          type: array
+          description: Product concept details.
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedConceptDetailDto'
+        companyProductEnhancedDepartmentDetails:
+          type: array
+          description: Product Department details.
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedDepartmentDetailDto'
+        companyProductEnhancedHeaderDetails:
+          $ref: '#/components/schemas/CompanyProductEnhancedHeaderDto'
+        companyProductEnhancedShipLocationDetails:
+          type: array
+          description: Ship to a location details.
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedShipLocationDetailDto'
+        companyProductEnhancedUpcDetails:
+          type: array
+          description: Product upc details.
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedUpcDetailDto'
+        companyProductEnhancedUserDefinedCategoryDetails:
+          type: array
+          description: User defined category details.
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedUserDefinedCategoryDetailDto'
+      title: Company Product Enhanced Details
+      description: Product details.
+    CompanyProductEnhancedAllergenAttributeDetailDto:
+      type: object
+      required:
+      - nutritionClass
+      - value
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Product allergen active status.
+          enum:
+          - N
+          - Y
+        nutritionClass:
+          type: string
+          example: Nutrition 1
+          description: Nutrition classification.
+        value:
+          type: string
+          example: '101'
+          description: Nutrition classification.
+      title: CompanyProductEnhancedAllergenAttributeDetailDto
+      description: Company Product Enhanced Allergen Attributes.
+    CompanyProductEnhancedAutoGenerateDetails:
+      type: object
+      required:
+      - name
+      - number
+      properties:
+        name:
+          type: string
+          example: Test Product-1
+          description: The Product Name for the Company Product.
+        number:
+          type: string
+          example: PRD-17039
+          description: The Product Number for the Company Product.
+      title: CompanyProductEnhancedAutoGenerateDetails
+      description: CompanyProductEnhancedAutoGenerateDetails description
+    CompanyProductEnhancedDepartmentDetailDto:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Department details active flag.
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: '100'
+          description: Department UPC code.
+      title: CompanyProductEnhancedDepartmentDetailDto
+      description: Company Product Enhanced Department Details.
+    CompanyProductEnhancedHeaderDto:
+      type: object
+      required:
+      - categoryName
+      - inventoryUnitPackageType
+      - issueUnitOneConversion
+      - issueUnitOnePackageType
+      - issueUnitTwoConversion
+      - issueUnitTwoPackageType
+      - name
+      - number
+      - recipeUnitOneConversion
+      - recipeUnitOnePackageType
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Product active flag.
+          enum:
+          - N
+          - Y
+        allergenAttributes:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedAllergenAttributeDetailDto'
+        alternateNameFive:
+          type: string
+          example: Alternate Language Product Name 5
+          description: Alternate name for the product.
+        alternateNameFour:
+          type: string
+          example: Alternate Language Product Name 4
+          description: Alternate name for the product.
+        alternateNameOne:
+          type: string
+          example: Alternate Language Product Name 1
+          description: Alternate name for the product.
+        alternateNameThree:
+          type: string
+          example: Alternate Language Product Name 3
+          description: Alternate name for the product.
+        alternateNameTwo:
+          type: string
+          example: Alternate Language Product Name 2
+          description: Alternate name for the product.
+        alternateUnitOneConversion:
+          type: number
+          example: 9999.9999
+          description: The Alt Unit 1 "Conversion" value, from the Company Product 'Count Units' tab.
+        alternateUnitOnePackageType:
+          type: string
+          example: LB
+          description: The "Alt Unit 1" package type, from the Company Product 'Count Units' tab.
+        alternateUnitThreeConversion:
+          type: number
+          example: 9999.9999
+          description: The Alt Unit 3 "Conversion" value, from the Company Product 'Count Units' tab.
+        alternateUnitThreePackageType:
+          type: string
+          example: LB
+          description: The "Alt Unit 3" package type, from the Company Product 'Count Units' tab.
+        alternateUnitTwoConversion:
+          type: number
+          example: 9999.9999
+          description: The Alt Unit 2 "Conversion" value, from the Company Product 'Count Units' tab.
+        alternateUnitTwoPackageType:
+          type: string
+          example: LB
+          description: The "Alt Unit 2" package type, from the Company Product 'Count Units' tab.
+        alternateUpcs:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedUpcDetailDto'
+        bidSheet:
+          type: string
+          example: Beverages
+          description: The Name of the bid sheet.
+        bonded:
+          type: string
+          example: Y
+          description: "The \"Bonded\" status flag, from the Company Product 'Purchasing' tab. \n Indicates (Y/N) whether the product should appear as a taxable product on the Net-Chef Customs Report. If left blank, will default to ‘N’."
+          enum:
+          - N
+          - Y
+        categoryName:
+          type: string
+          example: FOOD
+          description: The Category associated with the Company Product.
+        comment:
+          type: string
+          example: Remarks
+          description: Entries here will populate the "Remarks" field on the bid sheet submitted to the vendor.
+        concepts:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedConceptDetailDto'
+        containerVolumeUnitPackageType:
+          type: string
+          example: KG
+          description: The Containerization Volume "Unit", from the Company Product 'Optional' tab.
+        containerVolumeUnitQuantity:
+          type: number
+          example: 99999999.9999
+          description: "Containerization Volume \"Quantity\", from the Company Product 'Optional' tab. \n This should equal the number of Volume units in 1 Inventory Unit."
+        containerWeightUnitPackageType:
+          type: string
+          example: KG
+          description: Containerization Weight "Unit", from the Company Product 'Optional' tab.
+        containerWeightUnitQuantity:
+          type: number
+          example: 99999999.9999
+          description: "Containerization Weight \"Quantity\", from the Company Product 'Optional' tab. \n This should equal the number of Weight units in 1 Inventory Unit."
+        countryOfOrigin:
+          type: string
+          example: country Of Origin
+          description: Country of Origin, from the Company Product 'Additional Attributes' tab.
+        customsStatus:
+          type: string
+          example: customs Status
+          description: Custom Status, from the Company Product 'Additional Attributes' tab.
+        departments:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedDepartmentDetailDto'
+        governmentMinimumStock:
+          type: string
+          example: government Minimum Stock
+          description: Gov't Min Stock, from the Company Product 'Additional Attributes' tab.
+        gradPlato:
+          type: number
+          example: 99999.99
+          description: Grad Plato, from the Company Product 'Additional Attributes' tab.
+        haccpCompliance:
+          type: string
+          example: Avoid Cross Contamination
+          description: HACCP Compliance (Restriction) for the Company Product.
+        inventoryUnitPackageType:
+          type: string
+          example: LB
+          description: The Inventory Unit for the Company Product.
+        issueUnitOneConversion:
+          type: number
+          example: 99999999.999999
+          description: "The Issue Unit 1 \"Conversion\" value for the Company Product. \n This should equal the number of 'Issue Unit 1' units in 1 Inventory Unit."
+        issueUnitOnePackageType:
+          type: string
+          example: B-1/6 PAN
+          description: The Issue Unit 1 "Unit" for the Company Product.
+        issueUnitTwoConversion:
+          type: number
+          example: 99999999.999999
+          description: "The Issue Unit 2 \"Conversion\" value for the Company Product. \n This should equal the number of 'Issue Unit 2' units in 1 Inventory Unit."
+        issueUnitTwoInverted:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the Issue Unit 2 conversion equation should be inverted. \n If 'Y', this should equal the number of Inventory Units in 1 'Issue Unit 2' unit."
+          enum:
+          - N
+          - Y
+        issueUnitTwoPackageType:
+          type: string
+          example: CS
+          description: The Issue Unit 2 "Unit" for the Company Product.
+        labelType:
+          type: string
+          example: 1
+          description: "Indicates the Label Type for the Company Product, from Company Products 'Optional' tab. \n  If populated, must be ‘1’ for System, ’2’ for 'Bar Tag', ‘3’ for Hang Tag or ‘4’ for Dumbell. If left blank, will default to ‘1’."
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+        lotTracking:
+          type: string
+          example: Y
+          description: Indicates (Y/N) whether the "Lot Tracking" flag is enabled, from the Company Product 'Purchasing' tab.
+          enum:
+          - N
+          - Y
+        masterOrderType:
+          type: string
+          example: mod
+          description: The Master Order Type associated with the Company Product.
+        microcategoryName:
+          type: string
+          example: MARGIN
+          description: The Microcategory associated with the Company Product.
+        name:
+          type: string
+          example: BUTTER
+          description: The Name of the Company Product.
+        netWeightUnitPackageType:
+          type: string
+          example: 3 KG
+          description: Net Weight "Unit", from the Company Product 'Optional' tab.
+        netWeightUnitQuantity:
+          type: number
+          example: 999.9999
+          description: Net Weight "Quantity", from the Company Products 'Optional' tab.
+        number:
+          type: string
+          example: '10047'
+          description: The product Number for the Company Product.
+        nutritionConversion:
+          type: number
+          example: 9999.9999
+          description: Indicates the number of grams in the selected Company Product 'Nutrition' unit.
+        nutritionId:
+          type: string
+          example: 123456
+          description: Identifies the Nutrition Product record associated with the Company Product.
+        nutritionPackage:
+          type: string
+          example: INVENTORY
+          description: Identifies which Company Product Unit is used to convert nutrition data to 'grams'.
+        percentageAlcohol:
+          type: number
+          example: 99999.99
+          description: Percentage Of Alcohol, from the Company Product 'Additional Attributes' tab.
+        pharmaceuticalDosage:
+          type: string
+          example: pharmaceutical Dosage
+          description: Pharmaceutical Dosage, from the Company Product 'Additional Attributes' tab.
+        preferredBrands:
+          type: string
+          example: MDR
+          description: "The \"Preferred Brands\" field from the Company Product 'Purchasing' tab. \n Entries here will populate the \"Product Brand\" field on the Vendor Bids screen and the \"Approved Brands\" field on the bid sheet submitted to the vendor."
+        preferredVendorUnitConversion:
+          type: number
+          example: 9999.9999
+          description: The Preferred Vendor "Conversion to Inventory Unit", from the Company Products 'Purchasing' tab.
+        preferredVendorUnitPackageType:
+          type: string
+          example: PU
+          description: "The Preferred Vendor \"Package Type\", from the Company Product 'Purchasing' tab. \n This should equal the number of Inventory Units in 1 Preferred Vendor 'Package Type'."
+        prescriptionFlag:
+          type: string
+          example: prescription
+          description: Prescription Flag, from the Company Product 'Additional Attributes' tab.
+        primaryShippingType:
+          type: string
+          example: REFRIGERATED
+          description: Primary Shipping Type, from the Company Product 'Additional Attributes' tab.
+        productType:
+          type: string
+          example: S
+          description: "The Product Type for the Company Product. \n  If populated, must be ‘S’ for Stock, 'N' for Non-Stock, 'A' for Sales, or 'I' for Intermediary. If left blank, will default to ‘S’."
+          enum:
+          - A
+          - D
+          - I
+          - N
+        recipeUnitFiveConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 5 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 5' units in 1 Inventory Unit."
+        recipeUnitFivePackageType:
+          type: string
+          example: OZ FL
+          description: Recipe Unit 5 "Unit" for the Company Product.
+        recipeUnitFourConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 4 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 4' units in 1 Inventory Unit."
+        recipeUnitFourPackageType:
+          type: string
+          example: OZ FL
+          description: Recipe Unit 4 "Unit" for the Company Product.
+        recipeUnitOneConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 1 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 1' units in 1 Inventory Unit."
+        recipeUnitOnePackageType:
+          type: string
+          example: OZ FL
+          description: Recipe Unit 1 "Unit" for the Company Product.
+        recipeUnitThreeConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 3 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 3' units in 1 Inventory Unit."
+        recipeUnitThreePackageType:
+          type: string
+          example: OZ FL
+          description: Recipe Unit 3 "Unit" for the Company Product.
+        recipeUnitTwoConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 2 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 2' units in 1 Inventory Unit."
+        recipeUnitTwoPackageType:
+          type: string
+          example: OZ FL
+          description: Recipe Unit 2 "Unit" for the Company Product.
+        secondaryShippingType:
+          type: string
+          example: FROZEN
+          description: Secondary Shipping Type, from the Company Product 'Additional Attributes' tab.
+        shelfLifeIssue:
+          type: integer
+          format: int64
+          example: 9999
+          description: Indicates the number of Shelf Life days for Issue transactions, from the Company Product 'Optional' tab.
+        shelfLifeReceive:
+          type: integer
+          format: int64
+          example: 9999
+          description: Indicates the number of Shelf Life days for Receive transactions, from the Company Product 'Optional' tab.
+        shipLocations:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedShipLocationDetailDto'
+        specialSizeUnit:
+          type: number
+          example: 99999.99
+          description: Special Size Unit (L), from the Company Product 'Additional Attributes' tab.
+        stateOfOrigin:
+          type: string
+          example: state Of Origin
+          description: Region of Origin, from the Company Product 'Additional Attributes' tab.
+        statisticItemNumber:
+          type: string
+          example: statistic ItemNumber
+          description: Statistic Item Number, from the Company Product 'Additional Attributes' tab.
+        subcategoryName:
+          type: string
+          example: PREP
+          description: Subcategory for the Company Product.
+        substituteProductOne:
+          type: string
+          example: Substitute Product 1
+          description: "Substitution Product 1, from the Company Product 'Optional' tab.\n Can be selected during the Picklisting or Invoicing stage of a Net-Chef Commissary/Customer Order if there isn't enough of the primary product on-hand."
+        substituteProductTwo:
+          type: string
+          example: Substitute Product 2
+          description: "Substitution Product 2, from the Company Product 'Optional' tab. \n Can be selected during the Picklisting or Invoicing stage of a Net-Chef Commissary/Customer Order if there isn't enough of the primary product on-hand."
+        taxCode:
+          type: string
+          example: 123
+          description: Tax Code associated with the product, from the Company Product 'Purchasing' tab.
+        temperature:
+          type: number
+          example: 999.99
+          description: Indicates the temperature the product should be when received. Required when the "Validate Temperature" flag = 'Y'.
+        temperatureOperation:
+          type: string
+          example: 1
+          description: "Indicates the Temperature Operation for the product. \n If populated, must be ‘1’ (>), ‘2’ (≥), ‘3’ (≤), or ‘4’ (<). Required when the \"Validate Temperature\" flag = 'Y'."
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+        temperatureRequired:
+          type: string
+          example: Y
+          description: "The \"Validate Temperature\" flag for the product. \n Indicates (Y/N) whether this is required when receiving vendor orders in Net-Chef. If left blank, will default to ‘N’."
+          enum:
+          - N
+          - Y
+        theoreticalEqualsActual:
+          type: string
+          example: Y
+          description: "The \"Set Theoretical Equal to Actual\" flag, from the Company Product 'Optional' tab. \n If populated, must be ‘Y’ or ‘N’. If left blank, will default to ‘N’."
+          enum:
+          - N
+          - Y
+        therapeuticCode:
+          type: string
+          example: therapeutic Code
+          description: Therapeutic Code, from the Company Product 'Additional Attributes' tab.
+        universalProductCode:
+          type: string
+          example: '12300123'
+          description: The "UPC" (Universal Product Code) for the Company Product.
+        universalProductNumber:
+          type: string
+          example: '1230012'
+          description: The Universal Product Number for the Company Product.
+        universalProductUnitConversion:
+          type: number
+          example: 9999.9999
+          description: "The Universal Product Unit \"Conversion\" for the Company Product. \n This should equal the number of 'Universal Product Units' in 1 Inventory Unit."
+        universalProductUnitInverted:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the Universal Product Unit conversion equation should be inverted. \n If 'Y', this should equal the number of Inventory Units in 1 'Universal Product Unit'."
+          enum:
+          - N
+          - Y
+        universalProductUnitPackageType:
+          type: string
+          example: OZ FL
+          description: The Universal Product Unit "Unit" for the Company Product.
+        userDefinedCategories:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/CompanyProductEnhancedUserDefinedCategoryDetailDto'
+      title: CompanyProductEnhancedHeaderDto
+      description: CompanyProductEnhancedHeaderDto description
+    CompanyProductEnhancedHeaderDto_2:
+      type: object
+      required:
+      - categoryName
+      - inventoryUnitPackageType
+      - issueUnitOneConversion
+      - issueUnitOnePackageType
+      - issueUnitTwoConversion
+      - issueUnitTwoPackageType
+      - name
+      - number
+      - recipeUnitOneConversion
+      - recipeUnitOnePackageType
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Product active flag.
+          enum:
+          - N
+          - Y
+        alternateNameFive:
+          type: string
+          example: Alternate Language Product Name 5
+          description: Alternate name for the product.
+        alternateNameFour:
+          type: string
+          example: Alternate Language Product Name 4
+          description: Alternate name for the product.
+        alternateNameOne:
+          type: string
+          example: Alternate Language Product Name 1
+          description: Alternate name for the product.
+        alternateNameThree:
+          type: string
+          example: Alternate Language Product Name 3
+          description: Alternate name for the product.
+        alternateNameTwo:
+          type: string
+          example: Alternate Language Product Name 2
+          description: Alternate name for the product.
+        alternateUnitOneConversion:
+          type: number
+          example: 9999.9999
+          description: The Alt Unit 1 "Conversion" value, from the Company Product 'Count Units' tab.
+        alternateUnitOnePackageType:
+          type: string
+          example: LB
+          description: The "Alt Unit 1" package type, from the Company Product 'Count Units' tab.
+        alternateUnitThreeConversion:
+          type: number
+          example: 9999.9999
+          description: The Alt Unit 3 "Conversion" value, from the Company Product 'Count Units' tab.
+        alternateUnitThreePackageType:
+          type: string
+          example: LB
+          description: The "Alt Unit 3" package type, from the Company Product 'Count Units' tab.
+        alternateUnitTwoConversion:
+          type: number
+          example: 9999.9999
+          description: The Alt Unit 2 "Conversion" value, from the Company Product 'Count Units' tab.
+        alternateUnitTwoPackageType:
+          type: string
+          example: LB
+          description: The "Alt Unit 2" package type, from the Company Product 'Count Units' tab.
+        bidSheet:
+          type: string
+          example: Beverages
+          description: The Name of the bid sheet.
+        bonded:
+          type: string
+          example: Y
+          description: "The \"Bonded\" status flag, from the Company Product 'Purchasing' tab. \n Indicates (Y/N) whether the product should appear as a taxable product on the Net-Chef Customs Report. If left blank, will default to ‘N’."
+          enum:
+          - N
+          - Y
+        categoryName:
+          type: string
+          example: FOOD
+          description: The Category associated with the Company Product.
+        comment:
+          type: string
+          example: Remarks
+          description: Entries here will populate the "Remarks" field on the bid sheet submitted to the vendor.
+        containerVolumeUnitPackageType:
+          type: string
+          example: KG
+          description: The Containerization Volume "Unit", from the Company Product 'Optional' tab.
+        containerVolumeUnitQuantity:
+          type: number
+          example: 99999999.9999
+          description: "Containerization Volume \"Quantity\", from the Company Product 'Optional' tab. \n This should equal the number of Volume units in 1 Inventory Unit."
+        containerWeightUnitPackageType:
+          type: string
+          example: KG
+          description: Containerization Weight "Unit", from the Company Product 'Optional' tab.
+        containerWeightUnitQuantity:
+          type: number
+          example: 99999999.9999
+          description: "Containerization Weight \"Quantity\", from the Company Product 'Optional' tab. \n This should equal the number of Weight units in 1 Inventory Unit."
+        countryOfOrigin:
+          type: string
+          example: country Of Origin
+          description: Country of Origin, from the Company Product 'Additional Attributes' tab.
+        customsStatus:
+          type: string
+          example: customs Status
+          description: Custom Status, from the Company Product 'Additional Attributes' tab.
+        governmentMinimumStock:
+          type: string
+          example: government Minimum Stock
+          description: Gov't Min Stock, from the Company Product 'Additional Attributes' tab.
+        gradPlato:
+          type: number
+          example: 99999.99
+          description: Grad Plato, from the Company Product 'Additional Attributes' tab.
+        haccpCompliance:
+          type: string
+          example: Avoid Cross Contamination
+          description: HACCP Compliance (Restriction) for the Company Product.
+        inventoryUnitPackageType:
+          type: string
+          example: LB
+          description: The Inventory Unit for the Company Product.
+        issueUnitOneConversion:
+          type: number
+          example: 99999999.999999
+          description: "The Issue Unit 1 \"Conversion\" value for the Company Product. \n This should equal the number of 'Issue Unit 1' units in 1 Inventory Unit."
+        issueUnitOnePackageType:
+          type: string
+          example: B-1/6 PAN
+          description: The Issue Unit 1 "Unit" for the Company Product.
+        issueUnitTwoConversion:
+          type: number
+          example: 99999999.999999
+          description: "The Issue Unit 2 \"Conversion\" value for the Company Product. \n This should equal the number of 'Issue Unit 2' units in 1 Inventory Unit."
+        issueUnitTwoInverted:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the Issue Unit 2 conversion equation should be inverted. \n If 'Y', this should equal the number of Inventory Units in 1 'Issue Unit 2' unit."
+          enum:
+          - N
+          - Y
+        issueUnitTwoPackageType:
+          type: string
+          example: CS
+          description: The Issue Unit 2 "Unit" for the Company Product.
+        labelType:
+          type: string
+          example: 1
+          description: "Indicates the Label Type for the Company Product, from Company Products 'Optional' tab. \n  If populated, must be ‘1’ for System, ’2’ for 'Bar Tag', ‘3’ for Hang Tag or ‘4’ for Dumbell. If left blank, will default to ‘1’."
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+        lotTracking:
+          type: string
+          example: Y
+          description: Indicates (Y/N) whether the "Lot Tracking" flag is enabled, from the Company Product 'Purchasing' tab.
+          enum:
+          - N
+          - Y
+        masterOrderType:
+          type: string
+          example: mod
+          description: The Master Order Type associated with the Company Product.
+        microcategoryName:
+          type: string
+          example: MARGIN
+          description: The Microcategory associated with the Company Product.
+        name:
+          type: string
+          example: BUTTER
+          description: The Name of the Company Product.
+        netWeightUnitPackageType:
+          type: string
+          example: 3 KG
+          description: Net Weight "Unit", from the Company Product 'Optional' tab.
+        netWeightUnitQuantity:
+          type: number
+          example: 999.9999
+          description: Net Weight "Quantity", from the Company Products 'Optional' tab.
+        number:
+          type: string
+          example: '10047'
+          description: The product Number for the Company Product.
+        nutritionConversion:
+          type: number
+          example: 9999.9999
+          description: Indicates the number of grams in the selected Company Product 'Nutrition' unit.
+        nutritionId:
+          type: string
+          example: 123456
+          description: Identifies the Nutrition Product record associated with the Company Product.
+        nutritionPackage:
+          type: string
+          example: INVENTORY
+          description: Identifies which Company Product Unit is used to convert nutrition data to 'grams'.
+        percentageAlcohol:
+          type: number
+          example: 99999.99
+          description: Percentage Of Alcohol, from the Company Product 'Additional Attributes' tab.
+        pharmaceuticalDosage:
+          type: string
+          example: pharmaceutical Dosage
+          description: Pharmaceutical Dosage, from the Company Product 'Additional Attributes' tab.
+        preferredBrands:
+          type: string
+          example: MDR
+          description: "The \"Preferred Brands\" field from the Company Product 'Purchasing' tab. \n Entries here will populate the \"Product Brand\" field on the Vendor Bids screen and the \"Approved Brands\" field on the bid sheet submitted to the vendor."
+        preferredVendorUnitConversion:
+          type: number
+          example: 9999.9999
+          description: The Preferred Vendor "Conversion to Inventory Unit", from the Company Products 'Purchasing' tab.
+        preferredVendorUnitPackageType:
+          type: string
+          example: PU
+          description: "The Preferred Vendor \"Package Type\", from the Company Product 'Purchasing' tab. \n This should equal the number of Inventory Units in 1 Preferred Vendor 'Package Type'."
+        prescriptionFlag:
+          type: string
+          example: prescription
+          description: Prescription Flag, from the Company Product 'Additional Attributes' tab.
+        primaryShippingType:
+          type: string
+          example: REFRIGERATED
+          description: Primary Shipping Type, from the Company Product 'Additional Attributes' tab.
+        productType:
+          type: string
+          example: S
+          description: "The Product Type for the Company Product. \n  If populated, must be ‘S’ for Stock, 'N' for Non-Stock, 'A' for Sales, or 'I' for Intermediary. If left blank, will default to ‘S’."
+          enum:
+          - A
+          - D
+          - I
+          - N
+        recipeUnitFiveConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 5 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 5' units in 1 Inventory Unit."
+        recipeUnitFivePackageType:
+          type: string
+          example: OZ
+          description: Recipe Unit 5 "Unit" for the Company Product.
+        recipeUnitFourConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 4 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 4' units in 1 Inventory Unit."
+        recipeUnitFourPackageType:
+          type: string
+          example: CUP
+          description: Recipe Unit 4 "Unit" for the Company Product.
+        recipeUnitOneConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 1 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 1' units in 1 Inventory Unit."
+        recipeUnitOnePackageType:
+          type: string
+          example: GAL
+          description: Recipe Unit 1 "Unit" for the Company Product.
+        recipeUnitThreeConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 3 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 3' units in 1 Inventory Unit."
+        recipeUnitThreePackageType:
+          type: string
+          example: QUART
+          description: Recipe Unit 3 "Unit" for the Company Product.
+        recipeUnitTwoConversion:
+          type: number
+          example: 99999999.999999
+          description: "Recipe Unit 2 \"Conversion\" value for the Company Product. \n This should equal the number of 'Recipe Unit 2' units in 1 Inventory Unit."
+        recipeUnitTwoPackageType:
+          type: string
+          example: HALF GAL
+          description: Recipe Unit 2 "Unit" for the Company Product.
+        secondaryShippingType:
+          type: string
+          example: FROZEN
+          description: Secondary Shipping Type, from the Company Product 'Additional Attributes' tab.
+        shelfLifeIssue:
+          type: integer
+          format: int64
+          example: 9999
+          description: Indicates the number of Shelf Life days for Issue transactions, from the Company Product 'Optional' tab.
+        shelfLifeReceive:
+          type: integer
+          format: int64
+          example: 9999
+          description: Indicates the number of Shelf Life days for Receive transactions, from the Company Product 'Optional' tab.
+        specialSizeUnit:
+          type: number
+          example: 99999.99
+          description: Special Size Unit (L), from the Company Product 'Additional Attributes' tab.
+        stateOfOrigin:
+          type: string
+          example: state Of Origin
+          description: Region of Origin, from the Company Product 'Additional Attributes' tab.
+        statisticItemNumber:
+          type: string
+          example: statistic ItemNumber
+          description: Statistic Item Number, from the Company Product 'Additional Attributes' tab.
+        subcategoryName:
+          type: string
+          example: PREP
+          description: Subcategory for the Company Product.
+        substituteProductOne:
+          type: string
+          example: Substitute Product 1
+          description: "Substitution Product 1, from the Company Product 'Optional' tab.\n Can be selected during the Picklisting or Invoicing stage of a Net-Chef Commissary/Customer Order if there isn't enough of the primary product on-hand."
+        substituteProductTwo:
+          type: string
+          example: Substitute Product 2
+          description: "Substitution Product 2, from the Company Product 'Optional' tab. \n Can be selected during the Picklisting or Invoicing stage of a Net-Chef Commissary/Customer Order if there isn't enough of the primary product on-hand."
+        taxCode:
+          type: string
+          example: 123
+          description: Tax Code associated with the product, from the Company Product 'Purchasing' tab.
+        temperature:
+          type: number
+          example: 999.99
+          description: Indicates the temperature the product should be when received. Required when the "Validate Temperature" flag = 'Y'.
+        temperatureOperation:
+          type: string
+          example: 1
+          description: "Indicates the Temperature Operation for the product. \n If populated, must be ‘1’ (>), ‘2’ (≥), ‘3’ (≤), or ‘4’ (<). Required when the \"Validate Temperature\" flag = 'Y'."
+          enum:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+        temperatureRequired:
+          type: string
+          example: Y
+          description: "The \"Validate Temperature\" flag for the product. \n Indicates (Y/N) whether this is required when receiving vendor orders in Net-Chef. If left blank, will default to ‘N’."
+          enum:
+          - N
+          - Y
+        theoreticalEqualsActual:
+          type: string
+          example: Y
+          description: "The \"Set Theoretical Equal to Actual\" flag, from the Company Product 'Optional' tab. \n If populated, must be ‘Y’ or ‘N’. If left blank, will default to ‘N’."
+          enum:
+          - N
+          - Y
+        therapeuticCode:
+          type: string
+          example: therapeutic Code
+          description: Therapeutic Code, from the Company Product 'Additional Attributes' tab.
+        universalProductCode:
+          type: string
+          example: '12300123'
+          description: The "UPC" (Universal Product Code) for the Company Product.
+        universalProductNumber:
+          type: string
+          example: '1230012'
+          description: The Universal Product Number for the Company Product.
+        universalProductUnitConversion:
+          type: number
+          example: 9999.9999
+          description: "The Universal Product Unit \"Conversion\" for the Company Product. \n This should equal the number of 'Universal Product Units' in 1 Inventory Unit."
+        universalProductUnitInverted:
+          type: string
+          example: Y
+          description: "Flag to indicate (Y/N) whether the Universal Product Unit conversion equation should be inverted. \n If 'Y', this should equal the number of Inventory Units in 1 'Universal Product Unit'."
+          enum:
+          - N
+          - Y
+        universalProductUnitPackageType:
+          type: string
+          example: OZ FL
+          description: The Universal Product Unit "Unit" for the Company Product.
+      title: CompanyProductEnhancedHeaderDto
+      description: CompanyProductEnhancedHeaderDto description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0

@@ -1,0 +1,804 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Vendor Product Pricing Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Vendor Product Pricing Service
+  description: 'Project Read Me - API Descriptions (SOURCE OF TRUTH)
+
+    Project Read Me - API Descriptions (SOURCE OF TRUTH)
+
+    100%
+
+    10
+
+    Vendor Product Pricing Service
+
+    1 of 2
+
+    B22 Vendor Product Pricing Service [>]
+
+    C22
+
+
+    The Vendor Product Pricing Service allows users to “GET”, or retrieve extract product pricing data from Crunchtime.'
+paths:
+  /vendorproductpricing/v1/getAllVendorProductPricing:
+    get:
+      tags:
+      - Vendor Product Pricing Service
+      summary: getAllVendorProductPricing
+      description: Retrieve all vendor products pricing.
+      operationId: getAllVendorProductPricingV1UsingGET
+      parameters:
+      - name: activeProductFlag
+        in: query
+        description: Retrieve active products (optional). Default to Y, if not provided.
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: bidSheet
+        in: query
+        description: Name of bid sheet to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: Bid sheet(PA)
+        schema:
+          type: string
+      - name: contractStatus
+        in: query
+        description: Retrieve products under contract (Y/N) - optional.
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: effectiveDate
+        in: query
+        description: "Retrieve products relevant for this date (optional). API retrieves products with a beginDate less than or equal to the EffectiveDate and an endDate greater than the EffectiveDate. EffectiveDate is current date by default. \n Hint: If you want to see bids that end 'today', enter the date for the day before."
+        required: false
+        example: 11/10/2023
+        schema:
+          type: string
+      - name: market
+        in: query
+        description: Name of market to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: East (PA)
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a vendor product pricing or contract record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productName
+        in: query
+        description: Name of product to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: Milk
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: Product number to retrieve. (case sensitive).
+        required: false
+        example: P-010101
+        schema:
+          type: string
+      - name: secondaryMarket
+        in: query
+        description: Retrieve products from secondary markets, if market param is provided. If market param is filled and secondaryMarket equals to "Y", API returns products not only from the market provided, but from secondary markets linked to the market, if there are any.
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: substitute
+        in: query
+        description: Fetch substitute products (optional).
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: vendor
+        in: query
+        description: Name of vendor to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: Curtis Foods
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VendorProductPricingBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorProductPricingBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: vendor product pricing not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /vendorproductpricing/v1/getVendorProductPricingByPage:
+    get:
+      tags:
+      - Vendor Product Pricing Service
+      summary: getVendorProductPricingByPage
+      description: Retrieve a page of vendor product pricing.
+      operationId: getVendorProductPricingByPageV1UsingGET
+      parameters:
+      - name: activeProductFlag
+        in: query
+        description: Retrieve active products (optional). Default to Y, if not provided.
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: bidSheet
+        in: query
+        description: Name of bid sheet to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: Bid sheet(PA)
+        schema:
+          type: string
+      - name: contractStatus
+        in: query
+        description: Retrieve products under contract (Y/N) - optional.
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: effectiveDate
+        in: query
+        description: "Retrieve products relevant for this date (optional). API retrieves products with a beginDate less than or equal to the EffectiveDate and an endDate greater than the EffectiveDate. EffectiveDate is current date by default. \n Hint: If you want to see bids that end 'today', enter the date for the day before."
+        required: false
+        example: 11/10/2023
+        schema:
+          type: string
+      - name: market
+        in: query
+        description: Name of market to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: East (PA)
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a vendor product pricing or contract record was last updated. Use to set how far back to search.
+        required: false
+        example: 1440
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        example: 1
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: substitute
+        in: query
+        description: Fetch substitute products (optional).
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productName
+        in: query
+        description: Name of product to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: Milk
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: Product number to retrieve. (case sensitive).
+        required: false
+        example: P-010101
+        schema:
+          type: string
+      - name: secondaryMarket
+        in: query
+        description: Retrieve products from secondary markets, if market param is provided. If market param is filled and secondaryMarket equals to "Y", API returns products not only from the market provided, but from secondary markets linked to the market, if there are any.
+        required: false
+        example: Y
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: vendor
+        in: query
+        description: Name of vendor to retrieve (optional) (case sensitive full name search).
+        required: false
+        example: Vendor 02 (PA)
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VendorProductPricingBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorProductPricingBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: vendor product pricing not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    VendorProductPricingDto:
+      type: object
+      properties:
+        beginDate:
+          type: string
+          example: 11/10/2023
+          description: '"Begin Date" of vendor product'
+        bidSheet:
+          type: string
+          example: QGF000
+          description: '"Bid Sheet" from Vendor Bids screen'
+        contractStatus:
+          type: string
+          example: Y
+          description: '"Contract Status" indicates (Y/N) whether the product has a contract'
+        conversionToInventoryUnit:
+          type: number
+          example: 0,5
+          description: '"Conversion Factor" from Vendor to Inventory unit.'
+        endDate:
+          type: string
+          example: 11/10/2012
+          description: '"End Date" of vendor product'
+        inventoryUnit:
+          type: string
+          example: 12/12 OZ
+          description: '"Inventory Unit" from Vendor Bids screen'
+        lastChangeDate:
+          type: string
+          example: 11/10/2020
+          description: '"Last Change Date" from Vendor Bids screen'
+        market:
+          type: string
+          example: My Market
+          description: '"Market Name" from Market screen'
+        preferredUnit:
+          type: string
+          example: 12/12 OZ
+          description: '"Preferred Unit" from Vendor Bids screen'
+        price:
+          type: number
+          example: 100
+          description: '"Price" from Vendor Bids screen'
+        productBrand:
+          type: string
+          example: Nestle
+          description: '"Product Brand" from Vendor Bids screen'
+        productName:
+          type: string
+          example: My Company
+          description: '"Company Product Name" from Company Products screen'
+        productNumber:
+          type: string
+          example: '000222'
+          description: '"Company Product Number" from Company Products screen'
+        secondaryMarket:
+          type: string
+          example: Y
+          description: '"Secondary Market Flag" shows relationship between markets.'
+        secondaryVendorProducts:
+          type: array
+          description: '"Secondary Vendor Products" from Vendor Bids screen'
+          items:
+            $ref: '#/components/schemas/SecVendorProductPricingDto'
+        splitFlag:
+          type: string
+          example: N
+          description: '"Split" flag from Vendor Bids screen'
+        usage:
+          type: string
+          example: 323
+          description: '"Usage"'
+        vendor:
+          type: string
+          example: My Vendor Company
+          description: '"Vendor Name" from Vendor setup screen'
+        vendorCode:
+          type: string
+          example: '000222'
+          description: '"Vendor Code" from Vendor setup screen'
+        vendorPackSize:
+          type: string
+          example: 12/12 OZ
+          description: '"Vendor Pack Size" - Vendor Unit from Vendor Bids screen'
+        vendorProductNumber:
+          type: string
+          example: p-0222
+          description: '"Vendor Product Number" from Vendor Bids screen'
+        contractLastChangeDate:
+          type: string
+          example: 11/10/2020 09:23:35
+          description: '"Last Change Date" for Contract'
+        taxCode:
+          type: string
+          example: T08
+          description: '"Tax Code" from Vendor Bids screen'
+        contractInfo:
+          $ref: '#/components/schemas/ContractInfoDto'
+      title: VendorProductPricingDto
+      description: VendorProductPricingDto description
+    VendorProductPricingBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        totalPages:
+          type: integer
+          format: int32
+        vendorProductPricingRows:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorProductPricingDto'
+      title: VendorProductPricingBatchResponseDto
+      description: VendorProductPricingBatchResponseDto description
+    ContractInfoDto:
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+          example: AB123321
+          description: '"Reference #" from Contract Info on Vendor Bids screenr'
+        lineNumber:
+          type: string
+          example: '12'
+          description: '"Line #" from Contract Info on Vendor Bids screen'
+        expirationDate:
+          type: string
+          example: 11/10/2020
+          description: '"Expiration Date" from Contract Info on Vendor Bids screen'
+      title: ContractInfoDto
+      description: ContractInfoDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    SecVendorProductPricingDto:
+      type: object
+      properties:
+        beginDate:
+          type: string
+          example: 11/10/2023
+          description: '"Begin Date" of vendor product'
+        conversionToInventoryUnit:
+          type: number
+          example: 0,5
+          description: '"Conversion Factor" from Vendor to Inventory unit.'
+        endDate:
+          type: string
+          example: 11/10/2012
+          description: '"End Date" of vendor product'
+        lastChangeDate:
+          type: string
+          example: 11/10/2020
+          description: '"Last Change Date" from Vendor Bids screen'
+        price:
+          type: number
+          example: 100
+          description: '"Price" from Vendor Bids screen'
+        primaryAltPrimary:
+          type: string
+          example: Y
+          description: '"Alternative Primary" flag from Vendor Bid Split and Secondary Vendor Products pop-up'
+        productBrand:
+          type: string
+          example: Nestle
+          description: '"Product Brand" from Vendor Bid Split and Secondary Vendor Products pop-up'
+        splitFlag:
+          type: string
+          example: N
+          description: '"Split" flag from Vendor Bid Split and Secondary Vendor Products pop-up'
+        vendorPackSize:
+          type: string
+          example: 12/12 OZ
+          description: '"Vendor Pack Size" - Vendor Unit from Vendor Bid Split and Secondary Vendor Products pop-up'
+        vendorProductName:
+          type: string
+          example: My Milk
+          description: '"Vendor Product Name" from Vendor Bid Split and Secondary Vendor Products pop-up'
+        vendorProductNumber:
+          type: string
+          example: p-0222
+          description: '"Vendor Product Number" from Vendor Bid Split and Secondary Vendor Products pop-up'
+        substitute:
+          type: string
+          example: Y
+          description: '"Substitute" flag from Vendor Bid Split and Secondary Vendor Products pop-up'
+        substituteNotApproved:
+          type: string
+          example: N
+          description: '"Not Approved" flag from Vendor Bid Split and Secondary Vendor Products pop-up'
+        substituteRestricted:
+          type: string
+          example: Y
+          description: '"Restricted" flag from Vendor Bid Split and Secondary Vendor Products pop-up'
+        taxCode:
+          type: string
+          example: T08
+          description: '"Tax Code" from Vendor Bid Split and Secondary Vendor Products popup'
+      title: SecVendorProductPricingDto
+      description: SecVendorProductPricingDto description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

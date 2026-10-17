@@ -1,3 +1,5 @@
+# x-archived-from: crunchtime-information-systems-cruise-platform-openapi.yml
+# x-archived-on: 2026-10-16
 openapi: 3.0.0
 info:
   description: Swagger documentation supporting mobile development of Crunchtime.

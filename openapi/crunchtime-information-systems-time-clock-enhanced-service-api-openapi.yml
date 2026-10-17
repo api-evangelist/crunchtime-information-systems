@@ -1,0 +1,969 @@
+openapi: 3.2.0
+info:
+  description: Swagger documentation supporting mobile development of Crunchtime.
+  version: '2.99'
+  title: Inventory & Labor Time Clock Enhanced Service API
+  termsOfService: http://springfox.io
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Time Clock Enhanced Service
+  description: The Time Clock Enhanced service allows you to get or post employee time clock records that typically come from an external payroll or POS system. The post call will contain the original time punch data needed to process time clock records in the Net- Chef Labor Summary screen, whereas the Get call will retrieve the adjusted time clock records from the Net-Chef Labor Summary screen.
+paths:
+  /timeclock/v1/getAllTimeClockEnhanced:
+    get:
+      tags:
+      - Time Clock Enhanced Service
+      summary: getAllTimeClockEnhanced
+      description: Retrieve employee time clock details.
+      operationId: getAllTimeClockEnhancedRecordsV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: employeeNumber
+        in: query
+        description: The employee number from the employee record.
+        required: false
+        schema:
+          type: string
+      - name: laborDate
+        in: query
+        description: Labor date to retrieve in format dd-MMM-yy.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: posCode
+        in: query
+        description: POS Code for the Employee.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Status (ALL, REVIEWED, POSTED)
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimeClockEnhancedDetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimeClockEnhancedDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: timeclock enhanced not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /timeclock/v1/getTimeClockEnhancedByPage:
+    get:
+      tags:
+      - Time Clock Enhanced Service
+      summary: getTimeClockEnhancedByPage
+      description: Retrieve employee time clock details by page number.
+      operationId: getTimeClockEnhancedRecordsByPageV1UsingGET
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: employeeNumber
+        in: query
+        description: The employee number from the employee record.
+        required: false
+        schema:
+          type: string
+      - name: laborDate
+        in: query
+        description: Labor date to retrieve in format dd-MMM-yy.
+        required: true
+        schema:
+          type: string
+      - name: locationCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: posCode
+        in: query
+        description: The Code that identifies the Location in Crunchtime.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Status (ALL, REVIEWED, POSTED)
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TimeClockEnhancedBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeClockEnhancedBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: timeclock enhanced not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  /timeclock/v1/saveTimeClockEnhanced:
+    post:
+      tags:
+      - Time Clock Enhanced Service
+      summary: saveTimeClockEnhanced
+      description: 'Create a new employee time clock entry.
+
+        Update an employee time clock entry.'
+      operationId: saveTimeClockEnhancedRecordsUsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeClockEnhancedDetailsList'
+        description: timeClockEnhancedDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/timeClockEnhancedDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/timeClockEnhancedDetails'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    TimeClockEnhancedDetailsGet:
+      type: object
+      properties:
+        timeClockEnhancedDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeClockEnhancedDetailGet'
+        timeClockEnhancedHeaderDetails:
+          $ref: '#/components/schemas/TimeClockEnhancedHeaderDto'
+      title: TimeClockEnhancedDetailsGet
+      description: TimeClockEnhancedDetailsGet description
+    TimeClockEnhancedDetailGet:
+      type: object
+      required:
+      - clockIn
+      - completeFlag
+      - employeeNumber
+      - exportFlag
+      - hoursAdjusted
+      - hoursOtAdjusted
+      - laborDate
+      - locationId
+      - locationIdWorked
+      - payRateReg
+      - posCode
+      - posId
+      - valueAdjusted
+      - valueOtAdjusted
+      - valueRegAdjusted
+      - weekEndingDate
+      properties:
+        breakType:
+          type: string
+          example: PAID
+          description: Indicates whether the employee clocked in/out for either a 'Paid' or 'Unpaid' break during their shift.
+          enum:
+          - 'NULL'
+          - PAID
+          - UNPAID
+        cashSales:
+          type: number
+          example: 99999999.9999
+          description: Cash Sales for the shift.
+        cashTips:
+          type: number
+          example: 99999999.9999
+          description: Shared declared Cash Tips for the shift.
+        chargeSales:
+          type: number
+          example: 99999999.9999
+          description: Charge Sales for the shift.
+        chargeTips:
+          type: number
+          example: 99999999.99
+          description: Declared Charge Tips for the shift.
+        clockIn:
+          type: string
+          example: HH:mm MM/dd/yyyy
+          description: Adjusted Clock In Date/Time for the shift.
+        clockOut:
+          type: string
+          example: HH:mm MM/dd/yyyy
+          description: Adjusted Clock Out Date/Time for the shift.
+        clopeningPayRateOr:
+          type: number
+          example: 99999999.9999
+          description: The rate of pay used to calculate a Clopening premium.
+        clopeningShiftHoursDiffOr:
+          type: number
+          example: 99999999.9999
+          description: The difference in hours between the end of the first shift (in the logical shift grouping) and the beginning of the second shift (in the logical shift grouping).
+        clopeningValueOr:
+          type: number
+          example: 99999999.9999
+          description: The Clopening premium value for the shift.
+        completeFlag:
+          type: string
+          example: Y
+          description: Indicates whether the shift is complete.
+          enum:
+          - N
+          - Y
+        editedBy:
+          type: string
+          description: The User ID for the user that reviewed/edited the shift records.
+        employeeNumber:
+          type: string
+          example: AUTO52
+          description: POS ID of the employee who worked the shift.
+        exportFlag:
+          type: string
+          example: Y
+          description: Indicates whether the shift has been exported.
+          enum:
+          - N
+          - Y
+        hoursAdjusted:
+          type: number
+          example: 99999999.9999
+          description: Total hours for the shift (Adjusted Begin to Adjusted End minus Adjusted Minutes).
+        hoursMealPeriodPremiumOr:
+          type: number
+          example: 99999999.9999
+          description: Number of hours for the Meal Period premium.
+        hoursMinPaidShiftOr:
+          type: number
+          example: 99999999.9999
+          description: Number of hours for the Minimum Paid Shift premium.
+        hoursOtAdjusted:
+          type: number
+          example: 99999999.9999
+          description: Total Overtime Hours for the shift.
+        hoursPaidBreakOr:
+          type: number
+          example: 99999999.9999
+          description: Total Paid Break hours for the shift.
+        hoursRegAdjusted:
+          type: number
+          example: 99999999.9999
+          description: Total Regular hours for the shift.
+        hoursReportingPayOr:
+          type: number
+          example: 99999999.9999
+          description: Total Reporting Pay hours for the shift.
+        hoursSplitShiftOr:
+          type: number
+          example: 99999999.9999
+          description: Total Split Shift hours for the shift.
+        laborDate:
+          type: string
+          example: MM/dd/yyyy
+          description: Date the shift was worked.
+        locationId:
+          type: integer
+          format: int64
+          example: PL8
+          description: Location Code for the location where the shift was worked.
+        locationIdWorked:
+          type: integer
+          format: int64
+          example: PL8
+          description: Location Code for the location where the shift was allocated to, if different from where the shift was worked.
+        payRateReg:
+          type: number
+          example: 99999999.9999
+          description: Regular Pay Rate for the shift.
+        payType:
+          type: string
+          example: H
+          description: Pay Type for the position worked for the shift. 'S' (Salary), 'E' (Salary Exempt), or ‘H' (Hourly)
+          enum:
+          - E
+          - H
+          - S
+        payrollCode:
+          type: string
+          example: Q1
+          description: Payroll Code Code that identifies the position.
+        posCode:
+          type: string
+          example: AUTO10
+          description: POS Code that identifies the position.
+        posId:
+          type: string
+          example: 247087
+          description: POS ID that identifies the employee.
+        posted:
+          type: string
+          example: N
+          description: Indicates whether the labor record has been posted.
+        rateMealPeriodPremium:
+          type: number
+          example: 99999999.9999
+          description: Rate at which the Meal Period premium is paid.
+        rateMinPaidShift:
+          type: number
+          example: 99999999.9999
+          description: Rate used for Minimum Paid Shift penalty value calculation.
+        ratePaidBreakPremium:
+          type: number
+          example: 99999999.9999
+          description: Rate at which the Paid Break premium is paid.
+        rateReportingPay:
+          type: number
+          example: 99999999.9999
+          description: Rate used for Reporting Pay penalty value calculation.
+        rateSplitShiftOr:
+          type: number
+          example: 99999999.9999
+          description: Rate used for Split Shift penalty value calculation.
+        reviewed:
+          type: string
+          example: Y
+          description: Indicates whether the shift row has been reviewed in the Net-Chef Labor Details screen.
+        spreadOfHrsAwardedHoursOr:
+          type: number
+          example: 99999999.9999
+          description: 'Number of hours awarded if employee works greater than or equal to the Spread of Hours minimum # of hours.'
+        spreadOfHrsRate:
+          type: number
+          example: 99999999.9999
+          description: Rate at which the Spread of Hours premium is paid.
+        spreadOfHrsValue:
+          type: number
+          example: 99999999.9999
+          description: Spread of Hours premium paid for the shift.
+        tippedCreditValueOr:
+          type: number
+          example: 99999999.9999
+          description: Tipped Credit value paid for the shift.
+        valueAdjusted:
+          type: number
+          example: 99999999.9999
+          description: Total Pay value for the shift.
+        valueMealPeriodPremium:
+          type: number
+          example: 99999999.9999
+          description: Meal Period premium paid for the shift.
+        valueMinPaidShift:
+          type: number
+          example: 99999999.9999
+          description: Minimum Paid Shift premium paid for the shift.
+        valueOtAdjusted:
+          type: number
+          example: 99999999.9999
+          description: Total Overtime pay for the shift.
+        valuePaidBreak:
+          type: number
+          example: 99999999.9999
+          description: Paid Break premium paid for the shift.
+        valueRegAdjusted:
+          type: number
+          example: 99999999.9999
+          description: Total Regular pay for the shift.
+        valueReportingPay:
+          type: number
+          example: 99999999.9999
+          description: Reporting Pay premium paid for the shift.
+        valueSplitShift:
+          type: number
+          example: 99999999.9999
+          description: Split Shift premium paid for the shift.
+        weekEndingDate:
+          type: string
+          example: MM/dd/yyyy
+          description: Week Ending Date for the labor week.
+      title: TimeClockEnhancedDetailGet
+      description: TimeClockEnhancedDetailGet description
+    TimeClockEnhancedHeaderDto:
+      type: object
+      required:
+      - importDataDateTime
+      - laborDate
+      - locationCode
+      properties:
+        importDataDateTime:
+          type: string
+          example: HH:mm MM/dd/yyyy
+          description: Import Date/Time for the labor records.
+        laborDate:
+          type: string
+          example: MM/dd/yyyy
+          description: The date for the labor records in the file.
+        locationCode:
+          type: string
+          example: '000000'
+          description: The location code for the labor records in the file.
+      title: TimeClockEnhancedHeaderDto
+      description: TimeClockEnhancedHeaderDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    TimeClockEnhancedDetailDto:
+      type: object
+      required:
+      - clockIn
+      - clockOut
+      - employeeNumber
+      - posCode
+      properties:
+        breakType:
+          type: string
+          example: PAID
+          description: Indicates whether the employee clocked in/out for either a 'Paid' or 'Unpaid' break during their shift.
+          enum:
+          - 'NULL'
+          - PAID
+          - UNPAID
+        cashSales:
+          type: number
+          example: 99999999.9999
+          description: Cash Sales for the shift.
+        cashTips:
+          type: number
+          example: 99999999.9999
+          description: Shared declared Cash Tips for the shift.
+        chargeSales:
+          type: number
+          example: 99999999.9999
+          description: Charge Sales for the shift.
+        chargeTips:
+          type: number
+          example: 99999999.99
+          description: Declared Charge Tips for the shift.
+        clockIn:
+          type: string
+          example: HH:mm MM/dd/yyyy
+          description: Adjusted Clock In Date/Time for the shift.
+        clockOut:
+          type: string
+          example: HH:mm MM/dd/yyyy
+          description: Adjusted Clock Out Date/Time for the shift.
+        editedBy:
+          type: string
+          description: The User ID for the user that reviewed/edited the shift records.
+        employeeNumber:
+          type: string
+          example: AUTO52
+          description: POS ID of the employee who worked the shift.
+        posCode:
+          type: string
+          example: AUTO10
+          description: POS Code that identifies the position.
+      title: TimeClockEnhancedDetailDto
+      description: TimeClockEnhancedDetailDto description
+    TimeClockEnhancedDetailsList:
+      type: object
+      properties:
+        timeClockEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/timeClockEnhancedDetails'
+      title: TimeClockEnhancedDetailsList
+      description: TimeClockEnhancedDetailsList description
+    timeClockEnhancedDetails:
+      type: object
+      properties:
+        timeClockEnhancedDetailDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeClockEnhancedDetailDto'
+        timeClockEnhancedHeaderDetails:
+          $ref: '#/components/schemas/TimeClockEnhancedHeaderDto'
+      title: timeClockEnhancedDetails
+      description: timeClockEnhancedDetails description
+    TimeClockEnhancedBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        timeClockEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/timeClockEnhancedDetails'
+        totalPages:
+          type: integer
+          format: int32
+      title: TimeClockEnhancedBatchResponseDto
+      description: TimeClockEnhancedBatchResponseDto description
+externalDocs:
+  description: Crunchtime Developer Hub
+  url: https://developer.crunchtime.com/
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv2usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/get15minutessalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/get_commissaryorder-v1-getcommissaryordersbypage.md
+  - https://developer.crunchtime.com/reference/get_customerorderenhanced-v1-getcustomerorderenhancedbypage.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallbudgetv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcategoryv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcheckmenumixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcommissaryordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallconfirmreceiptstandardv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerorderenhancedv1usingget.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalldailyprepsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventorylocationtransfersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallnutritionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpackagetypesv2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getallpbisv2usingget.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget.md
+  - https://developer.crunchtime.com/reference/getallpurchaseordersv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv2usingget.md
+  - https://developer.crunchtime.com/reference/getallsalesmixrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallstoragelocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallsupplementalwagerecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getalltimeclockenhancedrecordsv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorpaymentv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorproductpricingv1usingget.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getattachmentsbypagev2.md
+  - https://developer.crunchtime.com/reference/getbudgetbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcategorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcheckmenumixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getconfirmreceiptstandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcurrentinventorybypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailyprepsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getdailysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeenumbersv1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeesbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getemployeev1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv2usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv2usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/gethourlysalesforecastv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventorylocationtransfersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getnutritionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpackagetypesbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getpurchaseordersbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev2usingget.md
+  - https://developer.crunchtime.com/reference/getsalesmixrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getschedulesv1usingget.md
+  - https://developer.crunchtime.com/reference/getstoragelocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getsupplementalwagerecordsbypageusingget.md
+  - https://developer.crunchtime.com/reference/gettimeclockenhancedrecordsbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getudalocationsusingget.md
+  - https://developer.crunchtime.com/reference/getudavendorsusingget.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorpaymentbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/getvendorproductpricingbypagev1usingget.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput.md
+  - https://developer.crunchtime.com/reference/save15minutessalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost.md
+  - https://developer.crunchtime.com/reference/savebudgetusingpost.md
+  - https://developer.crunchtime.com/reference/savecategoryusingpost.md
+  - https://developer.crunchtime.com/reference/savecheckmenumixrecordsv1usingpost.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveconfirmreceiptstandardusingpost.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerorderenhancedusingpost.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailyprepsusingpost.md
+  - https://developer.crunchtime.com/reference/savedailysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveelectronicinvoiceusingpost.md
+  - https://developer.crunchtime.com/reference/saveemployeev1usingpost.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost.md
+  - https://developer.crunchtime.com/reference/savehierarchyv2usingpost.md
+  - https://developer.crunchtime.com/reference/savehourlysalesforecastusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savenutritionusingpost.md
+  - https://developer.crunchtime.com/reference/savepackagetypesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savepbiv2usingpost.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost.md
+  - https://developer.crunchtime.com/reference/savepurchaseordersusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipelocationusingpost.md
+  - https://developer.crunchtime.com/reference/saverecipesv2usingpost.md
+  - https://developer.crunchtime.com/reference/savesalesmixrecordusingpost.md
+  - https://developer.crunchtime.com/reference/savestoragelocationusingpost.md
+  - https://developer.crunchtime.com/reference/savesupplementalwagerecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savetimeclockenhancedrecordsusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost.md
+  - https://developer.crunchtime.com/reference/savevendorpaymentusingpost.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost.md
+  - https://developer.crunchtime.com/reference/validateuserusingpost.md
+  merge:
+    pages: 122
+    deduped: 334
+    conflicts_kept_first: 0

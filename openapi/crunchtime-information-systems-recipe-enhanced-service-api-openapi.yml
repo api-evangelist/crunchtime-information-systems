@@ -1,0 +1,2636 @@
+openapi: 3.2.0
+info:
+  title: Crunchtime Information Systems Recipe Enhanced Service API
+  contact:
+    name: Crunchtime Development Team
+    url: http://www.crunchtime.com
+    email: apiquestions@crunchtime.com
+  license:
+    name: Apache License Version 2.0
+    url: https://github.com/springfox/springfox/blob/master/LICENSE
+  termsOfService: http://springfox.io
+  version: '1.0'
+  description: 'Operations tagged Recipe Enhanced Service across 2 of this provider''s published API definitions: crunchtime-information-systems-cruise-platform-openapi.yml, crunchtime-information-systems-inventory-labor-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: //webservices-test.net-chef.com
+tags:
+- name: Recipe Enhanced Service
+  description: The Recipe Service is used to create or extract recipe data including the header and component details. Recipes are created in Crunchtime for the purpose of inventory depletion. They are used to deplete Products through POS sales (See the Check Menu Mix Service for addition details) and through the production of prep items.
+paths:
+  /cruise/recipe/v1/getAllRecipesEnhanced:
+    get:
+      tags:
+      - Recipe Enhanced Service
+      summary: getAllRecipesEnhancedV1
+      description: 'Retrieve details of all recipes.
+
+
+        *Supported from v11.02 and above*.'
+      operationId: getAllRecipesEnhancedV1UsingGET_1
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Recipes.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: 'Use `true` to retrieve detailed information for one Recipe at a time (optional). When `true`, `productNumber` must be used. '
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: The Product Number of the Recipe to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/recipeEnhancedDetailsGet'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/recipeEnhancedDetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/recipe/v1/getRecipesEnhancedByPage:
+    get:
+      tags:
+      - Recipe Enhanced Service
+      summary: getRecipesEnhancedByPageV1
+      description: 'Retrieve details of a recipe by page number.
+
+
+        *Supported from v11.02 and above*.'
+      operationId: getRecipesEnhancedByPageV1UsingGET_1
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Recipes.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for one Recipe at a time (optional). When `true`, `productNumber` must be used.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: productNumber
+        in: query
+        description: The Product Number of the Recipe to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedBatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedBatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /cruise/recipe/v1/saveRecipesEnhanced:
+    post:
+      tags:
+      - Recipe Enhanced Service
+      summary: saveRecipesV1
+      description: 'Create a new recipe.
+
+        Update a recipe.
+
+
+        *Supported from v11.02 and above*.'
+      operationId: saveRecipesUsingPOST_1
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeEnhancedDetailsList'
+        description: recipeEnhancedDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedDetailsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedDetailsList'
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /recipe/v2/getAllRecipesEnhanced:
+    get:
+      tags:
+      - Recipe Enhanced Service
+      summary: getAllRecipesEnhancedV2
+      description: 'Retrieve details of all recipes.
+
+        Our “List” feature has a default limit of 50k records.'
+      operationId: getAllRecipesEnhancedV2UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Recipes.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Retrieve recipes linked to a particular Category. Required if productNumber, recipeName, subCategory, microCategory, pluNumber, minutesSinceUpdate or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: componentDetails
+        in: query
+        description: Retrieve the details of a Recipe Component. (optional)
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information for each Recipe.
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: microCategory
+        in: query
+        description: Retrieve recipes linked to a particular Micro Category. Required if productNumber, recipeName, category, subCategory, pluNumber, minutesSinceUpdate or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a recipe record was last updated. Use to set how far back to search, Must be more than 0 and less than 43200 (30 days).  Required if productNumber, recipeName, category, subCategory, microCategory, pluNumber or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: pluNumber
+        in: query
+        description: Retrieve recipe with a specific PLU Number. Required if productNumber, recipeName, category, subCategory, microCategory, minutesSinceUpdate or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: productNumber
+        in: query
+        description: The Product Number of the Recipe to retrieve. Required if recipeName, category, subCategory, microCategory, pluNumber, minutesSinceUpdate or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: recipeName
+        in: query
+        description: Retrieve recipes matching a Recipe Name. Use 3 or more characters. Required if productNumber, category, subCategory, microCategory, pluNumber, minutesSinceUpdate or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: subCategory
+        in: query
+        description: Retrieve recipes linked to a particular Sub-Category. Required if productNumber, recipeName, category, microCategory, pluNumber, minutesSinceUpdate or universalProductCode inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: universalProductCode
+        in: query
+        description: Retrieve recipes with a particular Product Code. (optional) Required if productNumber, recipeName, category, subCategory, microCategory, pluNumber or minutesSinceUpdate inputs not provided.
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipeEnhancedV2DetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipeEnhancedV2DetailsGet'
+        '206':
+          description: Partial Content
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipeEnhancedV2DetailsGet'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipeEnhancedV2DetailsGet'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /recipe/v2/getRecipesEnhancedByPage:
+    get:
+      tags:
+      - Recipe Enhanced Service
+      summary: getRecipesEnhancedByPageV2
+      description: Retrieve details of a recipe by page number.
+      operationId: getRecipesEnhancedByPageV2UsingGET
+      parameters:
+      - name: activeFlag
+        in: query
+        description: Use `true` to retrieve only active Recipes.
+        required: false
+        schema:
+          type: boolean
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: category
+        in: query
+        description: Retrieve recipes linked to a particular Category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: componentDetails
+        in: query
+        description: Retrieve the details of a Recipe Component. (optional)
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: includeDetails
+        in: query
+        description: Use `true` to retrieve detailed information each Recipe (optional).
+        required: false
+        example: false
+        schema:
+          type: boolean
+          default: false
+      - name: microCategory
+        in: query
+        description: Retrieve recipes linked to a particular Micro Category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: minutesSinceUpdate
+        in: query
+        description: The number of minutes since a recipe record was last updated. Use to set how far back to search, Must be more than 0 and less than 43200 (30 days). (optional)
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        description: "Retrieve one or more records by `pageNumber`. \n Use to retrieve data in smaller chunks. \n If left blank, the default is `1`."
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: pluNumber
+        in: query
+        description: Retrieve recipe with a specific PLU Number. (optional)
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: productNumber
+        in: query
+        description: The Product Number of the Recipe to retrieve.
+        required: false
+        schema:
+          type: string
+      - name: recipeName
+        in: query
+        description: Retrieve recipes matching a Recipe Name. Use 3 or more characters. (optional)
+        required: false
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: subCategory
+        in: query
+        description: Retrieve recipes linked to a particular Sub-Category. (optional)
+        required: false
+        schema:
+          type: string
+      - name: universalProductCode
+        in: query
+        description: Retrieve recipes with a particular Product Code. (optional)
+        required: false
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Number of items to display per page.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: includeNull
+        in: query
+        description: Specify 'true' to output null data elements.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedV2BatchResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedV2BatchResponseDto'
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+  /recipe/v2/saveRecipesEnhanced:
+    post:
+      tags:
+      - Recipe Enhanced Service
+      summary: saveRecipesV2
+      description: 'Create a new recipe.
+
+        Update a recipe.'
+      operationId: saveRecipesV2UsingPOST
+      parameters:
+      - name: authenticationtoken
+        in: header
+        description: Secure token for API authentication.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: header
+        description: Password for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: sitename
+        in: header
+        description: Crunchtime site identifier. (test or production)
+        required: true
+        schema:
+          type: string
+      - name: userid
+        in: header
+        description: User ID for the Crunchtime Application User.
+        required: true
+        schema:
+          type: string
+      - name: X-B3-TraceId
+        in: header
+        description: Optional trace identifier for troubleshooting.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecipeEnhancedV2DetailsList'
+        description: recipeEnhancedDetails
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            '*/*':
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Validation Error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectError'
+        '401':
+          description: Authorization
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '429':
+          description: Too Many Requests
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Unexpected Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedV2DetailsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeEnhancedV2DetailsList'
+        '503':
+          description: System under maintenance
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '504':
+          description: Timeout
+          content:
+            '*/*':
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+    servers:
+    - url: //webservices-test.net-chef.com
+components:
+  schemas:
+    RecipeEnhancedUpcDetailDto:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Alt UPC "Active" flag from recipe
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: 32323232_test11
+          description: '"Alternate UPC" from recipe'
+      title: RecipeEnhancedUpcDetailDto
+      description: RecipeEnhancedUpcDetailDto description
+    recipeEnhancedDetails:
+      type: object
+      properties:
+        recipeEnhancedAllergenAttributeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedAllergenAttributeDetailDto'
+        recipeEnhancedComponentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentDetailDto'
+        recipeEnhancedComponentSubstituteDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentSubstituteDetailDto'
+        recipeEnhancedConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedConceptDetailDto'
+        recipeEnhancedHeaderDetails:
+          $ref: '#/components/schemas/RecipeEnhancedHeaderDto'
+        recipeEnhancedShipLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedShipLocationDetailDto'
+        recipeEnhancedUpcDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedUpcDetailDto'
+      title: recipeEnhancedDetails
+      description: recipeEnhancedDetails description
+    RecipeEnhancedConceptDetailDto:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Concept "Active" flag from recipe
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: Enb001
+          description: Concept "Code" from recipe
+      title: RecipeEnhancedConceptDetailDto
+      description: RecipeEnhancedHeaderDto description
+    RecipeEnhancedComponentSubstituteDetailDto:
+      type: object
+      required:
+      - componentPackageType
+      - name
+      - quantity
+      - substituteName
+      - substituteNumber
+      - substitutePackageType
+      - substituteQuantity
+      - substituteScaleFactor
+      properties:
+        componentPackageType:
+          type: string
+          example: Component Product Recipe Package
+          description: Original Component "Recipe Unit" from recipe
+        name:
+          type: string
+          example: Component Product Name
+          description: Original Component "Component Name" from recipe
+        quantity:
+          type: number
+          example: 9999.9999
+          description: Original Component "Quantity" from recipe
+        substituteName:
+          type: string
+          example: Substitute Component Product Name
+          description: Substitute Component "Component Name" from recipe
+        substituteNumber:
+          type: string
+          example: Substitute Component Product Number
+          description: 'Substitute Component "Component Product #" from recipe'
+        substitutePackageType:
+          type: string
+          example: Substitute Component Product Recipe Package
+          description: Substitute Component "Recipe Unit" from recipe
+        substituteQuantity:
+          type: number
+          example: 9999.9999
+          description: Substitute Component "Component Quantity" from recipe
+        substituteScaleFactor:
+          type: number
+          example: 9999.9999
+          description: Substitute Component "Scale Factor" from recipe
+      title: RecipeEnhancedComponentSubstituteDetailDto
+      description: RecipeEnhancedComponentSubstituteDetailDto description
+    ObjectError:
+      type: object
+      properties:
+        arguments:
+          type: array
+          items:
+            type: object
+        code:
+          type: string
+        codes:
+          type: array
+          items:
+            type: string
+        defaultMessage:
+          type: string
+        objectName:
+          type: string
+      title: ObjectError
+    RecipeEnhancedShipLocationDetailDto:
+      type: object
+      required:
+      - locationName
+      properties:
+        activeFlag:
+          type: string
+          example: N
+          description: Ship Location "Active" flag from recipe
+          enum:
+          - N
+          - Y
+        locationName:
+          type: string
+          example: Ship Location
+          description: '"Ship Location" from recipe'
+      title: RecipeEnhancedShipLocationDetailDto
+      description: RecipeEnhancedShipLocationDetailDto description
+    RecipeEnhancedDetailsList:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+        recipeEnhancedAllergenAttributeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedAllergenAttributeDetailDto'
+        recipeEnhancedComponentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentDetailDto'
+        recipeEnhancedComponentSubstituteDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentSubstituteDetailDto'
+        recipeEnhancedConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedConceptDetailDto'
+        recipeEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/recipeEnhancedDetails'
+        recipeEnhancedHeaderDetails:
+          $ref: '#/components/schemas/RecipeEnhancedHeaderDto'
+        recipeEnhancedShipLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedShipLocationDetailDto'
+        recipeEnhancedUpcDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedUpcDetailDto'
+        userId:
+          type: string
+      title: RecipeEnhancedDetailsList
+      description: RecipeEnhancedDetailsList description
+    RecipeEnhancedAllergenAttributeDetailDto:
+      type: object
+      required:
+      - nutritionClass
+      - value
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Product allergen active status.
+          enum:
+          - N
+          - Y
+        nutritionClass:
+          type: string
+          example: nutritionClass
+          description: Nutrition Class.
+        value:
+          type: string
+          example: value
+          description: Nutrition Class value.
+      title: RecipeEnhancedAllergenAttributeDetailDto
+      description: Product allergen active status.
+    RecipeEnhancedBatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        recipeEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/recipeEnhancedDetails'
+        totalPages:
+          type: integer
+          format: int32
+      title: RecipeEnhancedBatchResponseDto
+      description: RecipeEnhancedBatchResponseDto description
+    RecipeEnhancedComponentDetailDto:
+      type: object
+      required:
+      - quantity
+      - scalingFactor
+      - sequence
+      properties:
+        majorIngredient:
+          type: string
+          example: Y
+          description: Indicates whether component is a main ingredient in the recipe.
+          enum:
+          - N
+          - Y
+        name:
+          type: string
+          example: Component Product Name
+          description: Name of the ingredient.
+        number:
+          type: string
+          example: Component Product Number
+          description: Ingredient product number.
+        preProduction:
+          type: string
+          example: N
+          description: '"Pre-Production" flag for recipe component'
+          enum:
+          - N
+          - Y
+        quantity:
+          type: number
+          example: 9999.9999
+          description: Quantity of the ingredient in the recipe.
+        recipePackage:
+          type: string
+          example: Component Product Recipe Package
+          description: Component Product "Recipe Unit".
+        scalingFactor:
+          type: number
+          example: 9999.9999
+          description: 'Component Product "Scale Factor". Must be ≥ 0.00 and ≤ 9.99 with at least 2 decimal places or less. '
+        sequence:
+          type: number
+          example: 9999.9999
+          description: Component Product "Sequence" from recipe.
+        specialInstruction1:
+          type: string
+          example: Component Product Special Instruction 1
+          description: Component Product "Special Instruction 1" from recipe
+        specialInstruction2:
+          type: string
+          example: Component Product Special Instruction 2
+          description: Component Product "Special Instruction 2" from recipe
+      title: RecipeEnhancedComponentDetailDto
+      description: RecipeEnhancedComponentDetailDto description
+    RecipeEnhancedHeaderDto:
+      type: object
+      required:
+      - batchPackagePackageType
+      - batchQuantity
+      - categoryName
+      - inventoryUnitPackageType
+      - issueUnitOnePackageType
+      - issueUnitOneYield
+      - issueUnitTwoPackageType
+      - issueUnitTwoYield
+      - name
+      - number
+      - portionAmount
+      - portionYield
+      - recipeUnitOnePackageType
+      - recipeUnitOneYield
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Recipe "Active" flag from recipe
+          enum:
+          - N
+          - Y
+        allergenAttributes:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedAllergenAttributeDetailDto'
+        alternateUpcs:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedUpcDetailDto'
+        batchPackagePackageType:
+          type: string
+          example: batchPackagePackageType
+          description: '"Batch Size" Unit from recipe'
+        batchQuantity:
+          type: number
+          example: 9999.9999
+          description: '"Batch Size" Quantity from recipe'
+        batchRoundingBasedOn:
+          type: string
+          example: W
+          description: '"Batch Rounding Based On" setting, from recipe'
+          enum:
+          - H
+          - Q
+          - W
+        calcAtCost:
+          type: string
+          example: Y
+          description: '"Calculate Actual/Theoretical Cost for Recipe Item" flag, from recipe'
+          enum:
+          - N
+          - Y
+        categoryName:
+          type: string
+          example: categoryName
+          description: '"Category" from recipe'
+        componentSubstitutes:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentSubstituteDetailDto'
+        components:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentDetailDto'
+        concepts:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedConceptDetailDto'
+        effectiveDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+        haccpComplianceName:
+          type: string
+          example: haccpComplianceName
+          description: '"HACCP Compliance" from recipe'
+        idealCostPercentage:
+          type: number
+          example: 9999.9999
+          description: '"Ideal Cost %" from recipe'
+        inventoryUnitPackageType:
+          type: string
+          example: inventoryUnitPackageType
+          description: '"Portion Yield" Package Type from recipe'
+        issueUnitOnePackageType:
+          type: string
+          example: issueUnitOnePackageType
+          description: '"Issue Unit 1" Package Type from recipe'
+        issueUnitOneYield:
+          type: number
+          example: 9999.9999
+          description: '"Issue Unit 1" Quantity from recipe'
+        issueUnitTwoPackageType:
+          type: string
+          example: issueUnitTwoPackageType
+          description: '"Issue Unit 2" Package Type from recipe'
+        issueUnitTwoYield:
+          type: number
+          example: 9999.9999
+          description: '"Issue Unit 2" Quantity from recipe'
+        lotTracking:
+          type: string
+          example: Y
+          description: '"Lot Tracking" flag from recipe'
+          enum:
+          - N
+          - Y
+        maxBatchRounding:
+          type: string
+          example: D
+          description: '"Maximum Batch Rounding" setting from recipe'
+          enum:
+          - D
+          - N
+        maximumBatch:
+          type: number
+          example: 9999.9999
+          description: '"Maximum Batch" Quantity from recipe'
+        microcategoryName:
+          type: string
+          example: microcategoryName
+          description: '"Microcategory Name" from recipe'
+        minBatchRounding:
+          type: string
+          example: L
+          description: '"Minimum Batch Rounding" setting from recipe'
+          enum:
+          - D
+          - L
+          - N
+          - U
+        minMaxBatchRounding:
+          type: string
+          example: L
+          description: '"Min/Max Batch Rounding" setting from recipe'
+          enum:
+          - D
+          - L
+          - N
+          - U
+        minimumBatch:
+          type: number
+          example: 9999.9999
+          description: '"Minimum Batch" Quantity from recipe'
+        name:
+          type: string
+          example: Recipe Name
+          description: '"Recipe Name" from recipe'
+        number:
+          type: string
+          example: Product Number
+          description: '"Product Number" from recipe'
+        nutritionConversion:
+          type: number
+          example: 9999.9999
+          description: '"Nutrition Value" from recipe'
+        nutritionId:
+          type: string
+          example: nutritionId
+          description: '"Nutrition Fact" from recipe'
+        nutritionPackageType:
+          type: string
+          example: INVENTORY
+          description: '"Display Nutrition per" Unit from recipe'
+        platingInstructions:
+          type: string
+          example: preparationNotes
+          description: '"Plating Instructions" from recipe'
+        pluNumber:
+          type: integer
+          format: int64
+          example: pluNumber
+          description: '"PLU Number" from recipe'
+        portionAmount:
+          type: number
+          example: 9999.9999
+          description: '"Portion Amount" from recipe'
+        portionYield:
+          type: number
+          example: 9999.9999
+          description: '"Portion Yield" Quantity from recipe'
+        prepReportConsRounding:
+          type: string
+          example: U
+          description: '"Prep Report Cons. Rounding" setting from recipe'
+          enum:
+          - D
+          - N
+          - U
+        prepReportFlag:
+          type: string
+          example: Y
+          description: '"Include in Prep Report" flag from recipe'
+          enum:
+          - N
+          - Y
+        prepReportShelfMaxRounding:
+          type: string
+          example: U
+          description: '"Prep Report Shelf Life Rounding" setting from recipe'
+          enum:
+          - D
+          - N
+          - U
+        prepStationName:
+          type: string
+          example: prepStationName
+          description: '"Prep Station" from recipe'
+        prepTimeDuration:
+          type: number
+          example: 9999.9999
+          description: '"Prep Time" Duration from recipe'
+        prepTimeType:
+          type: string
+          example: D
+          description: '"Prep Time" Type from recipe'
+          enum:
+          - D
+          - H
+          - M
+        preparationNotes:
+          type: string
+          example: preparationNotes
+          description: '"Prep Instructions" from recipe'
+        price:
+          type: number
+          example: 9999.9999
+          description: '"Recipe Price" from recipe'
+        productionType:
+          type: string
+          example: P
+          description: '"Production Type" setting from recipe'
+          enum:
+          - O
+          - P
+        recipeClass:
+          type: string
+          example: S
+          description: '"Recipe Class" from recipe'
+          enum:
+          - I
+          - S
+        recipeComplexity:
+          type: string
+          example: 1
+          description: '"recipeComplexity" from recipe'
+        recipeComplexityLong:
+          type: integer
+          format: int64
+          example: 9999
+          description: '"recipeComplexityLong" from recipe'
+        recipePosDecrement:
+          type: string
+          example: C
+          description: '"POS Decrement" setting from recipe'
+          enum:
+          - C
+          - I
+        recipeProductGroupName:
+          type: string
+          example: recipeProductGroupName
+          description: '"Recipe Group" from recipe'
+        recipeProductGroupSubname:
+          type: string
+          example: recipeProductGroupSubname
+          description: '"Recipe Sub-Group" from recipe'
+        recipeRating:
+          type: string
+          example: 1
+          description: '"recipeRating" from recipe'
+        recipeRatingLong:
+          type: integer
+          format: int64
+          example: 9999
+          description: '"recipeRatingLong" from recipe'
+        recipeStatus:
+          type: string
+          example: O
+          description: Recipe "Status" from recipe
+          enum:
+          - O
+          - P
+        recipeUnitFivePackageType:
+          type: string
+          example: recipeUnitFivePackageType
+          description: '"Recipe Unit 5" Package Type from recipe'
+        recipeUnitFiveYield:
+          type: number
+          example: 9999.9999
+          description: '"Recipe Unit 5" Quantity from recipe'
+        recipeUnitFourPackageType:
+          type: string
+          example: recipeUnitFourPackageType
+          description: '"Recipe Unit 4" Package Type from recipe'
+        recipeUnitFourYield:
+          type: number
+          example: 9999.9999
+          description: '"Recipe Unit 4" Quantity from recipe'
+        recipeUnitOnePackageType:
+          type: string
+          example: recipeUnitOnePackageType
+          description: '"Recipe Unit 1" Package Type from recipe'
+        recipeUnitOneYield:
+          type: number
+          example: 9999.9999
+          description: '"Recipe Unit 1" Quantity from recipe'
+        recipeUnitThreePackageType:
+          type: string
+          example: recipeUnitThreePackageType
+          description: '"Recipe Unit 3" Package Type from recipe'
+        recipeUnitThreeYield:
+          type: number
+          example: 9999.9999
+          description: '"Recipe Unit 3" Quantity from recipe'
+        recipeUnitTwoPackageType:
+          type: string
+          example: recipeUnitTwoPackageType
+          description: '"Recipe Unit 2" Package Type from recipe'
+        recipeUnitTwoYield:
+          type: number
+          example: 9999.9999
+          description: '"Recipe Unit 2" Quantity from recipe'
+        shelfLifeDuration:
+          type: number
+          example: 9999.9999
+          description: '"Shelf Life" Duration from recipe'
+        shelfLifeType:
+          type: string
+          example: D
+          description: '"Shelf Life" Type from recipe'
+          enum:
+          - D
+          - H
+          - M
+        shipLocations:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedShipLocationDetailDto'
+        storageContainerPackage:
+          type: string
+          example: storageContainerPackage
+          description: '"Default Storage Container" Package from recipe'
+        subcategoryName:
+          type: string
+          example: subcategoryName
+          description: '"Subcategory" from recipe'
+        universalProductCode:
+          type: string
+          example: UPC
+          description: '"Universal Product Code" from recipe'
+      title: RecipeEnhancedHeaderDto
+      description: RecipeEnhancedHeaderDto description
+    recipeEnhancedDetailsGet:
+      type: object
+      properties:
+        recipeEnhancedAllergenAttributeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedAllergenAttributeDetailDto'
+        recipeEnhancedComponentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentDetailDto'
+        recipeEnhancedComponentSubstituteDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentSubstituteDetailDto'
+        recipeEnhancedConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedConceptDetailDto'
+        recipeEnhancedHeaderDetails:
+          $ref: '#/components/schemas/RecipeEnhancedHeaderDto'
+        recipeEnhancedHeaderDto:
+          $ref: '#/components/schemas/RecipeEnhancedHeaderDto'
+        recipeEnhancedShipLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedShipLocationDetailDto'
+        recipeEnhancedUpcDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedUpcDetailDto'
+      title: recipeEnhancedDetailsGet
+      description: recipeEnhancedDetailsGet description
+    RecipeEnhancedUpcDetailDto_2:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Alt UPC "Active" flag from recipe.
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: Alternate UPC
+          description: '"Alternate UPC" from recipe'
+      title: RecipeEnhancedUpcDetailDto
+      description: RecipeEnhancedUpcDetailDto description
+    RecipeEnhancedV2HeaderDto:
+      type: object
+      required:
+      - batchPackagePackageType
+      - batchQuantity
+      - categoryName
+      - effectiveDate
+      - expirationDate
+      - inventoryUnitPackageType
+      - issueUnitOnePackageType
+      - issueUnitOneYield
+      - issueUnitTwoPackageType
+      - issueUnitTwoYield
+      - microcategoryName
+      - name
+      - number
+      - portionAmount
+      - portionYield
+      - prepStationName
+      - recipeUnitOnePackageType
+      - recipeUnitOneYield
+      - recipeUnitTwoPackageType
+      - recipeUnitTwoYield
+      - subcategoryName
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag from recipe'
+          enum:
+          - N
+          - Y
+        batchPackagePackageType:
+          type: string
+          example: GAL
+          description: '"Batch Size" Unit from recipe.'
+        batchQuantity:
+          type: number
+          example: 1
+          description: '"Batch Size" Quantity from recipe.'
+        batchRoundingBasedOn:
+          type: string
+          example: W
+          description: '"Batch Rounding Based On" setting from recipe.'
+          enum:
+          - H
+          - Q
+          - W
+        calcAtCost:
+          type: string
+          example: N
+          description: Calculate Actual/Theoretical Cost for Recipe Item" flag from recipe.
+          enum:
+          - N
+          - Y
+        categoryName:
+          type: string
+          example: FOOD
+          description: '"Category" name from recipe'
+        effectiveDate:
+          type: string
+          format: date
+          example: '20240305'
+          description: '"Effective Date" from recipe.  Required if Expiration Date is populated in file.'
+        expirationDate:
+          type: string
+          format: date
+          example: '20240307'
+          description: '"Expiration Date" from recipe.  Required if Effective Date is populated in file.'
+        haccpComplianceName:
+          type: string
+          example: Keep frozen
+          description: '"HACCP Compliance" from recipe.'
+        idealCostPercentage:
+          type: number
+          example: 5
+          description: '"Ideal Cost Percent" from recipe.'
+        inventoryUnitPackageType:
+          type: string
+          example: EA
+          description: '"Portion Yield" Package Type from recipe.'
+        issueUnitOnePackageType:
+          type: string
+          example: LB
+          description: '"Issue Unit 1" Package Type from recipe.'
+        issueUnitOneYield:
+          type: number
+          example: 6
+          description: '"Issue Unit 1" Quantity from recipe.'
+        issueUnitTwoPackageType:
+          type: string
+          example: CASE
+          description: '"Issue Unit 2" Package Type from recipe.  Required if issue Unit 2 Yield is populated. {Not used by Restaurants}'
+        issueUnitTwoYield:
+          type: number
+          example: 6
+          description: '"Issue Unit 2" Quantity from recipe. Required if issue Unit 2 Package Type is populated. {Not used by Restaurants}'
+        lotTracking:
+          type: string
+          example: N
+          description: '"Lot Tracking" flag from recipe.'
+          enum:
+          - N
+          - Y
+        maxBatchRounding:
+          type: string
+          example: N
+          description: '"> Maximum Batch" Rounding setting from recipe.'
+          enum:
+          - D
+          - N
+        maximumBatch:
+          type: number
+          example: 5
+          description: '"Maximum Batch" Quantity from recipe.'
+        microcategoryName:
+          type: string
+          example: BAKERY
+          description: '"Microcategory" name from recipe..  Required if Microcategories are in use (at least one Microcategory exists in database), then must not be null.'
+        minBatchRounding:
+          type: string
+          example: L
+          description: '"< Minimum Batch" Rounding setting from recipe.'
+          enum:
+          - D
+          - L
+          - N
+          - U
+        minMaxBatchRounding:
+          type: string
+          example: N
+          description: '"> Minimum Batch, < Maximum Batch" Rounding setting from recipe.'
+          enum:
+          - D
+          - L
+          - N
+          - U
+        minimumBatch:
+          type: number
+          example: 2
+          description: '"Minimum Batch" Quantity from recipe.'
+        name:
+          type: string
+          example: Chicken Salad
+          description: '"Recipe Name" from recipe'
+        number:
+          type: string
+          example: R-14366
+          description: '"Product Number" from recipe.  Required for updates or if the preference to "Automatically Create Recipe Number" is not enabled.'
+        nutritionConversion:
+          type: number
+          example: 10
+          description: '"Nutrition Value" from recipe.'
+        nutritionId:
+          type: string
+          example: 1111
+          description: '"Nutrition Fact" from recipe.'
+        nutritionPackageType:
+          type: string
+          example: LB
+          description: '"Display Nutrition per" Unit from recipe.'
+        platingInstructions:
+          type: string
+          example: Serve on oval plate.
+          description: '"Plating Instructions" from recipe.'
+        pluNumber:
+          type: integer
+          format: int64
+          example: 74205
+          description: '"PLU #" from recipe.'
+        portionAmount:
+          type: number
+          example: 1
+          description: '"Portion Amount" from recipe.'
+        portionYield:
+          type: number
+          example: 1
+          description: '"Portion Yield" Quantity from recipe.'
+        prepReportConsRounding:
+          type: string
+          example: U
+          description: '"Prep Report Cons. Rounding" setting from recipe.'
+          enum:
+          - D
+          - N
+          - U
+        prepReportFlag:
+          type: string
+          example: N
+          description: '"Include in Prep Report" flag from recipe.'
+          enum:
+          - N
+          - Y
+        prepReportShelfMaxRounding:
+          type: string
+          example: D
+          description: '"Prep Report Shelf Life Rounding" setting from recipe.'
+          enum:
+          - D
+          - N
+          - U
+        prepStationName:
+          type: string
+          example: Prep Station 1
+          description: '"Prep Station" from recipe.'
+        prepTimeDuration:
+          type: number
+          example: 0.01
+          description: '"Prep Time" Duration from recipe.'
+        prepTimeType:
+          type: string
+          example: M
+          description: '"Prep Time" (Days/Hours/Minutes) setting from recipe.'
+          enum:
+          - D
+          - H
+          - M
+        preparationNotes:
+          type: string
+          example: Cook burger to desired temp.
+          description: '"Prep Instructions" from recipe.'
+        price:
+          type: number
+          example: 5
+          description: '"Recipe Price" from recipe.'
+        productionType:
+          type: string
+          example: P
+          description: '"Production Type" setting from recipe.'
+          enum:
+          - O
+          - P
+        recipeClass:
+          type: string
+          example: S
+          description: '"Recipe Class" from recipe.'
+          enum:
+          - I
+          - S
+        recipeComplexity:
+          type: string
+          example: 1
+          description: '"recipeComplexity" from recipe. {Obsolete field}'
+        recipeComplexityLong:
+          type: integer
+          format: int64
+          example: 9999
+          description: '"recipeComplexityLong" from recipe. {Obsolete field}'
+        recipePosDecrement:
+          type: string
+          example: C
+          description: '"POS Decrement" setting from recipe.'
+          enum:
+          - C
+          - I
+        recipeProductGroupName:
+          type: string
+          example: Appetizer
+          description: '"Recipe Group" from recipe.'
+        recipeProductGroupSubname:
+          type: string
+          example: Appetizer Sub-Grou
+          description: '"Recipe Sub-Group" from recipe.'
+        recipeRating:
+          type: string
+          example: 4
+          description: '"recipeRating" from recipe. {Obsolete field}'
+        recipeRatingLong:
+          type: integer
+          format: int64
+          example: 9999
+          description: '"recipeRatingLong" from recipe. {Obsolete field}'
+        recipeStatus:
+          type: string
+          example: P
+          description: Recipe "Status" from recipe.
+          enum:
+          - O
+          - P
+        recipeUnitFivePackageType:
+          type: string
+          example: OZ
+          description: '"Recipe Unit 5" Package Type from recipe.'
+        recipeUnitFiveYield:
+          type: number
+          example: 5
+          description: '"Recipe Unit 5" Quantity from recipe.'
+        recipeUnitFourPackageType:
+          type: string
+          example: CUP
+          description: '"Recipe Unit 4" Package Type from recipe.'
+        recipeUnitFourYield:
+          type: number
+          example: 4
+          description: '"Recipe Unit 4" Quantity from recipe.'
+        recipeUnitOnePackageType:
+          type: string
+          example: GAL
+          description: '"Recipe Unit 1" Package Type from recipe.'
+        recipeUnitOneYield:
+          type: number
+          example: 6
+          description: '"Recipe Unit 1" Quantity from recipe.'
+        recipeUnitThreePackageType:
+          type: string
+          example: QUART
+          description: '"Recipe Unit 3" Package Type from recipe.'
+        recipeUnitThreeYield:
+          type: number
+          example: 2
+          description: '"Recipe Unit 3" Quantity from recipe.'
+        recipeUnitTwoPackageType:
+          type: string
+          example: HALF GAL
+          description: '"Recipe Unit 2" Package Type from recipe.'
+        recipeUnitTwoYield:
+          type: number
+          example: 2
+          description: '"Recipe Unit 2" Quantity from recipe.'
+        shelfLifeDuration:
+          type: number
+          example: 3
+          description: '"Shelf Life" Duration from recipe.'
+        shelfLifeType:
+          type: string
+          example: D
+          description: '"Shelf Life" (Days/Hours/Minutes) setting from recipe.'
+          enum:
+          - D
+          - H
+          - M
+        storageContainerPackage:
+          type: string
+          example: ML
+          description: '"Default Storage Container" from recipe.'
+        subcategoryName:
+          type: string
+          example: BAKERY
+          description: '"Subcategory" name from recipe.  Required if Subcategories are in use (at least one Subcategory exists in database).'
+        universalProductCode:
+          type: string
+          example: 78198
+          description: '"UPC" from recipe.'
+      title: RecipeEnhancedV2HeaderDto
+      description: RecipeEnhancedV2HeaderDto description
+    RecipeEnhancedConceptDetailDto_2:
+      type: object
+      required:
+      - code
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag from recipe.'
+          enum:
+          - N
+          - Y
+        code:
+          type: string
+          example: Enb001
+          description: '"Concept" Code from recipe.'
+      title: RecipeEnhancedConceptDetailDto
+      description: RecipeEnhancedConceptDetailDto description
+    RecipeEnhancedComponentSubstituteDetailDto_2:
+      type: object
+      required:
+      - componentPackageType
+      - name
+      - quantity
+      - substituteName
+      - substituteNumber
+      - substitutePackageType
+      - substituteQuantity
+      - substituteScaleFactor
+      properties:
+        componentPackageType:
+          type: string
+          example: Component Product Recipe Package
+          description: Original Component "Recipe Unit" from recipe.
+        name:
+          type: string
+          example: Component Product Name
+          description: Original Component "Component Name" from recipe.
+        quantity:
+          type: number
+          example: 9999.9999
+          description: Original Component "Quantity" from recipe.
+        substituteName:
+          type: string
+          example: Substitute Component Product Name
+          description: Substitute Component "Substitution Name" from recipe.
+        substituteNumber:
+          type: string
+          example: Substitute Component Product Number
+          description: 'Substitute Component "Component Product #" from recipe.  Must not exceed 40 characters.'
+        substitutePackageType:
+          type: string
+          example: Substitute Component Product Recipe Package
+          description: Substitute Component "Recipe Unit" from recipe.
+        substituteQuantity:
+          type: number
+          example: 9999.9999
+          description: Substitute Component "Component Quantity" from recipe.
+        substituteScaleFactor:
+          type: number
+          example: 9999.9999
+          description: Substitute Component "Scale Factor" from recipe.
+      title: RecipeEnhancedComponentSubstituteDetailDto
+      description: RecipeEnhancedComponentSubstituteDetailDto description
+    RecipeEnhancedV2DetailsList:
+      type: object
+      required:
+      - locationCode
+      properties:
+        locationCode:
+          type: string
+          example: '000000'
+          description: The Code that identifies the Location in Crunchtime.
+        recipeEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedDetailsv2'
+      title: RecipeEnhancedV2DetailsList
+      description: RecipeEnhancedV2DetailsList description
+    RecipeEnhancedShipLocationDetailDto_2:
+      type: object
+      required:
+      - locationName
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Ship Location "Active" flag from recipe.
+          enum:
+          - N
+          - Y
+        locationName:
+          type: string
+          example: Ship Location
+          description: '"Ship Location" from recipe.'
+      title: RecipeEnhancedShipLocationDetailDto
+      description: RecipeEnhancedShipLocationDetailDto description
+    RecipeEnhancedAllergenAttributeDetailDto_2:
+      type: object
+      description: Product allergen active status.
+      required:
+      - nutritionClass
+      - value
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: Recipe allergen active status.
+          enum:
+          - N
+          - Y
+        nutritionClass:
+          type: string
+          example: nutritionClass
+          description: Nutrition Class Description.
+        value:
+          type: string
+          example: value
+          description: Nutrition Class Value.
+      title: RecipeEnhancedAllergenAttributeDetailDto
+    RecipeEnhancedV2BatchResponseDto:
+      type: object
+      properties:
+        hasNext:
+          type: boolean
+        recipeEnhancedDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedV2DetailsGet'
+        totalPages:
+          type: integer
+          format: int32
+      title: RecipeEnhancedV2BatchResponseDto
+      description: RecipeEnhancedBatchResponseDto description
+    RecipeEnhancedV2DetailsGet:
+      type: object
+      properties:
+        recipeEnhancedAllergenAttributeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedAllergenAttributeDetailDto_2'
+        recipeEnhancedComponentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentDetailDto_2'
+        recipeEnhancedComponentSubstituteDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentSubstituteDetailDto_2'
+        recipeEnhancedConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedConceptDetailDto_2'
+        recipeEnhancedHeaderDetails:
+          $ref: '#/components/schemas/RecipeEnhancedV2HeaderDtoGet'
+        recipeEnhancedShipLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedShipLocationDetailDto_2'
+        recipeEnhancedUpcDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedUpcDetailDto_2'
+      title: RecipeEnhancedV2DetailsGet
+      description: RecipeEnhancedV2Details description
+    RecipeEnhancedDetailsv2:
+      type: object
+      properties:
+        recipeEnhancedAllergenAttributeDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedAllergenAttributeDetailDto_2'
+        recipeEnhancedComponentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentDetailDto_2'
+        recipeEnhancedComponentSubstituteDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedComponentSubstituteDetailDto_2'
+        recipeEnhancedConceptDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedConceptDetailDto_2'
+        recipeEnhancedHeaderDetails:
+          $ref: '#/components/schemas/RecipeEnhancedV2HeaderDto'
+        recipeEnhancedShipLocationDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedShipLocationDetailDto_2'
+        recipeEnhancedUpcDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeEnhancedUpcDetailDto_2'
+      title: RecipeEnhancedDetails v2
+      description: RecipeEnhancedV2Details description
+    RecipeEnhancedComponentDetailDto_2:
+      type: object
+      required:
+      - name
+      - number
+      - quantity
+      - scalingFactor
+      - sequence
+      properties:
+        majorIngredient:
+          type: string
+          example: Y
+          description: Indicates whether component is a main ingredient in the recipe.
+          enum:
+          - N
+          - Y
+        name:
+          type: string
+          example: Component Product Name
+          description: Name of the ingredient.
+        number:
+          type: string
+          example: Component Product Number
+          description: Ingredient product number.  Required if the Component Product Name is an existing product in the database, then this field must match the Product Number of that existing Company Product. Required if the Component Product Name is for a new Recipe in the file and there is a Product Number of this Recipe Component row in the file and T_PREFERENCES.AUTOCREATE_RECIPE_NUMBER = 'N', then that value must match the Product Number provided in the header record for the new Recipe that is being set up as a Component.
+        preProduction:
+          type: string
+          example: Y
+          description: '"Pre-Production" flag for recipe component.'
+          enum:
+          - N
+          - Y
+        quantity:
+          type: number
+          example: 9999.9999
+          description: Quantity of the ingredient in the recipe.
+        recipePackage:
+          type: string
+          example: Component Product Recipe Package
+          description: Component Product "Recipe Unit".
+        scalingFactor:
+          type: number
+          example: 9999.9999
+          description: 'Component Product "Scale Factor". Must be ≥ 0.00 and ≤ 9.99 with at least 2 decimal places or less. '
+        sequence:
+          type: number
+          example: 9999.9999
+          description: 'Component Product "Sequence" from recipe. '
+        specialInstruction1:
+          type: string
+          example: Component Product Special Instruction 1
+          description: Component Product "Special Instruction 1" from recipe.
+        specialInstruction2:
+          type: string
+          example: Component Product Special Instruction 2
+          description: Component Product "Special Instruction 2" from recipe.
+      title: RecipeEnhancedComponentDetailDto
+      description: RecipeEnhancedComponentDetailDto description
+    RecipeEnhancedV2HeaderDtoGet:
+      type: object
+      required:
+      - batchPackagePackageType
+      - batchQuantity
+      - categoryName
+      - effectiveDate
+      - expirationDate
+      - inventoryUnitPackageType
+      - issueUnitOnePackageType
+      - issueUnitOneYield
+      - issueUnitTwoPackageType
+      - issueUnitTwoYield
+      - microcategoryName
+      - name
+      - number
+      - portionAmount
+      - portionYield
+      - prepStationName
+      - recipeUnitOnePackageType
+      - recipeUnitOneYield
+      - recipeUnitTwoPackageType
+      - recipeUnitTwoYield
+      - subcategoryName
+      properties:
+        activeFlag:
+          type: string
+          example: Y
+          description: '"Active" flag from recipe.'
+          enum:
+          - N
+          - Y
+        batchPackagePackageType:
+          type: string
+          example: GAL
+          description: '"Batch Size Unit" from recipe.'
+        batchQuantity:
+          type: number
+          example: 1
+          description: '"Batch Size Quantity" from recipe.'
+        batchRoundingBasedOn:
+          type: string
+          example: W
+          description: '"Batch Rounding Based On" from recipe.'
+          enum:
+          - H
+          - Q
+          - W
+        calcAtCost:
+          type: string
+          example: N
+          description: '"Calculate Actual/Theoretical Cost for Recipe Item" flag from recipe.'
+          enum:
+          - N
+          - Y
+        categoryName:
+          type: string
+          example: FOOD
+          description: '"Category" name from recipe'
+        effectiveDate:
+          type: string
+          format: date
+          example: 03/05/2024
+          description: '"Effective Date" from recipe.  Required if Expiration Date is populated in file.'
+        expirationDate:
+          type: string
+          format: date
+          example: 03/07/2024
+          description: '"Expiration Date" from recipe. Required if Effective Date is populated in file.'
+        haccpComplianceName:
+          type: string
+          example: Keep frozen
+          description: '"HACCP Compliance" from recipe.'
+        idealCostPercentage:
+          type: number
+          example: 5
+          description: '"Ideal Cost %" from recipe.'
+        inventoryUnitPackageType:
+          type: string
+          example: EA
+          description: '"Portion Yield" Package Type from recipe.'
+        issueUnitOnePackageType:
+          type: string
+          example: LB
+          description: '"Issue Unit 1" Package Type from recipe.'
+        issueUnitOneYield:
+          type: number
+          example: 6
+          description: '"Issue Unit 1" Quantity from recipe.'
+        issueUnitTwoPackageType:
+          type: string
+          example: CASE
+          description: '"Issue Unit 2" Package Type from recipe.  Required if issue Unit 2 Yield is populated. {Not used by Restaurants}'
+        issueUnitTwoYield:
+          type: number
+          example: 6
+          description: '"Issue Unit 2" Quantity from recipe. Required if issue Unit 2 Package Type is populated. {Not used by Restaurants}'
+        lastTouchDate:
+          type: string
+          example: 04/22/2024
+          description: '"last Touch Date" from recipe'
+        lotTracking:
+          type: string
+          example: N
+          description: '"Lot Tracking" flag from recipe.'
+          enum:
+          - N
+          - Y
+        maxBatchRounding:
+          type: string
+          example: N
+          description: '"> Maximum Batch" Rounding setting from recipe.'
+          enum:
+          - D
+          - N
+        maximumBatch:
+          type: number
+          example: 5
+          description: '"Maximum Batch" Quantity from recipe.'
+        microcategoryName:
+          type: string
+          example: BAKERY
+          description: '"Microcategory" name from recipe.  Required if Microcategories are in use (at least one Microcategory exists in database).'
+        minBatchRounding:
+          type: string
+          example: L
+          description: '"< Minimum Batch" Rounding setting from recipe.'
+          enum:
+          - D
+          - L
+          - N
+          - U
+        minMaxBatchRounding:
+          type: string
+          example: N
+          description: '"> Minimum Batch, < Maximum Batch" Rounding setting from recipe.'
+          enum:
+          - D
+          - L
+          - N
+          - U
+        minimumBatch:
+          type: number
+          example: 2
+          description: '"Minimum Batch" Quantity from recipe.'
+        name:
+          type: string
+          example: Sonar Recipe_test1
+          description: '"Recipe Name" from recipe.'
+        number:
+          type: string
+          example: R-14366
+          description: '"Product Number" from recipe.  Required for updates or if the preference to "Automatically Create Recipe Number" is not enabled.'
+        nutritionConversion:
+          type: number
+          example: 10
+          description: '"Nutrition Value" from recipe.'
+        nutritionId:
+          type: string
+          example: 1111
+          description: '"Nutrition Fact" from recipe.'
+        nutritionPackageType:
+          type: string
+          example: LB
+          description: '"Display Nutrition per" Unit from recipe.'
+        platingInstructions:
+          type: string
+          example: Serve on oval plate.
+          description: '"Plating Instructions" from recipe.'
+        pluNumber:
+          type: integer
+          format: int64
+          example: 74205
+          description: '"PLU #" from recipe.'
+        portionAmount:
+          type: number
+          example: 1
+          description: '"Portion Amount" from recipe.'
+        portionYield:
+          type: number
+          example: 1
+          description: '"Portion Yield" Quantity from recipe.'
+        prepReportConsRounding:
+          type: string
+          example: U
+          description: '"Prep Report Cons. Rounding" setting from recipe.'
+          enum:
+          - D
+          - N
+          - U
+        prepReportFlag:
+          type: string
+          example: N
+          description: '"Include in Prep Report" flag from recipe.'
+          enum:
+          - N
+          - Y
+        prepReportShelfMaxRounding:
+          type: string
+          example: D
+          description: '"Prep Report Shelf Life Rounding" setting from recipe.'
+          enum:
+          - D
+          - N
+          - U
+        prepStationName:
+          type: string
+          example: Prep Station 1
+          description: '"Prep Station" from recipe.'
+        prepTimeDuration:
+          type: number
+          example: 0.01
+          description: '"Prep Time" Duration from recipe.'
+        prepTimeType:
+          type: string
+          example: M
+          description: '"Prep Time" (Days/Hours/Minutes) setting from recipe.'
+          enum:
+          - D
+          - H
+          - M
+        preparationNotes:
+          type: string
+          example: Cook burger to desired temp.
+          description: '"Prep Instructions" from recipe.'
+        price:
+          type: number
+          example: 6
+          description: '"Recipe Price" from recipe.'
+        productionType:
+          type: string
+          example: P
+          description: '"Production Type" setting from recipe.'
+          enum:
+          - O
+          - P
+        recipeClass:
+          type: string
+          example: S
+          description: '"Recipe Class" from recipe.'
+          enum:
+          - I
+          - S
+        recipeComplexity:
+          type: string
+          example: 1
+          description: '"recipeComplexity" from recipe. {Obsolete field}'
+        recipeComplexityLong:
+          type: integer
+          format: int64
+          example: 9999
+          description: '"recipeComplexityLong" from recipe. {Obsolete field}'
+        recipePosDecrement:
+          type: string
+          example: C
+          description: '"POS Decrement" setting from recipe.'
+          enum:
+          - C
+          - I
+        recipeProductGroupName:
+          type: string
+          example: Appetizer
+          description: '"Recipe Group" from recipe.'
+        recipeProductGroupSubname:
+          type: string
+          example: Appetizer Sub-Grou
+          description: '"Recipe Sub-Group" from recipe.'
+        recipeRating:
+          type: string
+          example: 4
+          description: '"recipeRating" from recipe. {Obsolete field}'
+        recipeRatingLong:
+          type: integer
+          format: int64
+          example: 9999
+          description: '"recipeRatingLong" from recipe. {Obsolete field}'
+        recipeStatus:
+          type: string
+          example: P
+          description: Recipe "Status" from recipe.
+          enum:
+          - O
+          - P
+        recipeUnitFivePackageType:
+          type: string
+          example: OZ
+          description: '"Recipe Unit 5" Package Type from recipe.'
+        recipeUnitFiveYield:
+          type: number
+          example: 5
+          description: '"Recipe Unit 5" Quantity from recipe.'
+        recipeUnitFourPackageType:
+          type: string
+          example: CUP
+          description: '"Recipe Unit 4" Package Type from recipe.'
+        recipeUnitFourYield:
+          type: number
+          example: 4
+          description: '"Recipe Unit 4" Quantity from recipe.'
+        recipeUnitOnePackageType:
+          type: string
+          example: GAL
+          description: '"Recipe Unit 1" Package Type from recipe.'
+        recipeUnitOneYield:
+          type: number
+          example: 6
+          description: '"Recipe Unit 1" Quantity from recipe.'
+        recipeUnitThreePackageType:
+          type: string
+          example: QUART
+          description: '"Recipe Unit 3" Package Type from recipe.'
+        recipeUnitThreeYield:
+          type: number
+          example: 2
+          description: '"Recipe Unit 3" Quantity from recipe.'
+        recipeUnitTwoPackageType:
+          type: string
+          example: HALF GAL
+          description: '"Recipe Unit 2" Package Type from recipe.'
+        recipeUnitTwoYield:
+          type: number
+          example: 1
+          description: '"Recipe Unit 2" Quantity from recipe.'
+        shelfLifeDuration:
+          type: number
+          example: 3
+          description: '"Shelf Life" Duration from recipe.'
+        shelfLifeType:
+          type: string
+          example: D
+          description: '"Shelf Life" (Days/Hours/Minutes) setting from recipe.'
+          enum:
+          - D
+          - H
+          - M
+        storageContainerPackage:
+          type: string
+          example: ML
+          description: '"Default Storage Container" from recipe.'
+        subcategoryName:
+          type: string
+          example: BAKERY
+          description: '"Subcategory" name from recipe.  Required if Subcategories are in use (at least one Subcategory exists in database).'
+        universalProductCode:
+          type: string
+          example: 78198
+          description: '"UPC" from recipe.'
+      title: RecipeEnhancedV2HeaderDtoGet
+      description: RecipeEnhancedV2HeaderDtoGet description
+x-refined-from:
+- crunchtime-information-systems-cruise-platform-openapi.yml
+- crunchtime-information-systems-inventory-labor-openapi.yml
+x-provenance:
+  method: searched
+  source: https://developer.crunchtime.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.crunchtime.com/reference/downloadscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallapplicationusersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcompanyproductsenhancedv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallcurrencyratiov1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallcustomerrecordsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallgeneralledgersv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallinventoryvalueadjustmentv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationproductpricingv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getalllocationsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallphysicalinventorystandardusingget-1.md
+  - https://developer.crunchtime.com/reference/getallprojectedconsumptionv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallrecipesenhancedv1usingget_1.md
+  - https://developer.crunchtime.com/reference/getallscheduledexportsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorlocationv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getallvendorsv1usingget-1.md
+  - https://developer.crunchtime.com/reference/getapplicationusersbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcompanyproductsenhancedbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getcurrencyratiobypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getcustomerrecordsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/gethierarchiesv1usingget.md
+  - https://developer.crunchtime.com/reference/gethierarchydetailsv1usingget.md
+  - https://developer.crunchtime.com/reference/getinventoryadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getinventoryvalueadjustmentbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationproductpricingbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getlocationsbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getphysicalinventorystandardbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getprojectedconsumptionbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/getrecipesenhancedbypagev1usingget_1.md
+  - https://developer.crunchtime.com/reference/getvendorlocationbypagev1usingget-1.md
+  - https://developer.crunchtime.com/reference/markscheduledexportsv1usingput-1.md
+  - https://developer.crunchtime.com/reference/saveapplicationusersv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecompanyproductenhancedv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savecurrencyratiousingpost_1.md
+  - https://developer.crunchtime.com/reference/savecustomerrecordsusingpost-1.md
+  - https://developer.crunchtime.com/reference/savegeneralledgerv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savehierarchyv1usingpost.md
+  - https://developer.crunchtime.com/reference/saveinventoryadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveinventoryvalueadjustmentusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationproductpricingusingpost-1.md
+  - https://developer.crunchtime.com/reference/savelocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savephysicalinventorystandardusingpost-1.md
+  - https://developer.crunchtime.com/reference/saveprojectedconsumptionusingpost-1.md
+  - https://developer.crunchtime.com/reference/saverecipesusingpost_1.md
+  - https://developer.crunchtime.com/reference/savevendorlocationv1usingpost-1.md
+  - https://developer.crunchtime.com/reference/savevendorv1usingpost-1.md
+  merge:
+    pages: 46
+    deduped: 167
+    conflicts_kept_first: 0
