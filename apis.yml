@@ -255,6 +255,8 @@ apis:
   humanURL: https://developer.crunchtime.com/
   baseURL: https://webservices.net-chef.com
   tags:
+  - AuthenticationService
+  tags_raw:
   - Authentication Service
   properties:
   - type: OpenAPI
